@@ -1,0 +1,9 @@
+{
+  "name": "storyforge",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel -r dev",
+    "dev:web": "pnpm --filter web dev",
+    "dev:server": "pnpm --filter server dev"
+  }
+}
