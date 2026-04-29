@@ -30,6 +30,7 @@ export function onJoinRoom(
   roomManager.broadcast(room, {
     type: "player_joined",
     username: player.username,
+    playerId: player.id,
   });
 
   socketMeta.set(ws.id, { playerId: player.id, roomCode: event.code });

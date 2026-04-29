@@ -1,4 +1,6 @@
+import type { ClientEvent } from "@/api/ws/types";
 import { useWebSocket } from "@siberiacancode/reactuse";
+import { useRoomStore } from "../model/use-room-store";
 
 export type UseRoomSocketOptions = {
   roomCode: string;
@@ -11,12 +13,14 @@ export const useRoomSocket = ({
   username,
   playerId,
 }: UseRoomSocketOptions) => {
+  const handleEvent = useRoomStore((store) => store.handleEvent);
+
   const { status, open, send, close, client } = useWebSocket(
     "ws://localhost:3001/ws",
     {
       retry: 3,
       onConnected: (ws) => {
-        const event = {
+        const event: ClientEvent = {
           type: "join_room",
           code: roomCode,
           username,
@@ -26,7 +30,11 @@ export const useRoomSocket = ({
         ws.send(JSON.stringify(event));
       },
       onMessage: (event) => {
-        console.log(event);
+        const serverEvent = JSON.parse(event.data);
+        handleEvent(serverEvent);
+      },
+      onError: (event) => {
+        console.error("ws error", event);
       },
     },
   );
