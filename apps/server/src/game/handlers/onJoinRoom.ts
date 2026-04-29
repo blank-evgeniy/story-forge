@@ -7,7 +7,7 @@ import { serializeRoom } from "../utils/serializeRoom";
 
 export function onJoinRoom(
   ws: ElysiaWS,
-  event: { code: string; username: string },
+  event: { code: string; username: string; playerId: string },
 ) {
   const room = roomManager.get(event.code);
   if (!room) {
@@ -16,7 +16,7 @@ export function onJoinRoom(
   }
 
   const player: Player = {
-    id: crypto.randomUUID(),
+    id: event.playerId,
     ws,
     username: event.username,
     connected: true,

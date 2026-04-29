@@ -1,4 +1,5 @@
 import { RoomState } from "../model/state";
+import { generateRoomCode } from "./utils/generateRoomCode";
 
 export class RoomManager {
   private rooms = new Map<string, RoomState>();
@@ -12,7 +13,7 @@ export class RoomManager {
   }
 
   create(hostId: string): string {
-    const code = "WOLF-42";
+    const code = generateRoomCode();
 
     this.rooms.set(code, {
       code,

@@ -6,6 +6,7 @@ export const ClientEventSchema = t.Union([
     type: t.Literal("join_room"),
     code: t.String(),
     username: t.String({ minLength: 2, maxLength: 20 }),
+    playerId: t.String(),
   }),
   t.Object({
     type: t.Literal("submit_sentence"),

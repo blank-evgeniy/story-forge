@@ -1,1 +1,1 @@
-export { WelcomeView } from "./ui/welcome-view";
+export { WelcomeViewConnector } from "./welcome-view-connector";
