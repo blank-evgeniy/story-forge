@@ -35,6 +35,7 @@ export interface RoomState {
   players: Map<string, Player>; // playerId → Player (с ws-соединением)
   stories: StoryThread[]; // одна история на каждого игрока
   round: number; // текущая итерация, 0-based
+  totalRounds?: number;
   submitted: Set<string>; // playerId тех, кто уже сдал
   timer: ReturnType<typeof setTimeout> | null;
 }

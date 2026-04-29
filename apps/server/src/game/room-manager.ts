@@ -20,7 +20,7 @@ export class RoomManager {
       status: "lobby",
       players: new Map(),
       round: 1,
-      secondsPerTurn: 60,
+      secondsPerTurn: 5,
       stories: [],
       submitted: new Set(),
       timer: null,
@@ -36,6 +36,11 @@ export class RoomManager {
   broadcast(room: RoomState, event: any) {
     const payload = JSON.stringify(event);
     room.players.forEach((p) => p.ws.send(payload));
+  }
+
+  send(room: RoomState, playerId: string, event: any) {
+    const payload = JSON.stringify(event);
+    room.players.get(playerId)?.ws.send(payload);
   }
 }
 

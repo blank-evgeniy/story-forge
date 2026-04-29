@@ -2,43 +2,31 @@ import { ElysiaWS } from "elysia/dist/ws";
 import { ClientEvent } from "../model/client-events";
 import { Player } from "../model/state";
 import { roomManager } from "./room-manager";
+import { onStartGame } from "./handlers/onStartGame";
+import { onSubmitSentence } from "./handlers/onSubmitSentence";
+import { onRequestState } from "./handlers/onRequestState";
+import { getWsMeta } from "./utils/getWsMeta";
+import { socketMeta } from "../modules/ws";
+import { onJoinRoom } from "./handlers/onJoinRoom";
 
 export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
   switch (event.type) {
     case "join_room":
       return onJoinRoom(ws, event);
+    case "start_game":
+      return onStartGame(ws);
+    case "submit_sentence":
+      return onSubmitSentence(ws, event);
+    case "request_state":
+      return onRequestState(ws);
   }
 }
 
-function onJoinRoom(ws: ElysiaWS, event: { code: string; username: string }) {
-  const room = roomManager.get(event.code);
-  if (!room) {
-    ws.send(JSON.stringify({ type: "error", message: "Комната не найдена" }));
-    return;
-  }
-
-  const player: Player = {
-    id: crypto.randomUUID(),
-    ws,
-    username: event.username,
-    connected: true,
-    turnOrder: room.players.size + 1,
-  };
-
-  room.players.set(player.id, player);
-
-  ws.send(JSON.stringify({ type: "room_state", room: { code: room.code } }));
-
-  roomManager.broadcast(room, {
-    type: "player_joined",
-    username: player.username,
-  });
-}
-
-export function handleClose(ws: any) {
-  const { playerId, roomCode } = ws.data;
+export function handleClose(ws: ElysiaWS) {
+  const { playerId, roomCode } = getWsMeta(ws);
 
   if (!playerId || !roomCode) return;
+  socketMeta.delete(ws.id);
 
   const room = roomManager.get(roomCode);
   if (!room) return;

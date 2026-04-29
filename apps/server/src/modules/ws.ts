@@ -2,22 +2,23 @@ import Elysia from "elysia";
 import { ClientEventSchema } from "../model/client-events";
 import { handleClose, handleMessage } from "../game/handlers";
 
-export const wsModule = new Elysia()
-  .state("playerId", null as string | null)
-  .state("roomCode", null as string | null)
-  .ws("/ws", {
-    body: ClientEventSchema,
-    open(ws) {
-      console.log("ws open", ws.id);
-    },
+export const socketMeta: Map<
+  string,
+  { roomCode: string | null; playerId: string }
+> = new Map();
 
-    message(ws, data) {
-      handleMessage(ws, data);
-    },
+export const wsModule = new Elysia().ws("/ws", {
+  body: ClientEventSchema,
 
-    close(ws) {
-      handleClose(ws);
-    },
-  });
+  open(ws) {
+    console.log("ws open", ws.id);
+  },
 
-export type WsInstance = typeof wsModule;
+  message(ws, data) {
+    handleMessage(ws, data);
+  },
+
+  close(ws) {
+    handleClose(ws);
+  },
+});
