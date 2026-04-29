@@ -1,6 +1,9 @@
 {
   "name": "storyforge",
   "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
     "dev": "pnpm --parallel -r dev",
     "dev:web": "pnpm --filter web dev",
