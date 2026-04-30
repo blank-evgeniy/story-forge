@@ -4,6 +4,7 @@ import type { CreateRoomSchema } from "./model/types";
 import { CreateRoom } from "./ui/create-room";
 import { WelcomeView } from "./ui/welcome-view";
 import { useNavigate } from "@tanstack/react-router";
+import { JoinRoom } from "./ui/join-room";
 
 export function WelcomeViewConnector() {
   const playerId = useUserStore((store) => store.user?.id);
@@ -28,12 +29,16 @@ export function WelcomeViewConnector() {
     );
   };
 
+  const handleJoinRoom = (roomCode: string) => {
+    navigate({ to: "/room/$roomCode", params: { roomCode } });
+  };
+
   return (
     <WelcomeView
       createRoomSlot={
         <CreateRoom onCreate={handleCreateRoom} isLoading={isLoading} />
       }
-      joinRoomSlot={<></>}
+      joinRoomSlot={<JoinRoom onJoin={handleJoinRoom} />}
     />
   );
 }

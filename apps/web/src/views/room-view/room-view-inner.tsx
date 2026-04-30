@@ -45,7 +45,7 @@ export function RoomViewInner() {
 
   return (
     <>
-      {status === "lobby" && <LobbyScreen onStartGame={handleStart} />}
+      {status === "lobby" && <LobbyScreen onStartGame={handleStart} roomCode={roomCode} />}
       {status === "writing" && (
         <WritingScreen onSubmit={handleSubmitSentence} />
       )}

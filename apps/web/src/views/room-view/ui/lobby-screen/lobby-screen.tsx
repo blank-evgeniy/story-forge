@@ -2,29 +2,20 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { BookOpenIcon, EyeOffIcon, PenLineIcon, UsersIcon } from "lucide-react";
+import { BookOpenIcon, PenLineIcon } from "lucide-react";
 import { useRoomStore } from "../../model/use-room-store";
 import { QRCodeSVG } from "qrcode.react";
 
 type LobbyScreenProps = {
   onStartGame: () => void;
+  roomCode: string;
 };
 
 const rules = [
   {
     icon: PenLineIcon,
     title: "Одно предложение",
-    description: "Каждый игрок пишет только одну фразу",
-  },
-  {
-    icon: EyeOffIcon,
-    title: "Частичная видимость",
-    description: "Видна лишь предыдущая фраза",
-  },
-  {
-    icon: UsersIcon,
-    title: "Все участвуют",
-    description: "Каждый вносит вклад в историю",
+    description: "Каждый игрок пишет только одну фразу в истории",
   },
   {
     icon: BookOpenIcon,
@@ -33,9 +24,8 @@ const rules = [
   },
 ];
 
-export function LobbyScreen({ onStartGame }: LobbyScreenProps) {
+export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
   const players = useRoomStore((store) => store.players);
-
   return (
     <div className="flex-1 flex lg:flex-row flex-col-reverse items-start gap-6 lg:py-12 py-4">
       <Card className="lg:w-1/3 w-full">
@@ -84,16 +74,40 @@ export function LobbyScreen({ onStartGame }: LobbyScreenProps) {
           </div>
           <Separator />
 
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="lg:text-base font-medium">
-              отсканируйте код, чтобы присоединиться
-            </h2>
-            <div className="bg-primary/30 p-3 flex items-center justify-center rounded-lg">
-              <QRCodeSVG
-                value={window.location.href}
-                size={200}
-                bgColor="transparent"
-              />
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-sm text-muted-foreground">
+                отсканируйте код, чтобы присоединиться
+              </p>
+              <div className="bg-primary/80 p-3 flex items-center justify-center rounded-lg">
+                <QRCodeSVG
+                  value={window.location.href}
+                  size={180}
+                  bgColor="transparent"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 w-full">
+              <Separator className="flex-1" />
+              <span className="text-xs text-muted-foreground">или</span>
+              <Separator className="flex-1" />
+            </div>
+
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-sm text-muted-foreground">
+                введите код, чтобы присоединиться
+              </p>
+              <div className="flex items-center justify-center gap-2">
+                {roomCode.split("").map((char, i) => (
+                  <div
+                    key={i}
+                    className="w-12 h-14 flex items-center justify-center rounded-xl bg-muted text-2xl font-bold border border-border"
+                  >
+                    {char}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
