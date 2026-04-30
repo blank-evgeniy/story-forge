@@ -1,19 +1,43 @@
 import { create } from "zustand";
-import type { GameState } from "./types";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
+import type { Player, Story } from "./types";
 
-export const useRoomStore = create<GameState>((set, get) => ({
+type GameActions = {
+  handleEvent: (event: ServerEvent) => void;
+  startGame: (ws: WebSocket) => void;
+  submitSentence: (ws: WebSocket, content: string) => void;
+  reset: () => void;
+};
+
+type GameData = {
+  status: "idle" | "lobby" | "writing" | "reveal";
+  players: Player[];
+  round: number;
+  totalRounds: number;
+  submitted: Set<string>;
+  prevSentence: string | string[] | null;
+  allStories: Story[];
+  error: string | null;
+  secondsPerTurn: number;
+};
+
+export type GameState = GameData & GameActions;
+
+const initialState: GameData = {
   status: "idle",
   players: [],
   round: 0,
   totalRounds: 0,
-  secondsLeft: 0,
   submitted: new Set<string>(),
   prevSentence: null,
   allStories: [],
   error: null,
   secondsPerTurn: 60,
+};
+
+export const useRoomStore = create<GameState>((set, get) => ({
+  ...initialState,
 
   handleEvent(event: ServerEvent) {
     switch (event.type) {
@@ -87,4 +111,6 @@ export const useRoomStore = create<GameState>((set, get) => ({
     const event: ClientEvent = { type: "submit_sentence", content };
     ws.send(JSON.stringify(event));
   },
+
+  reset: () => set(initialState),
 }));
