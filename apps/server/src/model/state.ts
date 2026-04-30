@@ -1,11 +1,6 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-export type RoomStatus =
-  | "lobby"
-  | "writing"
-  | "between"
-  | "reveal"
-  | "finished";
+export type RoomStatus = "lobby" | "writing" | "between" | "reveal";
 
 export interface Player {
   id: string;
@@ -38,4 +33,5 @@ export interface RoomState {
   totalRounds?: number;
   submitted: Set<string>; // playerId тех, кто уже сдал
   timer: ReturnType<typeof setTimeout> | null;
+  blindMode: boolean;
 }

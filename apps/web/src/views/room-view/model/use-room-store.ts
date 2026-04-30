@@ -13,6 +13,7 @@ export const useRoomStore = create<GameState>((set, get) => ({
   prevSentence: null,
   allStories: [],
   error: null,
+  secondsPerTurn: 60,
 
   handleEvent(event: ServerEvent) {
     switch (event.type) {
@@ -21,6 +22,7 @@ export const useRoomStore = create<GameState>((set, get) => ({
           status: event.room.status,
           players: event.room.players,
           round: event.room.round,
+          secondsPerTurn: event.room.secondsPerTurn,
         });
         break;
 
@@ -41,7 +43,9 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "your_turn":
         set({
-          prevSentence: event.prevSentence?.content,
+          prevSentence: Array.isArray(event.prevSentence)
+            ? event.prevSentence.map((s) => s.content)
+            : event.prevSentence?.content,
         });
         break;
 

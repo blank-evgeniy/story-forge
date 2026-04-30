@@ -1,3 +1,4 @@
+import { ServerEvent } from "../model/server-events";
 import { RoomState } from "../model/state";
 import { generateRoomCode } from "./utils/generateRoomCode";
 
@@ -12,7 +13,7 @@ export class RoomManager {
     return this.rooms.values();
   }
 
-  create(hostId: string): string {
+  create(hostId: string, secondsPerTurn: number, blindMode: boolean): string {
     const code = generateRoomCode();
 
     this.rooms.set(code, {
@@ -21,10 +22,11 @@ export class RoomManager {
       status: "lobby",
       players: new Map(),
       round: 1,
-      secondsPerTurn: 60,
+      secondsPerTurn,
       stories: [],
       submitted: new Set(),
       timer: null,
+      blindMode,
     });
 
     return code;
@@ -34,12 +36,12 @@ export class RoomManager {
     this.rooms.delete(roomCode);
   }
 
-  broadcast(room: RoomState, event: any) {
+  broadcast(room: RoomState, event: ServerEvent) {
     const payload = JSON.stringify(event);
     room.players.forEach((p) => p.ws.send(payload));
   }
 
-  send(room: RoomState, playerId: string, event: any) {
+  send(room: RoomState, playerId: string, event: ServerEvent) {
     const payload = JSON.stringify(event);
     room.players.get(playerId)?.ws.send(payload);
   }

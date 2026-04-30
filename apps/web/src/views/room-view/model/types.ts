@@ -12,14 +12,15 @@ export type Story = {
 };
 
 export type GameState = {
-  status: "idle" | "lobby" | "writing" | "reveal" | "finished";
+  status: "idle" | "lobby" | "writing" | "reveal";
   players: Player[];
   round: number;
   totalRounds: number;
   submitted: Set<string>;
-  prevSentence: string | null;
+  prevSentence: string | string[] | null;
   allStories: Story[];
   error: string | null;
+  secondsPerTurn: number;
 
   handleEvent: (event: ServerEvent) => void;
   startGame: (ws: WebSocket) => void;

@@ -9,8 +9,14 @@ type WritingScreenProps = {
 };
 
 export function WritingScreen({ onSubmit }: WritingScreenProps) {
-  const { round, totalRounds, submitted, players, prevSentence } =
-    useRoomStore();
+  const {
+    round,
+    totalRounds,
+    submitted,
+    players,
+    prevSentence,
+    secondsPerTurn,
+  } = useRoomStore();
 
   return (
     <div className="flex-1 flex flex-col gap-5 lg:py-12 py-4" key={round}>
@@ -18,7 +24,7 @@ export function WritingScreen({ onSubmit }: WritingScreenProps) {
         <span className="text-sm text-muted-foreground font-medium">
           Раунд {round} / {totalRounds}
         </span>
-        <WritingScreenTimer time={60} />
+        <WritingScreenTimer time={secondsPerTurn} />
       </div>
 
       <WritingScreenStory story={prevSentence} />

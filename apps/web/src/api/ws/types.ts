@@ -28,7 +28,7 @@ export type ClientEvent =
 
 // Common
 
-export type RoomStatus = "lobby" | "writing" | "reveal" | "finished";
+export type RoomStatus = "lobby" | "writing" | "reveal";
 
 export type SentenceDto = {
   playerId: string;
@@ -59,6 +59,7 @@ export type RoomDto = {
   round: number;
   totalRounds?: number;
   submitted: string[];
+  blindMode: boolean;
 };
 
 // Server Events
@@ -93,7 +94,7 @@ export type IterationStartedEvent = {
 
 export type YourTurnEvent = {
   type: "your_turn";
-  prevSentence: SentenceDto | null;
+  prevSentence: SentenceDto | SentenceDto[] | null;
 };
 
 export type PlayerSubmittedEvent = {

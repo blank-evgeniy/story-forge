@@ -17,6 +17,8 @@ export function WelcomeViewConnector() {
     mutate(
       {
         playerId,
+        blindMode: data.blindMode,
+        secondsPerTurn: Number(data.roundTime),
       },
       {
         onSuccess: (data) => {

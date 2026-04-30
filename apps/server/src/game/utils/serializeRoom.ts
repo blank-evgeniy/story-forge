@@ -8,3 +8,5 @@ export function serializeRoom(room: RoomState) {
     timer: undefined,
   };
 }
+
+export type SerializedRoom = ReturnType<typeof serializeRoom>;

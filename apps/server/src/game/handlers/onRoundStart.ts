@@ -9,7 +9,7 @@ export function onRoundStart(room: RoomState) {
   roomManager.broadcast(room, {
     type: "iteration_started",
     round: room.round,
-    totalRounds: room.totalRounds,
+    totalRounds: room.totalRounds || room.players.size,
     timer: room.secondsPerTurn,
   });
 
@@ -17,7 +17,7 @@ export function onRoundStart(room: RoomState) {
   players.forEach((player) => {
     roomManager.send(room, player.id, {
       type: "your_turn",
-      prevSentence: getSentence(room, player.turnOrder),
+      prevSentence: getSentence(room, player.turnOrder, room.blindMode),
     });
   });
 
@@ -51,7 +51,7 @@ function autoSubmitMissing(room: RoomState) {
   onRoundEnd(room);
 }
 
-function getSentence(room: RoomState, playerOrder: number) {
+function getSentence(room: RoomState, playerOrder: number, blindMode: boolean) {
   const round = room.round;
   const totalPlayers = room.players.size;
 
@@ -61,5 +61,7 @@ function getSentence(room: RoomState, playerOrder: number) {
   const currentStory = room.stories[storyIndex];
   const currentStoryLength = currentStory.sentences.length;
 
-  return currentStory.sentences[currentStoryLength - 1];
+  return blindMode
+    ? currentStory.sentences[currentStoryLength - 1]
+    : currentStory.sentences;
 }

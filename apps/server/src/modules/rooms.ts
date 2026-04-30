@@ -5,11 +5,19 @@ export const roomsModule = new Elysia({ prefix: "/rooms" })
   .post(
     "/",
     ({ body }) => {
-      const code = roomManager.create(body.playerId);
+      const code = roomManager.create(
+        body.playerId,
+        body.secondsPerTurn,
+        body.blindMode,
+      );
       return { code };
     },
     {
-      body: t.Object({ playerId: t.String() }),
+      body: t.Object({
+        playerId: t.String(),
+        secondsPerTurn: t.Number(),
+        blindMode: t.Boolean(),
+      }),
     },
   )
 
