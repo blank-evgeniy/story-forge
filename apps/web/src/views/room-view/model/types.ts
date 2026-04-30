@@ -6,9 +6,10 @@ export type Player = {
 };
 
 export type Story = {
+  id: string;
   playerName: string;
-  sentences: string[];
-}[];
+  sentences: { content: string; playerName: string }[];
+};
 
 export type GameState = {
   status: "idle" | "lobby" | "writing" | "reveal" | "finished";

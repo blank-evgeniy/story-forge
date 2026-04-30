@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { GameState } from "./types";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
+import { mapStories } from "./map";
 
 export const useRoomStore = create<GameState>((set, get) => ({
   status: "idle",
@@ -61,7 +62,10 @@ export const useRoomStore = create<GameState>((set, get) => ({
         break;
 
       case "all_revealed":
-        set({ status: "reveal" });
+        set({
+          status: "reveal",
+          allStories: mapStories(get().players, event.stories),
+        });
         break;
 
       case "error":

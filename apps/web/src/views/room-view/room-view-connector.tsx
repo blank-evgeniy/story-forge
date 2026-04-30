@@ -1,13 +1,18 @@
+import { useNavigate } from "@tanstack/react-router";
 import { gameRoute } from "@/app/routes/routes";
 
-import { useRoomSocket } from "./api/use-room-socket";
 import { useUserStore } from "@/store/user";
+
+import { useRoomSocket } from "./api/use-room-socket";
 import { useRoomStore } from "./model/use-room-store";
 import { LobbyScreen } from "./ui/lobby-screen";
 import { WritingScreen } from "./ui/writing-screen";
+import { RevealScreen } from "./ui/reveal-screen";
 
 export function RoomViewConnector() {
+  const navigate = useNavigate();
   const { roomCode } = gameRoute.useParams();
+
   const user = useUserStore((store) => store.user);
 
   const { status: wsStatus, client } = useRoomSocket({
@@ -30,6 +35,10 @@ export function RoomViewConnector() {
     submitSentence(client, content);
   };
 
+  const handlePlayMore = () => {
+    navigate({ to: "/" });
+  };
+
   if (wsStatus === "connecting") return <div>Подключение...</div>;
   if (wsStatus === "disconnected") return <div>Соединение потеряно</div>;
   if (wsStatus === "failed") return <div>Не удалось подключиться</div>;
@@ -40,7 +49,7 @@ export function RoomViewConnector() {
       {status === "writing" && (
         <WritingScreen onSubmit={handleSubmitSentence} />
       )}
-      {status === "reveal" && <div>Конец</div>}
+      {status === "reveal" && <RevealScreen onPlayMore={handlePlayMore} />}
     </>
   );
 }
