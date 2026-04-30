@@ -23,7 +23,7 @@ export const useRoomSocket = ({
   }, [resetStore, roomCode]);
 
   const { status, open, send, close, client } = useWebSocket(
-    "ws://localhost:3001/ws",
+    import.meta.env.VITE_WS_BASE_URL,
     {
       retry: 3,
       onConnected: (ws) => {
