@@ -11,6 +11,11 @@ export function onStartGame(ws: ElysiaWS) {
   const room = roomManager.get(roomCode);
   if (!room || room.status !== "lobby") return;
 
+  if (room.players.size < 2) {
+    ws.send(JSON.stringify({ type: "error", message: "Недостаточно игроков" }));
+    return;
+  }
+
   const players = [...room.players.values()].sort(
     (a, b) => a.turnOrder - b.turnOrder,
   );
@@ -22,7 +27,7 @@ export function onStartGame(ws: ElysiaWS) {
 
   room.status = "writing";
   room.round = 1;
-  room.totalRounds = players.length + 1;
+  room.totalRounds = players.length;
   room.stories = newStories;
 
   onRoundStart(room);

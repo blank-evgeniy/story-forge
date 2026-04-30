@@ -86,11 +86,19 @@ export type PlayerLeftEvent = {
 
 export type IterationStartedEvent = {
   type: "iteration_started";
+  round: number;
+  totalRounds: number;
+  timer: number; // ms
 };
 
 export type YourTurnEvent = {
   type: "your_turn";
   prevSentence: SentenceDto | null;
+};
+
+export type PlayerSubmittedEvent = {
+  type: "player_submitted";
+  playerId: string;
 };
 
 export type IterationEndedEvent = {
@@ -109,5 +117,6 @@ export type ServerEvent =
   | PlayerLeftEvent
   | IterationStartedEvent
   | YourTurnEvent
+  | PlayerSubmittedEvent
   | IterationEndedEvent
   | AllRevealedEvent;

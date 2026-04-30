@@ -8,6 +8,9 @@ export function onRoundStart(room: RoomState) {
 
   roomManager.broadcast(room, {
     type: "iteration_started",
+    round: room.round,
+    totalRounds: room.totalRounds,
+    timer: room.secondsPerTurn,
   });
 
   const players = getSortedPlayers(room);
@@ -29,7 +32,8 @@ function autoSubmitMissing(room: RoomState) {
   players.forEach((player) => {
     if (room.submitted.has(player.id)) return;
 
-    const storyIndex = (player.turnOrder - room.round + players.length) % players.length;
+    const storyIndex =
+      (player.turnOrder - room.round + players.length) % players.length;
     room.stories[storyIndex].sentences.push({
       playerId: player.id,
       content: "...",
@@ -37,6 +41,11 @@ function autoSubmitMissing(room: RoomState) {
     });
 
     room.submitted.add(player.id);
+
+    roomManager.broadcast(room, {
+      type: "player_submitted",
+      playerId: player.id,
+    });
   });
 
   onRoundEnd(room);

@@ -21,7 +21,7 @@ export class RoomManager {
       status: "lobby",
       players: new Map(),
       round: 1,
-      secondsPerTurn: 5,
+      secondsPerTurn: 60,
       stories: [],
       submitted: new Set(),
       timer: null,

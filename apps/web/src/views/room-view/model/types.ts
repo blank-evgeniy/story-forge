@@ -15,7 +15,7 @@ export type GameState = {
   players: Player[];
   round: number;
   totalRounds: number;
-  submitted: number;
+  submitted: Set<string>;
   prevSentence: string | null;
   allStories: Story[];
   error: string | null;

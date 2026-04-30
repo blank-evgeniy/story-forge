@@ -26,6 +26,10 @@ export function onSubmitSentence(ws: ElysiaWS, event: { content: string }) {
   });
 
   room.submitted.add(playerId);
+  roomManager.broadcast(room, {
+    type: "player_submitted",
+    playerId,
+  });
 
   if (room.submitted.size === room.players.size) {
     if (room.timer) clearTimeout(room.timer);

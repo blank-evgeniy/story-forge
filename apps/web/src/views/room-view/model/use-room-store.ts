@@ -8,7 +8,7 @@ export const useRoomStore = create<GameState>((set, get) => ({
   round: 0,
   totalRounds: 0,
   secondsLeft: 0,
-  submitted: 0,
+  submitted: new Set<string>(),
   prevSentence: null,
   allStories: [],
   error: null,
@@ -20,7 +20,6 @@ export const useRoomStore = create<GameState>((set, get) => ({
           status: event.room.status,
           players: event.room.players,
           round: event.room.round,
-          submitted: event.room.submitted.length,
         });
         break;
 
@@ -37,6 +36,32 @@ export const useRoomStore = create<GameState>((set, get) => ({
         set({
           players: get().players.filter((p) => p.id !== event.playerId),
         });
+        break;
+
+      case "your_turn":
+        set({
+          prevSentence: event.prevSentence?.content,
+        });
+        break;
+
+      case "iteration_started":
+        set({
+          round: event.round,
+          totalRounds: event.totalRounds,
+          status: "writing",
+        });
+        break;
+
+      case "iteration_ended":
+        set({ submitted: new Set() });
+        break;
+
+      case "player_submitted":
+        set({ submitted: new Set(get().submitted).add(event.playerId) });
+        break;
+
+      case "all_revealed":
+        set({ status: "reveal" });
         break;
 
       case "error":
