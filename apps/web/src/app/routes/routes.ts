@@ -20,6 +20,9 @@ const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
   component: LoginView,
+  validateSearch: (search: Record<string, unknown>) => ({
+    redirect: (search.redirect as string) ?? undefined,
+  }),
   beforeLoad: () => {
     const user = useUserStore.getState().user;
     if (user) {
@@ -31,10 +34,13 @@ const loginRoute = createRoute({
 const guardedRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "guarded",
-  beforeLoad: () => {
+  beforeLoad: ({ location }) => {
     const user = useUserStore.getState().user;
     if (!user) {
-      throw redirect({ to: "/login" });
+      throw redirect({
+        to: "/login",
+        search: { redirect: location.href },
+      });
     }
   },
 });

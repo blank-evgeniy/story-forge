@@ -11,12 +11,13 @@ import { Input } from "@/components/ui/input";
 import { useUserStore } from "@/store/user";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 
 export function LoginView() {
   const [username, setUsername] = useState("");
   const { login } = useUserStore();
   const navigate = useNavigate();
+  const { redirect } = useSearch({ from: "/login" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -31,7 +32,11 @@ export function LoginView() {
     }
 
     login(username.trim());
-    navigate({ to: "/" });
+    if (redirect) {
+      window.location.href = redirect;
+    } else {
+      navigate({ to: "/" });
+    }
   };
 
   return (
