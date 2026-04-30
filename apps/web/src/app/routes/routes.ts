@@ -7,10 +7,10 @@ import {
   Outlet,
   redirect,
 } from "@tanstack/react-router";
-import { AppLayout } from "@/app/layout";
 import { useUserStore } from "@/store/user";
 import { createElement } from "react";
 import { RoomViewConnector } from "@/views/room-view";
+import { AppLayout } from "../layout";
 
 const rootRoute = createRootRoute({
   component: () => createElement(AppLayout, null, createElement(Outlet, null)),

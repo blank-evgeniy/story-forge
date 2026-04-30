@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/components/features/theme";
+import { ThemeProvider } from "@/components/theme";
 import { RouterProvider } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { router } from "./routes";
