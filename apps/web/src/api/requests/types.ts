@@ -7,3 +7,7 @@ export type CreateRoomDTO = {
 export type CreateRoomResponseDTO = {
   code: string;
 };
+
+type RoomStatusDto = "lobby" | "writing" | "reveal";
+
+export type GetRoomDto = { code: string; status: RoomStatusDto };

@@ -28,7 +28,7 @@ export type ClientEvent =
 
 // Common
 
-export type RoomStatus = "lobby" | "writing" | "reveal";
+export type RoomStatusDto = "lobby" | "writing" | "reveal";
 
 export type SentenceDto = {
   playerId: string;
@@ -51,7 +51,7 @@ export type PlayerDto = {
 
 export type RoomDto = {
   code: string;
-  status: RoomStatus;
+  status: RoomStatusDto;
   hostId: string;
   secondsPerTurn: number;
   players: PlayerDto[];
