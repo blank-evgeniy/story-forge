@@ -1,0 +1,22 @@
+{
+  "name": "landing",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "deploy": "astro build && echo '' > dist/.nojekyll && cd dist && git init && git add . && git commit -m \"deploy\" && git push --force https://github.com/blank-evgeniy/story-forge.git HEAD:gh-pages && cd .."
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.2.1",
+    "lucide-astro": "^0.556.0",
+    "tailwindcss": "^4.2.4"
+  }
+}

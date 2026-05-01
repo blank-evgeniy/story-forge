@@ -1,0 +1,159 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { DoorOpen, PenLine, EyeOff, RefreshCw, BookOpen, GitBranch } from 'lucide-astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const rules = [
+  {
+    num: '01',
+    Icon: DoorOpen,
+    title: 'Создание комнаты',
+    body: [
+      'Один игрок становится хостом и создаёт комнату. Он задаёт количество раундов (от 3 до 10), время на ход (30, 60 или 90 секунд) и режим игры.',
+      'После создания хост получает 4-значный код и QR-код. Поделитесь ими с остальными участниками — и игра готова начаться.',
+    ],
+  },
+  {
+    num: '02',
+    Icon: PenLine,
+    title: 'Ход игры',
+    body: [
+      'Игроки пишут по очереди. Каждый добавляет ровно одно предложение к общей истории.',
+      'На каждый ход отведено фиксированное время. Если время истекло — ход переходит к следующему игроку, даже если предложение не написано.',
+      'В обычном режиме видна вся история целиком. В Blind Mode каждый видит только последнее написанное предложение — остальное скрыто.',
+    ],
+  },
+  {
+    num: '03',
+    Icon: EyeOff,
+    title: 'Blind Mode',
+    body: [
+      'Это главная фишка StoryForge. Когда включён Blind Mode, каждый игрок видит лишь одно последнее предложение — то, что написал предыдущий участник.',
+      'Это приводит к тому, что история может резко менять направление, жанр и даже здравый смысл. Именно это делает финальное чтение таким смешным.',
+    ],
+  },
+  {
+    num: '04',
+    Icon: RefreshCw,
+    title: 'Раунды',
+    body: [
+      'За один раунд каждый игрок пишет по одному предложению. После завершения раунда история сохраняется, и начинается следующий.',
+      'Чем больше игроков — тем длиннее и непредсказуемее история.',
+    ],
+  },
+  {
+    num: '05',
+    Icon: BookOpen,
+    title: 'Финал',
+    body: [
+      'После последнего раунда наступает момент истины. История раскрывается полностью — предложение за предложением, с именами авторов.',
+      'Рекомендуем читать вслух. Смех гарантирован.',
+    ],
+  },
+  {
+    num: '06',
+    Icon: GitBranch,
+    title: 'Несколько историй',
+    body: [
+      'Каждый игрок параллельно ведёт свою ветку истории. В финале историй будет столько же, сколько игроков в комнате.',
+      'Это значит, что при 5 игроках вы получите 5 совершенно разных историй — написанных вместе, но каждая своя.',
+    ],
+  },
+];
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <BaseHead
+      title="Правила — StoryForge"
+      description="Правила игры StoryForge — совместного создания историй."
+    />
+  </head>
+
+  <body class="antialiased">
+    <Nav />
+
+    <section class="relative pt-36 pb-16 px-6 overflow-hidden">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(139,26,46,0.2) 0%,transparent 65%);pointer-events:none;"></div>
+      <div style="position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:800px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(242,193,78,0.1) 0%,transparent 65%);filter:blur(30px);pointer-events:none;" class="animate-breathe"></div>
+
+      <div class="relative mx-auto max-w-3xl text-center">
+        <div class="badge-gold mx-auto mb-6 w-fit">
+          <BookOpen size={14} stroke-width={1.5} /> Правила игры
+        </div>
+        <h1 class="font-display font-black tracking-tight mb-4" style="color:#f5ead8;font-size:clamp(2.5rem,6vw,4rem);">
+          Как играть<br/>
+          <span class="text-gold-gradient">в StoryForge</span>
+        </h1>
+        <p class="font-body text-lg leading-relaxed mx-auto" style="color:#c4a882;max-width:40ch;">
+          Всё просто: один пишет, другой продолжает, никто не знает что получится. Но для ясности — вот подробные правила.
+        </p>
+      </div>
+    </section>
+
+    <section class="pb-28 px-6">
+      <div class="mx-auto max-w-3xl">
+
+        <div class="mb-14 rounded-[20px] overflow-hidden" style="background:linear-gradient(145deg,#1e0e16,#2a1020,#1c0c14);border:1px solid rgba(242,193,78,0.18);box-shadow:0 0 0 1px rgba(242,193,78,0.05),0 20px 60px rgba(0,0,0,0.5);">
+          <div style="height:2px;background:linear-gradient(to right,transparent,rgba(242,193,78,0.5),rgba(224,123,63,0.3),transparent);"></div>
+          <div class="px-8 py-8">
+            <p class="font-mono text-xs tracking-[0.2em] uppercase mb-4" style="color:rgba(242,193,78,0.6);">Кратко</p>
+            <div class="grid sm:grid-cols-3 gap-6">
+              {[
+                { label: 'Игроков', value: '2+' },
+                { label: 'Раундов', value: '2+' },
+                { label: 'Время хода', value: '30–90 с' },
+              ].map(({ label, value }) => (
+                <div class="text-center">
+                  <div class="font-display font-black text-4xl mb-1 text-gold-gradient">{value}</div>
+                  <div class="font-body text-sm" style="color:#7d5e48;">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style="height:2px;background:linear-gradient(to right,transparent,rgba(139,26,46,0.5),rgba(224,123,63,0.2),transparent);"></div>
+        </div>
+
+        <div class="flex flex-col gap-8">
+          {rules.map(({ num, Icon, title, body }) => (
+            <article class="card-warm rounded-[--radius-xl] p-8 relative overflow-hidden group">
+              <div class="step-number absolute top-3 right-5 select-none leading-none" style="font-size:6rem;">{num}</div>
+              <div class="relative">
+                <div class="flex items-center gap-4 mb-5">
+                  <div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(242,193,78,0.15),rgba(224,123,63,0.08));border:1px solid rgba(242,193,78,0.2);flex-shrink:0;">
+                    <Icon size={22} color="#f2c14e" stroke-width={1.5} />
+                  </div>
+                  <h2 class="font-display font-bold text-xl group-hover:text-[#f2c14e] transition-colors duration-300" style="color:#f5ead8;">{title}</h2>
+                </div>
+                <div class="flex flex-col gap-3">
+                  {body.map((para) => (
+                    <p class="font-body text-base leading-relaxed" style="color:#c4a882;">{para}</p>
+                  ))}
+                </div>
+              </div>
+              <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,rgba(242,193,78,0),transparent);transition:all 0.4s;" class="group-hover:[background:linear-gradient(to_right,transparent,rgba(242,193,78,0.35),transparent)]"></div>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-16 text-center">
+          <div class="ornament mb-8" style="color:rgba(242,193,78,0.4);font-size:0.75rem;letter-spacing:0.2em;">
+            Правила прочитаны
+          </div>
+          <h3 class="font-display font-black text-3xl mb-4" style="color:#f5ead8;">Готовы попробовать?</h3>
+          <p class="font-body mb-8" style="color:#c4a882;">Всё остальное поймёте в первой же игре.</p>
+          <a href={`${base}/#play`} class="btn-gold rounded-[12px] px-10 py-4 text-lg font-display font-bold inline-block">
+            Создать комнату →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </body>
+</html>

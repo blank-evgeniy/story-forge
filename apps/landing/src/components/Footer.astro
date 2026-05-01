@@ -1,0 +1,16 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<footer style="border-top:1px solid rgba(242,193,78,0.1);padding:2rem 1.5rem;">
+  <div class="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4 font-body text-sm" style="color:#7d5e48;">
+    <div class="flex items-center gap-2">
+      <span style="color:#f2c14e;">✦</span>
+      <span class="font-display font-bold" style="color:#c4a882;">StoryForge</span>
+    </div>
+    <span>© 2025 StoryForge. Сделано с любовью к историям.</span>
+    <div class="flex gap-6">
+      <a href={`${base}/rules`}   class="hover:text-[#c4a882] transition-colors duration-150">Правила</a>
+      <a href={`${base}/contact`} class="hover:text-[#c4a882] transition-colors duration-150">Контакты</a>
+    </div>
+  </div>
+</footer>

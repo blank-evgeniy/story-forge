@@ -5,8 +5,9 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "pnpm --parallel -r dev",
+    "dev": "pnpm --parallel --filter web --filter server dev",
     "dev:web": "pnpm --filter web dev",
-    "dev:server": "pnpm --filter server dev"
+    "dev:server": "pnpm --filter server dev",
+    "dev:landing": "pnpm --filter landing dev"
   }
 }

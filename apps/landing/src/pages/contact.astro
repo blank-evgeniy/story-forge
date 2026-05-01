@@ -1,0 +1,126 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { Github } from 'lucide-astro';
+
+const links = [
+  {
+    Icon: Github,
+    label: 'GitHub',
+    value: 'blank-evgeniy/story-forge',
+    href: 'https://github.com/blank-evgeniy/story-forge',
+    desc: 'Исходный код, баг-репорты и pull requests',
+  },
+];
+
+const faqs = [
+  {
+    q: 'StoryForge бесплатный?',
+    a: 'Да, полностью. Без регистрации, без подписок, без скрытых платежей. Просто заходите и играйте.',
+  },
+  {
+    q: 'Сколько человек может играть?',
+    a: 'От 2 до 20 игроков в одной комнате. Лучше всего игра раскрывается в компании 4–8 человек.',
+  },
+  {
+    q: 'Нужно устанавливать приложение?',
+    a: 'Нет. StoryForge работает прямо в браузере — на телефоне, планшете или компьютере. Просто перейдите по ссылке или отсканируйте QR-код.',
+  },
+  {
+    q: 'Как сохранить историю после игры?',
+    a: 'После финала вы можете скопировать историю или поделиться ссылкой. История хранится на сервере 7 дней.',
+  },
+  {
+    q: 'Нашёл баг, куда писать?',
+    a: 'Лучше всего — в GitHub Issues. Там можно подробно описать проблему и прикрепить скриншот. Или просто напишите на email — разберёмся.',
+  },
+];
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <BaseHead
+      title="Контакты — StoryForge"
+      description="Свяжитесь с командой StoryForge."
+    />
+  </head>
+
+  <body class="antialiased">
+    <Nav />
+
+    <section class="relative pt-36 pb-16 px-6 overflow-hidden">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(224,123,63,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+      <div style="position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:700px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(242,193,78,0.09) 0%,transparent 65%);filter:blur(30px);pointer-events:none;" class="animate-breathe"></div>
+
+      <div class="relative mx-auto max-w-2xl text-center">
+        <div class="badge-gold mx-auto mb-6 w-fit">
+          <Github size={14} stroke-width={1.5} /> GitHub
+        </div>
+        <h1 class="font-display font-black tracking-tight mb-4 leading-none" style="color:#f5ead8;font-size:clamp(2.5rem,6vw,4rem);">
+          Свяжитесь<br/>
+          <span class="text-gold-gradient">с нами</span>
+        </h1>
+        <p class="font-body text-lg leading-relaxed mx-auto" style="color:#c4a882;max-width:38ch;">
+          Есть вопрос, идея или просто хотите сказать что-нибудь хорошее? Мы читаем каждое сообщение.
+        </p>
+      </div>
+    </section>
+
+    <section class="pb-28 px-6">
+      <div class="mx-auto max-w-4xl">
+
+        <div class="grid md:grid-cols-1 gap-4 mb-20">
+          {links.map(({ Icon, label, value, href, desc }) => (
+            <a href={href} class="card-warm rounded-[--radius-xl] p-7 flex flex-col gap-4 group" target="_blank" rel="noopener noreferrer">
+              <div style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(242,193,78,0.15),rgba(224,123,63,0.08));border:1px solid rgba(242,193,78,0.2);">
+                <Icon size={24} color="#f2c14e" stroke-width={1.5} />
+              </div>
+              <div>
+                <p class="font-mono text-xs tracking-[0.15em] uppercase mb-1" style="color:rgba(242,193,78,0.6);">{label}</p>
+                <p class="font-display font-bold text-base group-hover:text-[#f2c14e] transition-colors duration-200" style="color:#f5ead8;">{value}</p>
+              </div>
+              <p class="font-body text-sm leading-relaxed mt-auto" style="color:#c4a882;">{desc}</p>
+            </a>
+          ))}
+        </div>
+
+        <div class="ornament mb-14 font-mono text-xs tracking-[0.25em] uppercase" style="color:rgba(242,193,78,0.4);">
+          Частые вопросы
+        </div>
+
+        <div class="flex flex-col gap-4">
+          {faqs.map(({ q, a }) => (
+            <details class="card-warm rounded-[--radius-lg] group overflow-hidden" style="cursor:pointer;">
+              <summary class="flex items-center justify-between px-7 py-5 list-none" style="outline:none;">
+                <h3 class="font-display font-bold text-base group-hover:text-[#f2c14e] transition-colors duration-200" style="color:#f5ead8;">{q}</h3>
+                <span class="shrink-0 ml-4 text-xl transition-transform duration-300 group-open:rotate-45" style="color:rgba(242,193,78,0.6);">+</span>
+              </summary>
+              <div style="border-top:1px solid rgba(242,193,78,0.1);padding:0 1.75rem 1.5rem;">
+                <p class="font-body text-sm leading-relaxed pt-5" style="color:#c4a882;">{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <div class="mt-16 rounded-[20px] overflow-hidden" style="background:linear-gradient(145deg,#1e0e16,#221018);border:1px solid rgba(242,193,78,0.14);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+          <div style="height:2px;background:linear-gradient(to right,transparent,rgba(224,123,63,0.5),rgba(242,193,78,0.3),transparent);"></div>
+          <div class="px-8 py-8 text-center">
+            <div class="text-3xl mb-4">✦</div>
+            <h3 class="font-display font-black text-2xl mb-3" style="color:#f5ead8;">StoryForge сделан с душой</h3>
+            <p class="font-body leading-relaxed mx-auto" style="color:#c4a882;max-width:44ch;">
+              Это небольшой проект, созданный из любви к совместному творчеству.
+              Если вам понравилось — расскажите друзьям. Это лучшее, что вы можете сделать для нас.
+            </p>
+          </div>
+          <div style="height:2px;background:linear-gradient(to right,transparent,rgba(139,26,46,0.5),rgba(224,123,63,0.2),transparent);"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <Footer />
+  </body>
+</html>
