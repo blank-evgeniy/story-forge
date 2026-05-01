@@ -40,7 +40,7 @@ export function LoginView() {
   };
 
   return (
-    <div className="flex flex-1 justify-center lg:mt-[10vh] mt-12">
+    <div className="flex flex-1 justify-center lg:mt-[10vh] mt-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold tracking-tight">
