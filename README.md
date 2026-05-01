@@ -10,7 +10,7 @@
 
 Многопользовательская игра в совместное сочинение историй — одно предложение за раз.
 
-[Приложение](https://blank-evgeniy.github.io/story-forge) · [Лендинг](https://blank-evgeniy.github.io/story-forge)
+[Приложение](https://story-forge-web-omega.vercel.app/) · [Лендинг](https://blank-evgeniy.github.io/story-forge)
 
 ---
 
