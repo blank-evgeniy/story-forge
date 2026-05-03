@@ -2,6 +2,7 @@ import { ElysiaWS } from "elysia/dist/ws";
 
 import { roomManager } from "../room-manager";
 import { onRoundEnd } from "./onRoundEnd";
+import { getStoryIndex } from "../utils/getStoryIndex";
 import { getWsMeta } from "../utils/getWsMeta";
 
 export function onSubmitSentence(ws: ElysiaWS, event: { content: string }) {
@@ -16,8 +17,7 @@ export function onSubmitSentence(ws: ElysiaWS, event: { content: string }) {
   if (!player) return;
 
   const totalPlayers = room.players.size;
-  const storyIndex =
-    (player.turnOrder - room.round + totalPlayers) % totalPlayers;
+  const storyIndex = getStoryIndex(player.turnOrder, room.round, totalPlayers);
 
   room.stories[storyIndex].sentences.push({
     content: event.content,

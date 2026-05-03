@@ -1,6 +1,7 @@
 import { RoomState } from "../../model/state";
 import { roomManager } from "../room-manager";
 import { getSortedPlayers } from "../utils/getSortedPlayers";
+import { getStoryIndex } from "../utils/getStoryIndex";
 import { onRoundEnd } from "./onRoundEnd";
 
 export function onRoundStart(room: RoomState) {
@@ -32,8 +33,7 @@ function autoSubmitMissing(room: RoomState) {
   players.forEach((player) => {
     if (room.submitted.has(player.id) || !player.connected) return;
 
-    const storyIndex =
-      (player.turnOrder - room.round + players.length) % players.length;
+    const storyIndex = getStoryIndex(player.turnOrder, room.round, players.length);
     room.stories[storyIndex].sentences.push({
       playerId: player.id,
       content: "...",
@@ -57,7 +57,7 @@ function getSentence(room: RoomState, playerOrder: number, blindMode: boolean) {
 
   if (round === 1) return null;
 
-  const storyIndex = (playerOrder - round + totalPlayers) % totalPlayers;
+  const storyIndex = getStoryIndex(playerOrder, round, totalPlayers);
   const currentStory = room.stories[storyIndex];
   const currentStoryLength = currentStory.sentences.length;
 
