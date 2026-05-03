@@ -31,7 +31,11 @@ export function onSubmitSentence(ws: ElysiaWS, event: { content: string }) {
     playerId,
   });
 
-  if (room.submitted.size === room.players.size) {
+  const connectedCount = [...room.players.values()].filter(
+    (p) => p.connected,
+  ).length;
+
+  if (room.submitted.size === connectedCount) {
     if (room.timer) clearTimeout(room.timer);
 
     onRoundEnd(room);

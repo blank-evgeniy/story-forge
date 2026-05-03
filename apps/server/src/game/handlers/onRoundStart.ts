@@ -30,7 +30,7 @@ function autoSubmitMissing(room: RoomState) {
   const players = getSortedPlayers(room);
 
   players.forEach((player) => {
-    if (room.submitted.has(player.id)) return;
+    if (room.submitted.has(player.id) || !player.connected) return;
 
     const storyIndex =
       (player.turnOrder - room.round + players.length) % players.length;

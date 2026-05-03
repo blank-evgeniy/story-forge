@@ -15,6 +15,16 @@ export function onJoinRoom(
     return;
   }
 
+  const existing = room.players.get(event.playerId);
+
+  if (existing) {
+    existing.ws = ws;
+    existing.connected = true;
+    ws.send(JSON.stringify({ type: "room_state", room: serializeRoom(room) }));
+    socketMeta.set(ws.id, { playerId: event.playerId, roomCode: event.code });
+    return;
+  }
+
   const player: Player = {
     id: event.playerId,
     ws,
