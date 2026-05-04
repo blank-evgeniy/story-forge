@@ -62,6 +62,8 @@ function TwistPickerButton({
 }: TwistPickerButtonProps) {
   return (
     <button
+      type="button"
+      aria-pressed={isPicked}
       className={cn(
         "w-full rounded-lg border px-4 py-2 flex gap-4 items-center disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
         isPicked
