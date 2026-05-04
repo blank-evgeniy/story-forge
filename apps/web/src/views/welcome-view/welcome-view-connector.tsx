@@ -14,7 +14,6 @@ export function WelcomeViewConnector() {
 
   const handleCreateRoom = (data: CreateRoomSchema) => {
     if (!playerId) return;
-    console.log(data);
 
     mutate(
       {

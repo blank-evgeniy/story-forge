@@ -77,7 +77,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
               </div>
               <FieldDescription>
                 Blind Mode - режим, в котором игрокам видно только последнее
-                сообщение при написании историию.
+                сообщение при написании истории.
               </FieldDescription>
 
               <div className="flex items-center space-x-2">

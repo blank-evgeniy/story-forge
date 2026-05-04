@@ -30,9 +30,8 @@ export function WritingScreenTwistPicker({
 
       <ul className="flex flex-col gap-2">
         {twists.map((twist) => (
-          <li>
+          <li key={twist.id}>
             <TwistPickerButton
-              key={twist.id}
               isPicked={pickedTwistId === twist.id}
               onClick={() => handlePick(twist.id)}
               disabled={isSubmitted}

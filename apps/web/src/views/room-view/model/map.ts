@@ -7,8 +7,6 @@ export const mapStories = (
   players: Player[],
   storyThreads: StoryThreadDto[],
 ): Story[] => {
-  console.log("Mapping stories with players", { players, storyThreads });
-
   const stories: Story[] = storyThreads.map((thread) => ({
     sentences: thread.sentences.flatMap((s) => {
       const sentence = {
@@ -34,6 +32,5 @@ export const mapStories = (
     id: thread.id,
   }));
 
-  console.log("Mapped stories", stories);
   return stories;
 };

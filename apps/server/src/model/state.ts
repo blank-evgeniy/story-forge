@@ -27,8 +27,6 @@ export type Twist = {
   content: string;
 };
 
-export type TwistSet = Array<Twist>;
-
 export type Sentence = PlayerSentence & {
   twist?: Twist;
 };

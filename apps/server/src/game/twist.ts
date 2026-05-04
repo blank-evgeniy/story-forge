@@ -2,7 +2,7 @@ import { twists } from "../data/twists";
 import { Twist } from "../model/state";
 
 export function pickThreeTwists(): [Twist, Twist, Twist] {
-  const shuffled = twists.sort(() => Math.random() - 0.5);
+  const shuffled = [...twists].sort(() => Math.random() - 0.5);
   return [shuffled[0], shuffled[1], shuffled[2]];
 }
 
