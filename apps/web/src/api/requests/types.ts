@@ -1,6 +1,6 @@
 export type CreateRoomDTO = {
   playerId: string;
-  roomConfig: {
+  config: {
     secondsPerTurn: number;
     blindMode: boolean;
     enableTwists: boolean;

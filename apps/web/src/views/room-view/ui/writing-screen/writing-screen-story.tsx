@@ -1,4 +1,5 @@
 import { BookOpenIcon } from "lucide-react";
+import { PlayerMessage } from "../common/player-message";
 
 type WritingScreenStoryProps = {
   story: string[] | string | null;
@@ -19,13 +20,7 @@ export function WritingScreenStory({ story }: WritingScreenStoryProps) {
       </div>
       <div className="flex flex-col gap-2">
         {sentences.map((sentence, index) => (
-          <div key={index} className="flex justify-start">
-            <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-muted px-4 py-2.5">
-              <p className="text-sm leading-relaxed text-foreground/90">
-                {sentence}
-              </p>
-            </div>
-          </div>
+          <PlayerMessage key={index} message={sentence} />
         ))}
       </div>
     </div>

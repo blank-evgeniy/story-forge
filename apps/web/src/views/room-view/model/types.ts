@@ -4,7 +4,7 @@ export type Player = {
 };
 
 export type PlayerSentence = {
-  playerId: string;
+  playerName: string;
   content: string;
   type: "player";
 };
@@ -22,3 +22,8 @@ export type Story = {
   playerName: string;
   sentences: Sentence[];
 };
+
+export type TwistsSet = {
+  id: string;
+  content: string;
+}[];

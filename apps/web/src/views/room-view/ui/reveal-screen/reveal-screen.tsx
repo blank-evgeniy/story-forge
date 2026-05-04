@@ -10,6 +10,13 @@ type RevealScreenProps = {
 export function RevealScreen({ onPlayMore }: RevealScreenProps) {
   const { currentStory, shown, finished, storyIdx } = useStoryPlayer();
 
+  console.log("RevealScreen render", {
+    currentStory,
+    shown,
+    finished,
+    storyIdx,
+  });
+
   return (
     <div className="flex-1 flex flex-col gap-6 lg:py-12 py-4">
       <div className="flex-1 relative overflow-hidden">

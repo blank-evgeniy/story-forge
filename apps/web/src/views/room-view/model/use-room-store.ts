@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
-import type { Player, Story } from "./types";
+import type { Player, Story, TwistsSet } from "./types";
 
 type GameActions = {
   handleEvent: (event: ServerEvent) => void;
   startGame: (ws: WebSocket) => void;
-  submitSentence: (ws: WebSocket, content: string) => void;
+  submitSentence: (ws: WebSocket, content: string, twistId?: string) => void;
   reset: () => void;
 };
 
@@ -20,7 +20,7 @@ type GameData = {
   allStories: Story[];
   error: string | null;
   secondsPerTurn: number;
-  twistsToChoose: { id: string; content: string }[] | null;
+  twistsToChoose: TwistsSet | null;
 };
 
 export type GameState = GameData & GameActions;
@@ -110,8 +110,8 @@ export const useRoomStore = create<GameState>((set, get) => ({
     ws.send(JSON.stringify(event));
   },
 
-  submitSentence(ws: WebSocket, content: string) {
-    const event: ClientEvent = { type: "submit_sentence", content };
+  submitSentence(ws: WebSocket, content: string, twistId?: string) {
+    const event: ClientEvent = { type: "submit_sentence", content, twistId };
     ws.send(JSON.stringify(event));
   },
 
