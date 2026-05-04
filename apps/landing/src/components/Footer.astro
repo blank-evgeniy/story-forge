@@ -1,16 +1,16 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = new Date().getFullYear();
 ---
-<footer style="border-top:1px solid rgba(242,193,78,0.1);padding:2rem 1.5rem;">
-  <div class="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4 font-body text-sm" style="color:#7d5e48;">
+<footer style="border-top:1px solid rgba(245,166,35,0.12);padding:2rem 1.5rem;">
+  <div class="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4 font-body text-sm" style="color:#b07040;">
     <div class="flex items-center gap-2">
-      <span style="color:#f2c14e;">✦</span>
-      <span class="font-display font-bold" style="color:#c4a882;">StoryForge</span>
+      <span class="font-display font-black" style="color:#ffcfa0;">StoryForge</span>
     </div>
-    <span>© 2025 StoryForge. Сделано с любовью к историям.</span>
+    <span>© {year} StoryForge. Сделано с любовью к историям.</span>
     <div class="flex gap-6">
-      <a href={`${base}/rules`}   class="hover:text-[#c4a882] transition-colors duration-150">Правила</a>
-      <a href={`${base}/contact`} class="hover:text-[#c4a882] transition-colors duration-150">Контакты</a>
+      <a href={`${base}/rules`}   class="hover:text-fg-muted transition-colors duration-150">Правила</a>
+      <a href={`${base}/contact`} class="hover:text-fg-muted transition-colors duration-150">Контакты</a>
     </div>
   </div>
 </footer>

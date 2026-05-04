@@ -3,20 +3,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const appUrl = import.meta.env.PUBLIC_APP_URL ?? '#';
 ---
 <header
-  style="background:rgba(15,6,8,0.85);border-bottom:1px solid rgba(242,193,78,0.1);"
+  style="background:rgba(34,20,0,0.88);border-bottom:1px solid rgba(245,166,35,0.15);"
   class="fixed top-0 inset-x-0 z-50 backdrop-blur-xl"
 >
   <div class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
     <a href={import.meta.env.BASE_URL} class="flex items-center gap-2.5 group">
-      <span style="color:#f2c14e;text-shadow:0 0 20px rgba(242,193,78,0.8);" class="text-2xl leading-none animate-pulse-glow">✦</span>
-      <span class="font-display font-bold text-lg tracking-tight" style="color:#f5ead8;">StoryForge</span>
+      <span style="color:#f5a623;" class="text-xl leading-none animate-glow-pulse">🔥</span>
+      <span class="font-display font-black text-lg tracking-tight" style="color:#fff8f0;">StoryForge</span>
     </a>
-    <nav class="hidden md:flex items-center gap-8 font-body text-sm" style="color:#c4a882;">
-      <a href={`${base}/#how`}      class="hover:text-[#f5ead8] transition-colors duration-200">Как играть</a>
-      <a href={`${base}/#features`} class="hover:text-[#f5ead8] transition-colors duration-200">Возможности</a>
-      <a href={`${base}/#play`}     class="hover:text-[#f5ead8] transition-colors duration-200">Играть</a>
+    <nav class="hidden md:flex items-center gap-8 font-body text-sm font-semibold" style="color:#ffcfa0;">
+      <a href={`${base}/#how`}      class="hover:text-[#fff8f0] transition-colors duration-200">Как играть</a>
+      <a href={`${base}/#features`} class="hover:text-[#fff8f0] transition-colors duration-200">Возможности</a>
+      <a href={`${base}/#play`}     class="hover:text-[#fff8f0] transition-colors duration-200">Играть</a>
     </nav>
-    <a href={appUrl} target="_blank" rel="noopener noreferrer" class="btn-gold rounded-[10px] px-5 py-2.5 text-sm font-display font-bold">
+    <a href={appUrl} target="_blank" rel="noopener noreferrer" class="btn-primary rounded-[14px] px-5 py-2.5 text-sm font-display font-bold">
       Начать игру
     </a>
   </div>
