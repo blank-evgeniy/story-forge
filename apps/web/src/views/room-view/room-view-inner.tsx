@@ -30,9 +30,9 @@ export function RoomViewInner() {
     startGame(client);
   };
 
-  const handleSubmitSentence = (content: string) => {
+  const handleSubmitSentence = (content: string, twistId?: string) => {
     if (!client) return;
-    submitSentence(client, content);
+    submitSentence(client, content, twistId);
   };
 
   const handlePlayMore = () => {
@@ -45,7 +45,9 @@ export function RoomViewInner() {
 
   return (
     <>
-      {status === "lobby" && <LobbyScreen onStartGame={handleStart} roomCode={roomCode} />}
+      {status === "lobby" && (
+        <LobbyScreen onStartGame={handleStart} roomCode={roomCode} />
+      )}
       {status === "writing" && (
         <WritingScreen onSubmit={handleSubmitSentence} />
       )}

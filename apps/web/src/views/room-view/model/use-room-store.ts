@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
-import type { Player, Story } from "./types";
+import type { Player, PrevSentence, Story, TwistsSet } from "./types";
 
 type GameActions = {
   handleEvent: (event: ServerEvent) => void;
   startGame: (ws: WebSocket) => void;
-  submitSentence: (ws: WebSocket, content: string) => void;
+  submitSentence: (ws: WebSocket, content: string, twistId?: string) => void;
   reset: () => void;
 };
 
@@ -16,10 +16,11 @@ type GameData = {
   round: number;
   totalRounds: number;
   submitted: Set<string>;
-  prevSentence: string | string[] | null;
+  prevSentence: PrevSentence[] | null;
   allStories: Story[];
   error: string | null;
   secondsPerTurn: number;
+  twistsToChoose: TwistsSet | null;
 };
 
 export type GameState = GameData & GameActions;
@@ -34,6 +35,7 @@ const initialState: GameData = {
   allStories: [],
   error: null,
   secondsPerTurn: 60,
+  twistsToChoose: null,
 };
 
 export const useRoomStore = create<GameState>((set, get) => ({
@@ -46,7 +48,7 @@ export const useRoomStore = create<GameState>((set, get) => ({
           status: event.room.status,
           players: event.room.players,
           round: event.room.round,
-          secondsPerTurn: event.room.secondsPerTurn,
+          secondsPerTurn: event.room.config.secondsPerTurn,
         });
         break;
 
@@ -67,9 +69,11 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "your_turn":
         set({
-          prevSentence: Array.isArray(event.prevSentence)
-            ? event.prevSentence.map((s) => s.content)
-            : event.prevSentence?.content,
+          prevSentence: event.prevSentence?.map((s) => ({
+            sentence: s.content,
+            twist: s.twist?.content,
+          })) ?? null,
+          twistsToChoose: event.twistsToChoose || null,
         });
         break;
 
@@ -107,8 +111,8 @@ export const useRoomStore = create<GameState>((set, get) => ({
     ws.send(JSON.stringify(event));
   },
 
-  submitSentence(ws: WebSocket, content: string) {
-    const event: ClientEvent = { type: "submit_sentence", content };
+  submitSentence(ws: WebSocket, content: string, twistId?: string) {
+    const event: ClientEvent = { type: "submit_sentence", content, twistId };
     ws.send(JSON.stringify(event));
   },
 

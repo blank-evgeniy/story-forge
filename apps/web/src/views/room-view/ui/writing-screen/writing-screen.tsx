@@ -1,11 +1,11 @@
 import { useRoomStore } from "../../model/use-room-store";
 import { WritingScreenTimer } from "./writing-screen-timer";
 import { WritingScreenStory } from "./writing-screen-story";
-import { WritingScreenInput } from "./writing-screen-input";
 import { WritingScreenPlayers } from "./writing-screen-players";
+import { WritingScreenSubmit } from "./writing-screen-submit";
 
 type WritingScreenProps = {
-  onSubmit: (content: string) => void;
+  onSubmit: (content: string, twistId?: string) => void;
 };
 
 export function WritingScreen({ onSubmit }: WritingScreenProps) {
@@ -16,6 +16,7 @@ export function WritingScreen({ onSubmit }: WritingScreenProps) {
     players,
     prevSentence,
     secondsPerTurn,
+    twistsToChoose,
   } = useRoomStore();
 
   return (
@@ -29,7 +30,11 @@ export function WritingScreen({ onSubmit }: WritingScreenProps) {
 
       <WritingScreenStory story={prevSentence} />
 
-      <WritingScreenInput onSubmit={onSubmit} isFirstRound={round === 1} />
+      <WritingScreenSubmit
+        isFirstRound={round === 1}
+        twistsToChoose={twistsToChoose}
+        onSubmit={onSubmit}
+      />
 
       <WritingScreenPlayers players={players} submitted={submitted} />
     </div>

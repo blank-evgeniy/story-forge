@@ -1,7 +1,10 @@
 export type CreateRoomDTO = {
   playerId: string;
-  secondsPerTurn: number;
-  blindMode: boolean;
+  config: {
+    secondsPerTurn: number;
+    blindMode: boolean;
+    enableTwists: boolean;
+  };
 };
 
 export type CreateRoomResponseDTO = {

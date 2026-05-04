@@ -1,13 +1,16 @@
+import { Fragment } from "react/jsx-runtime";
+
 import { BookOpenIcon } from "lucide-react";
+import type { PrevSentence } from "../../model/types";
+import { PlayerMessage } from "../common/player-message";
+import { TwistMessage } from "../common/twist-message";
 
 type WritingScreenStoryProps = {
-  story: string[] | string | null;
+  story: PrevSentence[] | null;
 };
 
 export function WritingScreenStory({ story }: WritingScreenStoryProps) {
   if (!story) return null;
-
-  const sentences = typeof story === "string" ? [story] : story;
 
   return (
     <div className="w-full rounded-xl border border-border bg-muted/30 px-5 py-4">
@@ -18,14 +21,11 @@ export function WritingScreenStory({ story }: WritingScreenStoryProps) {
         </span>
       </div>
       <div className="flex flex-col gap-2">
-        {sentences.map((sentence, index) => (
-          <div key={index} className="flex justify-start">
-            <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-muted px-4 py-2.5">
-              <p className="text-sm leading-relaxed text-foreground/90">
-                {sentence}
-              </p>
-            </div>
-          </div>
+        {story.map((item, index) => (
+          <Fragment key={index}>
+            {item.twist && <TwistMessage message={item.twist} />}
+            <PlayerMessage message={item.sentence} />
+          </Fragment>
         ))}
       </div>
     </div>

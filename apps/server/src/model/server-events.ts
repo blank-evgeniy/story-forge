@@ -1,5 +1,5 @@
 import { SerializedRoom } from "../game/utils/serializeRoom";
-import { Sentence, StoryThread } from "./state";
+import { Sentence, StoryThread, Twist } from "./state";
 
 export type ErrorEvent = {
   type: "error";
@@ -31,7 +31,8 @@ export type IterationStartedEvent = {
 
 export type YourTurnEvent = {
   type: "your_turn";
-  prevSentence: Sentence | Sentence[] | null;
+  prevSentence: Sentence[] | null;
+  twistsToChoose?: Twist[];
 };
 
 export type PlayerSubmittedEvent = {

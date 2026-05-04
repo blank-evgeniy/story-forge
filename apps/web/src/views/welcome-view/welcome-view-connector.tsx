@@ -14,13 +14,15 @@ export function WelcomeViewConnector() {
 
   const handleCreateRoom = (data: CreateRoomSchema) => {
     if (!playerId) return;
-    console.log(data);
 
     mutate(
       {
         playerId,
-        blindMode: data.blindMode,
-        secondsPerTurn: Number(data.roundTime),
+        config: {
+          secondsPerTurn: Number(data.roundTime),
+          blindMode: data.blindMode,
+          enableTwists: data.enableTwists,
+        },
       },
       {
         onSuccess: (data) => {

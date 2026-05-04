@@ -8,12 +8,24 @@ export const mapStories = (
   storyThreads: StoryThreadDto[],
 ): Story[] => {
   const stories: Story[] = storyThreads.map((thread) => ({
-    sentences: thread.sentences.map((s) => ({
-      content: s.content,
-      playerName:
-        players.find((player) => player.id === s.playerId)?.username ??
-        PLAYER_NAME_PLACEHOLDER,
-    })),
+    sentences: thread.sentences.flatMap((s) => {
+      const sentence = {
+        content: s.content,
+        playerName:
+          players.find((player) => player.id === s.playerId)?.username ??
+          PLAYER_NAME_PLACEHOLDER,
+        type: "player" as const,
+      };
+
+      if (s.twist) {
+        return [
+          { type: "twist" as const, content: s.twist.content, id: s.twist.id },
+          sentence,
+        ];
+      }
+
+      return [sentence];
+    }),
     playerName:
       players.find((player) => player.id === thread.ownerId)?.username ??
       PLAYER_NAME_PLACEHOLDER,

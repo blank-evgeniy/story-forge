@@ -9,14 +9,15 @@ const MAX_LENGTH = 200;
 type WritingScreenInputProps = {
   onSubmit: (content: string) => void;
   isFirstRound: boolean;
+  isSubmitted?: boolean;
 };
 
 export function WritingScreenInput({
   onSubmit,
   isFirstRound,
+  isSubmitted,
 }: WritingScreenInputProps) {
   const [content, setContent] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -25,7 +26,6 @@ export function WritingScreenInput({
   const handleSubmit = () => {
     if (isSubmitted || !content.trim()) return;
 
-    setIsSubmitted(true);
     onSubmit(content);
   };
 
@@ -67,7 +67,7 @@ export function WritingScreenInput({
         className="resize-none min-h-24"
         autoFocus
       />
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <span
           className={cn(
             "text-xs text-muted-foreground transition-colors",

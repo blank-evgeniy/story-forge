@@ -1,5 +1,6 @@
 import { RoomState } from "../../model/state";
 import { roomManager } from "../room-manager";
+import { pickThreeTwists, shouldShowTwist } from "../twist";
 import { getSortedPlayers } from "../utils/getSortedPlayers";
 import { getStoryIndex } from "../utils/getStoryIndex";
 import { onRoundEnd } from "./onRoundEnd";
@@ -11,20 +12,25 @@ export function onRoundStart(room: RoomState) {
     type: "iteration_started",
     round: room.round,
     totalRounds: room.totalRounds || room.players.size,
-    timer: room.secondsPerTurn,
+    timer: room.config.secondsPerTurn,
   });
 
   const players = getSortedPlayers(room);
   players.forEach((player) => {
+    const showTwist =
+      room.config.enableTwists &&
+      shouldShowTwist(room.round, room.totalRounds || room.players.size);
+
     roomManager.send(room, player.id, {
       type: "your_turn",
-      prevSentence: getSentence(room, player.turnOrder, room.blindMode),
+      prevSentence: getSentence(room, player.turnOrder, room.config.blindMode),
+      twistsToChoose: showTwist ? pickThreeTwists() : undefined,
     });
   });
 
   room.timer = setTimeout(() => {
     autoSubmitMissing(room);
-  }, room.secondsPerTurn * 1000);
+  }, room.config.secondsPerTurn * 1000);
 }
 
 function autoSubmitMissing(room: RoomState) {
@@ -33,7 +39,11 @@ function autoSubmitMissing(room: RoomState) {
   players.forEach((player) => {
     if (room.submitted.has(player.id) || !player.connected) return;
 
-    const storyIndex = getStoryIndex(player.turnOrder, room.round, players.length);
+    const storyIndex = getStoryIndex(
+      player.turnOrder,
+      room.round,
+      players.length,
+    );
     room.stories[storyIndex].sentences.push({
       playerId: player.id,
       content: "...",
@@ -61,7 +71,9 @@ function getSentence(room: RoomState, playerOrder: number, blindMode: boolean) {
   const currentStory = room.stories[storyIndex];
   const currentStoryLength = currentStory.sentences.length;
 
+  const lastSentence = currentStory.sentences[currentStoryLength - 1];
+
   return blindMode
-    ? currentStory.sentences[currentStoryLength - 1]
+    ? [{ ...lastSentence, twist: undefined }]
     : currentStory.sentences;
 }

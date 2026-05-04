@@ -1,6 +1,5 @@
 import { ElysiaWS } from "elysia/dist/ws";
 import { ClientEvent } from "../model/client-events";
-import { Player } from "../model/state";
 import { roomManager } from "./room-manager";
 import { onStartGame } from "./handlers/onStartGame";
 import { onSubmitSentence } from "./handlers/onSubmitSentence";

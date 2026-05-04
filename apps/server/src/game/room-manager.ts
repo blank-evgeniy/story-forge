@@ -1,5 +1,5 @@
 import { ServerEvent } from "../model/server-events";
-import { RoomState } from "../model/state";
+import { RoomConfig, RoomState } from "../model/state";
 import { generateRoomCode } from "./utils/generateRoomCode";
 
 export class RoomManager {
@@ -13,7 +13,7 @@ export class RoomManager {
     return this.rooms.values();
   }
 
-  create(hostId: string, secondsPerTurn: number, blindMode: boolean): string {
+  create(hostId: string, config: RoomConfig): string {
     const code = generateRoomCode();
 
     this.rooms.set(code, {
@@ -22,11 +22,10 @@ export class RoomManager {
       status: "lobby",
       players: new Map(),
       round: 1,
-      secondsPerTurn,
       stories: [],
       submitted: new Set(),
       timer: null,
-      blindMode,
+      config,
     });
 
     return code;

@@ -1,6 +1,6 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-export type RoomStatus = "lobby" | "writing" | "between" | "reveal";
+export type RoomStatus = "lobby" | "writing" | "reveal";
 
 export interface Player {
   id: string;
@@ -16,22 +16,36 @@ export interface StoryThread {
   sentences: Sentence[];
 }
 
-export interface Sentence {
+export interface PlayerSentence {
   playerId: string;
   content: string;
   wasTimeout: boolean;
+}
+
+export type Twist = {
+  id: string;
+  content: string;
+};
+
+export type Sentence = PlayerSentence & {
+  twist?: Twist;
+};
+
+export interface RoomConfig {
+  secondsPerTurn: number;
+  blindMode: boolean;
+  enableTwists: boolean;
 }
 
 export interface RoomState {
   code: string;
   status: RoomStatus;
   hostId: string;
-  secondsPerTurn: number;
   players: Map<string, Player>; // playerId → Player (с ws-соединением)
   stories: StoryThread[]; // одна история на каждого игрока
   round: number; // текущая итерация, 0-based
   totalRounds?: number;
   submitted: Set<string>; // playerId тех, кто уже сдал
   timer: ReturnType<typeof setTimeout> | null;
-  blindMode: boolean;
+  config: RoomConfig;
 }
