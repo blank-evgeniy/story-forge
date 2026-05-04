@@ -186,18 +186,21 @@ timer: number          - длительность раунда в миллисе
 
 ```
 type: "your_turn"
-prevSentence: null | Sentence | Sentence[]
-twistsToChoose: Twist[]
+prevSentence: Sentence[] | null
+twistsToChoose?: Twist[]
 
 Sentence: {
   playerId: string
   content: string
   wasTimeout: boolean
-  twist?: string
+  twist?: {
+    id: string
+    content: string
+  }
 }
 
 Twist: {
-  twistId: string
+  id: string
   content: string
 }
 ```
@@ -250,6 +253,10 @@ stories: Array<{
     playerId: string
     content: string
     wasTimeout: boolean
+    twist?: {
+      id: string
+      content: string
+    }
   }>
 }>
 ```
