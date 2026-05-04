@@ -25,7 +25,10 @@ export function onSubmitSentence(
 
   room.stories[storyIndex].sentences.push({
     content: event.content,
-    twist: event.twistId ? getTwistById(event.twistId) : undefined,
+    twist:
+      room.config.enableTwists && event.twistId
+        ? getTwistById(event.twistId)
+        : undefined,
     playerId,
     wasTimeout: false,
   });
