@@ -20,6 +20,7 @@ type GameData = {
   allStories: Story[];
   error: string | null;
   secondsPerTurn: number;
+  twistsToChoose: { id: string; content: string }[] | null;
 };
 
 export type GameState = GameData & GameActions;
@@ -34,6 +35,7 @@ const initialState: GameData = {
   allStories: [],
   error: null,
   secondsPerTurn: 60,
+  twistsToChoose: null,
 };
 
 export const useRoomStore = create<GameState>((set, get) => ({
@@ -46,7 +48,7 @@ export const useRoomStore = create<GameState>((set, get) => ({
           status: event.room.status,
           players: event.room.players,
           round: event.room.round,
-          secondsPerTurn: event.room.secondsPerTurn,
+          secondsPerTurn: event.room.config.secondsPerTurn,
         });
         break;
 
@@ -70,6 +72,7 @@ export const useRoomStore = create<GameState>((set, get) => ({
           prevSentence: Array.isArray(event.prevSentence)
             ? event.prevSentence.map((s) => s.content)
             : event.prevSentence?.content,
+          twistsToChoose: event.twistsToChoose || null,
         });
         break;
 
