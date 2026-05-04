@@ -4,8 +4,12 @@ import { roomManager } from "../room-manager";
 import { onRoundEnd } from "./onRoundEnd";
 import { getStoryIndex } from "../utils/getStoryIndex";
 import { getWsMeta } from "../utils/getWsMeta";
+import { getTwistById } from "../twist";
 
-export function onSubmitSentence(ws: ElysiaWS, event: { content: string }) {
+export function onSubmitSentence(
+  ws: ElysiaWS,
+  event: { content: string; twistId?: string },
+) {
   const { playerId, roomCode } = getWsMeta(ws);
 
   if (!playerId || !roomCode) return;
@@ -21,6 +25,7 @@ export function onSubmitSentence(ws: ElysiaWS, event: { content: string }) {
 
   room.stories[storyIndex].sentences.push({
     content: event.content,
+    twist: event.twistId ? getTwistById(event.twistId) : undefined,
     playerId,
     wasTimeout: false,
   });
