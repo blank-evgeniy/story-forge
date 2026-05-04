@@ -1,6 +1,6 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-export type RoomStatus = "lobby" | "writing" | "between" | "reveal";
+export type RoomStatus = "lobby" | "writing" | "reveal";
 
 export interface Player {
   id: string;
