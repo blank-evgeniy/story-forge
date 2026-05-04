@@ -71,7 +71,9 @@ function getSentence(room: RoomState, playerOrder: number, blindMode: boolean) {
   const currentStory = room.stories[storyIndex];
   const currentStoryLength = currentStory.sentences.length;
 
+  const lastSentence = currentStory.sentences[currentStoryLength - 1];
+
   return blindMode
-    ? currentStory.sentences[currentStoryLength - 1]
+    ? [{ ...lastSentence, twist: undefined }]
     : currentStory.sentences;
 }

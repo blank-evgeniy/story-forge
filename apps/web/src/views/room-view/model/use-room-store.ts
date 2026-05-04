@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
-import type { Player, Story, TwistsSet } from "./types";
+import type { Player, PrevSentence, Story, TwistsSet } from "./types";
 
 type GameActions = {
   handleEvent: (event: ServerEvent) => void;
@@ -16,7 +16,7 @@ type GameData = {
   round: number;
   totalRounds: number;
   submitted: Set<string>;
-  prevSentence: string | string[] | null;
+  prevSentence: PrevSentence[] | null;
   allStories: Story[];
   error: string | null;
   secondsPerTurn: number;
@@ -69,9 +69,10 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "your_turn":
         set({
-          prevSentence: Array.isArray(event.prevSentence)
-            ? event.prevSentence.map((s) => s.content)
-            : event.prevSentence?.content,
+          prevSentence: event.prevSentence?.map((s) => ({
+            sentence: s.content,
+            twist: s.twist?.content,
+          })) ?? null,
           twistsToChoose: event.twistsToChoose || null,
         });
         break;

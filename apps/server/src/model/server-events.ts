@@ -31,7 +31,7 @@ export type IterationStartedEvent = {
 
 export type YourTurnEvent = {
   type: "your_turn";
-  prevSentence: Sentence | Sentence[] | null;
+  prevSentence: Sentence[] | null;
   twistsToChoose?: Twist[];
 };
 

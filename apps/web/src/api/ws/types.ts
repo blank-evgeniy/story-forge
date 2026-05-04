@@ -105,7 +105,7 @@ export type IterationStartedEvent = {
 
 export type YourTurnEvent = {
   type: "your_turn";
-  prevSentence: SentenceDto | SentenceDto[] | null;
+  prevSentence: SentenceDto[] | null;
   twistsToChoose?: TwistDto[];
 };
 

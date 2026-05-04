@@ -27,3 +27,8 @@ export type TwistsSet = {
   id: string;
   content: string;
 }[];
+
+export type PrevSentence = {
+  sentence: string;
+  twist?: string;
+};
