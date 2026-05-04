@@ -20,9 +20,9 @@ export function WelcomeViewConnector() {
       {
         playerId,
         config: {
-          blindMode: data.blindMode,
-          enableTwists: true,
           secondsPerTurn: Number(data.roundTime),
+          blindMode: data.blindMode,
+          enableTwists: data.enableTwists,
         },
       },
       {

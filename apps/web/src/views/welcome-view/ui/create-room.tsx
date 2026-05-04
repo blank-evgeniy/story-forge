@@ -29,11 +29,13 @@ type CreateRoomProps = {
 export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
   const [roundTime, setRoundTime] = useState<RoundTime>("60");
   const [enableBlind, setEnableBlind] = useState(true);
+  const [enableTwists, setEnableTwists] = useState(true);
 
   const handleSubmit = () => {
     onCreate({
       blindMode: enableBlind,
       roundTime,
+      enableTwists,
     });
   };
 
@@ -76,6 +78,19 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
               <FieldDescription>
                 Blind Mode - режим, в котором игрокам видно только последнее
                 сообщение при написании историию.
+              </FieldDescription>
+
+              <div className="flex items-center space-x-2">
+                <Switch
+                  checked={enableTwists}
+                  onCheckedChange={setEnableTwists}
+                  id="enable-twists"
+                />
+                <Label htmlFor="enable-twists">Твисты</Label>
+              </div>
+              <FieldDescription>
+                Твисты - это неожиданные события, которые могут произойти в
+                середине игры и изменить ход истории.
               </FieldDescription>
             </Field>
           </FieldGroup>
