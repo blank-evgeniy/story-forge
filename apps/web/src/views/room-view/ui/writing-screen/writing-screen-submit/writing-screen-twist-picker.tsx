@@ -1,4 +1,4 @@
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, ZapIcon } from "lucide-react";
 import type { TwistsSet } from "../../../model/types";
 import { cn } from "@/lib/utils";
 
@@ -24,9 +24,12 @@ export function WritingScreenTwistPicker({
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-sm font-medium">
-        Выберите твист для этого раунда (необязательно)
-      </h3>
+      <div className="flex gap-2 items-center">
+        <ZapIcon className="size-3.5 text-primary" />
+        <h3 className="text-sm text-muted-foreground font-medium">
+          Выберите твист для этого раунда (необязательно)
+        </h3>
+      </div>
 
       <ul className="flex flex-col gap-2">
         {twists.map((twist) => (
@@ -65,7 +68,7 @@ function TwistPickerButton({
       type="button"
       aria-pressed={isPicked}
       className={cn(
-        "w-full rounded-lg border px-4 py-2 flex gap-4 items-center disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
+        "w-full rounded-lg text-sm border px-4 py-2 flex gap-4 items-center disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
         isPicked
           ? "border-primary bg-primary/10"
           : "border-muted hover:bg-muted/50",

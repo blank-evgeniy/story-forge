@@ -46,7 +46,6 @@ export const MiddleRound: Story = {
         },
         {
           sentence: "Оно двигалось быстро, оставляя за собой серебристый след.",
-          twist: "Внезапно начался сильный шторм",
         },
       ],
       secondsPerTurn: 60,
