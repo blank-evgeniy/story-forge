@@ -1,6 +1,9 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
 import type { Player } from "../../../model/types";
+import {
+  PlayerCard,
+  PlayerCardAvatar,
+  PlayerCardTitle,
+} from "../../common/player-card";
 
 type WritingScreenPlayersProps = {
   players: Player[];
@@ -12,31 +15,19 @@ export function WritingScreenPlayers({
   submitted,
 }: WritingScreenPlayersProps) {
   return (
-    <div className="flex items-center gap-3 flex-wrap">
+    <ul className="flex items-center gap-4 flex-wrap">
       {players.map((player) => {
         const hasSubmitted = submitted.has(player.id);
-        const initials = player.username.slice(0, 2).toUpperCase();
 
         return (
-          <div key={player.id} className="flex flex-col items-center gap-1">
-            <Avatar size="lg">
-              <AvatarFallback
-                className={cn(
-                  "font-medium transition-colors duration-300",
-                  hasSubmitted
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground grayscale",
-                )}
-              >
-                {initials}
-              </AvatarFallback>
-            </Avatar>
-            <span className="text-xs text-muted-foreground max-w-12 truncate">
-              {player.username}
-            </span>
-          </div>
+          <li key={player.id}>
+            <PlayerCard playerName={player.username} direction="vertical">
+              <PlayerCardAvatar variant={hasSubmitted ? "accent" : "default"} />
+              <PlayerCardTitle size="sm" />
+            </PlayerCard>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 }
