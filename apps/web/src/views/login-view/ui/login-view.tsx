@@ -8,16 +8,15 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { useUserStore } from "@/store/user";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useNavigate, useSearch } from "@tanstack/react-router";
 
-export function LoginView() {
+type LoginViewProps = {
+  onLogin: (username: string) => void;
+};
+
+export function LoginView({ onLogin }: LoginViewProps) {
   const [username, setUsername] = useState("");
-  const { login } = useUserStore();
-  const navigate = useNavigate();
-  const { redirect } = useSearch({ from: "/login" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -25,18 +24,14 @@ export function LoginView() {
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const trimmedUsername = username.trim();
 
-    if (!username.trim()) {
-      toast.error("Введите никнейм");
+    if (!trimmedUsername || trimmedUsername.length < 2) {
+      toast.error("Введите никнейм из минимум 2 символов");
       return;
     }
 
-    login(username.trim());
-    if (redirect) {
-      window.location.href = redirect;
-    } else {
-      navigate({ to: "/" });
-    }
+    onLogin(trimmedUsername);
   };
 
   return (

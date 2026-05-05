@@ -1,1 +1,1 @@
-export { LoginView } from "./ui/login-view";
+export { LoginViewConnector } from "./login-view-connector";

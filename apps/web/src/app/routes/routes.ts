@@ -1,4 +1,4 @@
-import { LoginView } from "@/views/login-view";
+import { LoginViewConnector } from "@/views/login-view";
 import { WelcomeViewConnector } from "@/views/welcome-view";
 import {
   createRootRoute,
@@ -19,7 +19,7 @@ const rootRoute = createRootRoute({
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
-  component: LoginView,
+  component: LoginViewConnector,
   validateSearch: (search: Record<string, unknown>) => ({
     redirect: (search.redirect as string) ?? undefined,
   }),
