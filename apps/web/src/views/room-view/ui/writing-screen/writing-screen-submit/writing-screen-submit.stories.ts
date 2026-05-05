@@ -26,8 +26,8 @@ export const RoundWithTwists: Story = {
   args: {
     isFirstRound: false,
     twistsToChoose: [
-      { id: "1", content: "Twist 1" },
-      { id: "2", content: "Twist 2" },
+      { id: "1", content: "Незнакомец оказался старым другом" },
+      { id: "2", content: "Внезапно начался сильный шторм" },
     ],
     onSubmit: fn(),
   },

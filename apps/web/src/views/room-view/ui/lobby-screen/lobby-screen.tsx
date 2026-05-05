@@ -26,6 +26,7 @@ const rules = [
 
 export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
   const players = useRoomStore((store) => store.players);
+
   return (
     <div className="flex-1 flex lg:flex-row flex-col-reverse items-start gap-6 lg:py-12 py-4">
       <Card className="lg:w-1/3 w-full">

@@ -1,9 +1,9 @@
 import { Fragment } from "react/jsx-runtime";
 
 import { BookOpenIcon } from "lucide-react";
-import type { PrevSentence } from "../../model/types";
-import { PlayerMessage } from "../common/player-message";
-import { TwistMessage } from "../common/twist-message";
+import type { PrevSentence } from "../../../model/types";
+import { PlayerMessage } from "../../common/player-message";
+import { TwistMessage } from "../../common/twist-message";
 
 type WritingScreenStoryProps = {
   story: PrevSentence[] | null;

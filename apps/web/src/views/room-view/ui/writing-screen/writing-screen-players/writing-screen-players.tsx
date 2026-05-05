@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import type { Player } from "../../model/types";
+import type { Player } from "../../../model/types";
 
 type WritingScreenPlayersProps = {
   players: Player[];

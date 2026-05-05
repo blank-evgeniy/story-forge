@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "motion/react";
 import { BookOpenIcon } from "lucide-react";
-import type { Story } from "../../model/types";
-import { PlayerMessage } from "../common/player-message";
-import { isPlayerSentence } from "../../model/type-guards";
-import { TwistMessage } from "../common/twist-message";
+import type { Story } from "../../../model/types";
+import { PlayerMessage } from "../../common/player-message";
+import { isPlayerSentence } from "../../../model/type-guards";
+import { TwistMessage } from "../../common/twist-message";
 
 type RevealScreenStoryProps = {
   story: Story;
