@@ -18,7 +18,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import type { CreateRoomSchema, RoundTime } from "../model/types";
+import type { CreateRoomSchema, RoundTime } from "../../model/types";
 import { useState } from "react";
 
 type CreateRoomProps = {
@@ -58,6 +58,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
               <ToggleGroup
                 value={[roundTime]}
                 onValueChange={(value) => setRoundTime(value[0] as RoundTime)}
+                disabled={isLoading}
               >
                 <ToggleGroupItem value="30">30</ToggleGroupItem>
                 <ToggleGroupItem value="60">60</ToggleGroupItem>
@@ -72,6 +73,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
                   checked={enableBlind}
                   onCheckedChange={setEnableBlind}
                   id="airplane-mode"
+                  disabled={isLoading}
                 />
                 <Label htmlFor="airplane-mode">Blind Mode</Label>
               </div>
@@ -85,6 +87,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
                   checked={enableTwists}
                   onCheckedChange={setEnableTwists}
                   id="enable-twists"
+                  disabled={isLoading}
                 />
                 <Label htmlFor="enable-twists">Твисты</Label>
               </div>
