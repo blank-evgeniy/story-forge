@@ -26,6 +26,7 @@ export const OnePlayer: Story = {
   beforeEach() {
     useRoomStore.setState({
       players: [{ id: "1", username: "Алиса" }],
+      isHost: true,
     });
   },
 };
@@ -37,6 +38,7 @@ export const ReadyToStart: Story = {
         { id: "1", username: "Алиса" },
         { id: "2", username: "Борис" },
       ],
+      isHost: true,
     });
   },
 };
@@ -52,6 +54,7 @@ export const FullLobby: Story = {
         { id: "5", username: "Женя" },
         { id: "6", username: "Фёдор" },
       ],
+      isHost: false,
     });
   },
 };

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
 import type { Player, PrevSentence, Story, TwistsSet } from "./types";
+import { useUserStore } from "@/store/user";
 
 type GameActions = {
   handleEvent: (event: ServerEvent) => void;
@@ -13,6 +14,7 @@ type GameActions = {
 type GameData = {
   status: "idle" | "lobby" | "writing" | "reveal";
   players: Player[];
+  isHost: boolean;
   round: number;
   totalRounds: number;
   submitted: Set<string>;
@@ -36,6 +38,7 @@ const initialState: GameData = {
   error: null,
   secondsPerTurn: 60,
   twistsToChoose: null,
+  isHost: false,
 };
 
 export const useRoomStore = create<GameState>((set, get) => ({
@@ -43,14 +46,19 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
   handleEvent(event: ServerEvent) {
     switch (event.type) {
-      case "room_state":
+      case "room_state": {
+        const currentUser = useUserStore.getState().user;
+        const userId = currentUser?.id;
+
         set({
           status: event.room.status,
           players: event.room.players,
           round: event.room.round,
           secondsPerTurn: event.room.config.secondsPerTurn,
+          isHost: event.room.hostId === userId,
         });
         break;
+      }
 
       case "player_joined":
         set({
@@ -69,10 +77,11 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "your_turn":
         set({
-          prevSentence: event.prevSentence?.map((s) => ({
-            sentence: s.content,
-            twist: s.twist?.content,
-          })) ?? null,
+          prevSentence:
+            event.prevSentence?.map((s) => ({
+              sentence: s.content,
+              twist: s.twist?.content,
+            })) ?? null,
           twistsToChoose: event.twistsToChoose || null,
         });
         break;

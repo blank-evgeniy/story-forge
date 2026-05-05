@@ -1,16 +1,20 @@
+import { QRCodeSVG } from "qrcode.react";
+import { BookOpenIcon, PenLineIcon } from "lucide-react";
+
+import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
+
+import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { BookOpenIcon, PenLineIcon } from "lucide-react";
+
 import { useRoomStore } from "../../model/use-room-store";
-import { QRCodeSVG } from "qrcode.react";
 
 import {
   PlayerCard,
   PlayerCardAvatar,
   PlayerCardTitle,
 } from "../common/player-card";
-import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
 
 type LobbyScreenProps = {
   onStartGame: () => void;
@@ -34,6 +38,7 @@ export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
   const breakpoints = useTwBreakpoints();
 
   const players = useRoomStore((store) => store.players);
+  const isHost = useRoomStore((store) => store.isHost);
 
   return (
     <div className="flex-1 flex lg:flex-row flex-col-reverse items-start gap-6 lg:py-12 py-4">
@@ -127,13 +132,19 @@ export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
           </div>
 
           <Separator />
-          <Button
-            className="w-full mt-auto"
-            disabled={players.length < 2}
-            onClick={onStartGame}
-          >
-            Начать игру
-          </Button>
+          {isHost ? (
+            <Button
+              className="w-full mt-auto"
+              disabled={players.length < 2}
+              onClick={onStartGame}
+            >
+              Начать игру
+            </Button>
+          ) : (
+            <p className="text-muted-foreground flex gap-2 justify-center items-center">
+              ждем, пока хост начнет игру <Spinner />
+            </p>
+          )}
         </CardContent>
       </Card>
     </div>
