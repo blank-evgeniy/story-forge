@@ -16,12 +16,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NoPlayers: Story = {
-  beforeEach() {
-    useRoomStore.setState({ players: [] });
-  },
-};
-
 export const OnePlayer: Story = {
   beforeEach() {
     useRoomStore.setState({

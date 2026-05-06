@@ -72,6 +72,7 @@ export const WithTwistInStory: Story = {
         },
       ],
       secondsPerTurn: 60,
+      twistsToChoose: null,
     });
   },
 };

@@ -16,7 +16,7 @@ export function StoriesHistoryViewer() {
       {assignSides(selectedStory.sentences).map(({ sentence, side }, index) =>
         isPlayerSentence(sentence) ? (
           <div
-            key={index}
+            key={`${sentence.playerName}-${index}`}
             className={cn(
               "flex flex-col items-start gap-0.5 w-full",
               side === "left" ? "self-start" : "self-end items-end",

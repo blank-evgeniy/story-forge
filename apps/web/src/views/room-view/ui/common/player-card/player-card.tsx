@@ -92,7 +92,7 @@ export function PlayerCardTitle({
     <span
       title={playerName}
       className={cn(
-        "text-muted-foreground truncate max-w-full",
+        "text-muted-foreground truncate block max-w-full",
         titleSizeStyles[size],
         className,
       )}

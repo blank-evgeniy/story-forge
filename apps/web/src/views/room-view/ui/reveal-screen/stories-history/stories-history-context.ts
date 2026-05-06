@@ -7,7 +7,9 @@ type StoriesHistoryContextValue = {
   onSelectStory: (story: Story) => void;
 };
 
-const StoriesHistoryContext = createContext<StoriesHistoryContextValue | null>(null);
+const StoriesHistoryContext = createContext<StoriesHistoryContextValue | null>(
+  null,
+);
 
 export function useStoriesHistory() {
   const ctx = useContext(StoriesHistoryContext);

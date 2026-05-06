@@ -13,7 +13,13 @@ type GameActions = {
 };
 
 type GameData = {
-  status: "idle" | "lobby" | "round_starting" | "writing" | "revealing" | "reveal";
+  status:
+    | "idle"
+    | "lobby"
+    | "round_starting"
+    | "writing"
+    | "revealing"
+    | "reveal";
   players: Player[];
   isHost: boolean;
   round: number;
@@ -52,6 +58,7 @@ export const useRoomStore = create<GameState>((set, get) => ({
         const userId = currentUser?.id;
 
         set({
+          ...initialState,
           status: event.room.status,
           players: event.room.players,
           round: event.room.round,

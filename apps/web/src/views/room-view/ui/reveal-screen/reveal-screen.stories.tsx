@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
 import { RevealScreen } from "./reveal-screen";
 import { useRoomStore } from "../../model/use-room-store";
@@ -41,7 +41,8 @@ const multipleStories = [
       {
         type: "player" as const,
         playerName: "Алиса",
-        content: "На рассвете пришло таинственное письмо, запечатанное чёрным воском.",
+        content:
+          "На рассвете пришло таинственное письмо, запечатанное чёрным воском.",
       },
       {
         type: "twist" as const,
@@ -62,8 +63,7 @@ const multipleStories = [
       {
         type: "player" as const,
         playerName: "Борис",
-        content:
-          "Карта вела их вглубь леса, мимо забытого колодца.",
+        content: "Карта вела их вглубь леса, мимо забытого колодца.",
       },
       {
         type: "player" as const,
@@ -80,8 +80,10 @@ const multipleStories = [
   },
 ];
 
-const withHeight = (Story: () => React.ReactNode) => (
-  <div className="flex flex-col min-h-screen p-6">{Story()}</div>
+const withHeight: Decorator = (Story) => (
+  <div className="flex flex-col min-h-screen p-6">
+    <Story />
+  </div>
 );
 
 const meta = {

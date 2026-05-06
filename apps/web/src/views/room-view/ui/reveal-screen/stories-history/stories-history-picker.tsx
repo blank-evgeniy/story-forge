@@ -11,9 +11,9 @@ export function StoriesHistoryPicker() {
         Хотите вспомнить истории игроков?
       </span>
       <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {stories.map((story, index) => (
+        {stories.map((story) => (
           <Button
-            key={index}
+            key={story.id}
             size="sm"
             variant={selectedStory?.id === story.id ? "default" : "outline"}
             className="shrink-0"

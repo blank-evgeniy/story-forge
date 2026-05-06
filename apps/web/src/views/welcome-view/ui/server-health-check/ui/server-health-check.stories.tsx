@@ -24,6 +24,6 @@ export const Online: Story = {
   render: () => <OnlineState />,
 };
 
-export const Error: Story = {
+export const ErrorStory: Story = {
   render: () => <ErrorState onRetry={fn()} />,
 };
