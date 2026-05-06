@@ -7,6 +7,7 @@ import { onRequestState } from "./handlers/onRequestState";
 import { getWsMeta } from "./utils/getWsMeta";
 import { socketMeta } from "../modules/ws";
 import { onJoinRoom } from "./handlers/onJoinRoom";
+import { EMPTY_ROOM_CLEANUP_DELAY_MS } from "./consts";
 
 export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
   switch (event.type) {
@@ -41,6 +42,6 @@ export function handleClose(ws: ElysiaWS) {
     setTimeout(() => {
       const stillEmpty = [...room.players.values()].every((p) => !p.connected);
       if (stillEmpty) roomManager.delete(roomCode);
-    }, 60_000);
+    }, EMPTY_ROOM_CLEANUP_DELAY_MS);
   }
 }

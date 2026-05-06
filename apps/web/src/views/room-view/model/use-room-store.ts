@@ -2,17 +2,26 @@ import { create } from "zustand";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
 import type { Player, PrevSentence, Story, TwistsSet } from "./types";
+import { useUserStore } from "@/store/user";
 
 type GameActions = {
   handleEvent: (event: ServerEvent) => void;
   startGame: (ws: WebSocket) => void;
   submitSentence: (ws: WebSocket, content: string, twistId?: string) => void;
+  startReveal: () => void;
   reset: () => void;
 };
 
 type GameData = {
-  status: "idle" | "lobby" | "writing" | "reveal";
+  status:
+    | "idle"
+    | "lobby"
+    | "round_starting"
+    | "writing"
+    | "revealing"
+    | "reveal";
   players: Player[];
+  isHost: boolean;
   round: number;
   totalRounds: number;
   submitted: Set<string>;
@@ -36,6 +45,7 @@ const initialState: GameData = {
   error: null,
   secondsPerTurn: 60,
   twistsToChoose: null,
+  isHost: false,
 };
 
 export const useRoomStore = create<GameState>((set, get) => ({
@@ -43,14 +53,20 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
   handleEvent(event: ServerEvent) {
     switch (event.type) {
-      case "room_state":
+      case "room_state": {
+        const currentUser = useUserStore.getState().user;
+        const userId = currentUser?.id;
+
         set({
+          ...initialState,
           status: event.room.status,
           players: event.room.players,
           round: event.room.round,
           secondsPerTurn: event.room.config.secondsPerTurn,
+          isHost: event.room.hostId === userId,
         });
         break;
+      }
 
       case "player_joined":
         set({
@@ -69,36 +85,37 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "your_turn":
         set({
-          prevSentence: event.prevSentence?.map((s) => ({
-            sentence: s.content,
-            twist: s.twist?.content,
-          })) ?? null,
+          prevSentence:
+            event.prevSentence?.map((s) => ({
+              sentence: s.content,
+              twist: s.twist?.content,
+            })) ?? null,
           twistsToChoose: event.twistsToChoose || null,
         });
         break;
 
       case "iteration_started":
-        set({
-          round: event.round,
-          totalRounds: event.totalRounds,
-          status: "writing",
-        });
+        set({ status: "writing" });
         break;
 
       case "iteration_ended":
-        set({ submitted: new Set() });
+        set({
+          submitted: new Set(),
+          round: event.nextRound,
+          totalRounds: event.totalRounds,
+          status: "round_starting",
+        });
         break;
 
       case "player_submitted":
         set({ submitted: new Set(get().submitted).add(event.playerId) });
         break;
 
-      case "all_revealed":
-        set({
-          status: "reveal",
-          allStories: mapStories(get().players, event.stories),
-        });
+      case "all_revealed": {
+        const stories = mapStories(get().players, event.stories);
+        set({ status: "revealing", allStories: stories });
         break;
+      }
 
       case "error":
         set({ error: event.message });
@@ -115,6 +132,8 @@ export const useRoomStore = create<GameState>((set, get) => ({
     const event: ClientEvent = { type: "submit_sentence", content, twistId };
     ws.send(JSON.stringify(event));
   },
+
+  startReveal: () => set({ status: "reveal" }),
 
   reset: () => set(initialState),
 }));

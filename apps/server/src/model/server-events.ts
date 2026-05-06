@@ -42,6 +42,8 @@ export type PlayerSubmittedEvent = {
 
 export type IterationEndedEvent = {
   type: "iteration_ended";
+  nextRound: number;
+  totalRounds: number;
 };
 
 export type AllRevealedEvent = {

@@ -1,10 +1,20 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { QRCodeSVG } from "qrcode.react";
+import { BookOpenIcon, PenLineIcon } from "lucide-react";
+
+import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
+
+import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { BookOpenIcon, PenLineIcon } from "lucide-react";
+
 import { useRoomStore } from "../../model/use-room-store";
-import { QRCodeSVG } from "qrcode.react";
+
+import {
+  PlayerCard,
+  PlayerCardAvatar,
+  PlayerCardTitle,
+} from "../common/player-card";
 
 type LobbyScreenProps = {
   onStartGame: () => void;
@@ -25,7 +35,11 @@ const rules = [
 ];
 
 export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
+  const breakpoints = useTwBreakpoints();
+
   const players = useRoomStore((store) => store.players);
+  const isHost = useRoomStore((store) => store.isHost);
+
   return (
     <div className="flex-1 flex lg:flex-row flex-col-reverse items-start gap-6 lg:py-12 py-4">
       <Card className="lg:w-1/3 w-full">
@@ -38,17 +52,23 @@ export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <ul className="lg:flex flex-col grid grid-cols-4 gap-3">
+          <ul className="lg:flex flex-col grid grid-cols-4 sm:grid-cols-6 gap-3">
             {players.map((player) => (
-              <li key={player.id} className="flex items-center gap-3">
-                <Avatar size="lg">
-                  <AvatarFallback>
-                    {player.username.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <span className="text-sm font-medium hidden lg:inline truncate">
-                  {player.username}
-                </span>
+              <li
+                key={player.id}
+                className="flex w-full items-center justify-center lg:justify-start"
+              >
+                <PlayerCard
+                  playerName={player.username}
+                  direction={
+                    breakpoints.smaller("lg") ? "vertical" : "horizontal"
+                  }
+                >
+                  <PlayerCardAvatar />
+                  <PlayerCardTitle
+                    size={breakpoints.smaller("lg") ? "sm" : "md"}
+                  />
+                </PlayerCard>
               </li>
             ))}
           </ul>
@@ -112,13 +132,19 @@ export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
           </div>
 
           <Separator />
-          <Button
-            className="w-full mt-auto"
-            disabled={players.length < 2}
-            onClick={onStartGame}
-          >
-            Начать игру
-          </Button>
+          {isHost ? (
+            <Button
+              className="w-full mt-auto"
+              disabled={players.length < 2}
+              onClick={onStartGame}
+            >
+              Начать игру
+            </Button>
+          ) : (
+            <p className="text-muted-foreground flex gap-2 justify-center items-center">
+              ждем, пока хост начнет игру <Spinner />
+            </p>
+          )}
         </CardContent>
       </Card>
     </div>
