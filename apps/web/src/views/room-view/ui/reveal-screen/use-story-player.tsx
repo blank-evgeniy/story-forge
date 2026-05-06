@@ -55,5 +55,11 @@ export function useStoryPlayer() {
     };
   }, [msgIdx, storyIdx, finished, currentStory.sentences, stories.length]);
 
-  return { currentStory, shown: msgIdx + 1, finished, storyIdx };
+  return {
+    allStories: stories,
+    currentStory,
+    shown: msgIdx + 1,
+    finished,
+    storyIdx,
+  };
 }
