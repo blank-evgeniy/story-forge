@@ -28,7 +28,7 @@ export function RevealScreenStory({ shown, story }: RevealScreenStoryProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
               className={cn(
-                "flex flex-col items-start gap-0.5 max-w-full",
+                "flex flex-col items-start gap-0.5 w-full",
                 side === "left" ? "self-start" : "self-end items-end",
               )}
             >
