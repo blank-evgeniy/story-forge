@@ -31,6 +31,11 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
   const [enableBlind, setEnableBlind] = useState(true);
   const [enableTwists, setEnableTwists] = useState(true);
 
+  const handleRoundTimeChange = (value: string[]) => {
+    if (value.length === 0) return;
+    setRoundTime(value[0] as RoundTime);
+  };
+
   const handleSubmit = () => {
     onCreate({
       blindMode: enableBlind,
@@ -57,7 +62,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
               <FieldLabel>Время раунда (сек.)</FieldLabel>
               <ToggleGroup
                 value={[roundTime]}
-                onValueChange={(value) => setRoundTime(value[0] as RoundTime)}
+                onValueChange={handleRoundTimeChange}
                 disabled={isLoading}
               >
                 <ToggleGroupItem value="30">30</ToggleGroupItem>
