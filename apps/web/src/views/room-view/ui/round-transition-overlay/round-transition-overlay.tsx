@@ -41,7 +41,7 @@ export function RoundTransitionOverlay() {
           style={{ transformOrigin: "left" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 3, ease: "linear" }}
+          transition={{ duration: 2, ease: "linear" }}
         />
       </div>
     </motion.div>
