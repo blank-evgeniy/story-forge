@@ -1,5 +1,6 @@
 import { RoomState } from "../../model/state";
 import { roomManager } from "../room-manager";
+import { TURN_TIMER_BUFFER_MS } from "../consts";
 import { pickThreeTwists, shouldShowTwist } from "../twist";
 import { getSortedPlayers } from "../utils/getSortedPlayers";
 import { getStoryIndex } from "../utils/getStoryIndex";
@@ -28,9 +29,12 @@ export function onRoundStart(room: RoomState) {
     });
   });
 
-  room.timer = setTimeout(() => {
-    autoSubmitMissing(room);
-  }, room.config.secondsPerTurn * 1000);
+  room.timer = setTimeout(
+    () => {
+      autoSubmitMissing(room);
+    },
+    room.config.secondsPerTurn * 1000 + TURN_TIMER_BUFFER_MS,
+  );
 }
 
 function autoSubmitMissing(room: RoomState) {

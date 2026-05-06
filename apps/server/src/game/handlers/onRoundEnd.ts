@@ -1,5 +1,6 @@
 import { RoomState } from "../../model/state";
 import { roomManager } from "../room-manager";
+import { ROUND_TRANSITION_DELAY_MS } from "../consts";
 import { onRoundStart } from "./onRoundStart";
 
 export function onRoundEnd(room: RoomState) {
@@ -16,7 +17,9 @@ export function onRoundEnd(room: RoomState) {
 
   roomManager.broadcast(room, {
     type: "iteration_ended",
+    nextRound: room.round,
+    totalRounds: room.totalRounds || room.players.size,
   });
 
-  setTimeout(() => onRoundStart(room), 3000);
+  setTimeout(() => onRoundStart(room), ROUND_TRANSITION_DELAY_MS);
 }

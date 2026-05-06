@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
+import { REVEAL_TRANSITION_DURATION_MS } from "./consts";
 import type { Player, PrevSentence, Story, TwistsSet } from "./types";
 import { useUserStore } from "@/store/user";
 
@@ -12,7 +13,7 @@ type GameActions = {
 };
 
 type GameData = {
-  status: "idle" | "lobby" | "writing" | "reveal";
+  status: "idle" | "lobby" | "round_starting" | "writing" | "revealing" | "reveal";
   players: Player[];
   isHost: boolean;
   round: number;
@@ -87,27 +88,30 @@ export const useRoomStore = create<GameState>((set, get) => ({
         break;
 
       case "iteration_started":
-        set({
-          round: event.round,
-          totalRounds: event.totalRounds,
-          status: "writing",
-        });
+        set({ status: "writing" });
         break;
 
       case "iteration_ended":
-        set({ submitted: new Set() });
+        set({
+          submitted: new Set(),
+          round: event.nextRound,
+          totalRounds: event.totalRounds,
+          status: "round_starting",
+        });
         break;
 
       case "player_submitted":
         set({ submitted: new Set(get().submitted).add(event.playerId) });
         break;
 
-      case "all_revealed":
-        set({
-          status: "reveal",
-          allStories: mapStories(get().players, event.stories),
-        });
+      case "all_revealed": {
+        const stories = mapStories(get().players, event.stories);
+        set({ status: "revealing", allStories: stories });
+        setTimeout(() => {
+          if (get().status === "revealing") set({ status: "reveal" });
+        }, REVEAL_TRANSITION_DURATION_MS);
         break;
+      }
 
       case "error":
         set({ error: event.message });

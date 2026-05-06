@@ -1,5 +1,6 @@
 import { ElysiaWS } from "elysia/dist/ws";
 import { roomManager } from "../room-manager";
+import { ROUND_TRANSITION_DELAY_MS, MIN_PLAYERS_TO_START } from "../consts";
 import { onRoundStart } from "./onRoundStart";
 import { getWsMeta } from "../utils/getWsMeta";
 
@@ -11,7 +12,7 @@ export function onStartGame(ws: ElysiaWS) {
   const room = roomManager.get(roomCode);
   if (!room || room.status !== "lobby") return;
 
-  if (room.players.size < 2) {
+  if (room.players.size < MIN_PLAYERS_TO_START) {
     ws.send(JSON.stringify({ type: "error", message: "Недостаточно игроков" }));
     return;
   }
@@ -30,5 +31,11 @@ export function onStartGame(ws: ElysiaWS) {
   room.totalRounds = players.length;
   room.stories = newStories;
 
-  onRoundStart(room);
+  roomManager.broadcast(room, {
+    type: "iteration_ended",
+    nextRound: 1,
+    totalRounds: room.totalRounds,
+  });
+
+  setTimeout(() => onRoundStart(room), ROUND_TRANSITION_DELAY_MS);
 }

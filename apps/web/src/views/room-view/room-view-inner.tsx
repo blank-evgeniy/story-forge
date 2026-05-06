@@ -1,4 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
+import { AnimatePresence } from "motion/react";
 import { gameRoute } from "@/app/routes/routes";
 
 import { useUserStore } from "@/store/user";
@@ -8,6 +9,8 @@ import { useRoomStore } from "./model/use-room-store";
 import { LobbyScreen } from "./ui/lobby-screen";
 import { WritingScreen } from "./ui/writing-screen";
 import { RevealScreen } from "./ui/reveal-screen";
+import { RoundTransitionOverlay } from "./ui/round-transition-overlay";
+import { RevealTransitionOverlay } from "./ui/reveal-transition-overlay";
 
 export function RoomViewInner() {
   const navigate = useNavigate();
@@ -52,6 +55,11 @@ export function RoomViewInner() {
         <WritingScreen onSubmit={handleSubmitSentence} />
       )}
       {status === "reveal" && <RevealScreen onPlayMore={handlePlayMore} />}
+
+      <AnimatePresence>
+        {status === "round_starting" && <RoundTransitionOverlay />}
+        {status === "revealing" && <RevealTransitionOverlay />}
+      </AnimatePresence>
     </>
   );
 }
