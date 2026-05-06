@@ -2,8 +2,15 @@ import { useEffect, useRef, useState } from "react";
 
 import { useRoomStore } from "../../model/use-room-store";
 
-const MESSAGE_DELAY = 3000; // ms
-const STORY_OUT_DELAY = 5000; // ms
+const FIRST_SENTENCE_DELAY = 1200;
+const BASE_DELAY = 1500;
+const MS_PER_CHAR = 50;
+const MAX_DELAY = 8000;
+const STORY_OUT_DELAY = 5000;
+
+function getReadingDelay(content: string): number {
+  return Math.min(BASE_DELAY + content.length * MS_PER_CHAR, MAX_DELAY);
+}
 
 export function useStoryPlayer() {
   const stories = useRoomStore((store) => store.allStories);
@@ -19,7 +26,16 @@ export function useStoryPlayer() {
     if (finished) return;
 
     const isLastMessage = msgIdx === currentStory.sentences.length - 1;
-    const delay = isLastMessage ? STORY_OUT_DELAY : MESSAGE_DELAY;
+    const isFirstMessage = msgIdx === -1;
+
+    let delay: number;
+    if (isLastMessage) {
+      delay = STORY_OUT_DELAY;
+    } else if (isFirstMessage) {
+      delay = FIRST_SENTENCE_DELAY;
+    } else {
+      delay = getReadingDelay(currentStory.sentences[msgIdx].content);
+    }
 
     timeoutRef.current = setTimeout(() => {
       if (isLastMessage) {
@@ -37,13 +53,7 @@ export function useStoryPlayer() {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [
-    msgIdx,
-    storyIdx,
-    finished,
-    currentStory.sentences.length,
-    stories.length,
-  ]);
+  }, [msgIdx, storyIdx, finished, currentStory.sentences, stories.length]);
 
   return { currentStory, shown: msgIdx + 1, finished, storyIdx };
 }
