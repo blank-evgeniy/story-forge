@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { useRoomStore } from "../../model/use-room-store";
+import { REVEAL_TRANSITION_DURATION_MS } from "../../model/consts";
 
 const PHRASES = [
   "Листаем страницы...",
@@ -13,9 +15,15 @@ const PHRASES = [
 ];
 
 export function RevealTransitionOverlay() {
+  const startReveal = useRoomStore((s) => s.startReveal);
   const [phrase] = useState(
     () => PHRASES[Math.floor(Math.random() * PHRASES.length)],
   );
+
+  useEffect(() => {
+    const timer = setTimeout(startReveal, REVEAL_TRANSITION_DURATION_MS);
+    return () => clearTimeout(timer);
+  }, [startReveal]);
 
   return (
     <motion.div

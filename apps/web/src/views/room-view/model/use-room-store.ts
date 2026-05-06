@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
-import { REVEAL_TRANSITION_DURATION_MS } from "./consts";
 import type { Player, PrevSentence, Story, TwistsSet } from "./types";
 import { useUserStore } from "@/store/user";
 
@@ -9,6 +8,7 @@ type GameActions = {
   handleEvent: (event: ServerEvent) => void;
   startGame: (ws: WebSocket) => void;
   submitSentence: (ws: WebSocket, content: string, twistId?: string) => void;
+  startReveal: () => void;
   reset: () => void;
 };
 
@@ -107,9 +107,6 @@ export const useRoomStore = create<GameState>((set, get) => ({
       case "all_revealed": {
         const stories = mapStories(get().players, event.stories);
         set({ status: "revealing", allStories: stories });
-        setTimeout(() => {
-          if (get().status === "revealing") set({ status: "reveal" });
-        }, REVEAL_TRANSITION_DURATION_MS);
         break;
       }
 
@@ -128,6 +125,8 @@ export const useRoomStore = create<GameState>((set, get) => ({
     const event: ClientEvent = { type: "submit_sentence", content, twistId };
     ws.send(JSON.stringify(event));
   },
+
+  startReveal: () => set({ status: "reveal" }),
 
   reset: () => set(initialState),
 }));

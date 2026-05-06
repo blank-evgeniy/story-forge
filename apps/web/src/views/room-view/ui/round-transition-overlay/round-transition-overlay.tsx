@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { useRoomStore } from "../../model/use-room-store";
+import { ROUND_TRANSITION_DURATION_MS } from "../../model/consts";
 
 export function RoundTransitionOverlay() {
   const round = useRoomStore((s) => s.round);
@@ -41,7 +42,7 @@ export function RoundTransitionOverlay() {
           style={{ transformOrigin: "left" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 2, ease: "linear" }}
+          transition={{ duration: ROUND_TRANSITION_DURATION_MS / 1000, ease: "linear" }}
         />
       </div>
     </motion.div>

@@ -18,9 +18,9 @@ export function StoriesHistory({
   );
 
   const handleSelect = (story: Story) => {
-    setSelectedStory(story);
-
     if (story.id === selectedStory?.id) return;
+
+    setSelectedStory(story);
     onSelectedStoryChange?.(story);
   };
 
