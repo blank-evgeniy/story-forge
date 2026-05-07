@@ -27,7 +27,7 @@ export function HeaderMenu() {
 
   return (
     <Popover open={openMenu} onOpenChange={setOpenMenu}>
-      <PopoverTrigger render={<Button size={"icon"} variant="outline" />}>
+      <PopoverTrigger render={<Button size={"icon"} variant="ghost" />}>
         <MenuIcon />
       </PopoverTrigger>
       <PopoverContent align="end">

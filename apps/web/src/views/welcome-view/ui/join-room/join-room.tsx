@@ -6,11 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Field, FieldLabel } from "@/components/ui/field";
+import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 
@@ -30,9 +29,7 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">
-          Присоединиться к существующей игре
-        </CardTitle>
+        <CardTitle>Присоединиться к существующей игре</CardTitle>
       </CardHeader>
       <CardContent>
         <Field>
@@ -41,13 +38,13 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
             <InputOTPGroup>
               <InputOTPSlot index={0} />
               <InputOTPSlot index={1} />
-            </InputOTPGroup>
-            <InputOTPSeparator />
-            <InputOTPGroup>
               <InputOTPSlot index={2} />
               <InputOTPSlot index={3} />
             </InputOTPGroup>
           </InputOTP>
+          <FieldDescription>
+            Попросите хоста поделиться кодом комнаты
+          </FieldDescription>
         </Field>
       </CardContent>
       <CardFooter className="mt-auto">

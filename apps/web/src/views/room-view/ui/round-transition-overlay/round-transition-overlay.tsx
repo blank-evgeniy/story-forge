@@ -21,7 +21,7 @@ export function RoundTransitionOverlay() {
         exit={{ opacity: 0, scale: 0.92 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
-        <span className="text-[11px] font-semibold tracking-[0.3em] uppercase text-muted-foreground">
+        <span className="text-xs font-semibold tracking-(--tracking-display) uppercase text-muted-foreground">
           Раунд
         </span>
         <span className="text-[9rem] font-bold leading-none tabular-nums tracking-tight">

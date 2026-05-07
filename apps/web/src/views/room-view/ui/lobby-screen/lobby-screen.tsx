@@ -45,7 +45,7 @@ export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
       <Card className="lg:w-1/3 w-full">
         <CardHeader className="hidden lg:flex">
           <div className="flex items-center justify-between w-full">
-            <CardTitle className="text-lg font-semibold">Игроки</CardTitle>
+            <CardTitle>Игроки</CardTitle>
             <span className="text-2xl font-bold text-primary">
               {players.length}
             </span>
@@ -77,7 +77,7 @@ export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
 
       <Card className="flex-1 flex flex-col w-full">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold">Правила</CardTitle>
+          <CardTitle>Правила</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-6 flex-1">
           <div className="grid grid-cols-2 gap-4">
@@ -142,7 +142,7 @@ export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
             </Button>
           ) : (
             <p className="text-muted-foreground flex gap-2 justify-center items-center">
-              ждем, пока хост начнет игру <Spinner />
+              Ждем, пока хост начнет игру <Spinner />
             </p>
           )}
         </CardContent>

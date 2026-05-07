@@ -47,9 +47,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">
-          Создать новую игру
-        </CardTitle>
+        <CardTitle>Создать новую игру</CardTitle>
       </CardHeader>
       <CardContent>
         <FieldSet>

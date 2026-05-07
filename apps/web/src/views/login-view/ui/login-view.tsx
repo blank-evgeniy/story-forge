@@ -49,7 +49,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
 
         <Card className="shadow-md">
           <CardHeader className="pb-4">
-            <CardTitle className="text-lg">Добро пожаловать!</CardTitle>
+            <CardTitle>Добро пожаловать!</CardTitle>
             <CardDescription>Введите никнейм, чтобы начать</CardDescription>
           </CardHeader>
           <CardContent>
