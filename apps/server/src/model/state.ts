@@ -10,6 +10,15 @@ export interface Player {
   connected: boolean;
 }
 
+export function createPlayer(
+  ws: ElysiaWS,
+  id: string,
+  username: string,
+  turnOrder: number,
+): Player {
+  return { id, ws, username, turnOrder, connected: true };
+}
+
 export interface StoryThread {
   id: string;
   ownerId: string;
@@ -43,7 +52,7 @@ export interface RoomState {
   hostId: string;
   players: Map<string, Player>; // playerId → Player (с ws-соединением)
   stories: StoryThread[]; // одна история на каждого игрока
-  round: number; // текущая итерация, 0-based
+  round: number; // текущая итерация, 1-based
   totalRounds?: number;
   submitted: Set<string>; // playerId тех, кто уже сдал
   timer: ReturnType<typeof setTimeout> | null;

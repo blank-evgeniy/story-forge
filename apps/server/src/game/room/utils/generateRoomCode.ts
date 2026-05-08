@@ -1,4 +1,4 @@
-import { ROOM_CODE_LENGTH } from "../consts";
+import { ROOM_CODE_LENGTH } from "../../consts";
 
 export function generateRoomCode(): string {
   const digits = "0123456789";

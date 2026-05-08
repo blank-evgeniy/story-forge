@@ -1,13 +1,12 @@
 import { ElysiaWS } from "elysia/dist/ws";
+
 import { ClientEvent } from "../model/client-events";
-import { roomManager } from "./room-manager";
+
 import { onStartGame } from "./handlers/onStartGame";
 import { onSubmitSentence } from "./handlers/onSubmitSentence";
 import { onRequestState } from "./handlers/onRequestState";
-import { getWsMeta } from "./utils/getWsMeta";
-import { socketMeta } from "../modules/ws";
 import { onJoinRoom } from "./handlers/onJoinRoom";
-import { EMPTY_ROOM_CLEANUP_DELAY_MS } from "./consts";
+import { onClose } from "./handlers/onClose";
 
 export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
   switch (event.type) {
@@ -23,25 +22,5 @@ export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
 }
 
 export function handleClose(ws: ElysiaWS) {
-  const { playerId, roomCode } = getWsMeta(ws);
-
-  if (!playerId || !roomCode) return;
-  socketMeta.delete(ws.id);
-
-  const room = roomManager.get(roomCode);
-  if (!room) return;
-
-  const player = room.players.get(playerId);
-  if (player) player.connected = false;
-
-  roomManager.broadcast(room, { type: "player_left", playerId });
-
-  const anyoneLeft = [...room.players.values()].some((p) => p.connected);
-
-  if (!anyoneLeft) {
-    setTimeout(() => {
-      const stillEmpty = [...room.players.values()].every((p) => !p.connected);
-      if (stillEmpty) roomManager.delete(roomCode);
-    }, EMPTY_ROOM_CLEANUP_DELAY_MS);
-  }
+  onClose(ws);
 }
