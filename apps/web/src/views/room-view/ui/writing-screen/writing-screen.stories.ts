@@ -4,9 +4,9 @@ import { WritingScreen } from "./writing-screen";
 import { useRoomStore } from "../../model/use-room-store";
 
 const players = [
-  { id: "1", username: "Алиса" },
-  { id: "2", username: "Борис" },
-  { id: "3", username: "Света" },
+  { id: "1", username: "Алиса", connected: true },
+  { id: "2", username: "Борис", connected: true },
+  { id: "3", username: "Света", connected: false },
 ];
 
 const meta = {

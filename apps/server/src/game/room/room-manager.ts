@@ -1,5 +1,5 @@
-import { ServerEvent } from "../model/server-events";
-import { RoomConfig, RoomState } from "../model/state";
+import { ServerEvent } from "../../model/server-events";
+import { RoomConfig, RoomState } from "../../model/state";
 import { generateRoomCode } from "./utils/generateRoomCode";
 
 export class RoomManager {

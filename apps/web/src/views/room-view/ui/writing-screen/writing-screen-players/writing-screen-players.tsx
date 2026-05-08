@@ -21,7 +21,11 @@ export function WritingScreenPlayers({
 
         return (
           <li key={player.id}>
-            <PlayerCard playerName={player.username} direction="vertical">
+            <PlayerCard
+              playerName={player.username}
+              disconnected={!player.connected}
+              direction="vertical"
+            >
               <PlayerCardAvatar variant={hasSubmitted ? "accent" : "default"} />
               <PlayerCardTitle size="sm" />
             </PlayerCard>

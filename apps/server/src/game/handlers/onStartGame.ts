@@ -1,7 +1,7 @@
 import { ElysiaWS } from "elysia/dist/ws";
-import { roomManager } from "../room-manager";
+import { roomManager } from "../room/room-manager";
 import { ROUND_TRANSITION_DELAY_MS, MIN_PLAYERS_TO_START } from "../consts";
-import { onRoundStart } from "./onRoundStart";
+import { onRoundStart } from "../round/onRoundStart";
 import { getWsMeta } from "../utils/getWsMeta";
 
 export function onStartGame(ws: ElysiaWS) {
@@ -13,7 +13,20 @@ export function onStartGame(ws: ElysiaWS) {
   if (!room || room.status !== "lobby") return;
 
   if (room.players.size < MIN_PLAYERS_TO_START) {
-    ws.send(JSON.stringify({ type: "error", message: "Недостаточно игроков" }));
+    roomManager.send(room, playerId, {
+      type: "error",
+      message: "Недостаточно игроков",
+      code: "NOT_ENOUGH_PLAYERS",
+    });
+    return;
+  }
+
+  if (room.hostId !== playerId) {
+    roomManager.send(room, playerId, {
+      type: "error",
+      message: "Только хост может начать игру",
+      code: "NOT_HOST",
+    });
     return;
   }
 
@@ -32,8 +45,7 @@ export function onStartGame(ws: ElysiaWS) {
   room.stories = newStories;
 
   roomManager.broadcast(room, {
-    type: "iteration_ended",
-    nextRound: 1,
+    type: "game_started",
     totalRounds: room.totalRounds,
   });
 

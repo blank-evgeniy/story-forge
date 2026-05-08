@@ -1,9 +1,10 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-import { roomManager } from "../room-manager";
-import { Player } from "../../model/state";
+import { roomManager } from "../room/room-manager";
+import { createPlayer, Player } from "../../model/state";
 import { socketMeta } from "../../modules/ws";
 import { serializeRoom } from "../utils/serializeRoom";
+import { sendYourTurn } from "../round/sendYourTurn";
 
 export function onJoinRoom(
   ws: ElysiaWS,
@@ -11,7 +12,13 @@ export function onJoinRoom(
 ) {
   const room = roomManager.get(event.code);
   if (!room) {
-    ws.send(JSON.stringify({ type: "error", message: "Комната не найдена" }));
+    ws.send(
+      JSON.stringify({
+        type: "error",
+        message: "Комната не найдена",
+        code: "ROOM_NOT_FOUND",
+      }),
+    );
     return;
   }
 
@@ -20,28 +27,43 @@ export function onJoinRoom(
   if (existing) {
     existing.ws = ws;
     existing.connected = true;
-    ws.send(JSON.stringify({ type: "room_state", room: serializeRoom(room) }));
-    socketMeta.set(ws.id, { playerId: event.playerId, roomCode: event.code });
-    return;
+
+    roomManager.broadcast(room, {
+      type: "player_reconnected",
+      playerId: existing.id,
+    });
+  } else {
+    if (room.status !== "lobby") {
+      ws.send(
+        JSON.stringify({
+          type: "error",
+          message: "Игра уже началась",
+          code: "GAME_ALREADY_STARTED",
+        }),
+      );
+      return;
+    }
+
+    const player = createPlayer(
+      ws,
+      event.playerId,
+      event.username,
+      room.players.size + 1,
+    );
+    room.players.set(player.id, player);
+
+    roomManager.broadcast(room, {
+      type: "player_joined",
+      username: player.username,
+      playerId: player.id,
+    });
   }
-
-  const player: Player = {
-    id: event.playerId,
-    ws,
-    username: event.username,
-    connected: true,
-    turnOrder: room.players.size + 1,
-  };
-
-  room.players.set(player.id, player);
 
   ws.send(JSON.stringify({ type: "room_state", room: serializeRoom(room) }));
 
-  roomManager.broadcast(room, {
-    type: "player_joined",
-    username: player.username,
-    playerId: player.id,
-  });
+  if (existing && room.status === "writing") {
+    sendYourTurn(room, existing);
+  }
 
-  socketMeta.set(ws.id, { playerId: player.id, roomCode: event.code });
+  socketMeta.set(ws.id, { playerId: event.playerId, roomCode: event.code });
 }

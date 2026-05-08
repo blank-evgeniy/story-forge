@@ -1,6 +1,6 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-import { roomManager } from "../room-manager";
+import { roomManager } from "../room/room-manager";
 import { getWsMeta } from "../utils/getWsMeta";
 import { serializeRoom } from "../utils/serializeRoom";
 

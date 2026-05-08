@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { WritingScreenPlayers } from "./writing-screen-players";
 
 const players = [
-  { id: "1", username: "Алиса" },
-  { id: "2", username: "Борис" },
-  { id: "3", username: "Света" },
+  { id: "1", username: "Алиса", connected: true },
+  { id: "2", username: "Борис", connected: true },
+  { id: "3", username: "Света", connected: false },
 ];
 
 const meta = {

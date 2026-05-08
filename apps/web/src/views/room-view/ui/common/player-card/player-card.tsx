@@ -4,6 +4,7 @@ import { createContext, useContext } from "react";
 
 type PlayerCardContextValue = {
   playerName: string;
+  disconnected?: boolean;
 };
 
 const PlayerCardContext = createContext<PlayerCardContextValue | null>(null);
@@ -18,6 +19,7 @@ function usePlayerCard() {
 
 type PlayerCardProps = {
   playerName: string;
+  disconnected?: boolean;
   direction?: "vertical" | "horizontal";
   children: React.ReactNode;
   className?: string;
@@ -25,12 +27,15 @@ type PlayerCardProps = {
 
 export function PlayerCard({
   playerName,
+  disconnected,
   direction = "vertical",
   children,
   className,
 }: PlayerCardProps) {
   return (
-    <PlayerCardContext.Provider value={{ playerName }}>
+    <PlayerCardContext.Provider
+      value={{ playerName, disconnected: !!disconnected }}
+    >
       <div
         className={cn(
           "min-w-0 flex gap-2",
@@ -86,7 +91,7 @@ export function PlayerCardTitle({
   size = "md",
   className,
 }: PlayerCardTitleProps) {
-  const { playerName } = usePlayerCard();
+  const { playerName, disconnected } = usePlayerCard();
 
   return (
     <span
@@ -94,6 +99,7 @@ export function PlayerCardTitle({
       className={cn(
         "text-muted-foreground truncate block max-w-full",
         titleSizeStyles[size],
+        disconnected && "line-through",
         className,
       )}
     >

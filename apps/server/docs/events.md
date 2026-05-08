@@ -1,264 +1,65 @@
-# Клиентские ивенты
+# WebSocket Events
 
-## --- join_room ---
+## Flow
 
-### Description
+### Game loop
 
-Вход игрока в комнату. Если игрок с таким `playerId` уже существует в комнате — восстанавливает его соединение (реконнект).
-При первом входе рассылает всем игрокам комнаты `player_joined`. В обоих случаях зашедшему игроку отправляется `room_state`.
+lobby → `start_game` → `game_started` → (2s) → `round_started` + `your_turn`
+↓
+`submit_sentence` × N
+↓
+`round_ended` → (2s) → `round_started` + `your_turn`
+↓ (последний раунд)
+`all_revealed`
 
-### Payload
+### Подключение нового игрока
 
-```
-type: "join_room"
-code: string       - код комнаты
-username: string   - никнейм игрока (1–50 символов)
-playerId: string   - уникальный id игрока, сгенерированный на клиенте
-```
+client → `join_room` → `room_state` (sender) + `player_joined` (broadcast)
 
----
+### Реконнект в лобби:
 
-## --- submit_sentence ---
+client → `join_room` → `room_state` (sender)
 
-### Description
+### Реконнект:
 
-Отправка игроком предложения для текущей итерации. Предложение записывается в историю, которую ведёт данный игрок в этом раунде.
-После сабмита рассылает всем `player_submitted`. Если все подключённые игроки сдали — немедленно завершает раунд. Если включены твисты
-и в этом раунде игрок выбрал твист, то так же посылается id твиста.
+client → `join_room` → `room_state` (sender) + `your_turn` (sender) + `player_reconnected` (broadcast)
 
-### Payload
+### Дисконнект в лобби:
 
-```
-type: "submit_sentence"
-content: string    - текст предложения (1–200 символов)
-twistId?: string   - id твиста
-```
+(разрыв соединения) → `player_left` (broadcast)
 
----
+### Дисконнект во время игры:
 
-## --- start_game ---
+(разрыв соединения) → `player_disconnected` (broadcast)
 
-### Description
+## Client → Server
 
-Запуск игры хостом. Комната должна быть в статусе `lobby` и содержать минимум 2 игроков.
-Создаёт по одной истории на каждого игрока, переводит комнату в статус `writing`, рассылает `iteration_ended` с номером первого раунда и через 2 секунды инициирует первый раунд.
+| Event             | When                         | Notes                                   |
+| ----------------- | ---------------------------- | --------------------------------------- |
+| `join_room`       | Вход / реконнект             | Реконнект если `playerId` уже в комнате |
+| `start_game`      | Хост запускает игру          | Минимум 2 игрока, статус `lobby`        |
+| `submit_sentence` | Игрок отправляет предложение | `twistId` только в раунде выбора твиста |
+| `request_state`   | После реконнекта / F5        | —                                       |
 
-### Payload
+## Server → Client
 
-```
-type: "start_game"
-```
+| Event                 | To        | Trigger                                                                   |
+| --------------------- | --------- | ------------------------------------------------------------------------- |
+| `room_state`          | sender    | После `join_room` или `request_state`                                     |
+| `game_started`        | broadcast | После `start_game`, содержит `totalRounds`                                |
+| `player_joined`       | broadcast | Первый вход нового игрока                                                 |
+| `player_left`         | broadcast | Выход из лобби                                                            |
+| `player_disconnected` | broadcast | Выход во время игры                                                       |
+| `player_reconnected`  | broadcast | Переподключение, если покинул во время игры                               |
+| `round_started`       | broadcast | Начало раунда                                                             |
+| `your_turn`           | sender    | Сразу после `round_started`. В `blindMode` — только последнее предложение |
+| `player_submitted`    | broadcast | Любой сабмит, включая таймаут                                             |
+| `round_ended`         | broadcast | Конец раунда                                                              |
+| `all_revealed`        | broadcast | После последнего раунда                                                   |
+| `error`               | sender    | Невалидный запрос                                                         |
 
----
+## Notes
 
-## --- request_state ---
-
-### Description
-
-Запрос текущего состояния комнаты. Сервер отвечает отправителю событием `room_state`.
-Используется для восстановления UI после реконнекта или обновления страницы.
-
-### Payload
-
-```
-type: "request_state"
-```
-
----
-
-# Серверные ивенты
-
-## --- error ---
-
-### Description
-
-Сообщение об ошибке, отправляемое конкретному клиенту при невалидном запросе.
-
-### Payload
-
-```
-type: "error"
-message: string    - описание ошибки
-```
-
----
-
-## --- room_state ---
-
-### Description
-
-Полное состояние комнаты. Отправляется конкретному клиенту при входе в комнату или по запросу `request_state`.
-
-### Payload
-
-```
-type: "room_state"
-room: {
-  code: string
-  status: "lobby" | "writing" | "reveal"
-  hostId: string
-  round: number
-  totalRounds: number | undefined
-  submitted: string[]           - массив playerId игроков, уже сдавших в текущем раунде
-  config: {
-    secondsPerTurn: number;
-    blindMode: boolean;
-    enableTwists: boolean;
-  }
-  players: Array<{
-    id: string
-    username: string
-    turnOrder: number
-    connected: boolean
-  }>
-  stories: Array<{
-    id: string
-    ownerId: string             - playerId игрока, которому принадлежит история
-    sentences: Array<{
-      playerId: string
-      content: string
-      wasTimeout: boolean
-      twist?: string
-    }>
-  }>
-}
-```
-
----
-
-## --- player_joined ---
-
-### Description
-
-Рассылается всем игрокам комнаты, когда новый игрок впервые входит в комнату.
-
-### Payload
-
-```
-type: "player_joined"
-username: string
-playerId: string
-```
-
----
-
-## --- player_left ---
-
-### Description
-
-Рассылается всем игрокам комнаты, когда игрок отключился.
-
-### Payload
-
-```
-type: "player_left"
-playerId: string
-```
-
----
-
-## --- iteration_started ---
-
-### Description
-
-Рассылается всем игрокам в начале каждого раунда. Сразу после этого события каждый игрок получает персональное `your_turn`.
-
-### Payload
-
-```
-type: "iteration_started"
-round: number          - номер текущего раунда (1-based)
-totalRounds: number    - всего раундов в игре (равно количеству игроков)
-timer: number          - длительность раунда в миллисекундах
-```
-
----
-
-## --- your_turn ---
-
-### Description
-
-Отправляется персонально каждому игроку в начале раунда. Содержит предыдущее предложение (или все предложения) из истории, которую игрок продолжает в этом раунде.
-В первом раунде `prevSentence` равен `null`. В режиме `blindMode` передаётся только последнее предложение, иначе — весь список. Если включены твисты, то в определенном
-раунде (середина игры) так же отправляется массив из 3 твистов для выбора игроком.
-
-### Payload
-
-```
-type: "your_turn"
-prevSentence: Sentence[] | null
-twistsToChoose?: Twist[]
-
-Sentence: {
-  playerId: string
-  content: string
-  wasTimeout: boolean
-  twist?: {
-    id: string
-    content: string
-  }
-}
-
-Twist: {
-  id: string
-  content: string
-}
-```
-
----
-
-## --- player_submitted ---
-
-### Description
-
-Рассылается всем игрокам комнаты, когда любой игрок сдаёт предложение (в том числе автоматически по таймауту).
-
-### Payload
-
-```
-type: "player_submitted"
-playerId: string
-```
-
----
-
-## --- iteration_ended ---
-
-### Description
-
-Рассылается всем игрокам в конце раунда, если игра ещё не закончена, а также сразу после `start_game` перед первым раундом. Содержит номер следующего раунда для отображения анимации перехода. После паузы в 2 секунды следует `iteration_started` нового раунда.
-
-### Payload
-
-```
-type: "iteration_ended"
-nextRound: number      - номер следующего раунда (1-based)
-totalRounds: number    - всего раундов в игре
-```
-
----
-
-## --- all_revealed ---
-
-### Description
-
-Рассылается всем игрокам по завершении последнего раунда. Содержит все истории целиком для финального показа результатов.
-
-### Payload
-
-```
-type: "all_revealed"
-stories: Array<{
-  id: string
-  ownerId: string
-  sentences: Array<{
-    playerId: string
-    content: string
-    wasTimeout: boolean
-    twist?: {
-      id: string
-      content: string
-    }
-  }>
-}>
-```
+- **Твисты:** `twistsToChoose` приходит в `your_turn` в середине игры. `twistId` отправляется в `submit_sentence` того же раунда.
+- **Таймаут:** сервер авто-сабмитит предложение, `wasTimeout: true` в истории.
+- **Дисконнект:** поведение зависит от статуса комнаты. В `lobby | reveal` — игрок удаляется, broadcast `player_left`. В `writing` — игрок остаётся с `connected: false`, broadcast `player_disconnected`. При реконнекте — `connected: true`, broadcast `player_reconnected`.

@@ -19,6 +19,7 @@ export const wsModule = new Elysia().ws("/ws", {
   },
 
   close(ws) {
+    console.log("ws close", ws.id);
     handleClose(ws);
   },
 });

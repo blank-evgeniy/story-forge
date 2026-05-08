@@ -1,5 +1,5 @@
 import Elysia, { t } from "elysia";
-import { roomManager } from "../game/room-manager";
+import { roomManager } from "../game/room/room-manager";
 
 export const roomsModule = new Elysia({ prefix: "/rooms" })
   .post(

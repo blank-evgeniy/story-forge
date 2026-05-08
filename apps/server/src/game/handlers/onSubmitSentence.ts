@@ -1,10 +1,10 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-import { roomManager } from "../room-manager";
-import { onRoundEnd } from "./onRoundEnd";
-import { getStoryIndex } from "../utils/getStoryIndex";
+import { roomManager } from "../room/room-manager";
+import { getStoryIndex } from "../round/utils/getStoryIndex";
 import { getWsMeta } from "../utils/getWsMeta";
-import { getTwistById } from "../twist";
+import { getTwistById } from "../round/twist";
+import { tryFinishRound } from "../round/tryFinishRound";
 
 export function onSubmitSentence(
   ws: ElysiaWS,
@@ -39,13 +39,5 @@ export function onSubmitSentence(
     playerId,
   });
 
-  const connectedCount = [...room.players.values()].filter(
-    (p) => p.connected,
-  ).length;
-
-  if (room.submitted.size === connectedCount) {
-    if (room.timer) clearTimeout(room.timer);
-
-    onRoundEnd(room);
-  }
+  tryFinishRound(room);
 }

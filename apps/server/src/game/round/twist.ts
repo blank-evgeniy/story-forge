@@ -1,5 +1,5 @@
-import { twists } from "../data/twists";
-import { Twist } from "../model/state";
+import { twists } from "../../data/twists";
+import { Twist } from "../../model/state";
 
 export function pickThreeTwists(): [Twist, Twist, Twist] {
   const shuffled = [...twists].sort(() => Math.random() - 0.5);
