@@ -28,6 +28,7 @@ export function onRestartGame(ws: ElysiaWS) {
   room.status = "lobby";
   room.stories = [];
   room.submitted = new Set();
+  room.round = 1;
 
   roomManager.broadcast(room, {
     type: "game_restarted",
