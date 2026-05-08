@@ -1,26 +1,50 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { RevealScreenStory } from "./reveal-screen-story";
-import { useStoryPlayer } from "./use-story-player";
+import { type StoryPlayerMode, useStoryPlayer } from "./use-story-player";
 import {
   StoriesHistory,
   StoriesHistoryPicker,
   StoriesHistoryViewer,
 } from "./stories-history";
 import { useRoomStore } from "../../model/use-room-store";
-import { Spinner } from "@/components/ui/spinner";
+import { RevealReadyScreen } from "./reveal-ready-screen/index";
 
 type RevealScreenProps = {
   onPlayMore: () => void;
 };
 
 export function RevealScreen({ onPlayMore }: RevealScreenProps) {
-  const { allStories, currentStory, shown, finished, storyIdx } =
-    useStoryPlayer();
+  const [playerMode, setPlayerMode] = useState<StoryPlayerMode>("timer");
+  const {
+    allStories,
+    currentStory,
+    shown,
+    finished,
+    storyIdx,
+    started,
+    start,
+  } = useStoryPlayer({
+    mode: playerMode,
+  });
+
   const isHost = useRoomStore((store) => store.isHost);
 
   const [historyMode, setHistoryMode] = useState<boolean>(false);
+
+  if (!started) {
+    return (
+      <RevealReadyScreen
+        storiesCount={allStories.length}
+        onStart={start}
+        onSwitchChange={(checked) =>
+          setPlayerMode(checked ? "speech" : "timer")
+        }
+      />
+    );
+  }
 
   return (
     <StoriesHistory
