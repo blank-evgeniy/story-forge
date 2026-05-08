@@ -31,4 +31,9 @@ export function onEditSentence(ws: ElysiaWS) {
   });
 
   room.submitted.delete(playerId);
+
+  roomManager.broadcast(room, {
+    type: "player_unsubmitted",
+    playerId,
+  });
 }

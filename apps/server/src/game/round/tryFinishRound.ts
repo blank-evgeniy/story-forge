@@ -3,7 +3,6 @@ import { autoSubmitMissing } from "./autoSubmitMissing";
 import { onRoundEnd } from "./onRoundEnd";
 
 export function tryFinishRound(room: RoomState, isTimeout = false) {
-  console.log(isTimeout);
   if (room.status !== "writing") return;
 
   const connectedPlayers = [...room.players.values()].filter(

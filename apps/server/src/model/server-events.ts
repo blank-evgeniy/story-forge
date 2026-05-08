@@ -54,6 +54,11 @@ export type PlayerSubmittedEvent = {
   playerId: string;
 };
 
+export type PlayerUnsubmittedEvent = {
+  type: "player_unsubmitted";
+  playerId: string;
+};
+
 export type RoundEndedEvent = {
   type: "round_ended";
   nextRound: number;
@@ -80,6 +85,7 @@ export type ServerEvent =
   | RoundStartedEvent
   | YourTurnEvent
   | PlayerSubmittedEvent
+  | PlayerUnsubmittedEvent
   | RoundEndedEvent
   | AllRevealedEvent
   | GameRestartedEvent;

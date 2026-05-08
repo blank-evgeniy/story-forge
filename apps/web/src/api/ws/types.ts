@@ -13,6 +13,16 @@ export type SubmitSentenceEvent = {
   twistId?: string;
 };
 
+export type DraftSentenceEvent = {
+  type: "draft_sentence";
+  content?: string;
+  twistId?: string;
+};
+
+export type EditSentenceEvent = {
+  type: "edit_sentence";
+};
+
 export type StartGameEvent = {
   type: "start_game";
 };
@@ -28,6 +38,8 @@ export type RestartGameEvent = {
 export type ClientEvent =
   | JoinRoomEvent
   | SubmitSentenceEvent
+  | DraftSentenceEvent
+  | EditSentenceEvent
   | StartGameEvent
   | RestartGameEvent
   | RequestStateEvent;
@@ -133,6 +145,11 @@ export type PlayerSubmittedEvent = {
   playerId: string;
 };
 
+export type PlayerUnsubmittedEvent = {
+  type: "player_unsubmitted";
+  playerId: string;
+};
+
 export type RoundEndedEvent = {
   type: "round_ended";
   nextRound: number;
@@ -159,6 +176,7 @@ export type ServerEvent =
   | RoundStartedEvent
   | YourTurnEvent
   | PlayerSubmittedEvent
+  | PlayerUnsubmittedEvent
   | RoundEndedEvent
   | AllRevealedEvent
   | GameRestartedEvent;

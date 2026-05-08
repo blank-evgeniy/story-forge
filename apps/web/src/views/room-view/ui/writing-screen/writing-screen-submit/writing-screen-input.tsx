@@ -1,7 +1,8 @@
+import { useDebounceCallback } from "@siberiacancode/reactuse";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { SendHorizonalIcon, CheckIcon } from "lucide-react";
+import { SendHorizonalIcon, CheckIcon, PencilIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PlayerMessage } from "../../common/player-message";
 
@@ -9,25 +10,36 @@ const MAX_LENGTH = 200;
 
 type WritingScreenInputProps = {
   onSubmit: (content: string) => void;
+  onDraft: (content: string) => void;
+  onEdit: () => void;
   isFirstRound: boolean;
   isSubmitted?: boolean;
 };
 
 export function WritingScreenInput({
   onSubmit,
+  onDraft,
+  onEdit,
   isFirstRound,
   isSubmitted,
 }: WritingScreenInputProps) {
   const [content, setContent] = useState("");
 
+  const debouncedDraft = useDebounceCallback(
+    (content: string) => onDraft(content.trim()),
+    1000,
+  );
+
   const handleChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+    const value = e.target.value;
+    setContent(value);
+    debouncedDraft(value);
   };
 
   const handleSubmit = () => {
     if (isSubmitted || !content.trim()) return;
 
-    onSubmit(content);
+    onSubmit(content.trim());
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -43,9 +55,14 @@ export function WritingScreenInput({
     return (
       <div className="flex flex-col gap-2 w-full">
         <PlayerMessage message={content} side="right" />
-        <div className="flex items-center gap-1.5 justify-end text-xs text-muted-foreground">
-          <CheckIcon className="size-3 text-green-500" />
-          <span>Ожидаем остальных...</span>
+        <div className="flex items-center justify-between gap-2">
+          <Button onClick={onEdit} variant="ghost" size="sm">
+            <PencilIcon className="size-3" /> Редактировать
+          </Button>
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <CheckIcon className="size-3 text-green-500" />
+            <span>Ожидаем остальных...</span>
+          </div>
         </div>
       </div>
     );

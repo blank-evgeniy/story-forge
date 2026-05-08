@@ -6,9 +6,15 @@ import { WritingScreenSubmit } from "./writing-screen-submit";
 
 type WritingScreenProps = {
   onSubmit: (content: string, twistId?: string) => void;
+  onDraft: (content?: string, twistId?: string) => void;
+  onEdit: () => void;
 };
 
-export function WritingScreen({ onSubmit }: WritingScreenProps) {
+export function WritingScreen({
+  onSubmit,
+  onDraft,
+  onEdit,
+}: WritingScreenProps) {
   const {
     round,
     totalRounds,
@@ -34,6 +40,8 @@ export function WritingScreen({ onSubmit }: WritingScreenProps) {
         isFirstRound={round === 1}
         twistsToChoose={twistsToChoose}
         onSubmit={onSubmit}
+        onDraft={onDraft}
+        onEdit={onEdit}
       />
 
       <WritingScreenPlayers players={players} submitted={submitted} />

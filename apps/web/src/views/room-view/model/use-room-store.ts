@@ -10,6 +10,8 @@ type GameActions = {
   handleEvent: (event: ServerEvent) => void;
   startGame: (ws: WebSocket) => void;
   submitSentence: (ws: WebSocket, content: string, twistId?: string) => void;
+  draftSentence: (ws: WebSocket, content?: string, twistId?: string) => void;
+  editSentence: (ws: WebSocket) => void;
   restartGame: (ws: WebSocket) => void;
   startReveal: () => void;
   reset: () => void;
@@ -138,6 +140,13 @@ export const useRoomStore = create<GameState>((set, get) => ({
         set({ submitted: new Set(get().submitted).add(event.playerId) });
         break;
 
+      case "player_unsubmitted": {
+        const newSubmitted = new Set(get().submitted);
+        newSubmitted.delete(event.playerId);
+        set({ submitted: newSubmitted });
+        break;
+      }
+
       case "all_revealed": {
         const stories = mapStories(get().players, event.stories);
         set({ status: "revealing", allStories: stories });
@@ -176,6 +185,16 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
   submitSentence(ws: WebSocket, content: string, twistId?: string) {
     const event: ClientEvent = { type: "submit_sentence", content, twistId };
+    ws.send(JSON.stringify(event));
+  },
+
+  draftSentence(ws: WebSocket, content?: string, twistId?: string) {
+    const event: ClientEvent = { type: "draft_sentence", content, twistId };
+    ws.send(JSON.stringify(event));
+  },
+
+  editSentence(ws: WebSocket) {
+    const event: ClientEvent = { type: "edit_sentence" };
     ws.send(JSON.stringify(event));
   },
 

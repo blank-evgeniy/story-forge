@@ -12,7 +12,7 @@ const players = [
 const meta = {
   title: "RoomView/WritingScreen",
   component: WritingScreen,
-  args: { onSubmit: fn() },
+  args: { onSubmit: fn(), onDraft: fn(), onEdit: fn() },
 } satisfies Meta<typeof WritingScreen>;
 
 export default meta;
