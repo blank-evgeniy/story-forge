@@ -100,7 +100,11 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
   }, [mode, started, msgIdx, storyIdx, finished]);
 
   const start = () => {
-    if (mode === "speech") window.speechSynthesis.cancel();
+    if (mode === "speech") {
+      const unlock = new SpeechSynthesisUtterance("");
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(unlock);
+    }
     setStarted(true);
   };
 
