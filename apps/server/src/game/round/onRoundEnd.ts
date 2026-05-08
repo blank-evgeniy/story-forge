@@ -14,6 +14,7 @@ export function onRoundEnd(room: RoomState) {
   }
 
   room.round++;
+  room.submitted = new Set();
 
   roomManager.broadcast(room, {
     type: "round_ended",
