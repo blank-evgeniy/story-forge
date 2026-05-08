@@ -7,6 +7,7 @@ import { onSubmitSentence } from "./handlers/onSubmitSentence";
 import { onRequestState } from "./handlers/onRequestState";
 import { onJoinRoom } from "./handlers/onJoinRoom";
 import { onClose } from "./handlers/onClose";
+import { onRestartGame } from "./handlers/onRestartGame";
 
 export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
   switch (event.type) {
@@ -18,6 +19,8 @@ export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
       return onSubmitSentence(ws, event);
     case "request_state":
       return onRequestState(ws);
+    case "restart_game":
+      return onRestartGame(ws);
   }
 }
 

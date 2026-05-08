@@ -21,10 +21,15 @@ export type RequestStateEvent = {
   type: "request_state";
 };
 
+export type RestartGameEvent = {
+  type: "restart_game";
+};
+
 export type ClientEvent =
   | JoinRoomEvent
   | SubmitSentenceEvent
   | StartGameEvent
+  | RestartGameEvent
   | RequestStateEvent;
 
 // Common
@@ -138,6 +143,11 @@ export type AllRevealedEvent = {
   stories: StoryThreadDto[];
 };
 
+export type GameRestartedEvent = {
+  type: "game_restarted";
+  room: RoomDto;
+};
+
 export type ServerEvent =
   | ErrorEvent
   | RoomStateEvent
@@ -150,4 +160,5 @@ export type ServerEvent =
   | YourTurnEvent
   | PlayerSubmittedEvent
   | RoundEndedEvent
-  | AllRevealedEvent;
+  | AllRevealedEvent
+  | GameRestartedEvent;
