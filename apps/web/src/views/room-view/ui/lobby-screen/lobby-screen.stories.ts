@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const OnePlayer: Story = {
   beforeEach() {
     useRoomStore.setState({
-      players: [{ id: "1", username: "Алиса" }],
+      players: [{ id: "1", username: "Алиса", connected: true }],
       isHost: true,
     });
   },
@@ -29,8 +29,8 @@ export const ReadyToStart: Story = {
   beforeEach() {
     useRoomStore.setState({
       players: [
-        { id: "1", username: "Алиса" },
-        { id: "2", username: "Борис" },
+        { id: "1", username: "Алиса", connected: true },
+        { id: "2", username: "Борис", connected: true },
       ],
       isHost: true,
     });
@@ -41,12 +41,12 @@ export const FullLobby: Story = {
   beforeEach() {
     useRoomStore.setState({
       players: [
-        { id: "1", username: "Алиса" },
-        { id: "2", username: "Борис" },
-        { id: "3", username: "Света" },
-        { id: "4", username: "Дима" },
-        { id: "5", username: "Женя" },
-        { id: "6", username: "Фёдор" },
+        { id: "1", username: "Алиса", connected: true },
+        { id: "2", username: "Борис", connected: true },
+        { id: "3", username: "Света", connected: true },
+        { id: "4", username: "Дима", connected: true },
+        { id: "5", username: "Женя", connected: true },
+        { id: "6", username: "Фёдор", connected: true },
       ],
       isHost: false,
     });
