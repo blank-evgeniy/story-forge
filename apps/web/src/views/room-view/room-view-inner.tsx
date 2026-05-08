@@ -11,6 +11,8 @@ import { WritingScreen } from "./ui/writing-screen";
 import { RevealScreen } from "./ui/reveal-screen";
 import { RoundTransitionOverlay } from "./ui/round-transition-overlay";
 import { RevealTransitionOverlay } from "./ui/reveal-transition-overlay";
+import { RoomLoading } from "./ui/common/room-loading";
+import { RoomError } from "./ui/common/room-error";
 
 export function RoomViewInner() {
   const navigate = useNavigate();
@@ -42,9 +44,11 @@ export function RoomViewInner() {
     navigate({ to: "/" });
   };
 
-  if (wsStatus === "connecting") return <div>Подключение...</div>;
-  if (wsStatus === "disconnected") return <div>Соединение потеряно</div>;
-  if (wsStatus === "failed") return <div>Не удалось подключиться</div>;
+  if (wsStatus === "connecting") return <RoomLoading title="Подключение..." />;
+  if (wsStatus === "disconnected")
+    return <RoomError title="Соединение потеряно" />;
+  if (wsStatus === "failed")
+    return <RoomError title="Не удалось подключиться" />;
 
   return (
     <>

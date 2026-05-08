@@ -1,21 +1,16 @@
-import { gameRoute } from "@/app/routes/routes";
-import { Spinner } from "@/components/ui/spinner";
 import type { ReactNode } from "react";
+import { gameRoute } from "@/app/routes/routes";
 import { useGetRoom } from "./api/use-get-room";
+import { RoomLoading } from "./ui/common/room-loading";
+import { RoomError } from "./ui/common/room-error";
 
 export function RoomViewGuard({ children }: { children: ReactNode }) {
   const { roomCode } = gameRoute.useParams();
   const { data, isLoading } = useGetRoom(roomCode);
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Spinner className="size-8" />
-      </div>
-    );
-  }
+  if (isLoading) return <RoomLoading />;
 
-  if (!data) return null;
+  if (!data) return <RoomError title="Комната не найдена" />;
 
   return children;
 }
