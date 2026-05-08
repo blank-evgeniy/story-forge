@@ -25,7 +25,6 @@ export const useRoomSocket = ({
   const { status, open, send, close, client } = useWebSocket(
     import.meta.env.VITE_WS_BASE_URL,
     {
-      retry: 3,
       onConnected: (ws) => {
         const event: ClientEvent = {
           type: "join_room",

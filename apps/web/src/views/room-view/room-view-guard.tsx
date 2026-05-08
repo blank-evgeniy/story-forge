@@ -17,13 +17,5 @@ export function RoomViewGuard({ children }: { children: ReactNode }) {
 
   if (!data) return null;
 
-  if (data.status !== "lobby") {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground text-lg">Игра уже началась</p>
-      </div>
-    );
-  }
-
   return children;
 }

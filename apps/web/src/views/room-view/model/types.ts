@@ -1,6 +1,7 @@
 export type Player = {
   id: string;
   username: string;
+  connected: boolean;
 };
 
 export type PlayerSentence = {

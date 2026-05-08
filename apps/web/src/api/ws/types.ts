@@ -78,6 +78,7 @@ export type RoomDto = {
 export type ErrorEvent = {
   type: "error";
   message: string;
+  code: string;
 };
 
 export type RoomStateEvent = {
@@ -96,11 +97,24 @@ export type PlayerLeftEvent = {
   playerId: string;
 };
 
-export type IterationStartedEvent = {
-  type: "iteration_started";
-  round: number;
+export type PlayerReconnectedEvent = {
+  type: "player_reconnected";
+  playerId: string;
+};
+
+export type PlayerDisconnectedEvent = {
+  type: "player_disconnected";
+  playerId: string;
+};
+
+export type GameStartedEvent = {
+  type: "game_started";
   totalRounds: number;
-  timer: number; // ms
+};
+
+export type RoundStartedEvent = {
+  type: "round_started";
+  timer: number;
 };
 
 export type YourTurnEvent = {
@@ -114,10 +128,9 @@ export type PlayerSubmittedEvent = {
   playerId: string;
 };
 
-export type IterationEndedEvent = {
-  type: "iteration_ended";
+export type RoundEndedEvent = {
+  type: "round_ended";
   nextRound: number;
-  totalRounds: number;
 };
 
 export type AllRevealedEvent = {
@@ -130,8 +143,11 @@ export type ServerEvent =
   | RoomStateEvent
   | PlayerJoinedEvent
   | PlayerLeftEvent
-  | IterationStartedEvent
+  | PlayerReconnectedEvent
+  | PlayerDisconnectedEvent
+  | GameStartedEvent
+  | RoundStartedEvent
   | YourTurnEvent
   | PlayerSubmittedEvent
-  | IterationEndedEvent
+  | RoundEndedEvent
   | AllRevealedEvent;

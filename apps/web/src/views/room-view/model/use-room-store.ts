@@ -3,6 +3,8 @@ import type { ClientEvent, ServerEvent } from "@/api/ws/types";
 import { mapStories } from "./map";
 import type { Player, PrevSentence, Story, TwistsSet } from "./types";
 import { useUserStore } from "@/store/user";
+import { toast } from "sonner";
+import { router } from "@/app/routes/routes";
 
 type GameActions = {
   handleEvent: (event: ServerEvent) => void;
@@ -63,7 +65,12 @@ export const useRoomStore = create<GameState>((set, get) => ({
           players: event.room.players,
           round: event.room.round,
           secondsPerTurn: event.room.config.secondsPerTurn,
+          totalRounds: event.room.totalRounds,
           isHost: event.room.hostId === userId,
+          allStories:
+            event.room.status === "reveal"
+              ? mapStories(event.room.players, event.room.stories)
+              : [],
         });
         break;
       }
@@ -72,7 +79,7 @@ export const useRoomStore = create<GameState>((set, get) => ({
         set({
           players: [
             ...get().players.filter((p) => p.id !== event.playerId),
-            { id: event.playerId, username: event.username },
+            { id: event.playerId, username: event.username, connected: true },
           ],
         });
         break;
@@ -81,6 +88,26 @@ export const useRoomStore = create<GameState>((set, get) => ({
         set({
           players: get().players.filter((p) => p.id !== event.playerId),
         });
+        break;
+
+      case "player_disconnected":
+        set({
+          players: get().players.map((p) =>
+            p.id === event.playerId ? { ...p, connected: false } : p,
+          ),
+        });
+        break;
+
+      case "player_reconnected":
+        set({
+          players: get().players.map((p) =>
+            p.id === event.playerId ? { ...p, connected: true } : p,
+          ),
+        });
+        break;
+
+      case "game_started":
+        set({ status: "round_starting", totalRounds: event.totalRounds });
         break;
 
       case "your_turn":
@@ -94,15 +121,14 @@ export const useRoomStore = create<GameState>((set, get) => ({
         });
         break;
 
-      case "iteration_started":
-        set({ status: "writing" });
+      case "round_started":
+        set({ status: "writing", secondsPerTurn: event.timer });
         break;
 
-      case "iteration_ended":
+      case "round_ended":
         set({
           submitted: new Set(),
           round: event.nextRound,
-          totalRounds: event.totalRounds,
           status: "round_starting",
         });
         break;
@@ -117,9 +143,16 @@ export const useRoomStore = create<GameState>((set, get) => ({
         break;
       }
 
-      case "error":
+      case "error": {
         set({ error: event.message });
+        toast.error(event.message);
+
+        if (event.code === "GAME_ALREADY_STARTED") {
+          router.navigate({ to: "/" });
+        }
+
         break;
+      }
     }
   },
 
