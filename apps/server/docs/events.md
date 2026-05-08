@@ -39,6 +39,7 @@ client → `join_room` → `room_state` (sender) + `your_turn` (sender) + `playe
 | `join_room`       | Вход / реконнект             | Реконнект если `playerId` уже в комнате |
 | `start_game`      | Хост запускает игру          | Минимум 2 игрока, статус `lobby`        |
 | `submit_sentence` | Игрок отправляет предложение | `twistId` только в раунде выбора твиста |
+| `restart_game`    | Хост перезапускает игру      | Игра переводится в состояние лобби      |
 | `request_state`   | После реконнекта / F5        | —                                       |
 
 ## Server → Client
@@ -56,6 +57,7 @@ client → `join_room` → `room_state` (sender) + `your_turn` (sender) + `playe
 | `player_submitted`    | broadcast | Любой сабмит, включая таймаут                                             |
 | `round_ended`         | broadcast | Конец раунда                                                              |
 | `all_revealed`        | broadcast | После последнего раунда                                                   |
+| `game_restarted`      | broadcast | После `restart_game`                                                      |
 | `error`               | sender    | Невалидный запрос                                                         |
 
 ## Notes
@@ -63,3 +65,5 @@ client → `join_room` → `room_state` (sender) + `your_turn` (sender) + `playe
 - **Твисты:** `twistsToChoose` приходит в `your_turn` в середине игры. `twistId` отправляется в `submit_sentence` того же раунда.
 - **Таймаут:** сервер авто-сабмитит предложение, `wasTimeout: true` в истории.
 - **Дисконнект:** поведение зависит от статуса комнаты. В `lobby | reveal` — игрок удаляется, broadcast `player_left`. В `writing` — игрок остаётся с `connected: false`, broadcast `player_disconnected`. При реконнекте — `connected: true`, broadcast `player_reconnected`.
+- **Рестарт:** Если перед рестартом игры были дисконнектнутые игроки, они удалятся и только после
+  этого игра переходит к статусу `lobby`

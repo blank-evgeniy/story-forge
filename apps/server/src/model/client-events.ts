@@ -14,6 +14,7 @@ export const ClientEventSchema = t.Union([
     twistId: t.Optional(t.String()),
   }),
   t.Object({ type: t.Literal("start_game") }),
+  t.Object({ type: t.Literal("restart_game") }),
   t.Object({ type: t.Literal("request_state") }),
 ]);
 

@@ -64,6 +64,11 @@ export type AllRevealedEvent = {
   stories: StoryThread[];
 };
 
+export type GameRestartedEvent = {
+  type: "game_restarted";
+  room: SerializedRoom;
+};
+
 export type ServerEvent =
   | ErrorEvent
   | RoomStateEvent
@@ -76,4 +81,5 @@ export type ServerEvent =
   | YourTurnEvent
   | PlayerSubmittedEvent
   | RoundEndedEvent
-  | AllRevealedEvent;
+  | AllRevealedEvent
+  | GameRestartedEvent;
