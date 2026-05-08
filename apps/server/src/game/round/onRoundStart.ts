@@ -15,7 +15,7 @@ export function onRoundStart(room: RoomState) {
   players.forEach((player) => sendYourTurn(room, player));
 
   room.timer = setTimeout(
-    () => tryFinishRound(room),
+    () => tryFinishRound(room, true),
     room.config.secondsPerTurn * 1000 + TURN_TIMER_BUFFER_MS,
   );
 }

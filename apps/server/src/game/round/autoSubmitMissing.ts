@@ -1,6 +1,7 @@
 import { RoomState } from "../../model/state";
 import { roomManager } from "../room/room-manager";
 import { getSortedPlayers } from "../utils/getSortedPlayers";
+import { getTwistById } from "./twist";
 import { getStoryIndex } from "./utils/getStoryIndex";
 
 export function autoSubmitMissing(room: RoomState) {
@@ -14,9 +15,13 @@ export function autoSubmitMissing(room: RoomState) {
       room.round,
       players.length,
     );
+
+    const draft = room.drafts.get(player.id);
+
     room.stories[storyIndex].sentences.push({
       playerId: player.id,
-      content: "...",
+      content: draft?.content || "...",
+      twist: draft?.twistId ? getTwistById(draft.twistId) : undefined,
       wasTimeout: true,
     });
 

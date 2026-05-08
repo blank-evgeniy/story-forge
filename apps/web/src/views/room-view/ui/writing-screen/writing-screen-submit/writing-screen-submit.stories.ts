@@ -8,7 +8,7 @@ const meta = {
   title: "RoomView/WritingScreen/WritingScreenSubmit",
   component: WritingScreenSubmit,
   tags: ["autodocs"],
-  args: { onSubmit: fn() },
+  args: { onSubmit: fn(), onDraft: fn(), onEdit: fn() },
 } satisfies Meta<typeof WritingScreenSubmit>;
 
 export default meta;

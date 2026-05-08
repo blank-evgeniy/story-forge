@@ -24,6 +24,7 @@ export class RoomManager {
       round: 1,
       stories: [],
       submitted: new Set(),
+      drafts: new Map(),
       timer: null,
       config,
     });

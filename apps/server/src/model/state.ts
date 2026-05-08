@@ -57,4 +57,5 @@ export interface RoomState {
   submitted: Set<string>; // playerId тех, кто уже сдал
   timer: ReturnType<typeof setTimeout> | null;
   config: RoomConfig;
+  drafts: Map<string, { content?: string; twistId?: string }>;
 }

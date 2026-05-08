@@ -28,6 +28,7 @@ export function onRestartGame(ws: ElysiaWS) {
   room.status = "lobby";
   room.stories = [];
   room.submitted = new Set();
+  room.drafts = new Map();
   room.round = 1;
 
   roomManager.broadcast(room, {
