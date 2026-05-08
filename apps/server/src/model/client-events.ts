@@ -13,6 +13,12 @@ export const ClientEventSchema = t.Union([
     content: t.String({ minLength: 1, maxLength: 200 }),
     twistId: t.Optional(t.String()),
   }),
+  t.Object({
+    type: t.Literal("draft_sentence"),
+    content: t.Optional(t.String({ minLength: 1, maxLength: 200 })),
+    twistId: t.Optional(t.String()),
+  }),
+  t.Object({ type: t.Literal("edit_sentence") }),
   t.Object({ type: t.Literal("start_game") }),
   t.Object({ type: t.Literal("restart_game") }),
   t.Object({ type: t.Literal("request_state") }),

@@ -6,6 +6,7 @@ export function serializeRoom(room: RoomState) {
     players: Array.from(room.players.values()).map(({ ws, ...rest }) => rest),
     submitted: Array.from(room.submitted),
     timer: undefined,
+    drafts: undefined,
   };
 }
 

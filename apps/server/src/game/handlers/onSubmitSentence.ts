@@ -20,6 +20,8 @@ export function onSubmitSentence(
   const player = room.players.get(playerId);
   if (!player) return;
 
+  if (room.submitted.has(playerId)) return;
+
   const totalPlayers = room.players.size;
   const storyIndex = getStoryIndex(player.turnOrder, room.round, totalPlayers);
 
