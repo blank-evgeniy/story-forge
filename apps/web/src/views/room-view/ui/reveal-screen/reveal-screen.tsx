@@ -8,6 +8,8 @@ import {
   StoriesHistoryPicker,
   StoriesHistoryViewer,
 } from "./stories-history";
+import { useRoomStore } from "../../model/use-room-store";
+import { Spinner } from "@/components/ui/spinner";
 
 type RevealScreenProps = {
   onPlayMore: () => void;
@@ -16,6 +18,7 @@ type RevealScreenProps = {
 export function RevealScreen({ onPlayMore }: RevealScreenProps) {
   const { allStories, currentStory, shown, finished, storyIdx } =
     useStoryPlayer();
+  const isHost = useRoomStore((store) => store.isHost);
 
   const [historyMode, setHistoryMode] = useState<boolean>(false);
 
@@ -62,9 +65,15 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
               transition={{ duration: 0.3 }}
             >
               <StoriesHistoryPicker />
-              <Button className="w-full" onClick={onPlayMore}>
-                Играть еще
-              </Button>
+              {isHost ? (
+                <Button className="w-full" onClick={onPlayMore}>
+                  Играть еще
+                </Button>
+              ) : (
+                <p className="text-muted-foreground flex gap-2 justify-center items-center">
+                  Ждем, пока хост перезапустит игру <Spinner />
+                </p>
+              )}
             </motion.div>
           )}
         </AnimatePresence>

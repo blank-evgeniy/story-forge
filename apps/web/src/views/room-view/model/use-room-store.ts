@@ -10,6 +10,7 @@ type GameActions = {
   handleEvent: (event: ServerEvent) => void;
   startGame: (ws: WebSocket) => void;
   submitSentence: (ws: WebSocket, content: string, twistId?: string) => void;
+  restartGame: (ws: WebSocket) => void;
   startReveal: () => void;
   reset: () => void;
 };
@@ -143,6 +144,18 @@ export const useRoomStore = create<GameState>((set, get) => ({
         break;
       }
 
+      case "game_restarted": {
+        const currentUser = useUserStore.getState().user;
+        set({
+          ...initialState,
+          status: event.room.status,
+          players: event.room.players,
+          round: event.room.round,
+          isHost: event.room.hostId === currentUser?.id,
+        });
+        break;
+      }
+
       case "error": {
         set({ error: event.message });
         toast.error(event.message);
@@ -163,6 +176,11 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
   submitSentence(ws: WebSocket, content: string, twistId?: string) {
     const event: ClientEvent = { type: "submit_sentence", content, twistId };
+    ws.send(JSON.stringify(event));
+  },
+
+  restartGame(ws: WebSocket) {
+    const event: ClientEvent = { type: "restart_game" };
     ws.send(JSON.stringify(event));
   },
 

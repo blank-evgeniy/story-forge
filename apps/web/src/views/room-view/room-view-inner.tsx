@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import { AnimatePresence } from "motion/react";
 import { gameRoute } from "@/app/routes/routes";
 
@@ -15,7 +14,6 @@ import { RoomLoading } from "./ui/common/room-loading";
 import { RoomError } from "./ui/common/room-error";
 
 export function RoomViewInner() {
-  const navigate = useNavigate();
   const { roomCode } = gameRoute.useParams();
 
   const user = useUserStore((store) => store.user);
@@ -29,6 +27,7 @@ export function RoomViewInner() {
   const status = useRoomStore((store) => store.status);
   const startGame = useRoomStore((store) => store.startGame);
   const submitSentence = useRoomStore((store) => store.submitSentence);
+  const restartGame = useRoomStore((store) => store.restartGame);
 
   const handleStart = () => {
     if (!client) return;
@@ -41,7 +40,8 @@ export function RoomViewInner() {
   };
 
   const handlePlayMore = () => {
-    navigate({ to: "/" });
+    if (!client) return;
+    restartGame(client);
   };
 
   if (wsStatus === "connecting") return <RoomLoading title="Подключение..." />;
