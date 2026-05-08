@@ -23,7 +23,7 @@ export function WritingScreenSubmit({
   const [pickedTwistId, setPickedTwistId] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [draftedContent, setDraftedContent] = useState<string | null>(null);
+  const [draftedContent, setDraftedContent] = useState<string>("");
 
   const handleSubmit = (content: string) => {
     onSubmit(content, pickedTwistId ?? undefined);
@@ -40,7 +40,7 @@ export function WritingScreenSubmit({
     onDraft(draftedContent || undefined, twistId ?? undefined);
   };
 
-  const handleDraftContent = (content: string | null) => {
+  const handleDraftContent = (content: string) => {
     setDraftedContent(content);
     onDraft(content || undefined, pickedTwistId ?? undefined);
   };

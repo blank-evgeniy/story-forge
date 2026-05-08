@@ -22,6 +22,4 @@ export function onDraftSentence(
     content: event.content,
     twistId: event.twistId,
   });
-
-  room.submitted.delete(playerId);
 }
