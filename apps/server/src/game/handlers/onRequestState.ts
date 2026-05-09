@@ -1,16 +1,13 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
 import { roomManager } from "../room/room-manager";
-import { getWsMeta } from "../utils/getWsMeta";
 import { serializeRoom } from "../utils/serializeRoom";
 
 export function onRequestState(ws: ElysiaWS) {
-  const { roomCode } = getWsMeta(ws);
+  const context = roomManager.getContext(ws.id);
+  if (!context) return;
 
-  if (!roomCode) return;
-
-  const room = roomManager.get(roomCode);
-  if (!room) return;
+  const { room } = context;
 
   ws.send(JSON.stringify({ type: "room_state", room: serializeRoom(room) }));
 }

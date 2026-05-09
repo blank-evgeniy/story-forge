@@ -1,22 +1,17 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
 import { roomManager } from "../room/room-manager";
-import { getWsMeta } from "../utils/getWsMeta";
 
 export function onDraftSentence(
   ws: ElysiaWS,
   event: { content?: string; twistId?: string },
 ) {
-  const { playerId, roomCode } = getWsMeta(ws);
+  const context = roomManager.getContext(ws.id);
+  if (!context) return;
 
-  if (!roomCode || !playerId) return;
+  const { playerId, room } = context;
 
-  const room = roomManager.get(roomCode);
-  if (!room || room.status !== "writing" || room.submitted.has(playerId))
-    return;
-
-  const player = room.players.get(playerId);
-  if (!player) return;
+  if (room.status !== "writing" || room.submitted.has(playerId)) return;
 
   room.drafts.set(playerId, {
     content: event.content,

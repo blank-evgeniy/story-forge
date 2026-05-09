@@ -1,23 +1,15 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
 import { roomManager } from "../room/room-manager";
-import { getWsMeta } from "../utils/getWsMeta";
 import { EMPTY_ROOM_CLEANUP_DELAY_MS } from "../consts";
 import { tryFinishRound } from "../round/tryFinishRound";
 
-import { socketMeta } from "../../modules/ws";
-
 export function onClose(ws: ElysiaWS) {
-  const { playerId, roomCode } = getWsMeta(ws);
+  const context = roomManager.getContext(ws.id);
+  roomManager.unregisterSocket(ws.id);
+  if (!context) return;
 
-  if (!playerId || !roomCode) return;
-  socketMeta.delete(ws.id);
-
-  const room = roomManager.get(roomCode);
-  if (!room) return;
-
-  const player = room.players.get(playerId);
-  if (!player) return;
+  const { player, playerId, room, roomCode } = context;
 
   if (room.status === "lobby") {
     room.players.delete(playerId);

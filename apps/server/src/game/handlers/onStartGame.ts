@@ -2,15 +2,14 @@ import { ElysiaWS } from "elysia/dist/ws";
 import { roomManager } from "../room/room-manager";
 import { ROUND_TRANSITION_DELAY_MS, MIN_PLAYERS_TO_START } from "../consts";
 import { onRoundStart } from "../round/onRoundStart";
-import { getWsMeta } from "../utils/getWsMeta";
 
 export function onStartGame(ws: ElysiaWS) {
-  const { playerId, roomCode } = getWsMeta(ws);
+  const context = roomManager.getContext(ws.id);
+  if (!context) return;
 
-  if (!playerId || !roomCode) return;
+  const { playerId, room } = context;
 
-  const room = roomManager.get(roomCode);
-  if (!room || room.status !== "lobby") return;
+  if (room.status !== "lobby") return;
 
   if (room.players.size < MIN_PLAYERS_TO_START) {
     roomManager.send(room, playerId, {

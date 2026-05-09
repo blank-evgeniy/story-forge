@@ -2,7 +2,6 @@ import { ElysiaWS } from "elysia/dist/ws";
 
 import { roomManager } from "../room/room-manager";
 import { createPlayer, Player } from "../../model/state";
-import { socketMeta } from "../../modules/ws";
 import { serializeRoom } from "../utils/serializeRoom";
 import { sendYourTurn } from "../round/sendYourTurn";
 import { MAX_PLAYERS } from "../consts";
@@ -78,5 +77,5 @@ export function onJoinRoom(
     sendYourTurn(room, existing);
   }
 
-  socketMeta.set(ws.id, { playerId: event.playerId, roomCode: event.code });
+  roomManager.registerSocket(ws.id, event.playerId, event.code);
 }
