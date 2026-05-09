@@ -1,21 +1,15 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
 import { roomManager } from "../room/room-manager";
-import { getWsMeta } from "../utils/getWsMeta";
 import { getPlayerStoryIndex } from "../round/utils/getPlayerStoryIndex";
 
 export function onEditSentence(ws: ElysiaWS) {
-  const { playerId, roomCode } = getWsMeta(ws);
+  const context = roomManager.getContext(ws.id);
+  if (!context) return;
 
-  if (!roomCode || !playerId) return;
+  const { playerId, room } = context;
 
-  const room = roomManager.get(roomCode);
-  if (!room || room.status !== "writing") return;
-
-  if (!room.submitted.has(playerId)) return;
-
-  const player = room.players.get(playerId);
-  if (!player) return;
+  if (room.status !== "writing" || !room.submitted.has(playerId)) return;
 
   const storyIndex = getPlayerStoryIndex(room, playerId);
 

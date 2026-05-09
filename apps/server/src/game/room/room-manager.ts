@@ -1,9 +1,20 @@
 import { ServerEvent } from "../../model/server-events";
-import { RoomConfig, RoomState } from "../../model/state";
+import { Player, RoomConfig, RoomState } from "../../model/state";
 import { generateRoomCode } from "./utils/generateRoomCode";
+
+export type RoomContext = {
+  room: RoomState;
+  player: Player;
+  playerId: string;
+  roomCode: string;
+};
 
 export class RoomManager {
   private rooms = new Map<string, RoomState>();
+  private socketMeta = new Map<
+    string,
+    { roomCode: string; playerId: string }
+  >();
 
   get(code: string) {
     return this.rooms.get(code);
@@ -53,6 +64,38 @@ export class RoomManager {
     if (!player || !player.connected) return;
 
     player.ws.send(payload);
+  }
+
+  registerSocket(wsId: string, playerId: string, roomCode: string) {
+    this.socketMeta.set(wsId, { playerId, roomCode });
+  }
+
+  unregisterSocket(wsId: string) {
+    this.socketMeta.delete(wsId);
+  }
+
+  private getWsMeta(wsId: string): {
+    playerId: string | null;
+    roomCode: string | null;
+  } {
+    const meta = this.socketMeta.get(wsId);
+    return {
+      playerId: meta?.playerId ?? null,
+      roomCode: meta?.roomCode ?? null,
+    };
+  }
+
+  getContext(wsId: string): RoomContext | null {
+    const { playerId, roomCode } = this.getWsMeta(wsId);
+    if (!playerId || !roomCode) return null;
+
+    const room = this.get(roomCode);
+    if (!room) return null;
+
+    const player = room.players.get(playerId);
+    if (!player) return null;
+
+    return { room, player, playerId, roomCode };
   }
 }
 

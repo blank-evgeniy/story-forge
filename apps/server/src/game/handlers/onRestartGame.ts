@@ -1,16 +1,15 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
 import { roomManager } from "../room/room-manager";
-import { getWsMeta } from "../utils/getWsMeta";
 import { serializeRoom } from "../utils/serializeRoom";
 
 export function onRestartGame(ws: ElysiaWS) {
-  const { playerId, roomCode } = getWsMeta(ws);
+  const context = roomManager.getContext(ws.id);
+  if (!context) return;
 
-  if (!playerId || !roomCode) return;
+  const { playerId, room } = context;
 
-  const room = roomManager.get(roomCode);
-  if (!room || room.status !== "reveal") return;
+  if (room.status !== "reveal") return;
 
   if (room.hostId !== playerId) {
     roomManager.send(room, playerId, {
