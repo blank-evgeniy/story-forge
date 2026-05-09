@@ -1,7 +1,7 @@
 import { Player, RoomState } from "../../model/state";
 import { roomManager } from "../room/room-manager";
 
-import { getStoryIndex } from "./utils/getStoryIndex";
+import { getPlayerStoryIndex } from "./utils/getPlayerStoryIndex";
 import { pickThreeTwists, shouldShowTwist } from "./twist";
 
 export function sendYourTurn(room: RoomState, player: Player) {
@@ -11,18 +11,17 @@ export function sendYourTurn(room: RoomState, player: Player) {
 
   roomManager.send(room, player.id, {
     type: "your_turn",
-    prevSentence: getSentence(room, player.turnOrder, room.config.blindMode),
+    prevSentence: getSentence(room, player.id, room.config.blindMode),
     twistsToChoose: showTwist ? pickThreeTwists() : undefined,
   });
 }
 
-function getSentence(room: RoomState, playerOrder: number, blindMode: boolean) {
+function getSentence(room: RoomState, playerId: string, blindMode: boolean) {
   const round = room.round;
-  const totalPlayers = room.players.size;
 
   if (round === 1) return null;
 
-  const storyIndex = getStoryIndex(playerOrder, round, totalPlayers);
+  const storyIndex = getPlayerStoryIndex(room, playerId);
   const currentStory = room.stories[storyIndex];
   const currentStoryLength = currentStory.sentences.length;
 

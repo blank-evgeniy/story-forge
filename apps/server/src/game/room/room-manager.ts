@@ -14,7 +14,10 @@ export class RoomManager {
   }
 
   create(hostId: string, config: RoomConfig): string {
-    const code = generateRoomCode();
+    const existingCodes = new Set(
+      [...this.rooms].map(([id, room]) => room.code),
+    );
+    const code = generateRoomCode(existingCodes);
 
     this.rooms.set(code, {
       code,
@@ -22,6 +25,7 @@ export class RoomManager {
       status: "lobby",
       players: new Map(),
       round: 1,
+      nextTurnOrder: 1,
       stories: [],
       submitted: new Set(),
       drafts: new Map(),
@@ -38,12 +42,17 @@ export class RoomManager {
 
   broadcast(room: RoomState, event: ServerEvent) {
     const payload = JSON.stringify(event);
-    room.players.forEach((p) => p.ws.send(payload));
+    room.players.forEach((p) => {
+      if (p.connected) p.ws.send(payload);
+    });
   }
 
   send(room: RoomState, playerId: string, event: ServerEvent) {
     const payload = JSON.stringify(event);
-    room.players.get(playerId)?.ws.send(payload);
+    const player = room.players.get(playerId);
+    if (!player || !player.connected) return;
+
+    player.ws.send(payload);
   }
 }
 

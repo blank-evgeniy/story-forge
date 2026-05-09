@@ -2,7 +2,7 @@ import { RoomState } from "../../model/state";
 import { roomManager } from "../room/room-manager";
 import { getSortedPlayers } from "../utils/getSortedPlayers";
 import { getTwistById } from "./twist";
-import { getStoryIndex } from "./utils/getStoryIndex";
+import { getPlayerStoryIndex } from "./utils/getPlayerStoryIndex";
 
 export function autoSubmitMissing(room: RoomState) {
   const players = getSortedPlayers(room);
@@ -10,11 +10,7 @@ export function autoSubmitMissing(room: RoomState) {
   players.forEach((player) => {
     if (room.submitted.has(player.id)) return;
 
-    const storyIndex = getStoryIndex(
-      player.turnOrder,
-      room.round,
-      players.length,
-    );
+    const storyIndex = getPlayerStoryIndex(room, player.id);
 
     const draft = room.drafts.get(player.id);
 

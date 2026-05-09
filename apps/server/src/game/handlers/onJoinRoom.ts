@@ -5,6 +5,7 @@ import { createPlayer, Player } from "../../model/state";
 import { socketMeta } from "../../modules/ws";
 import { serializeRoom } from "../utils/serializeRoom";
 import { sendYourTurn } from "../round/sendYourTurn";
+import { MAX_PLAYERS } from "../consts";
 
 export function onJoinRoom(
   ws: ElysiaWS,
@@ -17,6 +18,17 @@ export function onJoinRoom(
         type: "error",
         message: "Комната не найдена",
         code: "ROOM_NOT_FOUND",
+      }),
+    );
+    return;
+  }
+
+  if (room.players.size >= MAX_PLAYERS) {
+    ws.send(
+      JSON.stringify({
+        type: "error",
+        message: "Комната уже заполнена",
+        code: "ROOM_FULL",
       }),
     );
     return;
@@ -48,8 +60,9 @@ export function onJoinRoom(
       ws,
       event.playerId,
       event.username,
-      room.players.size + 1,
+      room.nextTurnOrder,
     );
+    room.nextTurnOrder++;
     room.players.set(player.id, player);
 
     roomManager.broadcast(room, {

@@ -54,6 +54,7 @@ export interface RoomState {
   stories: StoryThread[]; // одна история на каждого игрока
   round: number; // текущая итерация, 1-based
   totalRounds?: number;
+  nextTurnOrder: number;
   submitted: Set<string>; // playerId тех, кто уже сдал
   timer: ReturnType<typeof setTimeout> | null;
   config: RoomConfig;

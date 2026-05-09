@@ -2,4 +2,5 @@ export const ROUND_TRANSITION_DELAY_MS = 2000;
 export const TURN_TIMER_BUFFER_MS = 1000;
 export const EMPTY_ROOM_CLEANUP_DELAY_MS = 60_000;
 export const MIN_PLAYERS_TO_START = 2;
+export const MAX_PLAYERS = 12;
 export const ROOM_CODE_LENGTH = 4;

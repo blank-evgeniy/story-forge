@@ -1,4 +1,4 @@
-import Elysia, { t } from "elysia";
+import Elysia, { NotFoundError, t } from "elysia";
 import { roomManager } from "../game/room/room-manager";
 
 export const roomsModule = new Elysia({ prefix: "/rooms" })
@@ -12,7 +12,7 @@ export const roomsModule = new Elysia({ prefix: "/rooms" })
       body: t.Object({
         playerId: t.String(),
         config: t.Object({
-          secondsPerTurn: t.Number(),
+          secondsPerTurn: t.Number({ minimum: 10, maximum: 120 }),
           blindMode: t.Boolean(),
           enableTwists: t.Boolean(),
         }),
@@ -22,6 +22,6 @@ export const roomsModule = new Elysia({ prefix: "/rooms" })
 
   .get("/:code", ({ params }) => {
     const room = roomManager.get(params.code);
-    if (!room) throw new Error("Not found");
+    if (!room) throw new NotFoundError("Not found");
     return { code: room.code, status: room.status };
   });
