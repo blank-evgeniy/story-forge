@@ -68,7 +68,7 @@ function TwistPickerButton({
       type="button"
       aria-pressed={isPicked}
       className={cn(
-        "w-full rounded-lg text-sm border px-4 py-2 flex gap-4 items-center disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
+        "w-full rounded-lg text-sm border px-4 py-2 flex gap-4 items-center disabled:cursor-not-allowed disabled:opacity-50 transition-colors cursor-pointer",
         isPicked
           ? "border-primary bg-primary/10"
           : "border-muted hover:bg-muted/50",
