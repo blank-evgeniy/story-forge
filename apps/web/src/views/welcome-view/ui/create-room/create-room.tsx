@@ -62,6 +62,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
                 value={[roundTime]}
                 onValueChange={handleRoundTimeChange}
                 disabled={isLoading}
+                variant={"outline"}
               >
                 <ToggleGroupItem value="30">30</ToggleGroupItem>
                 <ToggleGroupItem value="60">60</ToggleGroupItem>

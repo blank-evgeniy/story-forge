@@ -1,7 +1,18 @@
-import { Link } from "@tanstack/react-router";
-import { HeaderMenu } from "./header-menu";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useUserStore } from "@/store/user";
+import { Button } from "@/components/ui/button";
+import { LogOutIcon } from "lucide-react";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate();
+  const logout = useUserStore((store) => store.logout);
+  const user = useUserStore((store) => store.user);
+
+  const handleLogout = () => {
+    logout();
+    navigate({ to: "/login", search: { redirect: window.location.pathname } });
+  };
+
   return (
     <div className="flex flex-col max-w-3xl w-full mx-auto min-h-dvh px-4 pb-4">
       <header className="py-4 flex justify-between items-center">
@@ -24,7 +35,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </svg>
         </Link>
 
-        <HeaderMenu />
+        {user && (
+          <Button size={"icon"} variant={"destructive"} onClick={handleLogout}>
+            <LogOutIcon />
+          </Button>
+        )}
       </header>
       <main className="flex-1 flex flex-col">{children}</main>
     </div>
