@@ -4,14 +4,9 @@ import { useRoomStore } from "../../model/use-room-store";
 import { REVEAL_TRANSITION_DURATION_MS } from "../../model/consts";
 
 const PHRASES = [
-  "Листаем страницы...",
   "Истории ждут...",
   "Занавес поднимается...",
-  "Слова сложились...",
-  "Финальная глава...",
   "Время читать...",
-  "Перо отложено...",
-  "Чернила высохли...",
 ];
 
 export function RevealTransitionOverlay() {
