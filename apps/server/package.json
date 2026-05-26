@@ -3,15 +3,23 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
     "@elysia/cors": "^1.4.2",
+    "@elysia/openapi": "^1.4.15",
+    "@libsql/client": "^0.17.3",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
+    "drizzle-zod": "^0.8.3",
     "elysia": "latest",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.22.3"
   },
   "module": "src/index.js"
 }
