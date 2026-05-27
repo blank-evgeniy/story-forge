@@ -10,6 +10,7 @@ import { createElement } from "react";
 import { useUserStore } from "@/store/user";
 import { LoginViewConnector } from "@/views/login-view";
 import { RoomViewConnector } from "@/views/room-view";
+import { StoriesViewConnector } from "@/views/stories-view";
 import { WelcomeViewConnector } from "@/views/welcome-view";
 
 import { AppLayout } from "../layout";
@@ -59,9 +60,15 @@ export const gameRoute = createRoute({
   component: RoomViewConnector,
 });
 
+const storiesRoute = createRoute({
+  getParentRoute: () => guardedRoute,
+  path: "stories",
+  component: StoriesViewConnector,
+});
+
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  guardedRoute.addChildren([indexRoute, gameRoute]),
+  guardedRoute.addChildren([indexRoute, gameRoute, storiesRoute]),
 ]);
 
 export const router = createRouter({ routeTree });

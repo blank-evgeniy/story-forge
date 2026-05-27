@@ -32,3 +32,11 @@ export type SaveStoryResponseDTO = {
   ownerName: string;
   content: StoryContentItemDTO[];
 };
+
+export type StoryListItemDTO = {
+  id: number;
+  createdAt: number;
+  ownerName: string;
+};
+
+export type GetStoryResponseDTO = SaveStoryResponseDTO;
