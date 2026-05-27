@@ -1,5 +1,6 @@
-import Elysia, { NotFoundError, t } from "elysia";
+import Elysia, { NotFoundError } from "elysia";
 import { roomManager } from "../services/rooms";
+import z from "zod";
 
 export const roomsModule = new Elysia({ prefix: "/rooms" })
   .post(
@@ -9,12 +10,12 @@ export const roomsModule = new Elysia({ prefix: "/rooms" })
       return { code };
     },
     {
-      body: t.Object({
-        playerId: t.String(),
-        config: t.Object({
-          secondsPerTurn: t.Number({ minimum: 10, maximum: 120 }),
-          blindMode: t.Boolean(),
-          enableTwists: t.Boolean(),
+      body: z.object({
+        playerId: z.string(),
+        config: z.object({
+          secondsPerTurn: z.number().min(10).max(120),
+          blindMode: z.boolean(),
+          enableTwists: z.boolean(),
         }),
       }),
     },

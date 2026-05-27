@@ -1,9 +1,11 @@
-import Elysia, { NotFoundError, t } from "elysia";
+import Elysia, { NotFoundError } from "elysia";
 import { eq } from "drizzle-orm";
 import { db } from "../../database/client";
 import { savedStories } from "../../database/schema";
-import { fromDbStory, fromDbStoryListItem, toDbStory } from "./model/map";
-import { insertStorySchema } from "./model/schema";
+import { fromDbStory, fromDbStoryListItem } from "./model/map";
+import { roomManager } from "../game/services/rooms";
+import { StoryContentSchema } from "./model/schema";
+import z from "zod";
 
 export const storiesModule = new Elysia({ prefix: "/stories" })
   .get("/", async () => {
@@ -30,20 +32,40 @@ export const storiesModule = new Elysia({ prefix: "/stories" })
       return fromDbStory(row);
     },
     {
-      params: t.Object({ id: t.Numeric() }),
+      params: z.object({
+        id: z.coerce.number(),
+      }),
     },
   )
   .post(
     "/",
     async ({ body }) => {
+      const room = roomManager.get(body.roomCode);
+      if (!room) throw new NotFoundError("Room not found");
+
+      const story = room.stories.find((s) => s.id === body.storyId);
+      if (!story) throw new NotFoundError("Story not found");
+
+      const owner = room.players.get(story.ownerId);
+      if (!owner) throw new NotFoundError("Owner not found");
+
+      const content: StoryContentSchema = story.sentences.map((sentence) => ({
+        playerName: room.players.get(sentence.playerId)?.username ?? "Unknown",
+        sentence: sentence.content,
+        twist: sentence.twist?.content,
+      }));
+
       const [created] = await db
         .insert(savedStories)
-        .values(toDbStory(body))
+        .values({ ownerName: owner.username, content: JSON.stringify(content) })
         .returning();
 
       return fromDbStory(created);
     },
     {
-      body: insertStorySchema,
+      body: z.object({
+        roomCode: z.string(),
+        storyId: z.string(),
+      }),
     },
   );

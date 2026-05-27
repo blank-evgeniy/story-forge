@@ -6,8 +6,11 @@ const storyContentSchema = z.array(
   z.object({
     playerName: z.string(),
     sentence: z.string(),
+    twist: z.string().optional(),
   }),
 );
+
+export type StoryContentSchema = z.infer<typeof storyContentSchema>;
 
 export const insertStorySchema = createInsertSchema(savedStories, {
   content: storyContentSchema,
