@@ -1,5 +1,9 @@
-import { twists } from "../data/twists";
 import { Twist } from "../../../model/state";
+import { twists } from "../data/twists";
+
+export function getTwistById(twistId: string): Twist | undefined {
+  return twists.find((t) => t.id === twistId);
+}
 
 export function pickThreeTwists(): [Twist, Twist, Twist] {
   const shuffled = [...twists].sort(() => Math.random() - 0.5);
@@ -11,8 +15,4 @@ export function shouldShowTwist(
   totalRounds: number,
 ): boolean {
   return currentRound === Math.floor(totalRounds / 2) + 1;
-}
-
-export function getTwistById(twistId: string): Twist | undefined {
-  return twists.find((t) => t.id === twistId);
 }

@@ -1,4 +1,5 @@
 import Elysia from "elysia";
+
 import { roomsModule } from "./controllers/rooms";
 import { wsModule } from "./controllers/ws";
 

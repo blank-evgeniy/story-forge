@@ -2,22 +2,22 @@ import { z } from "zod";
 
 export const ClientEventSchema = z.discriminatedUnion("type", [
   z.object({
-    type: z.literal("join_room"),
     code: z.string(),
-    username: z.string().min(1).max(50),
     playerId: z.string(),
+    type: z.literal("join_room"),
+    username: z.string().min(1).max(50),
   }),
 
   z.object({
-    type: z.literal("submit_sentence"),
     content: z.string().min(1).max(200),
     twistId: z.string().optional(),
+    type: z.literal("submit_sentence"),
   }),
 
   z.object({
-    type: z.literal("draft_sentence"),
     content: z.string().min(1).max(200).optional(),
     twistId: z.string().optional(),
+    type: z.literal("draft_sentence"),
   }),
 
   z.object({

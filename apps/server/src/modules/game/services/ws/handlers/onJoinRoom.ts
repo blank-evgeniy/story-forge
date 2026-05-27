@@ -1,4 +1,5 @@
 import { ElysiaWS } from "elysia/dist/ws";
+
 import { MAX_PLAYERS } from "../../../model/consts";
 import { createPlayer } from "../../../model/state";
 import { roomManager } from "../../rooms";
@@ -7,15 +8,15 @@ import { serializeRoom } from "../utils/serializeRoom";
 
 export function onJoinRoom(
   ws: ElysiaWS,
-  event: { code: string; username: string; playerId: string },
+  event: { code: string; playerId: string; username: string; },
 ) {
   const room = roomManager.get(event.code);
   if (!room) {
     ws.send(
       JSON.stringify({
-        type: "error",
-        message: "Комната не найдена",
         code: "ROOM_NOT_FOUND",
+        message: "Комната не найдена",
+        type: "error",
       }),
     );
     return;
@@ -24,9 +25,9 @@ export function onJoinRoom(
   if (room.players.size >= MAX_PLAYERS) {
     ws.send(
       JSON.stringify({
-        type: "error",
-        message: "Комната уже заполнена",
         code: "ROOM_FULL",
+        message: "Комната уже заполнена",
+        type: "error",
       }),
     );
     return;
@@ -39,16 +40,16 @@ export function onJoinRoom(
     existing.connected = true;
 
     roomManager.broadcast(room, {
-      type: "player_reconnected",
       playerId: existing.id,
+      type: "player_reconnected",
     });
   } else {
     if (room.status !== "lobby") {
       ws.send(
         JSON.stringify({
-          type: "error",
-          message: "Игра уже началась",
           code: "GAME_ALREADY_STARTED",
+          message: "Игра уже началась",
+          type: "error",
         }),
       );
       return;
@@ -64,13 +65,13 @@ export function onJoinRoom(
     room.players.set(player.id, player);
 
     roomManager.broadcast(room, {
+      playerId: player.id,
       type: "player_joined",
       username: player.username,
-      playerId: player.id,
     });
   }
 
-  ws.send(JSON.stringify({ type: "room_state", room: serializeRoom(room) }));
+  ws.send(JSON.stringify({ room: serializeRoom(room), type: "room_state" }));
 
   if (existing && room.status === "writing") {
     sendYourTurn(room, existing);

@@ -1,20 +1,21 @@
 import Elysia from "elysia";
+
 import { ClientEventSchema } from "../model/client-events";
-import { handleMessage, handleClose } from "../services/ws";
+import { handleClose, handleMessage } from "../services/ws";
 
 export const wsModule = new Elysia().ws("/ws", {
   body: ClientEventSchema,
 
-  open(ws) {
-    console.log("ws open", ws.id);
+  close(ws) {
+    console.log("ws close", ws.id);
+    handleClose(ws);
   },
 
   message(ws, data) {
     handleMessage(ws, data);
   },
 
-  close(ws) {
-    console.log("ws close", ws.id);
-    handleClose(ws);
+  open(ws) {
+    console.log("ws open", ws.id);
   },
 });

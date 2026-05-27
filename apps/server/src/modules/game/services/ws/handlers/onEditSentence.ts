@@ -1,7 +1,7 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-import { getPlayerStoryIndex } from "../round/utils/getPlayerStoryIndex";
 import { roomManager } from "../../rooms";
+import { getPlayerStoryIndex } from "../round/utils/getPlayerStoryIndex";
 
 export function onEditSentence(ws: ElysiaWS) {
   const context = roomManager.getContext(ws.id);
@@ -26,7 +26,7 @@ export function onEditSentence(ws: ElysiaWS) {
   room.submitted.delete(playerId);
 
   roomManager.broadcast(room, {
-    type: "player_unsubmitted",
     playerId,
+    type: "player_unsubmitted",
   });
 }

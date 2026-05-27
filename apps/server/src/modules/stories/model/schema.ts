@@ -1,6 +1,7 @@
-import { z } from "zod";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { savedStories } from "../../../database/schema";
+import { z } from "zod";
+
+import { savedStories } from "@/database/schema";
 
 const storyContentSchema = z.array(
   z.object({
@@ -25,9 +26,9 @@ export const storySchema = createSelectSchema(savedStories, {
 export type StorySchema = z.infer<typeof storySchema>;
 
 export const storyListItemSchema = storySchema.pick({
+  createdAt: true,
   id: true,
   ownerName: true,
-  createdAt: true,
 });
 
 export type StoryListItemSchema = z.infer<typeof storyListItemSchema>;

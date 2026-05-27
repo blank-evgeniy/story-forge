@@ -1,8 +1,9 @@
-import { Elysia } from "elysia";
 import { cors } from "@elysia/cors";
 import { openapi } from "@elysia/openapi";
-import { healthModule } from "./modules/health";
+import { Elysia } from "elysia";
+
 import { gameModule } from "./modules/game";
+import { healthModule } from "./modules/health";
 import { storiesModule } from "./modules/stories";
 
 const isProd = process.env.NODE_ENV === "production";

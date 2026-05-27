@@ -1,19 +1,21 @@
-import Elysia, { NotFoundError } from "elysia";
 import { eq } from "drizzle-orm";
-import { db } from "../../database/client";
-import { savedStories } from "../../database/schema";
-import { fromDbStory, fromDbStoryListItem } from "./model/map";
-import { roomManager } from "../game/services/rooms";
-import { StoryContentSchema } from "./model/schema";
+import Elysia, { NotFoundError } from "elysia";
 import z from "zod";
+
+import { db } from "@/database/client";
+import { savedStories } from "@/database/schema";
+import { roomManager } from "@/modules/game/services/rooms";
+
+import { fromDbStory, fromDbStoryListItem } from "./model/map";
+import { StoryContentSchema } from "./model/schema";
 
 export const storiesModule = new Elysia({ prefix: "/stories" })
   .get("/", async () => {
     const rows = await db
       .select({
+        createdAt: savedStories.createdAt,
         id: savedStories.id,
         ownerName: savedStories.ownerName,
-        createdAt: savedStories.createdAt,
       })
       .from(savedStories);
 
@@ -21,7 +23,7 @@ export const storiesModule = new Elysia({ prefix: "/stories" })
   })
   .get(
     "/:id",
-    async ({ params, set }) => {
+    async ({ params }) => {
       const [row] = await db
         .select()
         .from(savedStories)
@@ -57,7 +59,7 @@ export const storiesModule = new Elysia({ prefix: "/stories" })
 
       const [created] = await db
         .insert(savedStories)
-        .values({ ownerName: owner.username, content: JSON.stringify(content) })
+        .values({ content: JSON.stringify(content), ownerName: owner.username })
         .returning();
 
       return fromDbStory(created);
