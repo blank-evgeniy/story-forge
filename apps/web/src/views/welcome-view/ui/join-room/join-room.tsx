@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,8 +14,6 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-
-import { useState } from "react";
 
 type JoinRoomProps = {
   onJoin: (roomCode: string) => void;

@@ -7,8 +7,8 @@ import { tryFinishRound } from "./tryFinishRound";
 
 export function onRoundStart(room: RoomState) {
   roomManager.broadcast(room, {
-    type: "round_started",
     timer: room.config.secondsPerTurn,
+    type: "round_started",
   });
 
   const players = getSortedPlayers(room);

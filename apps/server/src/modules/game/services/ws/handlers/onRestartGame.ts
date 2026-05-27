@@ -1,7 +1,7 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-import { serializeRoom } from "../utils/serializeRoom";
 import { roomManager } from "../../rooms";
+import { serializeRoom } from "../utils/serializeRoom";
 
 export function onRestartGame(ws: ElysiaWS) {
   const context = roomManager.getContext(ws.id);
@@ -13,9 +13,9 @@ export function onRestartGame(ws: ElysiaWS) {
 
   if (room.hostId !== playerId) {
     roomManager.send(room, playerId, {
-      type: "error",
-      message: "Только хост может перезапустить игру",
       code: "NOT_HOST",
+      message: "Только хост может перезапустить игру",
+      type: "error",
     });
     return;
   }
@@ -31,7 +31,7 @@ export function onRestartGame(ws: ElysiaWS) {
   room.round = 1;
 
   roomManager.broadcast(room, {
-    type: "game_restarted",
     room: serializeRoom(room),
+    type: "game_restarted",
   });
 }

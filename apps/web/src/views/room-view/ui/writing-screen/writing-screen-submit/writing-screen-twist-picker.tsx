@@ -1,6 +1,8 @@
 import { CheckIcon, ZapIcon } from "lucide-react";
-import type { TwistsSet } from "../../../model/types";
+
 import { cn } from "@/lib/utils";
+
+import type { TwistsSet } from "../../../model/types";
 
 interface WritingScreenTwistPickerProps {
   twists: TwistsSet;

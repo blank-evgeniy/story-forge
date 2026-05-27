@@ -1,27 +1,40 @@
-import { t } from "elysia";
-import { Static } from "elysia";
+import { z } from "zod";
 
-export const ClientEventSchema = t.Union([
-  t.Object({
-    type: t.Literal("join_room"),
-    code: t.String(),
-    username: t.String({ minLength: 1, maxLength: 50 }),
-    playerId: t.String(),
+export const ClientEventSchema = z.discriminatedUnion("type", [
+  z.object({
+    code: z.string(),
+    playerId: z.string(),
+    type: z.literal("join_room"),
+    username: z.string().min(1).max(50),
   }),
-  t.Object({
-    type: t.Literal("submit_sentence"),
-    content: t.String({ minLength: 1, maxLength: 200 }),
-    twistId: t.Optional(t.String()),
+
+  z.object({
+    content: z.string().min(1).max(200),
+    twistId: z.string().optional(),
+    type: z.literal("submit_sentence"),
   }),
-  t.Object({
-    type: t.Literal("draft_sentence"),
-    content: t.Optional(t.String({ minLength: 1, maxLength: 200 })),
-    twistId: t.Optional(t.String()),
+
+  z.object({
+    content: z.string().min(1).max(200).optional(),
+    twistId: z.string().optional(),
+    type: z.literal("draft_sentence"),
   }),
-  t.Object({ type: t.Literal("edit_sentence") }),
-  t.Object({ type: t.Literal("start_game") }),
-  t.Object({ type: t.Literal("restart_game") }),
-  t.Object({ type: t.Literal("request_state") }),
+
+  z.object({
+    type: z.literal("edit_sentence"),
+  }),
+
+  z.object({
+    type: z.literal("start_game"),
+  }),
+
+  z.object({
+    type: z.literal("restart_game"),
+  }),
+
+  z.object({
+    type: z.literal("request_state"),
+  }),
 ]);
 
-export type ClientEvent = Static<typeof ClientEventSchema>;
+export type ClientEvent = z.infer<typeof ClientEventSchema>;

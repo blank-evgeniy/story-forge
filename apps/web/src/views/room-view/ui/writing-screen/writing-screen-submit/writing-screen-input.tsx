@@ -1,9 +1,11 @@
 import { useDebounceCallback } from "@siberiacancode/reactuse";
-import { Textarea } from "@/components/ui/textarea";
+import { CheckIcon, PencilIcon, SendHorizonalIcon } from "lucide-react";
 import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
-import { SendHorizonalIcon, CheckIcon, PencilIcon } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+
 import { PlayerMessage } from "../../common/player-message";
 
 const MAX_LENGTH = 200;

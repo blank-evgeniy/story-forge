@@ -1,8 +1,8 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-import { tryFinishRound } from "../round/tryFinishRound";
 import { EMPTY_ROOM_CLEANUP_DELAY_MS } from "../../../model/consts";
 import { roomManager } from "../../rooms";
+import { tryFinishRound } from "../round/tryFinishRound";
 
 export function onClose(ws: ElysiaWS) {
   const context = roomManager.getContext(ws.id);
@@ -13,10 +13,10 @@ export function onClose(ws: ElysiaWS) {
 
   if (room.status === "lobby") {
     room.players.delete(playerId);
-    roomManager.broadcast(room, { type: "player_left", playerId });
+    roomManager.broadcast(room, { playerId, type: "player_left" });
   } else if (room.status === "writing" || room.status === "reveal") {
     player.connected = false;
-    roomManager.broadcast(room, { type: "player_disconnected", playerId });
+    roomManager.broadcast(room, { playerId, type: "player_disconnected" });
 
     if (room.status === "writing") {
       tryFinishRound(room);

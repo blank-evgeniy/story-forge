@@ -1,15 +1,13 @@
-import { QRCodeSVG } from "qrcode.react";
 import { BookOpenIcon, PenLineIcon } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
-import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
-
-import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
+import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
 
 import { useRoomStore } from "../../model/use-room-store";
-
 import {
   PlayerCard,
   PlayerCardAvatar,

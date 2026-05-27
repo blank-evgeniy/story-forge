@@ -1,15 +1,16 @@
-import { LoginViewConnector } from "@/views/login-view";
-import { WelcomeViewConnector } from "@/views/welcome-view";
 import {
   createRootRoute,
   createRoute,
   createRouter,
+  lazyRouteComponent,
   Outlet,
   redirect,
 } from "@tanstack/react-router";
-import { useUserStore } from "@/store/user";
 import { createElement } from "react";
-import { RoomViewConnector } from "@/views/room-view";
+
+import { Spinner } from "@/components/ui/spinner";
+import { useUserStore } from "@/store/user";
+
 import { AppLayout } from "../layout";
 
 const rootRoute = createRootRoute({
@@ -19,7 +20,10 @@ const rootRoute = createRootRoute({
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
-  component: LoginViewConnector,
+  component: lazyRouteComponent(
+    () => import("@/views/login-view"),
+    "LoginViewConnector",
+  ),
   validateSearch: (search: Record<string, unknown>) => ({
     redirect: (search.redirect as string) ?? undefined,
   }),
@@ -48,21 +52,44 @@ const guardedRoute = createRoute({
 const indexRoute = createRoute({
   getParentRoute: () => guardedRoute,
   path: "/",
-  component: WelcomeViewConnector,
+  component: lazyRouteComponent(
+    () => import("@/views/welcome-view"),
+    "WelcomeViewConnector",
+  ),
 });
 
 export const gameRoute = createRoute({
   getParentRoute: () => guardedRoute,
   path: "room/$roomCode",
-  component: RoomViewConnector,
+  component: lazyRouteComponent(
+    () => import("@/views/room-view"),
+    "RoomViewConnector",
+  ),
+});
+
+const storiesRoute = createRoute({
+  getParentRoute: () => guardedRoute,
+  path: "stories",
+  component: lazyRouteComponent(
+    () => import("@/views/stories-view"),
+    "StoriesViewConnector",
+  ),
 });
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  guardedRoute.addChildren([indexRoute, gameRoute]),
+  guardedRoute.addChildren([indexRoute, gameRoute, storiesRoute]),
 ]);
 
-export const router = createRouter({ routeTree });
+export const router = createRouter({
+  routeTree,
+  defaultPendingComponent: () =>
+    createElement(
+      "div",
+      { className: "flex flex-1 items-center justify-center" },
+      createElement(Spinner, { className: "size-8" }),
+    ),
+});
 
 declare module "@tanstack/react-router" {
   interface Register {

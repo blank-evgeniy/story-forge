@@ -1,15 +1,29 @@
-import { isPlayerSentence } from "@/views/room-view/model/type-guards";
+import type { ReactNode } from "react";
+
 import { cn } from "@/lib/utils";
-import { StoryWrapper } from "../../common/story-wrapper";
-import { assignSides } from "../reveal-screen-story/utils/assignSides";
+import { isPlayerSentence } from "@/views/room-view/model/type-guards";
+
 import { PlayerMessage } from "../../common/player-message";
+import { StoryWrapper } from "../../common/story-wrapper";
 import { TwistMessage } from "../../common/twist-message";
+import { assignSides } from "../reveal-screen-story/utils/assignSides";
 import { useStoriesHistory } from "./stories-history-context";
 
-export function StoriesHistoryViewer() {
+type StoriesHistoryViewerProps = {
+  actionsSlot?: ReactNode | ((storyId: string) => ReactNode);
+};
+
+export function StoriesHistoryViewer({
+  actionsSlot,
+}: StoriesHistoryViewerProps) {
   const { selectedStory } = useStoriesHistory();
 
   if (!selectedStory) return null;
+
+  const resolvedActionsSlot =
+    typeof actionsSlot === "function"
+      ? actionsSlot(selectedStory.id)
+      : actionsSlot;
 
   return (
     <StoryWrapper storyOwner={selectedStory.playerName}>
@@ -33,6 +47,7 @@ export function StoriesHistoryViewer() {
           </div>
         ),
       )}
+      {resolvedActionsSlot}
     </StoryWrapper>
   );
 }

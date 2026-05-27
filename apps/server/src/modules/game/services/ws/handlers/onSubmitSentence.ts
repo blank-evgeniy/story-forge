@@ -1,9 +1,9 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-import { getPlayerStoryIndex } from "../round/utils/getPlayerStoryIndex";
-import { getTwistById } from "../round/twist";
-import { tryFinishRound } from "../round/tryFinishRound";
 import { roomManager } from "../../rooms";
+import { tryFinishRound } from "../round/tryFinishRound";
+import { getTwistById } from "../round/twist";
+import { getPlayerStoryIndex } from "../round/utils/getPlayerStoryIndex";
 
 export function onSubmitSentence(
   ws: ElysiaWS,
@@ -20,18 +20,18 @@ export function onSubmitSentence(
 
   room.stories[storyIndex].sentences.push({
     content: event.content,
+    playerId,
     twist:
       room.config.enableTwists && event.twistId
         ? getTwistById(event.twistId)
         : undefined,
-    playerId,
     wasTimeout: false,
   });
 
   room.submitted.add(playerId);
   roomManager.broadcast(room, {
-    type: "player_submitted",
     playerId,
+    type: "player_submitted",
   });
 
   tryFinishRound(room);

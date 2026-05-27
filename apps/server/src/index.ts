@@ -1,7 +1,10 @@
-import { Elysia } from "elysia";
 import { cors } from "@elysia/cors";
-import { healthModule } from "./modules/health";
+import { openapi } from "@elysia/openapi";
+import { Elysia } from "elysia";
+
 import { gameModule } from "./modules/game";
+import { healthModule } from "./modules/health";
+import { storiesModule } from "./modules/stories";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -11,6 +14,8 @@ const app = new Elysia()
       origin: isProd ? "https://story-forge-web-omega.vercel.app" : true,
     }),
   )
+  .use(openapi())
+  .use(storiesModule)
   .use(healthModule)
   .use(gameModule)
   .listen(3000);

@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useUserStore } from "@/store/user";
-import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { useUserStore } from "@/store/user";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();

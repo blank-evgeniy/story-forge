@@ -1,7 +1,7 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
-import { serializeRoom } from "../utils/serializeRoom";
 import { roomManager } from "../../rooms";
+import { serializeRoom } from "../utils/serializeRoom";
 
 export function onRequestState(ws: ElysiaWS) {
   const context = roomManager.getContext(ws.id);
@@ -9,5 +9,5 @@ export function onRequestState(ws: ElysiaWS) {
 
   const { room } = context;
 
-  ws.send(JSON.stringify({ type: "room_state", room: serializeRoom(room) }));
+  ws.send(JSON.stringify({ room: serializeRoom(room), type: "room_state" }));
 }

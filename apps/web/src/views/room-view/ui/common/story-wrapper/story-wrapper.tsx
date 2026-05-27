@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import { BookOpenIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 type StoryWrapperProps = {
   storyOwner?: string;

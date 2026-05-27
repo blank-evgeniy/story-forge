@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,12 +16,11 @@ import {
   FieldLegend,
   FieldSet,
 } from "@/components/ui/field";
-
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+
 import type { CreateRoomSchema, RoundTime } from "../../model/types";
-import { useState } from "react";
 
 type CreateRoomProps = {
   onCreate: (data: CreateRoomSchema) => void;

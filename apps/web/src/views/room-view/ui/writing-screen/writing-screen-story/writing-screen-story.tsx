@@ -1,9 +1,10 @@
 import { Fragment } from "react/jsx-runtime";
 
 import type { PrevSentence } from "../../../model/types";
+
 import { PlayerMessage } from "../../common/player-message";
-import { TwistMessage } from "../../common/twist-message";
 import { StoryWrapper } from "../../common/story-wrapper";
+import { TwistMessage } from "../../common/twist-message";
 
 type WritingScreenStoryProps = {
   story: PrevSentence[] | null;

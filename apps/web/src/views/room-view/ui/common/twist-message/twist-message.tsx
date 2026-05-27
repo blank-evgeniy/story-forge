@@ -1,6 +1,7 @@
+import { ZapIcon } from "lucide-react";
+
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { ZapIcon } from "lucide-react";
 
 type TwistMessageProps = {
   message: string;

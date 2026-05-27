@@ -1,7 +1,7 @@
-import { getPlayerStoryIndex } from "./utils/getPlayerStoryIndex";
-import { pickThreeTwists, shouldShowTwist } from "./twist";
-import { RoomState, Player } from "../../../model/state";
+import { Player, RoomState } from "../../../model/state";
 import { roomManager } from "../../rooms";
+import { pickThreeTwists, shouldShowTwist } from "./twist";
+import { getPlayerStoryIndex } from "./utils/getPlayerStoryIndex";
 
 export function sendYourTurn(room: RoomState, player: Player) {
   const showTwist =
@@ -9,9 +9,9 @@ export function sendYourTurn(room: RoomState, player: Player) {
     shouldShowTwist(room.round, room.totalRounds || room.players.size);
 
   roomManager.send(room, player.id, {
-    type: "your_turn",
     prevSentence: getSentence(room, player.id, room.config.blindMode),
     twistsToChoose: showTwist ? pickThreeTwists() : undefined,
+    type: "your_turn",
   });
 }
 

@@ -1,16 +1,19 @@
-import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+
+import { useRoomStore } from "../../model/use-room-store";
+import { RevealReadyScreen } from "./reveal-ready-screen/index";
 import { RevealScreenStory } from "./reveal-screen-story";
-import { type StoryPlayerMode, useStoryPlayer } from "./use-story-player";
 import {
   StoriesHistory,
   StoriesHistoryPicker,
   StoriesHistoryViewer,
 } from "./stories-history";
-import { useRoomStore } from "../../model/use-room-store";
-import { RevealReadyScreen } from "./reveal-ready-screen/index";
+import { StoryActions } from "./story-actions";
+import { type StoryPlayerMode, useStoryPlayer } from "./use-story-player";
 
 type RevealScreenProps = {
   onPlayMore: () => void;
@@ -25,7 +28,9 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
     finished,
     storyIdx,
     started,
+    storyRevealed,
     start,
+    nextStory,
   } = useStoryPlayer({
     mode: playerMode,
   });
@@ -63,7 +68,11 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
                 transition={{ duration: 0.35, ease: "easeInOut" }}
                 className="absolute inset-0 overflow-y-auto"
               >
-                <StoriesHistoryViewer />
+                <StoriesHistoryViewer
+                  actionsSlot={(storyId) => (
+                    <StoryActions currentStoryId={storyId} />
+                  )}
+                />
               </motion.div>
             ) : (
               <motion.div
@@ -74,7 +83,19 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
                 transition={{ duration: 0.35, ease: "easeInOut" }}
                 className="absolute inset-0 overflow-y-auto"
               >
-                <RevealScreenStory shown={shown} story={currentStory} />
+                <RevealScreenStory
+                  shown={shown}
+                  story={currentStory}
+                  actionsSlot={
+                    storyRevealed ? (
+                      <StoryActions
+                        currentStoryId={currentStory.id}
+                        onNext={nextStory}
+                        showNextAction={storyIdx < allStories.length - 1}
+                      />
+                    ) : undefined
+                  }
+                />
               </motion.div>
             )}
           </AnimatePresence>

@@ -1,91 +1,91 @@
 import { SerializedRoom } from "../services/ws/utils/serializeRoom";
 import { Sentence, StoryThread, Twist } from "./state";
 
-export type ErrorEvent = {
-  type: "error";
-  message: string;
-  code: string;
-};
-
-export type RoomStateEvent = {
-  type: "room_state";
-  room: SerializedRoom;
-};
-
-export type PlayerJoinedEvent = {
-  type: "player_joined";
-  username: string;
-  playerId: string;
-};
-
-export type PlayerLeftEvent = {
-  type: "player_left";
-  playerId: string;
-};
-
-export type PlayerReconnectedEvent = {
-  type: "player_reconnected";
-  playerId: string;
-};
-
-export type PlayerDisconnectedEvent = {
-  type: "player_disconnected";
-  playerId: string;
-};
-
-export type GameStartedEvent = {
-  type: "game_started";
-  totalRounds: number;
-};
-
-export type RoundStartedEvent = {
-  type: "round_started";
-  timer: number;
-};
-
-export type YourTurnEvent = {
-  type: "your_turn";
-  prevSentence: Sentence[] | null;
-  twistsToChoose?: Twist[];
-};
-
-export type PlayerSubmittedEvent = {
-  type: "player_submitted";
-  playerId: string;
-};
-
-export type PlayerUnsubmittedEvent = {
-  type: "player_unsubmitted";
-  playerId: string;
-};
-
-export type RoundEndedEvent = {
-  type: "round_ended";
-  nextRound: number;
-};
-
 export type AllRevealedEvent = {
-  type: "all_revealed";
   stories: StoryThread[];
+  type: "all_revealed";
+};
+
+export type ErrorEvent = {
+  code: string;
+  message: string;
+  type: "error";
 };
 
 export type GameRestartedEvent = {
-  type: "game_restarted";
   room: SerializedRoom;
+  type: "game_restarted";
+};
+
+export type GameStartedEvent = {
+  totalRounds: number;
+  type: "game_started";
+};
+
+export type PlayerDisconnectedEvent = {
+  playerId: string;
+  type: "player_disconnected";
+};
+
+export type PlayerJoinedEvent = {
+  playerId: string;
+  type: "player_joined";
+  username: string;
+};
+
+export type PlayerLeftEvent = {
+  playerId: string;
+  type: "player_left";
+};
+
+export type PlayerReconnectedEvent = {
+  playerId: string;
+  type: "player_reconnected";
+};
+
+export type PlayerSubmittedEvent = {
+  playerId: string;
+  type: "player_submitted";
+};
+
+export type PlayerUnsubmittedEvent = {
+  playerId: string;
+  type: "player_unsubmitted";
+};
+
+export type RoomStateEvent = {
+  room: SerializedRoom;
+  type: "room_state";
+};
+
+export type RoundEndedEvent = {
+  nextRound: number;
+  type: "round_ended";
+};
+
+export type RoundStartedEvent = {
+  timer: number;
+  type: "round_started";
 };
 
 export type ServerEvent =
+  | AllRevealedEvent
   | ErrorEvent
-  | RoomStateEvent
+  | GameRestartedEvent
+  | GameStartedEvent
+  | PlayerDisconnectedEvent
   | PlayerJoinedEvent
   | PlayerLeftEvent
   | PlayerReconnectedEvent
-  | PlayerDisconnectedEvent
-  | GameStartedEvent
-  | RoundStartedEvent
-  | YourTurnEvent
   | PlayerSubmittedEvent
   | PlayerUnsubmittedEvent
+  | RoomStateEvent
   | RoundEndedEvent
-  | AllRevealedEvent
-  | GameRestartedEvent;
+  | RoundStartedEvent
+  | YourTurnEvent;
+
+export type YourTurnEvent = {
+  prevSentence: null | Sentence[];
+  twistsToChoose?: Twist[];
+  type: "your_turn";
+};

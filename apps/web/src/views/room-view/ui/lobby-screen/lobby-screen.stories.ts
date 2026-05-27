@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import { fn } from "storybook/test";
-import { LobbyScreen } from "./lobby-screen";
+
 import { useRoomStore } from "../../model/use-room-store";
+import { LobbyScreen } from "./lobby-screen";
 
 const meta = {
   title: "RoomView/LobbyScreen",

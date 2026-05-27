@@ -10,8 +10,8 @@ export function onRoundEnd(room: RoomState) {
   if (room.round === room.totalRounds) {
     room.status = "reveal";
     roomManager.broadcast(room, {
-      type: "all_revealed",
       stories: room.stories,
+      type: "all_revealed",
     });
     return;
   }
@@ -19,8 +19,8 @@ export function onRoundEnd(room: RoomState) {
   room.round++;
 
   roomManager.broadcast(room, {
-    type: "round_ended",
     nextRound: room.round,
+    type: "round_ended",
   });
 
   setTimeout(() => onRoundStart(room), ROUND_TRANSITION_DELAY_MS);

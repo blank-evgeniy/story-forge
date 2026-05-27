@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import { fn } from "storybook/test";
-import { WritingScreen } from "./writing-screen";
+
 import { useRoomStore } from "../../model/use-room-store";
+import { WritingScreen } from "./writing-screen";
 
 const players = [
   { id: "1", username: "Алиса", connected: true },

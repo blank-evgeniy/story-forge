@@ -3,9 +3,9 @@ import { Player, RoomConfig, RoomState } from "../../model/state";
 import { generateRoomCode } from "./utils/generateRoomCode";
 
 export type RoomContext = {
-  room: RoomState;
   player: Player;
   playerId: string;
+  room: RoomState;
   roomCode: string;
 };
 
@@ -14,22 +14,26 @@ export class RoomManager {
   private rooms = new Map<string, RoomState>();
   private socketMeta = new Map<
     string,
-    { roomCode: string; playerId: string }
+    { playerId: string; roomCode: string; }
   >();
-
-  /**
-   * @param code - уникальный код комнаты
-   * @returns состояние комнаты или `undefined`, если не найдена
-   */
-  get(code: string) {
-    return this.rooms.get(code);
-  }
 
   /**
    * @returns итератор по всем активным комнатам (`IterableIterator<RoomState>`)
    */
   all() {
     return this.rooms.values();
+  }
+
+  /**
+   * Отправляет событие всем подключённым игрокам комнаты.
+   * @param room - целевая комната
+   * @param event - событие для рассылки
+   */
+  broadcast(room: RoomState, event: ServerEvent) {
+    const payload = JSON.stringify(event);
+    room.players.forEach((p) => {
+      if (p.connected) p.ws.send(payload);
+    });
   }
 
   /**
@@ -40,22 +44,22 @@ export class RoomManager {
    */
   create(hostId: string, config: RoomConfig): string {
     const existingCodes = new Set(
-      [...this.rooms].map(([id, room]) => room.code),
+      [...this.rooms].map(([_id, room]) => room.code),
     );
     const code = generateRoomCode(existingCodes);
 
     this.rooms.set(code, {
       code,
+      config,
+      drafts: new Map(),
       hostId,
-      status: "lobby",
+      nextTurnOrder: 1,
       players: new Map(),
       round: 1,
-      nextTurnOrder: 1,
+      status: "lobby",
       stories: [],
       submitted: new Set(),
-      drafts: new Map(),
       timer: null,
-      config,
     });
 
     return code;
@@ -70,15 +74,40 @@ export class RoomManager {
   }
 
   /**
-   * Отправляет событие всем подключённым игрокам комнаты.
-   * @param room - целевая комната
-   * @param event - событие для рассылки
+   * @param code - уникальный код комнаты
+   * @returns состояние комнаты или `undefined`, если не найдена
    */
-  broadcast(room: RoomState, event: ServerEvent) {
-    const payload = JSON.stringify(event);
-    room.players.forEach((p) => {
-      if (p.connected) p.ws.send(payload);
-    });
+  get(code: string) {
+    return this.rooms.get(code);
+  }
+
+  /**
+   * Возвращает полный контекст сессии для WebSocket-соединения.
+   * @param wsId - id WebSocket-соединения
+   * @returns `RoomContext` с room, player, playerId, roomCode —
+   * или `null`, если сокет не зарегистрирован, комната или игрок не найдены
+   */
+  getContext(wsId: string): null | RoomContext {
+    const { playerId, roomCode } = this.getWsMeta(wsId);
+    if (!playerId || !roomCode) return null;
+
+    const room = this.get(roomCode);
+    if (!room) return null;
+
+    const player = room.players.get(playerId);
+    if (!player) return null;
+
+    return { player, playerId, room, roomCode };
+  }
+
+  /**
+   * Регистрирует WebSocket-соединение, привязывая его к игроку и комнате.
+   * @param wsId - уникальный id WebSocket-соединения
+   * @param playerId - id игрока
+   * @param roomCode - код комнаты
+   */
+  registerSocket(wsId: string, playerId: string, roomCode: string) {
+    this.socketMeta.set(wsId, { playerId, roomCode });
   }
 
   /**
@@ -97,16 +126,6 @@ export class RoomManager {
   }
 
   /**
-   * Регистрирует WebSocket-соединение, привязывая его к игроку и комнате.
-   * @param wsId - уникальный id WebSocket-соединения
-   * @param playerId - id игрока
-   * @param roomCode - код комнаты
-   */
-  registerSocket(wsId: string, playerId: string, roomCode: string) {
-    this.socketMeta.set(wsId, { playerId, roomCode });
-  }
-
-  /**
    * Удаляет запись о WebSocket-соединении. Вызывается при отключении игрока.
    * @param wsId - уникальный id WebSocket-соединения
    */
@@ -119,33 +138,14 @@ export class RoomManager {
    * @returns `{ playerId, roomCode }` — оба `null`, если сокет не зарегистрирован
    */
   private getWsMeta(wsId: string): {
-    playerId: string | null;
-    roomCode: string | null;
+    playerId: null | string;
+    roomCode: null | string;
   } {
     const meta = this.socketMeta.get(wsId);
     return {
       playerId: meta?.playerId ?? null,
       roomCode: meta?.roomCode ?? null,
     };
-  }
-
-  /**
-   * Возвращает полный контекст сессии для WebSocket-соединения.
-   * @param wsId - id WebSocket-соединения
-   * @returns `RoomContext` с room, player, playerId, roomCode —
-   * или `null`, если сокет не зарегистрирован, комната или игрок не найдены
-   */
-  getContext(wsId: string): RoomContext | null {
-    const { playerId, roomCode } = this.getWsMeta(wsId);
-    if (!playerId || !roomCode) return null;
-
-    const room = this.get(roomCode);
-    if (!room) return null;
-
-    const player = room.players.get(playerId);
-    if (!player) return null;
-
-    return { room, player, playerId, roomCode };
   }
 }
 

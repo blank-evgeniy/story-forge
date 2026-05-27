@@ -1,19 +1,28 @@
+import type { ReactNode } from "react";
+
 import { AnimatePresence, motion } from "motion/react";
+
 import { cn } from "@/lib/utils";
 
 import type { Story } from "../../../model/types";
-import { PlayerMessage } from "../../common/player-message";
+
 import { isPlayerSentence } from "../../../model/type-guards";
-import { TwistMessage } from "../../common/twist-message";
+import { PlayerMessage } from "../../common/player-message";
 import { StoryWrapper } from "../../common/story-wrapper";
+import { TwistMessage } from "../../common/twist-message";
 import { assignSides } from "./utils/assignSides";
 
 type RevealScreenStoryProps = {
   story: Story;
   shown: number;
+  actionsSlot?: ReactNode;
 };
 
-export function RevealScreenStory({ shown, story }: RevealScreenStoryProps) {
+export function RevealScreenStory({
+  shown,
+  story,
+  actionsSlot,
+}: RevealScreenStoryProps) {
   const visibleSentences = story.sentences.slice(0, shown);
   const sentencesWithSides = assignSides(visibleSentences);
 
@@ -48,6 +57,8 @@ export function RevealScreenStory({ shown, story }: RevealScreenStoryProps) {
             </motion.div>
           ),
         )}
+
+        {actionsSlot}
       </AnimatePresence>
     </StoryWrapper>
   );

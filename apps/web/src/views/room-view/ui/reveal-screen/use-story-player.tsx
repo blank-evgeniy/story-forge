@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+
 import { useRoomStore } from "../../model/use-room-store";
 
 const FIRST_SENTENCE_DELAY = 1200;
 const BASE_DELAY = 1500;
 const MS_PER_CHAR = 50;
 const MAX_DELAY = 8000;
-const STORY_OUT_DELAY = 5000;
 
 function getReadingDelay(content: string): number {
   return Math.min(BASE_DELAY + content.length * MS_PER_CHAR, MAX_DELAY);
@@ -24,6 +24,7 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
   const [storyIdx, setStoryIdx] = useState(0);
   const [msgIdx, setMsgIdx] = useState(-1);
   const [finished, setFinished] = useState(false);
+  const [storyRevealed, setStoryRevealed] = useState(false);
 
   const currentStory = stories[storyIdx] ?? { sentences: [] };
   const currentSentence = currentStory.sentences[msgIdx];
@@ -44,14 +45,12 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
     utterance.lang = "ru-RU";
 
     utterance.onend = () => {
-      const isLastSentence = msgIdx === currentStory.sentences.length - 1;
-      if (isLastSentence) {
+      const isLastMessage = msgIdx === currentStory.sentences.length - 1;
+      if (isLastMessage) {
         if (storyIdx >= stories.length - 1) {
           setFinished(true);
-        } else {
-          setStoryIdx((prev) => prev + 1);
-          setMsgIdx(-1);
         }
+        setStoryRevealed(true);
       } else {
         setMsgIdx((prev) => prev + 1);
       }
@@ -71,23 +70,16 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
     const isLastMessage = msgIdx === currentStory.sentences.length - 1;
     const isFirstMessage = msgIdx === -1;
 
-    let delay: number;
-    if (isLastMessage) {
-      delay = STORY_OUT_DELAY;
-    } else if (isFirstMessage) {
-      delay = FIRST_SENTENCE_DELAY;
-    } else {
-      delay = getReadingDelay(currentStory.sentences[msgIdx].content);
-    }
+    const delay = isFirstMessage
+      ? FIRST_SENTENCE_DELAY
+      : getReadingDelay(currentStory.sentences[msgIdx].content);
 
     timeoutRef.current = setTimeout(() => {
       if (isLastMessage) {
         if (storyIdx >= stories.length - 1) {
           setFinished(true);
-        } else {
-          setStoryIdx((prev) => prev + 1);
-          setMsgIdx(-1);
         }
+        setStoryRevealed(true);
       } else {
         setMsgIdx((prev) => prev + 1);
       }
@@ -108,13 +100,23 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
     setStarted(true);
   };
 
+  const nextStory = () => {
+    if (finished || storyIdx >= stories.length - 1) return;
+
+    setStoryIdx((prev) => prev + 1);
+    setMsgIdx(-1);
+    setStoryRevealed(false);
+  };
+
   return {
     allStories: stories,
     currentStory,
     shown: Math.max(0, msgIdx + 1),
-    finished,
     storyIdx,
     started,
     start,
+    finished,
+    storyRevealed,
+    nextStory,
   };
 }

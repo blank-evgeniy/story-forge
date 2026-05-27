@@ -1,6 +1,7 @@
+import { createContext, useContext } from "react";
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { createContext, useContext } from "react";
 
 type PlayerCardContextValue = {
   playerName: string;
