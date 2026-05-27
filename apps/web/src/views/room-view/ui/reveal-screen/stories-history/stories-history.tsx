@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import type { Story } from "@/views/room-view/model/types";
+
 import { StoriesHistoryContext } from "./stories-history-context";
 
 type StoriesHistoryProps = {

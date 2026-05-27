@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type WelcomeViewProps = {
   createRoomSlot: React.ReactNode;

@@ -1,5 +1,3 @@
-import { LoginViewConnector } from "@/views/login-view";
-import { WelcomeViewConnector } from "@/views/welcome-view";
 import {
   createRootRoute,
   createRoute,
@@ -7,9 +5,13 @@ import {
   Outlet,
   redirect,
 } from "@tanstack/react-router";
-import { useUserStore } from "@/store/user";
 import { createElement } from "react";
+
+import { useUserStore } from "@/store/user";
+import { LoginViewConnector } from "@/views/login-view";
 import { RoomViewConnector } from "@/views/room-view";
+import { WelcomeViewConnector } from "@/views/welcome-view";
+
 import { AppLayout } from "../layout";
 
 const rootRoute = createRootRoute({

@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
-import { useRoomStore } from "../../model/use-room-store";
+
 import { ROUND_TRANSITION_DURATION_MS } from "../../model/consts";
+import { useRoomStore } from "../../model/use-room-store";
 
 export function RoundTransitionOverlay() {
   const round = useRoomStore((s) => s.round);

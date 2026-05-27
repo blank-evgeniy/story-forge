@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+
 import { useRoomStore } from "../../model/use-room-store";
 
 const FIRST_SENTENCE_DELAY = 1200;

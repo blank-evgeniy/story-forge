@@ -1,10 +1,14 @@
-import { create } from "zustand";
-import type { ClientEvent, ServerEvent } from "@/api/ws/types";
-import { mapStories } from "./map";
-import type { Player, PrevSentence, Story, TwistsSet } from "./types";
-import { useUserStore } from "@/store/user";
 import { toast } from "sonner";
+import { create } from "zustand";
+
+import type { ClientEvent, ServerEvent } from "@/api/ws/types";
+
 import { router } from "@/app/routes/routes";
+import { useUserStore } from "@/store/user";
+
+import type { Player, PrevSentence, Story, TwistsSet } from "./types";
+
+import { mapStories } from "./map";
 
 type GameActions = {
   handleEvent: (event: ServerEvent) => void;

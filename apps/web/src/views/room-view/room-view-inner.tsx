@@ -1,17 +1,17 @@
 import { AnimatePresence } from "motion/react";
-import { gameRoute } from "@/app/routes/routes";
 
+import { gameRoute } from "@/app/routes/routes";
 import { useUserStore } from "@/store/user";
 
 import { useRoomSocket } from "./api/use-room-socket";
 import { useRoomStore } from "./model/use-room-store";
-import { LobbyScreen } from "./ui/lobby-screen";
-import { WritingScreen } from "./ui/writing-screen";
-import { RevealScreen } from "./ui/reveal-screen";
-import { RoundTransitionOverlay } from "./ui/round-transition-overlay";
-import { RevealTransitionOverlay } from "./ui/reveal-transition-overlay";
-import { RoomLoading } from "./ui/common/room-loading";
 import { RoomError } from "./ui/common/room-error";
+import { RoomLoading } from "./ui/common/room-loading";
+import { LobbyScreen } from "./ui/lobby-screen";
+import { RevealScreen } from "./ui/reveal-screen";
+import { RevealTransitionOverlay } from "./ui/reveal-transition-overlay";
+import { RoundTransitionOverlay } from "./ui/round-transition-overlay";
+import { WritingScreen } from "./ui/writing-screen";
 
 export function RoomViewInner() {
   const { roomCode } = gameRoute.useParams();

@@ -1,9 +1,10 @@
-import { motion } from "motion/react";
 import { BookOpenIcon } from "lucide-react";
+import { motion } from "motion/react";
+
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Field, FieldContent, FieldLabel } from "@/components/ui/field";
 import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 
 function pluralizeStories(count: number): string {
   if (count === 1) return "история";

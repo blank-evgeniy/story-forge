@@ -1,16 +1,18 @@
-import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+
+import { useRoomStore } from "../../model/use-room-store";
+import { RevealReadyScreen } from "./reveal-ready-screen/index";
 import { RevealScreenStory } from "./reveal-screen-story";
-import { type StoryPlayerMode, useStoryPlayer } from "./use-story-player";
 import {
   StoriesHistory,
   StoriesHistoryPicker,
   StoriesHistoryViewer,
 } from "./stories-history";
-import { useRoomStore } from "../../model/use-room-store";
-import { RevealReadyScreen } from "./reveal-ready-screen/index";
+import { type StoryPlayerMode, useStoryPlayer } from "./use-story-player";
 
 type RevealScreenProps = {
   onPlayMore: () => void;

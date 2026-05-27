@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,8 +11,6 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { toast } from "sonner";
 
 type LoginViewProps = {
   onLogin: (username: string) => void;

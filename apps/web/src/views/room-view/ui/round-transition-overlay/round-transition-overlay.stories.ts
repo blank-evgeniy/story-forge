@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { RoundTransitionOverlay } from "./round-transition-overlay";
+
 import { useRoomStore } from "../../model/use-room-store";
+import { RoundTransitionOverlay } from "./round-transition-overlay";
 
 const meta = {
   title: "RoomView/RoundTransitionOverlay",

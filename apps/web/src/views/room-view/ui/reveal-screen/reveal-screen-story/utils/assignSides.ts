@@ -1,5 +1,6 @@
-import { isPlayerSentence } from "@/views/room-view/model/type-guards";
 import type { Sentence } from "@/views/room-view/model/types";
+
+import { isPlayerSentence } from "@/views/room-view/model/type-guards";
 
 export type SentenceWithSide = {
   sentence: Sentence;

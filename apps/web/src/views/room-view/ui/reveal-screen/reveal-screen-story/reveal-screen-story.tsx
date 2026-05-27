@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "motion/react";
+
 import { cn } from "@/lib/utils";
 
 import type { Story } from "../../../model/types";
-import { PlayerMessage } from "../../common/player-message";
+
 import { isPlayerSentence } from "../../../model/type-guards";
-import { TwistMessage } from "../../common/twist-message";
+import { PlayerMessage } from "../../common/player-message";
 import { StoryWrapper } from "../../common/story-wrapper";
+import { TwistMessage } from "../../common/twist-message";
 import { assignSides } from "./utils/assignSides";
 
 type RevealScreenStoryProps = {

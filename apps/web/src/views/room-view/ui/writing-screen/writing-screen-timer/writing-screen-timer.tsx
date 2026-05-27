@@ -1,6 +1,7 @@
 import { useTimer } from "@siberiacancode/reactuse";
-import { cn } from "@/lib/utils";
 import { TimerIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 type WritingScreenTimerProps = {
   time: number;

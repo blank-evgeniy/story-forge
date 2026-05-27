@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import { RevealReadyScreen } from "./reveal-ready-screen";
 
 const meta = {

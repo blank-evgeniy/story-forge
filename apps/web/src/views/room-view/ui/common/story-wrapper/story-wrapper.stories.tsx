@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import { StoryWrapper } from "./story-wrapper";
 
 const meta = {

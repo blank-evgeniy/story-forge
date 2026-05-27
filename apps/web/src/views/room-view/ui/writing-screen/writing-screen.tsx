@@ -1,8 +1,8 @@
 import { useRoomStore } from "../../model/use-room-store";
-import { WritingScreenTimer } from "./writing-screen-timer";
-import { WritingScreenStory } from "./writing-screen-story";
 import { WritingScreenPlayers } from "./writing-screen-players";
+import { WritingScreenStory } from "./writing-screen-story";
 import { WritingScreenSubmit } from "./writing-screen-submit";
+import { WritingScreenTimer } from "./writing-screen-timer";
 
 type WritingScreenProps = {
   onSubmit: (content: string, twistId?: string) => void;

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { useRoomStore } from "../../model/use-room-store";
+import { useEffect, useState } from "react";
+
 import { REVEAL_TRANSITION_DURATION_MS } from "../../model/consts";
+import { useRoomStore } from "../../model/use-room-store";
 
 const PHRASES = [
   "Истории ждут...",

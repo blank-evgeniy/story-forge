@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import { WritingScreenPlayers } from "./writing-screen-players";
 
 const players = [

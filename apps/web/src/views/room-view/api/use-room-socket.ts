@@ -1,7 +1,9 @@
-import type { ClientEvent } from "@/api/ws/types";
 import { useWebSocket } from "@siberiacancode/reactuse";
-import { useRoomStore } from "../model/use-room-store";
 import { useEffect } from "react";
+
+import type { ClientEvent } from "@/api/ws/types";
+
+import { useRoomStore } from "../model/use-room-store";
 
 export type UseRoomSocketOptions = {
   roomCode: string;

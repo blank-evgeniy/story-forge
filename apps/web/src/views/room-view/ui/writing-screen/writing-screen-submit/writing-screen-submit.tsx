@@ -1,9 +1,9 @@
 import { useState } from "react";
 
+import type { TwistsSet } from "../../../model/types";
+
 import { WritingScreenInput } from "./writing-screen-input";
 import { WritingScreenTwistPicker } from "./writing-screen-twist-picker";
-
-import type { TwistsSet } from "../../../model/types";
 
 type WritingScreenSubmitProps = {
   onSubmit: (content: string, twistId?: string) => void;

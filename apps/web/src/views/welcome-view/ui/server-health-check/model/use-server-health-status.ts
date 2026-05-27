@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { useCheckHealth } from "../api/use-health-check";
 
 type Status = "checking" | "starting" | "error" | "online";

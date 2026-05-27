@@ -1,5 +1,7 @@
-import { useUserStore } from "@/store/user";
 import { useNavigate, useSearch } from "@tanstack/react-router";
+
+import { useUserStore } from "@/store/user";
+
 import { LoginView } from "./ui/login-view";
 
 export function LoginViewConnector() {
