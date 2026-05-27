@@ -60,11 +60,20 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
         <div className="flex-1 relative overflow-hidden">
           <AnimatePresence mode="wait">
             {historyMode ? (
-              <StoriesHistoryViewer
-                actionsSlot={(storyId) => (
-                  <StoryActions currentStoryId={storyId} />
-                )}
-              />
+              <motion.div
+                key="history-viewer"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 40 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="absolute inset-0 overflow-y-auto"
+              >
+                <StoriesHistoryViewer
+                  actionsSlot={(storyId) => (
+                    <StoryActions currentStoryId={storyId} />
+                  )}
+                />
+              </motion.div>
             ) : (
               <motion.div
                 key={storyIdx}

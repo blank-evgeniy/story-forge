@@ -27,16 +27,16 @@ export function StoryActions({
   const handleSave = () => {
     mutate(
       {
-        roomCode: roomCode || "",
+        roomCode,
         storyId: currentStoryId,
       },
       {
         onSuccess: () => {
           addSavedStory(currentStoryId);
-          toast.success("История успешно сохранена");
+          toast.success("История опубликована");
         },
         onError: () => {
-          toast.error("Не удалось сохранить историю");
+          toast.error("Не удалось опубликовать историю");
         },
       },
     );

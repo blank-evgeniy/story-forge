@@ -1,7 +1,13 @@
-import { CheckIcon, SaveIcon } from "lucide-react";
+import { CheckIcon, ShareIcon } from "lucide-react";
 import { motion } from "motion/react";
 
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type StoryActionsContentProps = {
   showNextAction?: boolean;
@@ -30,14 +36,24 @@ export function StoryActionsContent({
       className="flex mt-4 justify-end gap-2"
     >
       {showSaveAction && (
-        <Button
-          variant={"outline"}
-          onClick={onSave}
-          isLoading={saveIsLoading}
-          disabled={saveIsLoading || isSaved}
-        >
-          Сохранить {isSaved ? <CheckIcon /> : <SaveIcon />}
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger render={<span />}>
+              <Button
+                variant="outline"
+                onClick={onSave}
+                isLoading={saveIsLoading}
+                disabled={saveIsLoading || isSaved}
+              >
+                {isSaved ? "Опубликовано" : "Опубликовать"}
+                {isSaved ? <CheckIcon /> : <ShareIcon />}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              История станет видна всем в публичной ленте
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )}
       {showNextAction && (
         <Button onClick={onNext} disabled={saveIsLoading}>
