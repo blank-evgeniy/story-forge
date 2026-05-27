@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { AnimatePresence, motion } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -13,9 +15,14 @@ import { assignSides } from "./utils/assignSides";
 type RevealScreenStoryProps = {
   story: Story;
   shown: number;
+  actionsSlot?: ReactNode;
 };
 
-export function RevealScreenStory({ shown, story }: RevealScreenStoryProps) {
+export function RevealScreenStory({
+  shown,
+  story,
+  actionsSlot,
+}: RevealScreenStoryProps) {
   const visibleSentences = story.sentences.slice(0, shown);
   const sentencesWithSides = assignSides(visibleSentences);
 
@@ -50,6 +57,8 @@ export function RevealScreenStory({ shown, story }: RevealScreenStoryProps) {
             </motion.div>
           ),
         )}
+
+        {actionsSlot}
       </AnimatePresence>
     </StoryWrapper>
   );

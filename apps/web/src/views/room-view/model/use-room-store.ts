@@ -18,6 +18,7 @@ type GameActions = {
   editSentence: (ws: WebSocket) => void;
   restartGame: (ws: WebSocket) => void;
   startReveal: () => void;
+  addSavedStory: (storyId: string) => void;
   reset: () => void;
 };
 
@@ -39,6 +40,7 @@ type GameData = {
   error: string | null;
   secondsPerTurn: number;
   twistsToChoose: TwistsSet | null;
+  savedStories: string[];
 };
 
 export type GameState = GameData & GameActions;
@@ -55,6 +57,7 @@ const initialState: GameData = {
   secondsPerTurn: 60,
   twistsToChoose: null,
   isHost: false,
+  savedStories: [],
 };
 
 export const useRoomStore = create<GameState>((set, get) => ({
@@ -208,6 +211,11 @@ export const useRoomStore = create<GameState>((set, get) => ({
   },
 
   startReveal: () => set({ status: "reveal" }),
+
+  addSavedStory: (storyId: string) =>
+    set({
+      savedStories: [...get().savedStories, storyId],
+    }),
 
   reset: () => set(initialState),
 }));

@@ -12,6 +12,7 @@ import {
   StoriesHistoryPicker,
   StoriesHistoryViewer,
 } from "./stories-history";
+import { StoryActions } from "./story-actions";
 import { type StoryPlayerMode, useStoryPlayer } from "./use-story-player";
 
 type RevealScreenProps = {
@@ -27,7 +28,9 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
     finished,
     storyIdx,
     started,
+    storyRevealed,
     start,
+    nextStory,
   } = useStoryPlayer({
     mode: playerMode,
   });
@@ -57,16 +60,11 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
         <div className="flex-1 relative overflow-hidden">
           <AnimatePresence mode="wait">
             {historyMode ? (
-              <motion.div
-                key="history-viewer"
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 40 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="absolute inset-0 overflow-y-auto"
-              >
-                <StoriesHistoryViewer />
-              </motion.div>
+              <StoriesHistoryViewer
+                actionsSlot={(storyId) => (
+                  <StoryActions currentStoryId={storyId} />
+                )}
+              />
             ) : (
               <motion.div
                 key={storyIdx}
@@ -76,7 +74,19 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
                 transition={{ duration: 0.35, ease: "easeInOut" }}
                 className="absolute inset-0 overflow-y-auto"
               >
-                <RevealScreenStory shown={shown} story={currentStory} />
+                <RevealScreenStory
+                  shown={shown}
+                  story={currentStory}
+                  actionsSlot={
+                    storyRevealed ? (
+                      <StoryActions
+                        currentStoryId={currentStory.id}
+                        onNext={nextStory}
+                        showNextAction={storyIdx < allStories.length - 1}
+                      />
+                    ) : undefined
+                  }
+                />
               </motion.div>
             )}
           </AnimatePresence>
