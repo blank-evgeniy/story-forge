@@ -10,13 +10,15 @@ export function StoriesViewConnector() {
   const { data: stories, isLoading: isListLoading } = useGetStories();
   const { data: openedStory, isLoading: isStoryLoading } = useGetStory(openId);
 
+  const isStoryReady = !isStoryLoading && openedStory?.id === openId;
+
   return (
     <StoriesView
       stories={stories}
       isLoading={isListLoading}
       isModalOpen={openId !== null}
-      openedStory={openedStory}
-      isStoryLoading={isStoryLoading}
+      openedStory={isStoryReady ? openedStory : undefined}
+      isStoryLoading={!isStoryReady}
       onOpen={setOpenId}
       onClose={() => setOpenId(null)}
     />
