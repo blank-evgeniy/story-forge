@@ -1,6 +1,11 @@
 import { SerializedRoom } from "../services/ws/utils/serializeRoom";
 import { Sentence, StoryThread, Twist } from "./state";
 
+export type AiCommentEvent = {
+  comment: string;
+  type: "ai_comment";
+};
+
 export type AllRevealedEvent = {
   stories: StoryThread[];
   type: "all_revealed";
@@ -69,6 +74,7 @@ export type RoundStartedEvent = {
 };
 
 export type ServerEvent =
+  | AiCommentEvent
   | AllRevealedEvent
   | ErrorEvent
   | GameRestartedEvent

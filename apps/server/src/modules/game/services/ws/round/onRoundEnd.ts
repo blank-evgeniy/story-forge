@@ -1,5 +1,6 @@
 import { ROUND_TRANSITION_DELAY_MS } from "../../../model/consts";
 import { RoomState } from "../../../model/state";
+import { generateCommentary } from "../../ai";
 import { roomManager } from "../../rooms";
 import { onRoundStart } from "./onRoundStart";
 
@@ -13,6 +14,22 @@ export function onRoundEnd(room: RoomState) {
       stories: room.stories,
       type: "all_revealed",
     });
+
+    generateCommentary(room).then((result) => {
+      if (result.success) {
+        roomManager.broadcast(room, {
+          comment: result.text,
+          type: "ai_comment",
+        });
+      } else {
+        roomManager.broadcast(room, {
+          code: "AI_FAILED",
+          message: result.text,
+          type: "error",
+        });
+      }
+    });
+
     return;
   }
 
