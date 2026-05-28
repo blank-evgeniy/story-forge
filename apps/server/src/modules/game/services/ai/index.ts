@@ -28,8 +28,10 @@ export async function generateCommentary(
     .join("\n\n");
 
   const models = [
+    "openrouter/owl-alpha",
     "google/gemma-4-26b-a4b-it:free",
     "qwen/qwen3-next-80b-a3b-instruct:free",
+    "meta-llama/llama-3.2-3b-instruct:free",
   ];
 
   const prompt = getPrompt(storiesText);
