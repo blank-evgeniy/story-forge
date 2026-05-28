@@ -22,7 +22,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
         <Card size="sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sm font-medium">
-              <BotIcon className="w-4 h-4 text-muted-foreground" />
+              <BotIcon className="size-4 text-muted-foreground" />
               Оракул Историй пишет вердикт...
             </CardTitle>
           </CardHeader>
@@ -37,7 +37,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
         <Card size="sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sm font-medium">
-              <BotIcon className="w-4 h-4 text-muted-foreground" />
+              <BotIcon className="size-4 text-muted-foreground" />
               Оракул Историй
             </CardTitle>
           </CardHeader>
