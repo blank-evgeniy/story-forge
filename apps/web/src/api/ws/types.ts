@@ -160,6 +160,11 @@ export type AllRevealedEvent = {
   stories: StoryThreadDto[];
 };
 
+export type AiCommentEvent = {
+  type: "ai_comment";
+  comment: string;
+};
+
 export type GameRestartedEvent = {
   type: "game_restarted";
   room: RoomDto;
@@ -179,4 +184,5 @@ export type ServerEvent =
   | PlayerUnsubmittedEvent
   | RoundEndedEvent
   | AllRevealedEvent
+  | AiCommentEvent
   | GameRestartedEvent;

@@ -41,6 +41,8 @@ type GameData = {
   secondsPerTurn: number;
   twistsToChoose: TwistsSet | null;
   savedStories: string[];
+  aiComment: string | null;
+  aiCommentStatus: "idle" | "loading" | "success" | "error";
 };
 
 export type GameState = GameData & GameActions;
@@ -58,6 +60,8 @@ const initialState: GameData = {
   twistsToChoose: null,
   isHost: false,
   savedStories: [],
+  aiComment: null,
+  aiCommentStatus: "idle",
 };
 
 export const useRoomStore = create<GameState>((set, get) => ({
@@ -156,7 +160,12 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "all_revealed": {
         const stories = mapStories(get().players, event.stories);
-        set({ status: "revealing", allStories: stories });
+        set({ status: "revealing", allStories: stories, aiCommentStatus: "loading" });
+        break;
+      }
+
+      case "ai_comment": {
+        set({ aiComment: event.comment, aiCommentStatus: "success" });
         break;
       }
 
@@ -173,6 +182,11 @@ export const useRoomStore = create<GameState>((set, get) => ({
       }
 
       case "error": {
+        if (event.code === "AI_FAILED") {
+          set({ aiCommentStatus: "error" });
+          break;
+        }
+
         set({ error: event.message });
         toast.error(event.message);
 

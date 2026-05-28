@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 
 import { useRoomStore } from "../../model/use-room-store";
+import { AiCommentCard } from "./ai-comment-card";
 import { RevealReadyScreen } from "./reveal-ready-screen/index";
 import { RevealScreenStory } from "./reveal-screen-story";
 import {
@@ -36,6 +37,8 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
   });
 
   const isHost = useRoomStore((store) => store.isHost);
+  const aiComment = useRoomStore((store) => store.aiComment);
+  const aiCommentStatus = useRoomStore((store) => store.aiCommentStatus);
 
   const [historyMode, setHistoryMode] = useState<boolean>(false);
 
@@ -109,6 +112,7 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
+              <AiCommentCard status={aiCommentStatus} comment={aiComment} />
               <StoriesHistoryPicker />
               {isHost ? (
                 <Button className="w-full" onClick={onPlayMore}>
