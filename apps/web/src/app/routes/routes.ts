@@ -67,13 +67,17 @@ export const gameRoute = createRoute({
   ),
 });
 
-const storiesRoute = createRoute({
+export const storiesRoute = createRoute({
   getParentRoute: () => guardedRoute,
   path: "stories",
   component: lazyRouteComponent(
     () => import("@/views/stories-view"),
     "StoriesViewConnector",
   ),
+  validateSearch: (search: Record<string, unknown>) => {
+    const storyId = Number(search.storyId);
+    return { storyId: isNaN(storyId) || !search.storyId ? undefined : storyId };
+  },
 });
 
 const routeTree = rootRoute.addChildren([
