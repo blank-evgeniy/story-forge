@@ -19,7 +19,11 @@ type UserStore = {
   user: User | null;
   login: (username: string, color?: PlayerColor, icon?: PlayerIcon) => void;
   logout: () => void;
-  updateProfile: (username: string, color: PlayerColor, icon: PlayerIcon) => void;
+  updateProfile: (
+    username: string,
+    color: PlayerColor,
+    icon: PlayerIcon,
+  ) => void;
 };
 
 export const useUserStore = create<UserStore>()(
@@ -49,6 +53,15 @@ export const useUserStore = create<UserStore>()(
     }),
     {
       name: "user-storage",
+      version: 1,
+      migrate: (persistedState, version) => {
+        const state = persistedState as { user?: Partial<User> | null };
+        if (version === 0 && state.user) {
+          state.user.color ??= DEFAULT_PLAYER_COLOR;
+          state.user.icon ??= DEFAULT_PLAYER_ICON;
+        }
+        return state;
+      },
     },
   ),
 );
