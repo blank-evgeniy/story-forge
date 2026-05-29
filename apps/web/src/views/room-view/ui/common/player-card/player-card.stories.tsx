@@ -7,7 +7,9 @@ const meta = {
   component: PlayerCard,
   tags: ["autodocs"],
   args: {
-    playerName: "Alice",
+    color: "amber",
+    icon: "angel",
+    username: "Alice",
     children: (
       <>
         <PlayerCardAvatar />
@@ -28,14 +30,10 @@ export const Horizontal: Story = {
   args: { direction: "horizontal" },
 };
 
-export const AvatarAccent: Story = {
+export const CustomColor: Story = {
   args: {
-    children: (
-      <>
-        <PlayerCardAvatar variant="accent" />
-        <PlayerCardTitle />
-      </>
-    ),
+    color: "violet",
+    icon: "star-face",
   },
 };
 
@@ -52,7 +50,7 @@ export const TitleSmall: Story = {
 
 export const LongName: Story = {
   args: {
-    playerName: "Bartholomew Fitzgerald",
+    username: "Bartholomew Fitzgerald",
     className: "w-24",
   },
 };

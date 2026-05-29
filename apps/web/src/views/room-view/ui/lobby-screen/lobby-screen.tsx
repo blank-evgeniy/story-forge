@@ -59,7 +59,9 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
                 className="flex w-full items-center justify-center lg:justify-start"
               >
                 <PlayerCard
-                  playerName={player.username}
+                  color={player.color}
+                  icon={player.icon}
+                  username={player.username}
                   direction={
                     breakpoints.smaller("lg") ? "vertical" : "horizontal"
                   }

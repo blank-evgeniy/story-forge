@@ -9,7 +9,11 @@ export type Player = {
 };
 
 export type PlayerSentence = {
-  playerName: string;
+  player: {
+    username: string;
+    color: PlayerColor;
+    icon: PlayerIcon;
+  };
   content: string;
   type: "player";
 };

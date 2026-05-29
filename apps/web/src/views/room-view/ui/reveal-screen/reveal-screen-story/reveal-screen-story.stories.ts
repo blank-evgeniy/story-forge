@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { MOCK_STORIES } from "../../../utils/storybook-mocks";
 import { RevealScreenStory } from "./reveal-screen-story";
 
 const meta = {
@@ -7,28 +8,7 @@ const meta = {
   component: RevealScreenStory,
   tags: ["autodocs"],
   args: {
-    story: {
-      id: "1",
-      playerName: "Алиса",
-      sentences: [
-        {
-          type: "player",
-          playerName: "Алиса",
-          content: "Была тёмная и бурная ночь.",
-        },
-        { type: "twist", id: "t1", content: "Герой теряет память." },
-        {
-          type: "player",
-          playerName: "Борис",
-          content: "Внезапно появился незнакомец.",
-        },
-        {
-          type: "player",
-          playerName: "Алиса",
-          content: "Никто не знал, что будет дальше.",
-        },
-      ],
-    },
+    story: MOCK_STORIES[0],
     shown: 4,
   },
 } satisfies Meta<typeof RevealScreenStory>;
@@ -52,27 +32,7 @@ export const NoneRevealed: Story = {
 
 export const WithoutTwists: Story = {
   args: {
-    story: {
-      id: "2",
-      playerName: "Борис",
-      sentences: [
-        {
-          type: "player",
-          playerName: "Борис",
-          content: "В деревне царил покой.",
-        },
-        {
-          type: "player",
-          playerName: "Алиса",
-          content: "На рассвете появился незнакомец.",
-        },
-        {
-          type: "player",
-          playerName: "Борис",
-          content: "Старейшина встретил его с подозрением.",
-        },
-      ],
-    },
-    shown: 3,
+    story: MOCK_STORIES[1],
+    shown: 2,
   },
 };

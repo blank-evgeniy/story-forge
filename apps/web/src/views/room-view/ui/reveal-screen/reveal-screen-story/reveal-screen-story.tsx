@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { AnimatePresence, motion } from "motion/react";
 
+import { PlayerAvatar } from "@/components/player-customization";
 import { cn } from "@/lib/utils";
 
 import type { Story } from "../../../model/types";
@@ -37,14 +38,19 @@ export function RevealScreenStory({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
               className={cn(
-                "flex flex-col items-start gap-0.5 w-full",
+                "flex flex-col items-start gap-1 w-full",
                 side === "left" ? "self-start" : "self-end items-end",
               )}
             >
-              <span className="text-xs text-muted-foreground px-1">
-                {sentence.playerName}
-              </span>
-              <PlayerMessage message={sentence.content} side={side} />
+              <PlayerAvatar
+                color={sentence.player.color}
+                icon={sentence.player.icon}
+              />
+              <PlayerMessage
+                message={sentence.content}
+                side={side}
+                color={sentence.player.color}
+              />
             </motion.div>
           ) : (
             <motion.div
