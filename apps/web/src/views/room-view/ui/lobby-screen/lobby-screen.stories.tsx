@@ -2,6 +2,7 @@ import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 
 import { RoomActionsProvider } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import { MOCK_PLAYERS } from "../../utils/storybook-mocks";
 import { LobbyScreen } from "./lobby-screen";
 
 const withRoomActions: Decorator = (Story) => (
@@ -26,7 +27,7 @@ type Story = StoryObj<typeof meta>;
 export const OnePlayer: Story = {
   beforeEach() {
     useRoomStore.setState({
-      players: [{ id: "1", username: "Алиса", connected: true }],
+      players: [MOCK_PLAYERS[0]],
       isHost: true,
     });
   },
@@ -35,10 +36,7 @@ export const OnePlayer: Story = {
 export const ReadyToStart: Story = {
   beforeEach() {
     useRoomStore.setState({
-      players: [
-        { id: "1", username: "Алиса", connected: true },
-        { id: "2", username: "Борис", connected: true },
-      ],
+      players: MOCK_PLAYERS.slice(0, 2),
       isHost: true,
     });
   },
@@ -47,14 +45,7 @@ export const ReadyToStart: Story = {
 export const FullLobby: Story = {
   beforeEach() {
     useRoomStore.setState({
-      players: [
-        { id: "1", username: "Алиса", connected: true },
-        { id: "2", username: "Борис", connected: true },
-        { id: "3", username: "Света", connected: true },
-        { id: "4", username: "Дима", connected: true },
-        { id: "5", username: "Женя", connected: true },
-        { id: "6", username: "Фёдор", connected: true },
-      ],
+      players: MOCK_PLAYERS,
       isHost: false,
     });
   },

@@ -1,7 +1,9 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
 export interface Player {
+  color: string;
   connected: boolean;
+  icon: string;
   id: string;
   turnOrder: number;
   username: string;
@@ -57,6 +59,8 @@ export function createPlayer(
   id: string,
   username: string,
   turnOrder: number,
+  color: string,
+  icon: string,
 ): Player {
-  return { connected: true, id, turnOrder, username, ws };
+  return { color, connected: true, icon, id, turnOrder, username, ws };
 }

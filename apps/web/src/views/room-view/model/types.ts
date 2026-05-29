@@ -1,11 +1,19 @@
+import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+
 export type Player = {
+  color: PlayerColor;
+  connected: boolean;
+  icon: PlayerIcon;
   id: string;
   username: string;
-  connected: boolean;
 };
 
 export type PlayerSentence = {
-  playerName: string;
+  player: {
+    username: string;
+    color: PlayerColor;
+    icon: PlayerIcon;
+  };
   content: string;
   type: "player";
 };

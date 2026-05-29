@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 
-import { cn } from "@/lib/utils";
+import { PlayerAvatar } from "@/components/player-customization";
 import { isPlayerSentence } from "@/views/room-view/model/type-guards";
 
+import { MessageRow } from "../../common/message-row";
 import { PlayerMessage } from "../../common/player-message";
 import { StoryWrapper } from "../../common/story-wrapper";
 import { TwistMessage } from "../../common/twist-message";
@@ -29,18 +30,20 @@ export function StoriesHistoryViewer({
     <StoryWrapper storyOwner={selectedStory.playerName}>
       {assignSides(selectedStory.sentences).map(({ sentence, side }, index) =>
         isPlayerSentence(sentence) ? (
-          <div
-            key={`${sentence.playerName}-${index}`}
-            className={cn(
-              "flex flex-col items-start gap-0.5 w-full",
-              side === "left" ? "self-start" : "self-end items-end",
-            )}
+          <MessageRow
+            side={side ?? "right"}
+            key={`${sentence.player.username}-${index}`}
           >
-            <span className="text-xs text-muted-foreground px-1">
-              {sentence.playerName}
-            </span>
-            <PlayerMessage message={sentence.content} side={side} />
-          </div>
+            <PlayerAvatar
+              color={sentence.player.color}
+              icon={sentence.player.icon}
+            />
+            <PlayerMessage
+              message={sentence.content}
+              side={side}
+              color={sentence.player.color}
+            />
+          </MessageRow>
         ) : (
           <div key={sentence.id}>
             <TwistMessage message={sentence.content} className="my-4" />

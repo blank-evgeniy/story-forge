@@ -23,7 +23,7 @@ export function StoryWrapper({
       </div>
       <div
         className={cn("flex flex-col", {
-          "gap-2": gap === "sm",
+          "gap-3": gap === "sm",
           "gap-4": gap === "md",
         })}
       >

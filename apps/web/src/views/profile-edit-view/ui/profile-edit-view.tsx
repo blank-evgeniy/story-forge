@@ -16,21 +16,27 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import {
-  DEFAULT_PLAYER_COLOR,
-  DEFAULT_PLAYER_ICON,
-  type PlayerColor,
-  type PlayerIcon,
-} from "@/lib/player-customization";
+import { Separator } from "@/components/ui/separator";
+import { type PlayerColor, type PlayerIcon } from "@/lib/player-customization";
 
-type LoginViewProps = {
-  onLogin: (username: string, color: PlayerColor, icon: PlayerIcon) => void;
+type ProfileEditViewProps = {
+  initialUsername: string;
+  initialColor: PlayerColor;
+  initialIcon: PlayerIcon;
+  onSave: (username: string, color: PlayerColor, icon: PlayerIcon) => void;
+  onLogout: () => void;
 };
 
-export function LoginView({ onLogin }: LoginViewProps) {
-  const [username, setUsername] = useState("");
-  const [color, setColor] = useState<PlayerColor>(DEFAULT_PLAYER_COLOR);
-  const [icon, setIcon] = useState<PlayerIcon>(DEFAULT_PLAYER_ICON);
+export function ProfileEditView({
+  initialUsername,
+  initialColor,
+  initialIcon,
+  onSave,
+  onLogout,
+}: ProfileEditViewProps) {
+  const [username, setUsername] = useState(initialUsername);
+  const [color, setColor] = useState<PlayerColor>(initialColor);
+  const [icon, setIcon] = useState<PlayerIcon>(initialIcon);
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,26 +47,16 @@ export function LoginView({ onLogin }: LoginViewProps) {
       return;
     }
 
-    onLogin(trimmedUsername, color, icon);
+    onSave(trimmedUsername, color, icon);
   };
 
   return (
     <div className="flex flex-1 justify-center lg:mt-[10vh] mt-4">
       <div className="w-full max-w-sm">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold tracking-tight">
-            <span className="text-muted-foreground">Story</span>
-            <span className="text-primary">Forge</span>
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Совместное создание историй в реальном времени
-          </p>
-        </div>
-
         <Card className="shadow-md">
           <CardHeader className="pb-4">
-            <CardTitle>Добро пожаловать!</CardTitle>
-            <CardDescription>Введите никнейм, чтобы начать</CardDescription>
+            <CardTitle>Профиль</CardTitle>
+            <CardDescription>Измените никнейм или внешний вид</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -97,7 +93,18 @@ export function LoginView({ onLogin }: LoginViewProps) {
               </Field>
 
               <Button type="submit" className="w-full">
-                Вперёд!
+                Сохранить
+              </Button>
+
+              <Separator />
+
+              <Button
+                type="button"
+                variant="destructive"
+                className="w-full"
+                onClick={onLogout}
+              >
+                Выйти
               </Button>
             </form>
           </CardContent>

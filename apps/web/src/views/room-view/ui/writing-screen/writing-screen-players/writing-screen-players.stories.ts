@@ -1,19 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { WritingScreenPlayers } from "./writing-screen-players";
+import { MOCK_PLAYERS } from "@/views/room-view/utils/storybook-mocks";
 
-const players = [
-  { id: "1", username: "Алиса", connected: true },
-  { id: "2", username: "Борис", connected: true },
-  { id: "3", username: "Света", connected: false },
-];
+import { WritingScreenPlayers } from "./writing-screen-players";
 
 const meta = {
   title: "RoomView/WritingScreen/WritingScreenPlayers",
   component: WritingScreenPlayers,
   tags: ["autodocs"],
   args: {
-    players,
+    players: MOCK_PLAYERS,
     submitted: new Set<string>(),
   },
 } satisfies Meta<typeof WritingScreenPlayers>;

@@ -1,6 +1,11 @@
 import type { StoryThreadDto } from "@/api/ws/types";
 
-import type { Player, Story } from "./types";
+import {
+  DEFAULT_PLAYER_COLOR,
+  DEFAULT_PLAYER_ICON,
+} from "@/lib/player-customization";
+
+import type { Player, Sentence, Story } from "./types";
 
 import { PLAYER_NAME_PLACEHOLDER } from "./consts";
 
@@ -10,11 +15,15 @@ export const mapStories = (
 ): Story[] => {
   const stories: Story[] = storyThreads.map((thread) => ({
     sentences: thread.sentences.flatMap((s) => {
-      const sentence = {
+      const player = players.find((player) => player.id === s.playerId) ?? {
+        username: PLAYER_NAME_PLACEHOLDER,
+        color: DEFAULT_PLAYER_COLOR,
+        icon: DEFAULT_PLAYER_ICON,
+      };
+
+      const sentence: Sentence = {
         content: s.content,
-        playerName:
-          players.find((player) => player.id === s.playerId)?.username ??
-          PLAYER_NAME_PLACEHOLDER,
+        player,
         type: "player" as const,
       };
 

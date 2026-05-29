@@ -1,6 +1,10 @@
 import { AnimatePresence } from "motion/react";
 
 import { gameRoute } from "@/app/routes/routes";
+import {
+  DEFAULT_PLAYER_COLOR,
+  DEFAULT_PLAYER_ICON,
+} from "@/lib/player-customization";
 import { useUserStore } from "@/store/user";
 
 import { useRoomSocket } from "./api/use-room-socket";
@@ -20,9 +24,11 @@ export function RoomViewFlow() {
   const user = useUserStore((store) => store.user);
 
   const { status: wsStatus, client } = useRoomSocket({
+    color: user?.color ?? DEFAULT_PLAYER_COLOR,
+    icon: user?.icon ?? DEFAULT_PLAYER_ICON,
+    playerId: user?.id ?? "",
     roomCode,
     username: user?.username ?? "",
-    playerId: user?.id ?? "",
   });
 
   const status = useRoomStore((store) => store.status);

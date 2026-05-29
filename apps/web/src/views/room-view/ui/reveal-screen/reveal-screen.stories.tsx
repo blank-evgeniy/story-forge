@@ -2,84 +2,8 @@ import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 
 import { RoomActionsProvider } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import { MOCK_STORIES } from "../../utils/storybook-mocks";
 import { RevealScreen } from "./reveal-screen";
-
-const singleStory = [
-  {
-    id: "s1",
-    playerName: "Алиса",
-    sentences: [
-      {
-        type: "player" as const,
-        playerName: "Алиса",
-        content:
-          "Старый смотритель маяка заметил на горизонте что-то необычное.",
-      },
-      {
-        type: "twist" as const,
-        id: "t1",
-        content: "Внезапно начался сильный шторм",
-      },
-      {
-        type: "player" as const,
-        playerName: "Борис",
-        content: "Оно двигалось быстро, оставляя за собой серебристый след.",
-      },
-      {
-        type: "player" as const,
-        playerName: "Света",
-        content: "Никто не осмеливался говорить, пока силуэт выходил из волн.",
-      },
-    ],
-  },
-];
-
-const multipleStories = [
-  {
-    id: "s1",
-    playerName: "Алиса",
-    sentences: [
-      {
-        type: "player" as const,
-        playerName: "Алиса",
-        content:
-          "На рассвете пришло таинственное письмо, запечатанное чёрным воском.",
-      },
-      {
-        type: "twist" as const,
-        id: "t1",
-        content: "Внезапно начался сильный шторм",
-      },
-      {
-        type: "player" as const,
-        playerName: "Борис",
-        content: "Она читала его при свечах, и руки её дрожали.",
-      },
-    ],
-  },
-  {
-    id: "s2",
-    playerName: "Борис",
-    sentences: [
-      {
-        type: "player" as const,
-        playerName: "Борис",
-        content: "Карта вела их вглубь леса, мимо забытого колодца.",
-      },
-      {
-        type: "player" as const,
-        playerName: "Света",
-        content:
-          "Никто не ожидал, что сокровище будет зарыто так близко от деревни.",
-      },
-      {
-        type: "twist" as const,
-        id: "t2",
-        content: "Незнакомец оказался старым другом",
-      },
-    ],
-  },
-];
 
 const withHeight: Decorator = (Story) => (
   <div className="flex flex-col min-h-screen p-6">
@@ -107,12 +31,12 @@ type Story = StoryObj<typeof meta>;
 
 export const SingleStory: Story = {
   beforeEach() {
-    useRoomStore.setState({ allStories: singleStory });
+    useRoomStore.setState({ allStories: MOCK_STORIES.slice(0, 1) });
   },
 };
 
 export const MultipleStories: Story = {
   beforeEach() {
-    useRoomStore.setState({ allStories: multipleStories });
+    useRoomStore.setState({ allStories: MOCK_STORIES.slice(0, 2) });
   },
 };

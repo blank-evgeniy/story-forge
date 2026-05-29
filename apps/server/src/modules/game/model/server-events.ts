@@ -33,6 +33,8 @@ export type PlayerDisconnectedEvent = {
 };
 
 export type PlayerJoinedEvent = {
+  color: string;
+  icon: string;
   playerId: string;
   type: "player_joined";
   username: string;

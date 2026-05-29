@@ -1,5 +1,7 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
 
+import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+
 import { useUserStore } from "@/store/user";
 
 import { LoginView } from "./ui/login-view";
@@ -9,8 +11,12 @@ export function LoginViewConnector() {
   const navigate = useNavigate();
   const { redirect } = useSearch({ from: "/login" });
 
-  const handleLogin = (username: string) => {
-    login(username);
+  const handleLogin = (
+    username: string,
+    color: PlayerColor,
+    icon: PlayerIcon,
+  ) => {
+    login(username, color, icon);
 
     if (redirect) {
       window.location.href = redirect;

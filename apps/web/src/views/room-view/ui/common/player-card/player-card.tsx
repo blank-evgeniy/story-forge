@@ -1,10 +1,16 @@
+import { type VariantProps } from "class-variance-authority";
 import { createContext, useContext } from "react";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+
+import { PlayerAvatar } from "@/components/player-customization";
+import { avatarVariants } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
 type PlayerCardContextValue = {
-  playerName: string;
+  color: PlayerColor;
+  icon: PlayerIcon;
+  username: string;
   disconnected?: boolean;
 };
 
@@ -19,7 +25,9 @@ function usePlayerCard() {
 }
 
 type PlayerCardProps = {
-  playerName: string;
+  color: PlayerColor;
+  icon: PlayerIcon;
+  username: string;
   disconnected?: boolean;
   direction?: "vertical" | "horizontal";
   children: React.ReactNode;
@@ -27,7 +35,9 @@ type PlayerCardProps = {
 };
 
 export function PlayerCard({
-  playerName,
+  color,
+  icon,
+  username,
   disconnected,
   direction = "vertical",
   children,
@@ -35,7 +45,7 @@ export function PlayerCard({
 }: PlayerCardProps) {
   return (
     <PlayerCardContext.Provider
-      value={{ playerName, disconnected: !!disconnected }}
+      value={{ color, icon, username, disconnected: !!disconnected }}
     >
       <div
         className={cn(
@@ -52,29 +62,26 @@ export function PlayerCard({
   );
 }
 
-type PlayerCardAvatarProps = {
-  variant?: "default" | "accent";
+type PlayerCardAvatarProps = VariantProps<typeof avatarVariants> & {
+  dimmed?: boolean;
   className?: string;
 };
 
 export function PlayerCardAvatar({
-  variant = "default",
+  size = "lg",
+  dimmed,
   className,
 }: PlayerCardAvatarProps) {
-  const { playerName } = usePlayerCard();
+  const { color, icon } = usePlayerCard();
 
   return (
-    <Avatar size="lg" aria-label={playerName} className={className}>
-      <AvatarFallback
-        className={cn(
-          "font-medium transition-colors duration-300",
-          variant === "accent" && "bg-primary text-primary-foreground",
-        )}
-        aria-hidden
-      >
-        {playerName.slice(0, 2).toUpperCase()}
-      </AvatarFallback>
-    </Avatar>
+    <PlayerAvatar
+      color={color}
+      icon={icon}
+      size={size}
+      className={className}
+      fallbackClassName={dimmed ? "bg-muted text-muted-foreground" : undefined}
+    />
   );
 }
 
@@ -92,11 +99,11 @@ export function PlayerCardTitle({
   size = "md",
   className,
 }: PlayerCardTitleProps) {
-  const { playerName, disconnected } = usePlayerCard();
+  const { username, disconnected } = usePlayerCard();
 
   return (
     <span
-      title={playerName}
+      title={username}
       className={cn(
         "text-muted-foreground truncate block max-w-full",
         titleSizeStyles[size],
@@ -104,7 +111,7 @@ export function PlayerCardTitle({
         className,
       )}
     >
-      {playerName}
+      {username}
     </span>
   );
 }

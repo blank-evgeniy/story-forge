@@ -2,13 +2,8 @@ import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 
 import { RoomActionsProvider } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import { MOCK_PLAYERS } from "../../utils/storybook-mocks";
 import { WritingScreen } from "./writing-screen";
-
-const players = [
-  { id: "1", username: "Алиса", connected: true },
-  { id: "2", username: "Борис", connected: true },
-  { id: "3", username: "Света", connected: false },
-];
 
 const withRoomActions: Decorator = (Story) => (
   <RoomActionsProvider client={null}>
@@ -30,7 +25,7 @@ export const FirstRound: Story = {
     useRoomStore.setState({
       round: 1,
       totalRounds: 5,
-      players,
+      players: MOCK_PLAYERS.slice(0, 3),
       submitted: new Set(),
       prevSentence: null,
       secondsPerTurn: 60,
@@ -44,8 +39,8 @@ export const MiddleRound: Story = {
     useRoomStore.setState({
       round: 2,
       totalRounds: 5,
-      players,
-      submitted: new Set(["1"]),
+      players: MOCK_PLAYERS.slice(0, 3),
+      submitted: new Set([MOCK_PLAYERS[0].id]),
       prevSentence: [
         {
           sentence:
@@ -66,7 +61,7 @@ export const WithTwistInStory: Story = {
     useRoomStore.setState({
       round: 4,
       totalRounds: 5,
-      players,
+      players: MOCK_PLAYERS.slice(0, 3),
       submitted: new Set(),
       prevSentence: [
         {
@@ -89,7 +84,7 @@ export const WithTwistPicker: Story = {
     useRoomStore.setState({
       round: 3,
       totalRounds: 5,
-      players,
+      players: MOCK_PLAYERS.slice(0, 3),
       submitted: new Set(),
       prevSentence: [
         {
@@ -111,8 +106,8 @@ export const AllSubmitted: Story = {
     useRoomStore.setState({
       round: 4,
       totalRounds: 5,
-      players,
-      submitted: new Set(["1", "2", "3"]),
+      players: MOCK_PLAYERS.slice(0, 3),
+      submitted: new Set(MOCK_PLAYERS.slice(0, 3).map((p) => p.id)),
       prevSentence: [
         { sentence: "Никто не ожидал, что карта приведёт именно сюда." },
       ],

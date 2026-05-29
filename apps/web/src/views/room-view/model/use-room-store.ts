@@ -88,7 +88,13 @@ export const useRoomStore = create<GameState>((set, get) => ({
         set({
           players: [
             ...get().players.filter((p) => p.id !== event.playerId),
-            { id: event.playerId, username: event.username, connected: true },
+            {
+              color: event.color,
+              connected: true,
+              icon: event.icon,
+              id: event.playerId,
+              username: event.username,
+            },
           ],
         });
         break;
