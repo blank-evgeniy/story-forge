@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { PlayerAvatar } from "@/components/player-customization";
-import { cn } from "@/lib/utils";
 
 import type { Story } from "../../../model/types";
 
 import { isPlayerSentence } from "../../../model/type-guards";
+import { MessageRow } from "../../common/message-row";
 import { PlayerMessage } from "../../common/player-message";
 import { StoryWrapper } from "../../common/story-wrapper";
 import { TwistMessage } from "../../common/twist-message";
@@ -32,26 +32,18 @@ export function RevealScreenStory({
       <AnimatePresence initial={false}>
         {sentencesWithSides.map(({ sentence, side }, index) =>
           isPlayerSentence(sentence) ? (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className={cn(
-                "flex flex-col items-start gap-1 w-full",
-                side === "left" ? "self-start" : "self-end items-end",
-              )}
-            >
+            <MessageRow key={index} side={side ?? "right"}>
               <PlayerAvatar
                 color={sentence.player.color}
                 icon={sentence.player.icon}
               />
               <PlayerMessage
+                className="flex-1"
                 message={sentence.content}
                 side={side}
                 color={sentence.player.color}
               />
-            </motion.div>
+            </MessageRow>
           ) : (
             <motion.div
               key={sentence.id}
