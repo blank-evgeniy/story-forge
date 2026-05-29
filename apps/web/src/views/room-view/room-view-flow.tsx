@@ -14,7 +14,7 @@ import { RevealTransitionOverlay } from "./ui/reveal-transition-overlay";
 import { RoundTransitionOverlay } from "./ui/round-transition-overlay";
 import { WritingScreen } from "./ui/writing-screen";
 
-export function RoomViewInner() {
+export function RoomViewFlow() {
   const { roomCode } = gameRoute.useParams();
 
   const user = useUserStore((store) => store.user);
