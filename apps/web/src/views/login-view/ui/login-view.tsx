@@ -11,17 +11,25 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import {
+  DEFAULT_PLAYER_COLOR,
+  DEFAULT_PLAYER_ICON,
+  type PlayerColor,
+  type PlayerIcon,
+} from "@/lib/player-customization";
+
+import { PlayerColorPicker } from "./player-color-picker";
+import { PlayerCustomizationPreview } from "./player-customization-preview";
+import { PlayerIconPicker } from "./player-icon-picker";
 
 type LoginViewProps = {
-  onLogin: (username: string) => void;
+  onLogin: (username: string, color: PlayerColor, icon: PlayerIcon) => void;
 };
 
 export function LoginView({ onLogin }: LoginViewProps) {
   const [username, setUsername] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
+  const [color, setColor] = useState<PlayerColor>(DEFAULT_PLAYER_COLOR);
+  const [icon, setIcon] = useState<PlayerIcon>(DEFAULT_PLAYER_ICON);
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +40,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
       return;
     }
 
-    onLogin(trimmedUsername);
+    onLogin(trimmedUsername, color, icon);
   };
 
   return (
@@ -59,12 +67,29 @@ export function LoginView({ onLogin }: LoginViewProps) {
                 <FieldLabel>Никнейм</FieldLabel>
                 <Input
                   value={username}
-                  onChange={handleChange}
+                  onChange={(e) => setUsername(e.target.value)}
                   placeholder="Ваше имя..."
                   autoFocus
                   autoComplete="off"
                 />
               </Field>
+
+              <PlayerCustomizationPreview color={color} icon={icon} />
+
+              <Field>
+                <FieldLabel>Цвет</FieldLabel>
+                <PlayerColorPicker value={color} onChange={setColor} />
+              </Field>
+
+              <Field>
+                <FieldLabel>Иконка</FieldLabel>
+                <PlayerIconPicker
+                  value={icon}
+                  color={color}
+                  onChange={setIcon}
+                />
+              </Field>
+
               <Button type="submit" className="w-full">
                 Вперёд!
               </Button>

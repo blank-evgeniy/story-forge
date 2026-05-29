@@ -27,3 +27,16 @@ export const playerColorClasses: Record<PlayerColor, string> = {
 };
 
 export const DEFAULT_PLAYER_COLOR: PlayerColor = "amber";
+
+export const playerAvatarColorClasses: Record<PlayerColor, string> = {
+  amber: "bg-amber-500/20 text-amber-600 dark:text-amber-400",
+  blue: "bg-blue-500/20 text-blue-600 dark:text-blue-400",
+  green: "bg-green-500/20 text-green-600 dark:text-green-400",
+  red: "bg-red-500/20 text-red-600 dark:text-red-400",
+  lime: "bg-lime-500/20 text-lime-600 dark:text-lime-400",
+  sky: "bg-sky-500/20 text-sky-600 dark:text-sky-400",
+  indigo: "bg-indigo-500/20 text-indigo-600 dark:text-indigo-400",
+  violet: "bg-violet-500/20 text-violet-600 dark:text-violet-400",
+  purple: "bg-purple-500/20 text-purple-600 dark:text-purple-400",
+  pink: "bg-pink-500/20 text-pink-600 dark:text-pink-400",
+};
