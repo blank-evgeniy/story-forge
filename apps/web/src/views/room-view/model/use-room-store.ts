@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { create } from "zustand";
 
-import type { ClientEvent, ServerEvent } from "@/api/ws/types";
+import type { ServerEvent } from "@/api/ws/types";
 
 import { router } from "@/app/routes/routes";
 import { useUserStore } from "@/store/user";
@@ -12,11 +12,6 @@ import { mapStories } from "./map";
 
 type GameActions = {
   handleEvent: (event: ServerEvent) => void;
-  startGame: (ws: WebSocket) => void;
-  submitSentence: (ws: WebSocket, content: string, twistId?: string) => void;
-  draftSentence: (ws: WebSocket, content?: string, twistId?: string) => void;
-  editSentence: (ws: WebSocket) => void;
-  restartGame: (ws: WebSocket) => void;
   startReveal: () => void;
   addSavedStory: (storyId: string) => void;
   reset: () => void;
@@ -160,7 +155,11 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "all_revealed": {
         const stories = mapStories(get().players, event.stories);
-        set({ status: "revealing", allStories: stories, aiCommentStatus: "loading" });
+        set({
+          status: "revealing",
+          allStories: stories,
+          aiCommentStatus: "loading",
+        });
         break;
       }
 
@@ -197,31 +196,6 @@ export const useRoomStore = create<GameState>((set, get) => ({
         break;
       }
     }
-  },
-
-  startGame(ws: WebSocket) {
-    const event: ClientEvent = { type: "start_game" };
-    ws.send(JSON.stringify(event));
-  },
-
-  submitSentence(ws: WebSocket, content: string, twistId?: string) {
-    const event: ClientEvent = { type: "submit_sentence", content, twistId };
-    ws.send(JSON.stringify(event));
-  },
-
-  draftSentence(ws: WebSocket, content?: string, twistId?: string) {
-    const event: ClientEvent = { type: "draft_sentence", content, twistId };
-    ws.send(JSON.stringify(event));
-  },
-
-  editSentence(ws: WebSocket) {
-    const event: ClientEvent = { type: "edit_sentence" };
-    ws.send(JSON.stringify(event));
-  },
-
-  restartGame(ws: WebSocket) {
-    const event: ClientEvent = { type: "restart_game" };
-    ws.send(JSON.stringify(event));
   },
 
   startReveal: () => set({ status: "reveal" }),
