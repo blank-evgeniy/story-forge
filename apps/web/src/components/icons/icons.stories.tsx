@@ -5,6 +5,7 @@ import { IconEmojiCrying } from "./icon-emoji-crying";
 import { IconEmojiEvil } from "./icon-emoji-evil";
 import { IconEmojiLaughing } from "./icon-emoji-laughing";
 import { IconEmojiMedicalMask } from "./icon-emoji-medical-mask";
+import { IconEmojiMonocle } from "./icon-emoji-monocle";
 import { IconEmojiSmileDizzy } from "./icon-emoji-smile-dizzy";
 import { IconEmojiStarFace } from "./icon-emoji-star-face";
 import { IconEmojiTongueWinkRight } from "./icon-emoji-tongue-wink-right";
@@ -20,6 +21,7 @@ const icons = [
   { name: "StarFace", component: IconEmojiStarFace },
   { name: "TongueWinkRight", component: IconEmojiTongueWinkRight },
   { name: "Vomiting", component: IconEmojiVomiting },
+  { name: "Monocle", component: IconEmojiMonocle },
 ];
 
 const IconGrid = () => (
