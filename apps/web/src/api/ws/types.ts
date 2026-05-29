@@ -1,8 +1,15 @@
+import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+
+export type PlayerColorDto = PlayerColor;
+export type PlayerIconDto = PlayerIcon;
+
 // Client Events
 
 export type JoinRoomEvent = {
   type: "join_room";
   code: string;
+  color: PlayerColorDto;
+  icon: PlayerIconDto;
   username: string;
   playerId: string;
 };
@@ -67,10 +74,12 @@ export type StoryThreadDto = {
 };
 
 export type PlayerDto = {
-  id: string;
-  username: string;
-  turnOrder: number;
+  color: PlayerColorDto;
   connected: boolean;
+  icon: PlayerIconDto;
+  id: string;
+  turnOrder: number;
+  username: string;
 };
 
 export type RoomDto = {
@@ -105,8 +114,10 @@ export type RoomStateEvent = {
 
 export type PlayerJoinedEvent = {
   type: "player_joined";
-  username: string;
+  color: PlayerColorDto;
+  icon: PlayerIconDto;
   playerId: string;
+  username: string;
 };
 
 export type PlayerLeftEvent = {

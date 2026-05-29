@@ -1,20 +1,28 @@
 import { useWebSocket } from "@siberiacancode/reactuse";
 import { useEffect } from "react";
 
-import type { ClientEvent } from "@/api/ws/types";
+import type {
+  ClientEvent,
+  PlayerColorDto,
+  PlayerIconDto,
+} from "@/api/ws/types";
 
 import { useRoomStore } from "../model/use-room-store";
 
 export type UseRoomSocketOptions = {
+  color: PlayerColorDto;
+  icon: PlayerIconDto;
+  playerId: string;
   roomCode: string;
   username: string;
-  playerId: string;
 };
 
 export const useRoomSocket = ({
+  color,
+  icon,
+  playerId,
   roomCode,
   username,
-  playerId,
 }: UseRoomSocketOptions) => {
   const handleEvent = useRoomStore((store) => store.handleEvent);
   const resetStore = useRoomStore((store) => store.reset);
@@ -31,8 +39,10 @@ export const useRoomSocket = ({
         const event: ClientEvent = {
           type: "join_room",
           code: roomCode,
-          username,
+          color,
+          icon,
           playerId,
+          username,
         };
 
         ws.send(JSON.stringify(event));

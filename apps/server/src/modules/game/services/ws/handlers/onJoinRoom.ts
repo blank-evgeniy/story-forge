@@ -8,7 +8,7 @@ import { serializeRoom } from "../utils/serializeRoom";
 
 export function onJoinRoom(
   ws: ElysiaWS,
-  event: { code: string; playerId: string; username: string; },
+  event: { code: string; color: string; icon: string; playerId: string; username: string; },
 ) {
   const room = roomManager.get(event.code);
   if (!room) {
@@ -60,11 +60,15 @@ export function onJoinRoom(
       event.playerId,
       event.username,
       room.nextTurnOrder,
+      event.color,
+      event.icon,
     );
     room.nextTurnOrder++;
     room.players.set(player.id, player);
 
     roomManager.broadcast(room, {
+      color: player.color,
+      icon: player.icon,
       playerId: player.id,
       type: "player_joined",
       username: player.username,

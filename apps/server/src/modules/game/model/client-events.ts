@@ -3,6 +3,8 @@ import { z } from "zod";
 export const ClientEventSchema = z.discriminatedUnion("type", [
   z.object({
     code: z.string(),
+    color: z.string(),
+    icon: z.string(),
     playerId: z.string(),
     type: z.literal("join_room"),
     username: z.string().min(1).max(50),
