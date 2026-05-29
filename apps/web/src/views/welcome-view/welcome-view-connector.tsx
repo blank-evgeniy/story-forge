@@ -7,7 +7,7 @@ import type { CreateRoomSchema } from "./model/types";
 import { useCreateRoom } from "./api/use-create-room";
 import { CreateRoom } from "./ui/create-room";
 import { JoinRoom } from "./ui/join-room";
-import { ServerHealthCheck } from "./ui/server-health-check";
+import { ServerStatusConnector } from "./ui/server-status";
 import { WelcomeView } from "./ui/welcome-view";
 
 export function WelcomeViewConnector() {
@@ -45,8 +45,7 @@ export function WelcomeViewConnector() {
         <CreateRoom onCreate={handleCreateRoom} isLoading={isLoading} />
       }
       joinRoomSlot={<JoinRoom onJoin={handleJoinRoom} />}
-    >
-      <ServerHealthCheck />
-    </WelcomeView>
+      serverStatusSlot={<ServerStatusConnector />}
+    />
   );
 }

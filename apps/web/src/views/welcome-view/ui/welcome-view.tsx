@@ -3,13 +3,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 type WelcomeViewProps = {
   createRoomSlot: React.ReactNode;
   joinRoomSlot: React.ReactNode;
-  children?: React.ReactNode;
+  serverStatusSlot?: React.ReactNode;
 };
 
 export function WelcomeView({
   createRoomSlot,
   joinRoomSlot,
-  children,
+  serverStatusSlot,
 }: WelcomeViewProps) {
   return (
     <div className="flex flex-1 flex-col gap-4 lg:mt-[10vh] mt-4">
@@ -26,7 +26,7 @@ export function WelcomeView({
         <TabsContent value="join">{joinRoomSlot}</TabsContent>
       </Tabs>
 
-      <div className="mt-auto">{children}</div>
+      <div className="mt-auto">{serverStatusSlot}</div>
     </div>
   );
 }

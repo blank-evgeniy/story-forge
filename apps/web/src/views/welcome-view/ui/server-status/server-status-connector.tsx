@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { useCheckHealth } from "../api/use-health-check";
+import type { ServerHealthStatus } from "../../model/types";
 
-type Status = "checking" | "starting" | "error" | "online";
+import { useCheckHealth } from "../../api/use-check-health";
+import { ServerStatus } from "./ui/server-status";
 
-export function useServerHealthStatus() {
+export function ServerStatusConnector() {
   const { data, isError, isLoading, refetch } = useCheckHealth();
 
   const [delayed, setDelayed] = useState(false);
@@ -22,12 +23,12 @@ export function useServerHealthStatus() {
     };
   }, [isLoading]);
 
-  let status: Status;
+  let status: ServerHealthStatus;
 
   if (isError) status = "error";
   else if (data?.ok) status = "online";
   else if (isLoading && delayed) status = "starting";
   else status = "checking";
 
-  return { status, refetch };
+  return <ServerStatus status={status} onRetry={refetch} />;
 }
