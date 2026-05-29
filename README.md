@@ -16,11 +16,15 @@
 
 ## Как это работает
 
-1. Хост создаёт комнату и делится 4-значным кодом или QR-кодом с друзьями
-2. Игроки заходят, хост запускает игру
-3. В каждом раунде каждый игрок пишет одно предложение в рамках таймера (30–90 секунд)
-4. В режиме **Слепого текста** игрок видит только предыдущее предложение — что делает историю непредсказуемой
-5. После всех раундов история раскрывается предложение за предложением
+1. Настройте профиль: выберите аватар, цвет и имя
+2. Хост создаёт комнату и делится 4-значным кодом или QR-кодом с друзьями
+3. Игроки заходят, хост запускает игру
+4. В каждом раунде каждый игрок пишет одно предложение в рамках таймера (30–90 секунд)
+5. В режиме **Blind** игрок видит только предыдущее предложение — что делает историю непредсказуемой
+6. В режиме **Твистов** в середине игры случайный поворот сюжета вписывается в историю
+7. После всех раундов история раскрывается предложение за предложением с озвучкой через Web Speech API
+8. Готовую историю можно сохранить — она появится на публичной странице историй
+9. После сохранения ИИ оставляет короткий комментарий к истории
 
 ---
 
@@ -43,10 +47,13 @@ apps/
 | Среда сервера     | Bun                                |
 | Фреймворк сервера | Elysia                             |
 | Реальное время    | WebSockets                         |
+| База данных       | Turso (libSQL) + Drizzle ORM       |
+| ИИ-комментарии    | OpenRouter + Vercel AI SDK         |
 | Фронтенд          | React 19, Vite, TanStack Router    |
 | Стилизация        | Tailwind CSS 4, shadcn/ui, Base UI |
 | Состояние         | Zustand                            |
 | Анимации          | Motion                             |
+| Компоненты        | Storybook                          |
 | Лендинг           | Claude Code + Astro 6              |
 
 ---
@@ -74,6 +81,14 @@ VITE_API_BASE_URL=http://localhost:3001/
 VITE_WS_BASE_URL=ws://localhost:3001/ws
 ```
 
+Создайте `apps/server/.env.local`:
+
+```env
+TURSO_DATABASE_URL=url
+TURSO_AUTH_TOKEN=key
+OPENROUTER_API_KEY=key
+```
+
 ### Запуск в режиме разработки
 
 ```bash
@@ -94,8 +109,11 @@ pnpm dev:landing
 | -------------------- | -------- | ------------ |
 | Секунд на ход        | 30–90 с  | 60 с         |
 | Режим слепого текста | вкл/выкл | выкл         |
+| Твисты               | вкл/выкл | выкл         |
 
-В режиме слепого текста каждый игрок видит только предыдущее предложение — история получается неожиданной и смешной.
+**Слепой текст** — каждый игрок видит только предыдущее предложение, история получается неожиданной и смешной.
+
+**Твисты** — в середине игры в историю вписывается случайный поворот сюжета, который получает только один из игроков.
 
 ---
 
@@ -117,17 +135,21 @@ pnpm dev:landing
 
 A multiplayer collaborative storytelling game where players build stories together — one sentence at a time.
 
-[Live App](https://blank-evgeniy.github.io/story-forge) · [Landing Page](https://blank-evgeniy.github.io/story-forge)
+[Live App](https://story-forge-web-omega.vercel.app/) · [Landing Page](https://blank-evgeniy.github.io/story-forge)
 
 ---
 
 ## How It Works
 
-1. A host creates a room and shares a 4-digit code or QR code with friends
-2. Players join and the host starts the game
-3. Each round, every player writes one sentence within a time limit (30–90 seconds)
-4. In **Blind Mode**, players see only the previous sentence — creating unexpected twists
-5. After all rounds, the full story is revealed sentence by sentence
+1. Set up your profile: pick an avatar, color, and username
+2. A host creates a room and shares a 4-digit code or QR code with friends
+3. Players join and the host starts the game
+4. Each round, every player writes one sentence within a time limit (30–90 seconds)
+5. In **Blind Mode**, players see only the previous sentence — creating unexpected twists
+6. In **Twists Mode**, a random plot twist is injected mid-game for one of the players
+7. After all rounds, the full story is revealed sentence by sentence with Web Speech API narration
+8. The story can be saved and published to a public stories page
+9. After saving, an AI leaves a short comment on the story
 
 ---
 
@@ -150,10 +172,13 @@ apps/
 | Server runtime   | Bun                                |
 | Server framework | Elysia                             |
 | Real-time        | WebSockets                         |
+| Database         | Turso (libSQL) + Drizzle ORM       |
+| AI comments      | OpenRouter + Vercel AI SDK         |
 | Frontend         | React 19, Vite, TanStack Router    |
 | Styling          | Tailwind CSS 4, shadcn/ui, Base UI |
 | State            | Zustand                            |
 | Animations       | Motion                             |
+| Components       | Storybook                          |
 | Landing          | Claude Code + Astro 6              |
 
 ---
@@ -181,6 +206,14 @@ VITE_API_BASE_URL=http://localhost:3001/
 VITE_WS_BASE_URL=ws://localhost:3001/ws
 ```
 
+Create `apps/server/.env.local`:
+
+```env
+TURSO_DATABASE_URL=url
+TURSO_AUTH_TOKEN=key
+OPENROUTER_API_KEY=key
+```
+
 ### Run in Development
 
 ```bash
@@ -201,8 +234,11 @@ pnpm dev:landing
 | ---------------- | ------- | ------- |
 | Seconds per turn | 30–90 s | 60 s    |
 | Blind Mode       | on/off  | off     |
+| Twists           | on/off  | off     |
 
-Blind Mode limits each player to seeing only the single sentence written before their turn, making stories unpredictable and fun.
+**Blind Mode** limits each player to seeing only the single sentence written before their turn, making stories unpredictable and fun.
+
+**Twists** injects a random plot twist mid-game for one player, steering the story in an unexpected direction.
 
 ---
 
