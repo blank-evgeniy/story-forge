@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
 
+import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
 import {
   PlayerCard,
@@ -15,7 +16,6 @@ import {
 } from "../common/player-card";
 
 type LobbyScreenProps = {
-  onStartGame: () => void;
   roomCode: string;
 };
 
@@ -32,11 +32,13 @@ const rules = [
   },
 ];
 
-export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
+export function LobbyScreen({ roomCode }: LobbyScreenProps) {
   const breakpoints = useTwBreakpoints();
 
   const players = useRoomStore((store) => store.players);
   const isHost = useRoomStore((store) => store.isHost);
+
+  const actions = useRoomActions();
 
   return (
     <div className="flex-1 flex lg:flex-row flex-col-reverse items-start gap-6 lg:py-12 py-4">
@@ -134,7 +136,7 @@ export function LobbyScreen({ onStartGame, roomCode }: LobbyScreenProps) {
             <Button
               className="w-full mt-auto"
               disabled={players.length < 2}
-              onClick={onStartGame}
+              onClick={actions.startGame}
             >
               Начать игру
             </Button>

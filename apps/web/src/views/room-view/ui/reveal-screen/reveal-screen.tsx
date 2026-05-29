@@ -1,9 +1,12 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 
+import { useSaveStory } from "../../api/use-save-story";
+import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
 import { AiCommentCard } from "./ai-comment-card";
 import { RevealReadyScreen } from "./reveal-ready-screen/index";
@@ -13,14 +16,14 @@ import {
   StoriesHistoryPicker,
   StoriesHistoryViewer,
 } from "./stories-history";
-import { StoryActions } from "./story-actions";
+import { StoryActions, type StoryActionsProps } from "./story-actions";
 import { type StoryPlayerMode, useStoryPlayer } from "./use-story-player";
 
 type RevealScreenProps = {
-  onPlayMore: () => void;
+  roomCode: string;
 };
 
-export function RevealScreen({ onPlayMore }: RevealScreenProps) {
+export function RevealScreen({ roomCode }: RevealScreenProps) {
   const [playerMode, setPlayerMode] = useState<StoryPlayerMode>("timer");
   const {
     allStories,
@@ -39,8 +42,37 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
   const isHost = useRoomStore((store) => store.isHost);
   const aiComment = useRoomStore((store) => store.aiComment);
   const aiCommentStatus = useRoomStore((store) => store.aiCommentStatus);
+  const savedStories = useRoomStore((store) => store.savedStories);
+  const addSavedStory = useRoomStore((store) => store.addSavedStory);
+
+  const { mutate: saveStory, isLoading: isSaving } = useSaveStory();
+
+  const handleSave = (storyId: string) =>
+    saveStory(
+      { roomCode, storyId },
+      {
+        onSuccess: () => {
+          addSavedStory(storyId);
+          toast.success("История опубликована");
+        },
+        onError: () => {
+          toast.error("Не удалось опубликовать историю");
+        },
+      },
+    );
+
+  const commonStoryActionsProps: (storyId: string) => StoryActionsProps = (
+    storyId,
+  ) => ({
+    onSave: () => handleSave(storyId),
+    isSaved: savedStories.includes(storyId),
+    saveIsLoading: isSaving,
+    showSaveAction: isHost,
+  });
 
   const [historyMode, setHistoryMode] = useState<boolean>(false);
+
+  const actions = useRoomActions();
 
   if (!started) {
     return (
@@ -73,7 +105,7 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
               >
                 <StoriesHistoryViewer
                   actionsSlot={(storyId) => (
-                    <StoryActions currentStoryId={storyId} />
+                    <StoryActions {...commonStoryActionsProps(storyId)} />
                   )}
                 />
               </motion.div>
@@ -92,9 +124,9 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
                   actionsSlot={
                     storyRevealed ? (
                       <StoryActions
-                        currentStoryId={currentStory.id}
-                        onNext={nextStory}
+                        {...commonStoryActionsProps(currentStory.id)}
                         showNextAction={storyIdx < allStories.length - 1}
+                        onNext={nextStory}
                       />
                     ) : undefined
                   }
@@ -115,7 +147,7 @@ export function RevealScreen({ onPlayMore }: RevealScreenProps) {
               <AiCommentCard status={aiCommentStatus} comment={aiComment} />
               <StoriesHistoryPicker />
               {isHost ? (
-                <Button className="w-full" onClick={onPlayMore}>
+                <Button className="w-full" onClick={actions.restartGame}>
                   Играть еще
                 </Button>
               ) : (

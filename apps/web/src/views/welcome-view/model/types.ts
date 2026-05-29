@@ -5,3 +5,5 @@ export type CreateRoomSchema = {
 };
 
 export type RoundTime = "30" | "60" | "90";
+
+export type ServerHealthStatus = "checking" | "starting" | "error" | "online";

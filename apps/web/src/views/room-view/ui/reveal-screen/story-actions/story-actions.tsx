@@ -1,55 +1,65 @@
-import { toast } from "sonner";
+import { CheckIcon, ShareIcon } from "lucide-react";
+import { motion } from "motion/react";
 
-import { gameRoute } from "@/app/routes/routes";
-import { useRoomStore } from "@/views/room-view/model/use-room-store";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-import { useSaveStory } from "./api/use-save-story";
-import { StoryActionsContent } from "./ui/story-actions-content";
-
-type StoryActionsProps = {
+export type StoryActionsProps = {
   showNextAction?: boolean;
+  showSaveAction?: boolean;
   onNext?: () => void;
-  currentStoryId: string;
+  saveIsLoading?: boolean;
+  isSaved?: boolean;
+  onSave: () => void;
 };
 
 export function StoryActions({
   showNextAction = false,
+  showSaveAction = false,
   onNext,
-  currentStoryId,
+  saveIsLoading,
+  isSaved,
+  onSave,
 }: StoryActionsProps) {
-  const { roomCode } = gameRoute.useParams();
-  const isHost = useRoomStore((store) => store.isHost);
-  const savedStories = useRoomStore((store) => store.savedStories);
-  const addSavedStory = useRoomStore((store) => store.addSavedStory);
-
-  const { mutate, isLoading } = useSaveStory();
-
-  const handleSave = () => {
-    mutate(
-      {
-        roomCode,
-        storyId: currentStoryId,
-      },
-      {
-        onSuccess: () => {
-          addSavedStory(currentStoryId);
-          toast.success("История опубликована");
-        },
-        onError: () => {
-          toast.error("Не удалось опубликовать историю");
-        },
-      },
-    );
-  };
+  if (!showNextAction && !showSaveAction) return null;
 
   return (
-    <StoryActionsContent
-      showNextAction={showNextAction}
-      onNext={onNext}
-      onSave={handleSave}
-      saveIsLoading={isLoading}
-      isSaved={savedStories.includes(currentStoryId)}
-      showSaveAction={isHost}
-    />
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className="flex mt-4 justify-end gap-2"
+    >
+      {showSaveAction && (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger render={<span />}>
+              <Button
+                variant="outline"
+                onClick={onSave}
+                isLoading={saveIsLoading}
+                disabled={saveIsLoading || isSaved}
+              >
+                {isSaved ? "Опубликовано" : "Опубликовать"}
+                {isSaved ? <CheckIcon /> : <ShareIcon />}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              История станет видна всем в публичной ленте
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )}
+      {showNextAction && (
+        <Button onClick={onNext} disabled={saveIsLoading}>
+          Следующая история
+        </Button>
+      )}
+    </motion.div>
   );
 }

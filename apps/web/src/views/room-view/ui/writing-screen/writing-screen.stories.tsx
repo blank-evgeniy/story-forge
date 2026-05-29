@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 
-import { fn } from "storybook/test";
-
+import { RoomActionsProvider } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
 import { WritingScreen } from "./writing-screen";
 
@@ -11,10 +10,16 @@ const players = [
   { id: "3", username: "Света", connected: false },
 ];
 
+const withRoomActions: Decorator = (Story) => (
+  <RoomActionsProvider client={null}>
+    <Story />
+  </RoomActionsProvider>
+);
+
 const meta = {
   title: "RoomView/WritingScreen",
   component: WritingScreen,
-  args: { onSubmit: fn(), onDraft: fn(), onEdit: fn() },
+  decorators: [withRoomActions],
 } satisfies Meta<typeof WritingScreen>;
 
 export default meta;
