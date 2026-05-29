@@ -3,6 +3,7 @@ export {
   DEFAULT_PLAYER_COLOR,
   playerColorClasses,
   playerAvatarColorClasses,
+  playerColorSwatchClasses,
   type PlayerColor,
 } from "./player-colors";
 

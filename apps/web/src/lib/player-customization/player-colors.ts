@@ -40,3 +40,16 @@ export const playerAvatarColorClasses: Record<PlayerColor, string> = {
   purple: "bg-purple-500/20 text-purple-600 dark:text-purple-400",
   pink: "bg-pink-500/20 text-pink-600 dark:text-pink-400",
 };
+
+export const playerColorSwatchClasses: Record<PlayerColor, string> = {
+  amber: "bg-amber-400",
+  blue: "bg-blue-400",
+  green: "bg-green-400",
+  red: "bg-red-400",
+  lime: "bg-lime-400",
+  sky: "bg-sky-400",
+  indigo: "bg-indigo-400",
+  violet: "bg-violet-400",
+  purple: "bg-purple-400",
+  pink: "bg-pink-400",
+};

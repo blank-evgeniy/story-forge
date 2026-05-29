@@ -5,7 +5,7 @@ import {
   DEFAULT_PLAYER_ICON,
 } from "@/lib/player-customization";
 
-import type { Player, Story } from "./types";
+import type { Player, Sentence, Story } from "./types";
 
 import { PLAYER_NAME_PLACEHOLDER } from "./consts";
 
@@ -21,12 +21,9 @@ export const mapStories = (
         icon: DEFAULT_PLAYER_ICON,
       };
 
-      const sentence = {
+      const sentence: Sentence = {
         content: s.content,
         player,
-        playerName:
-          players.find((player) => player.id === s.playerId)?.username ??
-          PLAYER_NAME_PLACEHOLDER,
         type: "player" as const,
       };
 

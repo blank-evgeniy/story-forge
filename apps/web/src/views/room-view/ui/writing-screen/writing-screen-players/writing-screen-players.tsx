@@ -29,7 +29,7 @@ export function WritingScreenPlayers({
               disconnected={!player.connected}
               direction="vertical"
             >
-              <PlayerCardAvatar pending={!hasSubmitted} />
+              <PlayerCardAvatar dimmed={!hasSubmitted} />
               <PlayerCardTitle size="sm" />
             </PlayerCard>
           </li>

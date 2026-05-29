@@ -1,18 +1,9 @@
-import { PLAYER_COLORS, type PlayerColor } from "@/lib/player-customization";
+import {
+  PLAYER_COLORS,
+  type PlayerColor,
+  playerColorSwatchClasses,
+} from "@/lib/player-customization";
 import { cn } from "@/lib/utils";
-
-const colorSwatchClasses: Record<PlayerColor, string> = {
-  amber: "bg-amber-400",
-  blue: "bg-blue-400",
-  green: "bg-green-400",
-  red: "bg-red-400",
-  lime: "bg-lime-400",
-  sky: "bg-sky-400",
-  indigo: "bg-indigo-400",
-  violet: "bg-violet-400",
-  purple: "bg-purple-400",
-  pink: "bg-pink-400",
-};
 
 type PlayerColorPickerProps = {
   value: PlayerColor;
@@ -22,19 +13,19 @@ type PlayerColorPickerProps = {
 export function PlayerColorPicker({ value, onChange }: PlayerColorPickerProps) {
   return (
     <div className="flex flex-wrap gap-2">
-      {PLAYER_COLORS.map((c) => (
+      {PLAYER_COLORS.map((color) => (
         <button
-          key={c}
+          key={color}
           type="button"
-          onClick={() => onChange(c)}
+          onClick={() => onChange(color)}
           className={cn(
             "h-7 w-7 rounded-full transition-all cursor-pointer",
-            colorSwatchClasses[c],
-            value === c
+            playerColorSwatchClasses[color],
+            value === color
               ? "ring-2 ring-foreground ring-offset-2 ring-offset-background scale-110"
               : "opacity-60 hover:opacity-90",
           )}
-          aria-label={c}
+          aria-label={color}
         />
       ))}
     </div>

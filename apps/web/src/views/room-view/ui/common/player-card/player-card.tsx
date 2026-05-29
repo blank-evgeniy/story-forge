@@ -63,13 +63,13 @@ export function PlayerCard({
 }
 
 type PlayerCardAvatarProps = VariantProps<typeof avatarVariants> & {
-  pending?: boolean;
+  dimmed?: boolean;
   className?: string;
 };
 
 export function PlayerCardAvatar({
   size = "lg",
-  pending,
+  dimmed,
   className,
 }: PlayerCardAvatarProps) {
   const { color, icon } = usePlayerCard();
@@ -80,7 +80,7 @@ export function PlayerCardAvatar({
       icon={icon}
       size={size}
       className={className}
-      fallbackClassName={pending ? "bg-muted text-muted-foreground" : undefined}
+      fallbackClassName={dimmed ? "bg-muted text-muted-foreground" : undefined}
     />
   );
 }
