@@ -2,10 +2,6 @@ import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
-import {
-  playerAvatarColorClasses,
-  type PlayerColor,
-} from "@/lib/player-customization";
 import { cn } from "@/lib/utils";
 
 const avatarVariants = cva(
@@ -54,17 +50,13 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
 
 function AvatarFallback({
   className,
-  color,
   ...props
-}: AvatarPrimitive.Fallback.Props & {
-  color?: PlayerColor;
-}) {
+}: AvatarPrimitive.Fallback.Props) {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       className={cn(
         "flex size-full items-center justify-center rounded-full bg-muted text-sm text-muted-foreground group-data-[size=sm]/avatar:text-xs",
-        color && playerAvatarColorClasses[color],
         className,
       )}
       {...props}
@@ -117,6 +109,8 @@ function AvatarGroupCount({
     />
   );
 }
+
+export { avatarVariants };
 
 export {
   Avatar,

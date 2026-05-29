@@ -80,9 +80,18 @@ export const storiesRoute = createRoute({
   },
 });
 
+export const profileRoute = createRoute({
+  getParentRoute: () => guardedRoute,
+  path: "profile",
+  component: lazyRouteComponent(
+    () => import("@/views/profile-edit-view"),
+    "ProfileEditViewConnector",
+  ),
+});
+
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  guardedRoute.addChildren([indexRoute, gameRoute, storiesRoute]),
+  guardedRoute.addChildren([indexRoute, gameRoute, storiesRoute, profileRoute]),
 ]);
 
 export const router = createRouter({

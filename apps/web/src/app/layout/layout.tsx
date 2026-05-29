@@ -1,18 +1,11 @@
-import { Link, useNavigate } from "@tanstack/react-router";
-import { LogOutIcon } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
+import { PlayerAvatar } from "@/components/player-customization";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/user";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const navigate = useNavigate();
-  const logout = useUserStore((store) => store.logout);
   const user = useUserStore((store) => store.user);
-
-  const handleLogout = () => {
-    logout();
-    navigate({ to: "/login", search: { redirect: window.location.pathname } });
-  };
 
   return (
     <div className="flex flex-col max-w-3xl w-full mx-auto min-h-dvh px-4 pb-4">
@@ -37,8 +30,20 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </Link>
 
         {user && (
-          <Button size={"icon"} variant={"destructive"} onClick={handleLogout}>
-            <LogOutIcon />
+          <Button
+            variant={"ghost"}
+            className={"max-w-40 flex gap-2"}
+            render={<Link to="/profile" />}
+          >
+            <PlayerAvatar
+              color={user.color}
+              icon={user.icon}
+              size="sm"
+              className="shrink-0"
+            />
+            <span className="text-sm font-medium truncate">
+              {user.username}
+            </span>
           </Button>
         )}
       </header>

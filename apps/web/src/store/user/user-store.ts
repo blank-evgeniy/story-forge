@@ -19,6 +19,7 @@ type UserStore = {
   user: User | null;
   login: (username: string, color?: PlayerColor, icon?: PlayerIcon) => void;
   logout: () => void;
+  updateProfile: (username: string, color: PlayerColor, icon: PlayerIcon) => void;
 };
 
 export const useUserStore = create<UserStore>()(
@@ -37,6 +38,13 @@ export const useUserStore = create<UserStore>()(
 
       logout: () => {
         set({ user: null });
+      },
+
+      updateProfile: (username, color, icon) => {
+        set((state) => {
+          if (!state.user) return state;
+          return { user: { ...state.user, username, color, icon } };
+        });
       },
     }),
     {
