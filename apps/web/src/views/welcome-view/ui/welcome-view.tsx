@@ -4,17 +4,19 @@ type WelcomeViewProps = {
   createRoomSlot: React.ReactNode;
   joinRoomSlot: React.ReactNode;
   serverStatusSlot?: React.ReactNode;
+  defaultTab?: "create" | "join";
 };
 
 export function WelcomeView({
   createRoomSlot,
   joinRoomSlot,
   serverStatusSlot,
+  defaultTab = "create",
 }: WelcomeViewProps) {
   return (
     <div className="flex flex-1 flex-col gap-4 lg:mt-[10vh] mt-4">
       <Tabs
-        defaultValue="account"
+        defaultValue={defaultTab}
         className="w-full flex flex-col"
         orientation="horizontal"
       >

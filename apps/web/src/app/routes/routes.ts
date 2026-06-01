@@ -7,6 +7,7 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { createElement } from "react";
+import { z } from "zod";
 
 import { Spinner } from "@/components/ui/spinner";
 import { useUserStore } from "@/store/user";
@@ -49,13 +50,16 @@ const guardedRoute = createRoute({
   },
 });
 
-const indexRoute = createRoute({
+export const indexRoute = createRoute({
   getParentRoute: () => guardedRoute,
   path: "/",
   component: lazyRouteComponent(
     () => import("@/views/welcome-view"),
     "WelcomeViewConnector",
   ),
+  validateSearch: z.object({
+    tab: z.enum(["create", "join"]).optional(),
+  }),
 });
 
 export const gameRoute = createRoute({
@@ -74,10 +78,15 @@ export const storiesRoute = createRoute({
     () => import("@/views/stories-view"),
     "StoriesViewConnector",
   ),
-  validateSearch: (search: Record<string, unknown>) => {
-    const storyId = Number(search.storyId);
-    return { storyId: isNaN(storyId) || !search.storyId ? undefined : storyId };
-  },
+  validateSearch: z.object({
+    storyId: z.preprocess((value) => {
+      const num = Number(value);
+
+      return value == null || value === "" || Number.isNaN(num)
+        ? undefined
+        : num;
+    }, z.number().optional()),
+  }),
 });
 
 export const profileRoute = createRoute({

@@ -11,6 +11,8 @@ lobby → `start_game` → `game_started` → (2s) → `round_started` + `your_t
 `round_ended` → (2s) → `round_started` + `your_turn`
 ↓ (последний раунд)
 `all_revealed`
+↓
+`ai_comment`
 
 ### Подключение нового игрока
 
@@ -59,6 +61,7 @@ client → `join_room` → `room_state` (sender) + `your_turn` (sender) + `playe
 | `player_submitted`    | broadcast | Любой сабмит, включая таймаут                                             |
 | `round_ended`         | broadcast | Конец раунда                                                              |
 | `all_revealed`        | broadcast | После последнего раунда                                                   |
+| `ai_comment`          | broadcast | После `all_revealed`                                                      |
 | `game_restarted`      | broadcast | После `restart_game`                                                      |
 | `error`               | sender    | Невалидный запрос                                                         |
 
