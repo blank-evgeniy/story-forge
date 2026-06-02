@@ -72,7 +72,7 @@ export const gameRoute = createRoute({
 });
 
 export const storiesRoute = createRoute({
-  getParentRoute: () => guardedRoute,
+  getParentRoute: () => rootRoute,
   path: "stories",
   component: lazyRouteComponent(
     () => import("@/views/stories-view"),
@@ -100,7 +100,8 @@ export const profileRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  guardedRoute.addChildren([indexRoute, gameRoute, storiesRoute, profileRoute]),
+  storiesRoute,
+  guardedRoute.addChildren([indexRoute, gameRoute, profileRoute]),
 ]);
 
 export const router = createRouter({

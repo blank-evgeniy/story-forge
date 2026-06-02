@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { BookOpen } from "lucide-react";
 
 import { PlayerAvatar } from "@/components/player-customization";
 import { Button } from "@/components/ui/button";
@@ -29,23 +30,33 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </svg>
         </Link>
 
-        {user && (
+        <div className="flex items-center gap-1">
           <Button
             variant={"ghost"}
-            className={"max-w-40 flex gap-2"}
-            render={<Link to="/profile" />}
+            size={"icon"}
+            render={<Link to="/stories" />}
+            aria-label="Истории"
           >
-            <PlayerAvatar
-              color={user.color}
-              icon={user.icon}
-              size="sm"
-              className="shrink-0"
-            />
-            <span className="text-sm font-medium truncate">
-              {user.username}
-            </span>
+            <BookOpen className="size-5" />
           </Button>
-        )}
+          {user && (
+            <Button
+              variant={"ghost"}
+              className={"max-w-40 flex gap-2"}
+              render={<Link to="/profile" />}
+            >
+              <PlayerAvatar
+                color={user.color}
+                icon={user.icon}
+                size="sm"
+                className="shrink-0"
+              />
+              <span className="text-sm font-medium truncate">
+                {user.username}
+              </span>
+            </Button>
+          )}
+        </div>
       </header>
       <main className="flex-1 flex flex-col">{children}</main>
     </div>
