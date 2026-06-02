@@ -2,13 +2,13 @@ import { ElysiaWS } from "elysia/dist/ws";
 
 import { ClientEvent } from "../../../model/client-events";
 import { onClose } from "./onClose";
-import { onDraftSentence } from "./onDraftSentence";
-import { onEditSentence } from "./onEditSentence";
+import { onDraftEntry } from "./onDraftEntry";
+import { onEditEntry } from "./onEditEntry";
 import { onJoinRoom } from "./onJoinRoom";
 import { onRequestState } from "./onRequestState";
 import { onRestartGame } from "./onRestartGame";
 import { onStartGame } from "./onStartGame";
-import { onSubmitSentence } from "./onSubmitSentence";
+import { onSubmitEntry } from "./onSubmitEntry";
 
 export function handleClose(ws: ElysiaWS) {
   onClose(ws);
@@ -16,10 +16,10 @@ export function handleClose(ws: ElysiaWS) {
 
 export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
   switch (event.type) {
-    case "draft_sentence":
-      return onDraftSentence(ws, event);
-    case "edit_sentence":
-      return onEditSentence(ws);
+    case "draft_entry":
+      return onDraftEntry(ws, event);
+    case "edit_entry":
+      return onEditEntry(ws);
     case "join_room":
       return onJoinRoom(ws, event);
     case "request_state":
@@ -28,7 +28,7 @@ export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
       return onRestartGame(ws);
     case "start_game":
       return onStartGame(ws);
-    case "submit_sentence":
-      return onSubmitSentence(ws, event);
+    case "submit_entry":
+      return onSubmitEntry(ws, event);
   }
 }

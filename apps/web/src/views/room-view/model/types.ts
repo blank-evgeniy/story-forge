@@ -8,7 +8,7 @@ export type Player = {
   username: string;
 };
 
-export type PlayerSentence = {
+export type PlayerEntry = {
   player: {
     username: string;
     color: PlayerColor;
@@ -18,18 +18,18 @@ export type PlayerSentence = {
   type: "player";
 };
 
-export type TwistSentence = {
+export type TwistEntry = {
   id: string;
   content: string;
   type: "twist";
 };
 
-export type Sentence = PlayerSentence | TwistSentence;
+export type StoryEntry = PlayerEntry | TwistEntry;
 
 export type Story = {
   id: string;
   playerName: string;
-  sentences: Sentence[];
+  entries: StoryEntry[];
 };
 
 export type TwistsSet = {
@@ -37,7 +37,7 @@ export type TwistsSet = {
   content: string;
 }[];
 
-export type PrevSentence = {
-  sentence: string;
+export type PrevEntry = {
+  entry: string;
   twist?: string;
 };

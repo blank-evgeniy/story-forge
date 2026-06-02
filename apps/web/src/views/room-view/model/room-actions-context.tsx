@@ -4,9 +4,9 @@ import type { ClientEvent } from "@/api/ws/types";
 
 type RoomActions = {
   startGame: () => void;
-  submitSentence: (content: string, twistId?: string) => void;
-  draftSentence: (content?: string, twistId?: string) => void;
-  editSentence: () => void;
+  submitEntry: (content: string, twistId?: string) => void;
+  draftEntry: (content?: string, twistId?: string) => void;
+  editEntry: () => void;
   restartGame: () => void;
 };
 
@@ -28,11 +28,11 @@ export function RoomActionsProvider({
 
     return {
       startGame: () => send({ type: "start_game" }),
-      submitSentence: (content, twistId) =>
-        send({ type: "submit_sentence", content, twistId }),
-      draftSentence: (content, twistId) =>
-        send({ type: "draft_sentence", content, twistId }),
-      editSentence: () => send({ type: "edit_sentence" }),
+      submitEntry: (content, twistId) =>
+        send({ type: "submit_entry", content, twistId }),
+      draftEntry: (content, twistId) =>
+        send({ type: "draft_entry", content, twistId }),
+      editEntry: () => send({ type: "edit_entry" }),
       restartGame: () => send({ type: "restart_game" }),
     };
   }, [client]);

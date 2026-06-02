@@ -14,20 +14,20 @@ export type JoinRoomEvent = {
   playerId: string;
 };
 
-export type SubmitSentenceEvent = {
-  type: "submit_sentence";
+export type SubmitEntryEvent = {
+  type: "submit_entry";
   content: string;
   twistId?: string;
 };
 
-export type DraftSentenceEvent = {
-  type: "draft_sentence";
+export type DraftEntryEvent = {
+  type: "draft_entry";
   content?: string;
   twistId?: string;
 };
 
-export type EditSentenceEvent = {
-  type: "edit_sentence";
+export type EditEntryEvent = {
+  type: "edit_entry";
 };
 
 export type StartGameEvent = {
@@ -44,9 +44,9 @@ export type RestartGameEvent = {
 
 export type ClientEvent =
   | JoinRoomEvent
-  | SubmitSentenceEvent
-  | DraftSentenceEvent
-  | EditSentenceEvent
+  | SubmitEntryEvent
+  | DraftEntryEvent
+  | EditEntryEvent
   | StartGameEvent
   | RestartGameEvent
   | RequestStateEvent;
@@ -60,7 +60,7 @@ export type TwistDto = {
   content: string;
 };
 
-export type SentenceDto = {
+export type EntryDto = {
   playerId: string;
   content: string;
   wasTimeout: boolean;
@@ -70,7 +70,7 @@ export type SentenceDto = {
 export type StoryThreadDto = {
   id: string;
   ownerId: string;
-  sentences: SentenceDto[];
+  entries: EntryDto[];
 };
 
 export type PlayerDto = {
@@ -90,8 +90,7 @@ export type RoomDto = {
   stories: StoryThreadDto[];
   round: number;
   totalRounds?: number;
-  submitted: string[];
-  blindMode: boolean;
+  submittedIds: string[];
   config: {
     secondsPerTurn: number;
     blindMode: boolean;
@@ -147,7 +146,7 @@ export type RoundStartedEvent = {
 
 export type YourTurnEvent = {
   type: "your_turn";
-  prevSentence: SentenceDto[] | null;
+  prevEntry: EntryDto[] | null;
   twistsToChoose?: TwistDto[];
 };
 

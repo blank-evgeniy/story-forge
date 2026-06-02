@@ -9,9 +9,9 @@ export function WritingScreen() {
   const {
     round,
     totalRounds,
-    submitted,
+    submittedIds,
     players,
-    prevSentence,
+    prevEntry,
     secondsPerTurn,
     twistsToChoose,
   } = useRoomStore();
@@ -27,17 +27,17 @@ export function WritingScreen() {
         <WritingScreenTimer time={secondsPerTurn} />
       </div>
 
-      <WritingScreenStory story={prevSentence} />
+      <WritingScreenStory story={prevEntry} />
 
       <WritingScreenSubmit
         isFirstRound={round === 1}
         twistsToChoose={twistsToChoose}
-        onSubmit={actions.submitSentence}
-        onDraft={actions.draftSentence}
-        onEdit={actions.editSentence}
+        onSubmit={actions.submitEntry}
+        onDraft={actions.draftEntry}
+        onEdit={actions.editEntry}
       />
 
-      <WritingScreenPlayers players={players} submitted={submitted} />
+      <WritingScreenPlayers players={players} submittedIds={submittedIds} />
     </div>
   );
 }

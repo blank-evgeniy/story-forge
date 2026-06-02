@@ -39,7 +39,9 @@ export function StoryContent({ items }: StoryContentProps) {
               "items-end": SIDES[i % 2] === "right",
             })}
           >
-            <span className="text-xs text-muted-foreground px-1">{item.playerName}</span>
+            <span className="text-xs text-muted-foreground px-1">
+              {item.playerName}
+            </span>
             <div
               className={cn(
                 "max-w-[85%] rounded-2xl border px-4 py-2.5 border-amber-500/50 bg-amber-500/10",
@@ -49,7 +51,9 @@ export function StoryContent({ items }: StoryContentProps) {
                 },
               )}
             >
-              <p className="text-sm leading-relaxed text-foreground/90 break-words">{item.sentence}</p>
+              <p className="text-sm leading-relaxed text-foreground/90 break-words">
+                {item.entry}
+              </p>
             </div>
           </div>
         </Fragment>

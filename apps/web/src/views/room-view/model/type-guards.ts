@@ -1,7 +1,5 @@
-import type { PlayerSentence, Sentence } from "./types";
+import type { PlayerEntry, StoryEntry } from "./types";
 
-export function isPlayerSentence(
-  sentence: Sentence,
-): sentence is PlayerSentence {
-  return sentence.type === "player";
+export function isPlayerEntry(entry: StoryEntry): entry is PlayerEntry {
+  return entry.type === "player";
 }

@@ -6,7 +6,7 @@ import { PlayerAvatar } from "@/components/player-customization";
 
 import type { Story } from "../../../model/types";
 
-import { isPlayerSentence } from "../../../model/type-guards";
+import { isPlayerEntry } from "../../../model/type-guards";
 import { MessageRow } from "../../common/message-row";
 import { PlayerMessage } from "../../common/player-message";
 import { StoryWrapper } from "../../common/story-wrapper";
@@ -24,34 +24,34 @@ export function RevealScreenStory({
   story,
   actionsSlot,
 }: RevealScreenStoryProps) {
-  const visibleSentences = story.sentences.slice(0, shown);
-  const sentencesWithSides = assignSides(visibleSentences);
+  const visibleEntries = story.entries.slice(0, shown);
+  const entriesWithSides = assignSides(visibleEntries);
 
   return (
     <StoryWrapper storyOwner={story.playerName}>
       <AnimatePresence initial={false}>
-        {sentencesWithSides.map(({ sentence, side }, index) =>
-          isPlayerSentence(sentence) ? (
+        {entriesWithSides.map(({ entry, side }, index) =>
+          isPlayerEntry(entry) ? (
             <MessageRow key={index} side={side ?? "right"}>
               <PlayerAvatar
-                color={sentence.player.color}
-                icon={sentence.player.icon}
+                color={entry.player.color}
+                icon={entry.player.icon}
               />
               <PlayerMessage
                 className="flex-1"
-                message={sentence.content}
+                message={entry.content}
                 side={side}
-                color={sentence.player.color}
+                color={entry.player.color}
               />
             </MessageRow>
           ) : (
             <motion.div
-              key={sentence.id}
+              key={entry.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
             >
-              <TwistMessage message={sentence.content} className="my-4" />
+              <TwistMessage message={entry.content} className="my-4" />
             </motion.div>
           ),
         )}

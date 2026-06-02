@@ -8,20 +8,20 @@ export function autoSubmitMissing(room: RoomState) {
   const players = getSortedPlayers(room);
 
   players.forEach((player) => {
-    if (room.submitted.has(player.id)) return;
+    if (room.submittedIds.has(player.id)) return;
 
     const storyIndex = getPlayerStoryIndex(room, player.id);
 
     const draft = room.drafts.get(player.id);
 
-    room.stories[storyIndex].sentences.push({
+    room.stories[storyIndex].entries.push({
       content: draft?.content || "...",
       playerId: player.id,
       twist: draft?.twistId ? getTwistById(draft.twistId) : undefined,
       wasTimeout: true,
     });
 
-    room.submitted.add(player.id);
+    room.submittedIds.add(player.id);
 
     roomManager.broadcast(room, {
       playerId: player.id,

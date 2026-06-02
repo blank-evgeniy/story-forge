@@ -2,7 +2,7 @@ import { ElysiaWS } from "elysia/dist/ws";
 
 import { roomManager } from "../../rooms";
 
-export function onDraftSentence(
+export function onDraftEntry(
   ws: ElysiaWS,
   event: { content?: string; twistId?: string },
 ) {
@@ -11,7 +11,7 @@ export function onDraftSentence(
 
   const { playerId, room } = context;
 
-  if (room.status !== "writing" || room.submitted.has(playerId)) return;
+  if (room.status !== "writing" || room.submittedIds.has(playerId)) return;
 
   room.drafts.set(playerId, {
     content: event.content,

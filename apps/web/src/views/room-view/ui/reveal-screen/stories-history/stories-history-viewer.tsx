@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { PlayerAvatar } from "@/components/player-customization";
-import { isPlayerSentence } from "@/views/room-view/model/type-guards";
+import { isPlayerEntry } from "@/views/room-view/model/type-guards";
 
 import { MessageRow } from "../../common/message-row";
 import { PlayerMessage } from "../../common/player-message";
@@ -28,25 +28,22 @@ export function StoriesHistoryViewer({
 
   return (
     <StoryWrapper storyOwner={selectedStory.playerName}>
-      {assignSides(selectedStory.sentences).map(({ sentence, side }, index) =>
-        isPlayerSentence(sentence) ? (
+      {assignSides(selectedStory.entries).map(({ entry, side }, index) =>
+        isPlayerEntry(entry) ? (
           <MessageRow
             side={side ?? "right"}
-            key={`${sentence.player.username}-${index}`}
+            key={`${entry.player.username}-${index}`}
           >
-            <PlayerAvatar
-              color={sentence.player.color}
-              icon={sentence.player.icon}
-            />
+            <PlayerAvatar color={entry.player.color} icon={entry.player.icon} />
             <PlayerMessage
-              message={sentence.content}
+              message={entry.content}
               side={side}
-              color={sentence.player.color}
+              color={entry.player.color}
             />
           </MessageRow>
         ) : (
-          <div key={sentence.id}>
-            <TwistMessage message={sentence.content} className="my-4" />
+          <div key={entry.id}>
+            <TwistMessage message={entry.content} className="my-4" />
           </div>
         ),
       )}

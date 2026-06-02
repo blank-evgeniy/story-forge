@@ -5,7 +5,7 @@ import { roomManager } from "../../rooms";
 import { onRoundStart } from "./onRoundStart";
 
 export function onRoundEnd(room: RoomState) {
-  room.submitted = new Set();
+  room.submittedIds = new Set();
   room.drafts = new Map();
 
   if (room.round === room.totalRounds) {

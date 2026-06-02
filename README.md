@@ -133,7 +133,7 @@ pnpm dev:landing
 
 # Story Forge EN
 
-A multiplayer collaborative storytelling game where players build stories together — one sentence at a time.
+A multiplayer collaborative storytelling game where players build stories together — one entry at a time.
 
 [Live App](https://story-forge-web-omega.vercel.app/) · [Landing Page](https://blank-evgeniy.github.io/story-forge)
 
@@ -144,10 +144,10 @@ A multiplayer collaborative storytelling game where players build stories togeth
 1. Set up your profile: pick an avatar, color, and username
 2. A host creates a room and shares a 4-digit code or QR code with friends
 3. Players join and the host starts the game
-4. Each round, every player writes one sentence within a time limit (30–90 seconds)
-5. In **Blind Mode**, players see only the previous sentence — creating unexpected twists
+4. Each round, every player writes one entry within a time limit (30–90 seconds)
+5. In **Blind Mode**, players see only the previous entry — creating unexpected twists
 6. In **Twists Mode**, a random plot twist is injected mid-game for one of the players
-7. After all rounds, the full story is revealed sentence by sentence with Web Speech API narration
+7. After all rounds, the full story is revealed entry by entry with Web Speech API narration
 8. The story can be saved and published to a public stories page
 9. After saving, an AI leaves a short comment on the story
 
@@ -236,7 +236,7 @@ pnpm dev:landing
 | Blind Mode       | on/off  | off     |
 | Twists           | on/off  | off     |
 
-**Blind Mode** limits each player to seeing only the single sentence written before their turn, making stories unpredictable and fun.
+**Blind Mode** limits each player to seeing only the single entry written before their turn, making stories unpredictable and fun.
 
 **Twists** injects a random plot twist mid-game for one player, steering the story in an unexpected direction.
 
