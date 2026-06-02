@@ -55,13 +55,13 @@ export function WritingScreenInput({
 
   if (isSubmitted) {
     return (
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex w-full flex-col gap-2">
         <PlayerMessage message={content} side="right" />
         <div className="flex items-center justify-between gap-2">
           <Button onClick={onEdit} variant="ghost" size="sm">
             <PencilIcon className="size-3" /> Редактировать
           </Button>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
             <CheckIcon className="size-3 text-green-500" />
             <span>Ожидаем остальных...</span>
           </div>
@@ -71,20 +71,20 @@ export function WritingScreenInput({
   }
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex w-full flex-col gap-2">
       <Textarea
         maxLength={MAX_LENGTH}
         value={content}
         onChange={handleChangeContent}
         onKeyDown={handleKeyDown}
         placeholder={isFirstRound ? "Начни историю..." : "Продолжи историю..."}
-        className="resize-none min-h-24"
+        className="min-h-24 resize-none"
         autoFocus
       />
       <div className="flex items-center justify-between gap-2">
         <span
           className={cn(
-            "text-xs text-muted-foreground transition-colors",
+            "text-muted-foreground text-xs transition-colors",
             isNearLimit && "text-amber-500",
             remaining === 0 && "text-destructive",
           )}
@@ -92,7 +92,7 @@ export function WritingScreenInput({
           {remaining} символов
         </span>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground hidden sm:block">
+          <span className="text-muted-foreground hidden text-xs sm:block">
             Ctrl+Enter для отправки
           </span>
           <Button onClick={handleSubmit} disabled={!content.trim()} size="sm">

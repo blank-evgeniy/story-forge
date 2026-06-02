@@ -19,10 +19,10 @@ export function PlayerColorPicker({ value, onChange }: PlayerColorPickerProps) {
           type="button"
           onClick={() => onChange(color)}
           className={cn(
-            "h-7 w-7 rounded-full transition-all cursor-pointer",
+            "h-7 w-7 cursor-pointer rounded-full transition-all",
             playerColorSwatchClasses[color],
             value === color
-              ? "ring-2 ring-foreground ring-offset-2 ring-offset-background scale-110"
+              ? "ring-foreground ring-offset-background scale-110 ring-2 ring-offset-2"
               : "opacity-60 hover:opacity-90",
           )}
           aria-label={color}

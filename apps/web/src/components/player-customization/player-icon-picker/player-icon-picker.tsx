@@ -29,7 +29,7 @@ export function PlayerIconPicker({
             type="button"
             onClick={() => onChange(id)}
             className={cn(
-              "flex items-center justify-center rounded-lg p-2 transition-colors cursor-pointer",
+              "flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors",
               selected
                 ? cn("ring-1 ring-current/30", playerAvatarColorClasses[color])
                 : "text-muted-foreground hover:bg-muted hover:text-foreground",

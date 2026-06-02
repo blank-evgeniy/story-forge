@@ -15,8 +15,8 @@ export const MessageRow = ({ side, children, className }: MessageRowProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
       className={cn(
-        "flex gap-1 w-full sm:max-w-[85%] max-w-[95%] items-end",
-        side === "left" ? "self-start" : "self-end flex-row-reverse",
+        "flex w-full max-w-[95%] items-end gap-1 sm:max-w-[85%]",
+        side === "left" ? "self-start" : "flex-row-reverse self-end",
         className,
       )}
     >

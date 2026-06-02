@@ -14,10 +14,15 @@ type StoriesViewProps = {
   modalSlot: ReactNode;
 };
 
-export function StoriesView({ stories, isLoading, onOpen, modalSlot }: StoriesViewProps) {
+export function StoriesView({
+  stories,
+  isLoading,
+  onOpen,
+  modalSlot,
+}: StoriesViewProps) {
   return (
     <>
-      <div className="flex flex-1 flex-col gap-4 mt-4">
+      <div className="mt-4 flex flex-1 flex-col gap-4">
         <h1 className="text-2xl font-bold">Сохранённые истории</h1>
 
         {isLoading && <StoriesSkeleton />}

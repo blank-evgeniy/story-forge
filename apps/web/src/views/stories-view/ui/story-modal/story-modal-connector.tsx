@@ -6,7 +6,10 @@ type StoryModalConnectorProps = {
   onClose: () => void;
 };
 
-export function StoryModalConnector({ storyId, onClose }: StoryModalConnectorProps) {
+export function StoryModalConnector({
+  storyId,
+  onClose,
+}: StoryModalConnectorProps) {
   const { data, isLoading } = useGetStory(storyId);
   const isReady = !isLoading && data?.id === storyId;
 

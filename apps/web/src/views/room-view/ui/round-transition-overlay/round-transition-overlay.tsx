@@ -9,7 +9,7 @@ export function RoundTransitionOverlay() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm"
+      className="bg-background/80 fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -22,28 +22,31 @@ export function RoundTransitionOverlay() {
         exit={{ opacity: 0, scale: 0.92 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
-        <span className="text-xs font-semibold tracking-(--tracking-display) uppercase text-muted-foreground">
+        <span className="text-muted-foreground text-xs font-semibold tracking-(--tracking-display) uppercase">
           Раунд
         </span>
-        <span className="text-[9rem] font-bold leading-none tabular-nums tracking-tight">
+        <span className="text-[9rem] leading-none font-bold tracking-tight tabular-nums">
           {round}
         </span>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <span className="h-px w-6 bg-muted-foreground/40" />
+        <div className="text-muted-foreground flex items-center gap-2">
+          <span className="bg-muted-foreground/40 h-px w-6" />
           <span className="text-sm font-medium tracking-widest uppercase">
             из {totalRounds}
           </span>
-          <span className="h-px w-6 bg-muted-foreground/40" />
+          <span className="bg-muted-foreground/40 h-px w-6" />
         </div>
       </motion.div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-border">
+      <div className="bg-border absolute right-0 bottom-0 left-0 h-1">
         <motion.div
-          className="h-full bg-primary"
+          className="bg-primary h-full"
           style={{ transformOrigin: "left" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: ROUND_TRANSITION_DURATION_MS / 1000, ease: "linear" }}
+          transition={{
+            duration: ROUND_TRANSITION_DURATION_MS / 1000,
+            ease: "linear",
+          }}
         />
       </div>
     </motion.div>

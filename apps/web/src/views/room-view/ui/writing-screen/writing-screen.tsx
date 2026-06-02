@@ -19,9 +19,9 @@ export function WritingScreen() {
   const actions = useRoomActions();
 
   return (
-    <div className="flex-1 flex flex-col gap-5 lg:py-12 py-4" key={round}>
+    <div className="flex flex-1 flex-col gap-5 py-4 lg:py-12" key={round}>
       <div className="flex items-center justify-between">
-        <span className="text-sm text-muted-foreground font-medium">
+        <span className="text-muted-foreground text-sm font-medium">
           Раунд {round} / {totalRounds}
         </span>
         <WritingScreenTimer time={secondsPerTurn} />

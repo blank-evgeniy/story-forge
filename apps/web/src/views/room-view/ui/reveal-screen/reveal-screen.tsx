@@ -91,8 +91,8 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
       stories={allStories}
       onSelectedStoryChange={() => setHistoryMode(true)}
     >
-      <div className="flex-1 flex flex-col gap-6 lg:py-12 py-4">
-        <div className="flex-1 relative overflow-hidden">
+      <div className="flex flex-1 flex-col gap-6 py-4 lg:py-12">
+        <div className="relative flex-1 overflow-hidden">
           <AnimatePresence mode="wait">
             {historyMode ? (
               <motion.div
@@ -151,7 +151,7 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
                   Играть еще
                 </Button>
               ) : (
-                <p className="text-muted-foreground flex gap-2 justify-center items-center">
+                <p className="text-muted-foreground flex items-center justify-center gap-2">
                   Ждем, пока хост перезапустит игру <Spinner />
                 </p>
               )}

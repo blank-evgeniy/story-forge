@@ -33,7 +33,7 @@ export const LeftWithAvatar: Story = {
     side: "left",
     children: (
       <>
-        <div className="size-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs shrink-0">
+        <div className="bg-primary text-primary-foreground flex size-8 shrink-0 items-center justify-center rounded-full text-xs">
           A
         </div>
         <div className="bg-muted rounded-lg px-3 py-2 text-sm">
@@ -49,7 +49,7 @@ export const RightWithAvatar: Story = {
     side: "right",
     children: (
       <>
-        <div className="size-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs shrink-0">
+        <div className="bg-primary text-primary-foreground flex size-8 shrink-0 items-center justify-center rounded-full text-xs">
           B
         </div>
         <div className="bg-primary text-primary-foreground rounded-lg px-3 py-2 text-sm">

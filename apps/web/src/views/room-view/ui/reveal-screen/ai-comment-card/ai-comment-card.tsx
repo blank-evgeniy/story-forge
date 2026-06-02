@@ -22,7 +22,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
         <Card size="sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sm font-medium">
-              <BotIcon className="size-4 text-muted-foreground" />
+              <BotIcon className="text-muted-foreground size-4" />
               Оракул Историй пишет вердикт...
             </CardTitle>
           </CardHeader>
@@ -37,7 +37,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
         <Card size="sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sm font-medium">
-              <BotIcon className="size-4 text-muted-foreground" />
+              <BotIcon className="text-muted-foreground size-4" />
               Оракул Историй
             </CardTitle>
           </CardHeader>
@@ -48,9 +48,9 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
       )}
 
       {status === "error" && (
-        <p className="text-xs text-muted-foreground text-center px-2 flex items-center gap-1 justify-center">
+        <p className="text-muted-foreground flex items-center justify-center gap-1 px-2 text-center text-xs">
           Оракул Историй погрузился в молчание
-          <BotIcon className="size-4 text-muted-foreground" />
+          <BotIcon className="text-muted-foreground size-4" />
         </p>
       )}
     </motion.div>

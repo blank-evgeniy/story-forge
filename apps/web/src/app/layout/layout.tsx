@@ -9,8 +9,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const user = useUserStore((store) => store.user);
 
   return (
-    <div className="flex flex-col max-w-3xl w-full mx-auto min-h-dvh px-4 pb-4">
-      <header className="py-4 flex justify-between items-center">
+    <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-4 pb-4">
+      <header className="flex items-center justify-between py-4">
         <Link to="/" className="flex items-center gap-px">
           <svg
             width="125"
@@ -42,7 +42,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           {user && (
             <Button
               variant={"ghost"}
-              className={"max-w-40 flex gap-2"}
+              className={"flex max-w-40 gap-2"}
               render={<Link to="/profile" />}
             >
               <PlayerAvatar
@@ -51,14 +51,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 size="sm"
                 className="shrink-0"
               />
-              <span className="text-sm font-medium truncate">
+              <span className="truncate text-sm font-medium">
                 {user.username}
               </span>
             </Button>
           )}
         </div>
       </header>
-      <main className="flex-1 flex flex-col">{children}</main>
+      <main className="flex flex-1 flex-col">{children}</main>
     </div>
   );
 }

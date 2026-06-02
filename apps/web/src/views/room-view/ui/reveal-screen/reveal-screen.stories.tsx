@@ -6,7 +6,7 @@ import { MOCK_STORIES } from "../../utils/storybook-mocks";
 import { RevealScreen } from "./reveal-screen";
 
 const withHeight: Decorator = (Story) => (
-  <div className="flex flex-col min-h-screen p-6">
+  <div className="flex min-h-screen flex-col p-6">
     <Story />
   </div>
 );

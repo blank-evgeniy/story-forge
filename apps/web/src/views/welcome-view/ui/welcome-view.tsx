@@ -14,10 +14,10 @@ export function WelcomeView({
   defaultTab = "create",
 }: WelcomeViewProps) {
   return (
-    <div className="flex flex-1 flex-col gap-4 lg:mt-[10vh] mt-4">
+    <div className="mt-4 flex flex-1 flex-col gap-4 lg:mt-[10vh]">
       <Tabs
         defaultValue={defaultTab}
-        className="w-full flex flex-col"
+        className="flex w-full flex-col"
         orientation="horizontal"
       >
         <TabsList className={"w-full"}>

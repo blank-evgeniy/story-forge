@@ -30,7 +30,7 @@ export function StoryModal({
       <DialogContent className="max-w-lg" initialFocus={false}>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <BookOpenIcon className="size-4 text-primary" />
+            <BookOpenIcon className="text-primary size-4" />
             {openedStory?.ownerName ?? "История"}
           </DialogTitle>
         </DialogHeader>

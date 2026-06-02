@@ -49,7 +49,7 @@ export function PlayerCard({
     >
       <div
         className={cn(
-          "min-w-0 flex gap-2",
+          "flex min-w-0 gap-2",
           direction === "vertical"
             ? "flex-col items-center"
             : "flex-row items-center",
@@ -105,7 +105,7 @@ export function PlayerCardTitle({
     <span
       title={username}
       className={cn(
-        "text-muted-foreground truncate block max-w-full",
+        "text-muted-foreground block max-w-full truncate",
         titleSizeStyles[size],
         disconnected && "line-through",
         className,

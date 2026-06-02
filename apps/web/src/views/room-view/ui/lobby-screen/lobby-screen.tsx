@@ -41,18 +41,18 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
   const actions = useRoomActions();
 
   return (
-    <div className="flex-1 flex lg:flex-row flex-col-reverse items-start gap-6 lg:py-12 py-4">
-      <Card className="lg:w-1/3 w-full">
+    <div className="flex flex-1 flex-col-reverse items-start gap-6 py-4 lg:flex-row lg:py-12">
+      <Card className="w-full lg:w-1/3">
         <CardHeader className="hidden lg:flex">
-          <div className="flex items-center justify-between w-full">
+          <div className="flex w-full items-center justify-between">
             <CardTitle>Игроки</CardTitle>
-            <span className="text-2xl font-bold text-primary">
+            <span className="text-primary text-2xl font-bold">
               {players.length}
             </span>
           </div>
         </CardHeader>
         <CardContent>
-          <ul className="lg:flex flex-col grid grid-cols-4 sm:grid-cols-6 gap-3">
+          <ul className="grid grid-cols-4 flex-col gap-3 sm:grid-cols-6 lg:flex">
             {players.map((player) => (
               <li
                 key={player.id}
@@ -77,20 +77,20 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
         </CardContent>
       </Card>
 
-      <Card className="flex-1 flex flex-col w-full">
+      <Card className="flex w-full flex-1 flex-col">
         <CardHeader>
           <CardTitle>Правила</CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-6 flex-1">
+        <CardContent className="flex flex-1 flex-col gap-6">
           <div className="grid grid-cols-2 gap-4">
             {rules.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="flex flex-col gap-2 rounded-2xl bg-muted/50 p-4"
+                className="bg-muted/50 flex flex-col gap-2 rounded-2xl p-4"
               >
-                <Icon className="size-5 text-primary" />
+                <Icon className="text-primary size-5" />
                 <p className="text-sm font-medium">{title}</p>
-                <p className="text-xs text-muted-foreground">{description}</p>
+                <p className="text-muted-foreground text-xs">{description}</p>
               </div>
             ))}
           </div>
@@ -98,10 +98,10 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
 
           <div className="flex flex-col items-center gap-6">
             <div className="flex flex-col items-center gap-2">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 отсканируйте код, чтобы присоединиться
               </p>
-              <div className="bg-primary/80 p-3 flex items-center justify-center rounded-lg">
+              <div className="bg-primary/80 flex items-center justify-center rounded-lg p-3">
                 <QRCodeSVG
                   value={window.location.href}
                   size={180}
@@ -110,21 +110,21 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 w-full">
+            <div className="flex w-full items-center gap-3">
               <Separator className="flex-1" />
-              <span className="text-xs text-muted-foreground">или</span>
+              <span className="text-muted-foreground text-xs">или</span>
               <Separator className="flex-1" />
             </div>
 
             <div className="flex flex-col items-center gap-2">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 введите код, чтобы присоединиться
               </p>
               <div className="flex items-center justify-center gap-2">
                 {roomCode.split("").map((char, i) => (
                   <div
                     key={i}
-                    className="w-12 h-14 flex items-center justify-center rounded-xl bg-muted text-2xl font-bold border border-border"
+                    className="bg-muted border-border flex h-14 w-12 items-center justify-center rounded-xl border text-2xl font-bold"
                   >
                     {char}
                   </div>
@@ -136,14 +136,14 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
           <Separator />
           {isHost ? (
             <Button
-              className="w-full mt-auto"
+              className="mt-auto w-full"
               disabled={players.length < 2}
               onClick={actions.startGame}
             >
               Начать игру
             </Button>
           ) : (
-            <p className="text-muted-foreground flex gap-2 justify-center items-center">
+            <p className="text-muted-foreground flex items-center justify-center gap-2">
               Ждем, пока хост начнет игру <Spinner />
             </p>
           )}

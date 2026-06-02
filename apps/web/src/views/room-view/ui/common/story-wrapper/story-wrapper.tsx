@@ -15,11 +15,11 @@ export function StoryWrapper({
   gap = "sm",
 }: StoryWrapperProps) {
   return (
-    <ScrollArea className="w-full rounded-xl border border-border bg-muted/30 overflow-y-auto h-full">
+    <ScrollArea className="border-border bg-muted/30 h-full w-full overflow-y-auto rounded-xl border">
       <div className="px-5 py-4">
-        <div className="flex items-center gap-2 mb-3 text-muted-foreground">
+        <div className="text-muted-foreground mb-3 flex items-center gap-2">
           <BookOpenIcon className="size-4" />
-          <span className="text-xs font-medium uppercase tracking-wide">
+          <span className="text-xs font-medium tracking-wide uppercase">
             {storyOwner ? `История (${storyOwner})` : "История"}
           </span>
         </div>

@@ -16,7 +16,7 @@ export function WritingScreenPlayers({
   submittedIds,
 }: WritingScreenPlayersProps) {
   return (
-    <ul className="flex items-center gap-4 flex-wrap">
+    <ul className="flex flex-wrap items-center gap-4">
       {players.map((player) => {
         const hasSubmitted = submittedIds.has(player.id);
 

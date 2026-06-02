@@ -26,9 +26,9 @@ export function WritingScreenTwistPicker({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-2 items-center">
-        <ZapIcon className="size-3.5 text-primary" />
-        <h3 className="text-sm text-muted-foreground font-medium">
+      <div className="flex items-center gap-2">
+        <ZapIcon className="text-primary size-3.5" />
+        <h3 className="text-muted-foreground text-sm font-medium">
           Выберите твист для этого раунда (необязательно)
         </h3>
       </div>
@@ -70,7 +70,7 @@ function TwistPickerButton({
       type="button"
       aria-pressed={isPicked}
       className={cn(
-        "w-full rounded-lg text-sm border px-4 py-2 flex gap-4 items-center disabled:cursor-not-allowed disabled:opacity-50 transition-colors cursor-pointer",
+        "flex w-full cursor-pointer items-center gap-4 rounded-lg border px-4 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50",
         isPicked
           ? "border-primary bg-primary/10"
           : "border-muted hover:bg-muted/50",
@@ -81,7 +81,7 @@ function TwistPickerButton({
     >
       {children}
       {isPicked && (
-        <CheckIcon className="size-4 text-primary ml-auto shrink-0" />
+        <CheckIcon className="text-primary ml-auto size-4 shrink-0" />
       )}
     </button>
   );

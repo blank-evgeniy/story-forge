@@ -24,15 +24,15 @@ export function RevealReadyScreen({
   onSwitchChange,
 }: RevealReadyScreenProps) {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center gap-6">
+    <div className="flex flex-1 flex-col items-center justify-center gap-6">
       <div className="flex flex-col items-center gap-3">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="flex items-center justify-center w-16 h-16 rounded-2xl bg-muted/60 border border-border"
+          className="bg-muted/60 border-border flex h-16 w-16 items-center justify-center rounded-2xl border"
         >
-          <BookOpenIcon className="w-8 h-8 text-muted-foreground" />
+          <BookOpenIcon className="text-muted-foreground h-8 w-8" />
         </motion.div>
 
         <motion.h2
@@ -48,7 +48,7 @@ export function RevealReadyScreen({
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
-          className="text-sm text-muted-foreground"
+          className="text-muted-foreground text-sm"
         >
           {storiesCount} {pluralizeStories(storiesCount)}
         </motion.p>
@@ -67,7 +67,7 @@ export function RevealReadyScreen({
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut", delay: 0.35 }}
-        className="flex flex-col gap-4 items-center"
+        className="flex flex-col items-center gap-4"
       >
         <Field orientation="horizontal">
           <Switch

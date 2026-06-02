@@ -26,7 +26,7 @@ export function WritingScreenTimer({ time }: WritingScreenTimerProps) {
       )}
     >
       <TimerIcon className="size-4 shrink-0" />
-      <span className="text-sm font-mono font-medium">
+      <span className="font-mono text-sm font-medium">
         {String(timer.minutes).padStart(2, "0")}:
         {String(timer.seconds).padStart(2, "0")}
       </span>
