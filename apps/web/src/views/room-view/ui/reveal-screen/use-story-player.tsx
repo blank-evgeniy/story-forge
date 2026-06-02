@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
+import { ms } from "@/lib/ms";
+
 import { useRoomStore } from "../../model/use-room-store";
 
-const FIRST_ENTRY_DELAY = 1200;
-const BASE_DELAY = 1500;
-const MS_PER_CHAR = 50;
-const MAX_DELAY = 8000;
+const FIRST_ENTRY_DELAY = ms(1200);
+const BASE_DELAY = ms(1500);
+const MS_PER_CHAR = ms(50);
+const MAX_DELAY = ms(8000);
 
 function getReadingDelay(content: string): number {
   return Math.min(BASE_DELAY + content.length * MS_PER_CHAR, MAX_DELAY);
