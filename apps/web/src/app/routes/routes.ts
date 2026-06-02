@@ -11,11 +11,13 @@ import { z } from "zod";
 
 import { Spinner } from "@/components/ui/spinner";
 import { useUserStore } from "@/store/user";
+import { NotFoundView } from "@/views/not-found-view";
 
 import { AppLayout } from "../layout";
 
 const rootRoute = createRootRoute({
   component: () => createElement(AppLayout, null, createElement(Outlet, null)),
+  notFoundComponent: () => createElement(NotFoundView, null),
 });
 
 const loginRoute = createRoute({
