@@ -3,7 +3,7 @@ import '../styles/global.css';
 import BaseHead from '../components/BaseHead.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { DoorOpen, PenLine, BookOpen, EyeOff, Timer, QrCode, Zap, GitBranch, Dices, Radio } from 'lucide-astro';
+import { DoorOpen, PenLine, BookOpen, EyeOff, Timer, QrCode, Zap, GitBranch, Dices, Radio, Sparkles } from 'lucide-astro';
 
 const appUrl = import.meta.env.PUBLIC_APP_URL ?? '#';
 
@@ -12,13 +12,13 @@ const steps = [
     step: '01',
     Icon: DoorOpen,
     title: 'Создайте комнату',
-    desc: 'Хост задаёт настройки, получает 4-значный код и QR — и делится ими с друзьями одним нажатием.',
+    desc: 'Хост задаёт настройки, получает 4-значный код и QR — и делится ими с друзьями.',
   },
   {
     step: '02',
     Icon: PenLine,
     title: 'Пишите по очереди',
-    desc: 'Каждый добавляет одно предложение за 30–90 секунд. В Blind Mode видно только предыдущую фразу — и больше ничего.',
+    desc: 'Каждый добавляет одно предложение за 30–90 секунд. После первого раунда вы продолжаете чью-то историю, а в Blind Mode видно только предыдущую фразу — и больше ничего.',
   },
   {
     step: '03',
@@ -26,6 +26,12 @@ const steps = [
     title: 'Читайте вместе',
     desc: 'После всех раундов история раскрывается фраза за фразой. Гарантировано: никто не ожидал такого финала.',
   },
+  {
+    step: '04',
+    Icon: Sparkles,
+    title: 'ИИ оценивает шедевр',
+    desc: 'После финала ИИ оставляет свой комментарий к истории. Честный, немного язвительный и неожиданно точный.',
+  }
 ];
 
 const features = [
@@ -165,12 +171,12 @@ const features = [
             Механика игры
           </div>
           <h2 class="font-display font-black tracking-tight mb-4" style="color:#fff8f0;font-size:clamp(2.2rem,5vw,3.5rem);">
-            Три шага до смеха
+            Четыре шага до смеха
           </h2>
           <p class="font-body" style="color:#ffcfa0;">Простые правила — бесконечные вариации сюжета</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-5">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {steps.map(({ step, Icon, title, desc }) => (
             <div class="card-game rounded-[--radius-xl] p-8 overflow-hidden relative group">
               <div class="step-number absolute top-4 right-5 select-none leading-none">{step}</div>
