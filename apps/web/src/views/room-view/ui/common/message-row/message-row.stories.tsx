@@ -7,7 +7,9 @@ const meta = {
   component: MessageRow,
   tags: ["autodocs"],
   args: {
-    children: <div className="bg-muted rounded-lg px-3 py-2 text-sm">Hello, world!</div>,
+    children: (
+      <div className="bg-muted rounded-lg px-3 py-2 text-sm">Hello, world!</div>
+    ),
   },
 } satisfies Meta<typeof MessageRow>;
 
@@ -34,7 +36,9 @@ export const LeftWithAvatar: Story = {
         <div className="size-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs shrink-0">
           A
         </div>
-        <div className="bg-muted rounded-lg px-3 py-2 text-sm">Hello from the left!</div>
+        <div className="bg-muted rounded-lg px-3 py-2 text-sm">
+          Hello from the left!
+        </div>
       </>
     ),
   },
