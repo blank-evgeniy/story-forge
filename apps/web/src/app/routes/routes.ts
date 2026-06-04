@@ -16,12 +16,18 @@ import { NotFoundView } from "@/views/not-found-view";
 import { AppLayout } from "../layout";
 
 const rootRoute = createRootRoute({
-  component: () => createElement(AppLayout, null, createElement(Outlet, null)),
+  component: () => createElement(Outlet, null),
   notFoundComponent: () => createElement(NotFoundView, null),
 });
 
-const loginRoute = createRoute({
+const appLayoutRoute = createRoute({
   getParentRoute: () => rootRoute,
+  id: "app-layout",
+  component: () => createElement(AppLayout, null, createElement(Outlet, null)),
+});
+
+const loginRoute = createRoute({
+  getParentRoute: () => appLayoutRoute,
   path: "/login",
   component: lazyRouteComponent(
     () => import("@/views/login-view"),
@@ -39,7 +45,7 @@ const loginRoute = createRoute({
 });
 
 const guardedRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => appLayoutRoute,
   id: "guarded",
   beforeLoad: ({ location }) => {
     const user = useUserStore.getState().user;
@@ -64,8 +70,22 @@ export const indexRoute = createRoute({
   }),
 });
 
+const guardedBareRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  id: "guarded-bare",
+  beforeLoad: ({ location }) => {
+    const user = useUserStore.getState().user;
+    if (!user) {
+      throw redirect({
+        to: "/login",
+        search: { redirect: location.href },
+      });
+    }
+  },
+});
+
 export const gameRoute = createRoute({
-  getParentRoute: () => guardedRoute,
+  getParentRoute: () => guardedBareRoute,
   path: "room/$roomCode",
   component: lazyRouteComponent(
     () => import("@/views/room-view"),
@@ -74,7 +94,7 @@ export const gameRoute = createRoute({
 });
 
 export const storiesRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => appLayoutRoute,
   path: "stories",
   component: lazyRouteComponent(
     () => import("@/views/stories-view"),
@@ -101,9 +121,12 @@ export const profileRoute = createRoute({
 });
 
 const routeTree = rootRoute.addChildren([
-  loginRoute,
-  storiesRoute,
-  guardedRoute.addChildren([indexRoute, gameRoute, profileRoute]),
+  appLayoutRoute.addChildren([
+    loginRoute,
+    storiesRoute,
+    guardedRoute.addChildren([indexRoute, profileRoute]),
+  ]),
+  guardedBareRoute.addChildren([gameRoute]),
 ]);
 
 export const router = createRouter({

@@ -2,6 +2,7 @@ import { BotIcon } from "lucide-react";
 import { motion } from "motion/react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type AiCommentCardProps = {
@@ -17,6 +18,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
+      className="min-h-0"
     >
       {status === "loading" && (
         <Card size="sm">
@@ -34,7 +36,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
       )}
 
       {status === "success" && comment !== null && (
-        <Card size="sm">
+        <Card size="sm" className="min-h-0">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sm font-medium">
               <BotIcon className="text-muted-foreground size-4" />
@@ -42,7 +44,12 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm leading-relaxed">{comment}</p>
+            <ScrollArea
+              className="max-h-[20vh]"
+              viewportClassName="max-h-[inherit]"
+            >
+              <p className="text-sm leading-relaxed">{comment}</p>
+            </ScrollArea>
           </CardContent>
         </Card>
       )}

@@ -19,25 +19,29 @@ export function WritingScreen() {
   const actions = useRoomActions();
 
   return (
-    <div className="flex flex-1 flex-col gap-5 py-4 lg:py-12" key={round}>
-      <div className="flex items-center justify-between">
-        <span className="text-muted-foreground text-sm font-medium">
-          Раунд {round} / {totalRounds}
-        </span>
-        <WritingScreenTimer time={secondsPerTurn} />
+    <div className="flex min-h-0 flex-1 flex-col gap-4" key={round}>
+      <div className="flex min-h-0 flex-1 flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <span className="text-muted-foreground text-sm font-medium">
+            Раунд {round} / {totalRounds}
+          </span>
+          <WritingScreenTimer time={secondsPerTurn} />
+        </div>
+
+        <WritingScreenPlayers players={players} submittedIds={submittedIds} />
+
+        <WritingScreenStory story={prevEntry} className="overflow-y-auto" />
       </div>
 
-      <WritingScreenStory story={prevEntry} />
-
-      <WritingScreenSubmit
-        isFirstRound={round === 1}
-        twistsToChoose={twistsToChoose}
-        onSubmit={actions.submitEntry}
-        onDraft={actions.draftEntry}
-        onEdit={actions.editEntry}
-      />
-
-      <WritingScreenPlayers players={players} submittedIds={submittedIds} />
+      <div className="mt-auto">
+        <WritingScreenSubmit
+          isFirstRound={round === 1}
+          twistsToChoose={twistsToChoose}
+          onSubmit={actions.submitEntry}
+          onDraft={actions.draftEntry}
+          onEdit={actions.editEntry}
+        />
+      </div>
     </div>
   );
 }

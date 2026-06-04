@@ -91,8 +91,8 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
       stories={allStories}
       onSelectedStoryChange={() => setHistoryMode(true)}
     >
-      <div className="flex flex-1 flex-col gap-6 py-4 lg:py-12">
-        <div className="relative flex-1 overflow-hidden">
+      <div className="flex min-h-0 flex-1 flex-col gap-6">
+        <div className="relative min-h-0 flex-1 overflow-hidden">
           <AnimatePresence mode="wait">
             {historyMode ? (
               <motion.div
@@ -116,21 +116,20 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
                 transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="absolute inset-0 overflow-y-auto"
+                className="absolute inset-0 flex min-h-0 flex-col gap-2"
               >
                 <RevealScreenStory
                   shown={shown}
                   story={currentStory}
-                  actionsSlot={
-                    storyRevealed ? (
-                      <StoryActions
-                        {...commonStoryActionsProps(currentStory.id)}
-                        showNextAction={storyIdx < allStories.length - 1}
-                        onNext={nextStory}
-                      />
-                    ) : undefined
-                  }
+                  className="overflow-y-auto"
                 />
+                {storyRevealed && (
+                  <StoryActions
+                    {...commonStoryActionsProps(currentStory.id)}
+                    showNextAction={storyIdx < allStories.length - 1}
+                    onNext={nextStory}
+                  />
+                )}
               </motion.div>
             )}
           </AnimatePresence>
@@ -139,7 +138,7 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
         <AnimatePresence>
           {finished && (
             <motion.div
-              className="flex flex-col gap-4"
+              className="flex min-h-0 flex-col gap-4"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
@@ -151,7 +150,7 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
                   Играть еще
                 </Button>
               ) : (
-                <p className="text-muted-foreground flex items-center justify-center gap-2">
+                <p className="text-muted-foreground flex items-center justify-center gap-2 text-sm sm:text-base">
                   Ждем, пока хост перезапустит игру <Spinner />
                 </p>
               )}

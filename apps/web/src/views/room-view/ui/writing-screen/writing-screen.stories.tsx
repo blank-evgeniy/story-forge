@@ -1,20 +1,20 @@
-import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { RoomActionsProvider } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import {
+  withRoomActions,
+  withRoomLayout,
+} from "../../utils/storybook-decorators";
 import { MOCK_PLAYERS } from "../../utils/storybook-mocks";
 import { WritingScreen } from "./writing-screen";
-
-const withRoomActions: Decorator = (Story) => (
-  <RoomActionsProvider client={null}>
-    <Story />
-  </RoomActionsProvider>
-);
 
 const meta = {
   title: "RoomView/WritingScreen",
   component: WritingScreen,
-  decorators: [withRoomActions],
+  parameters: {
+    layout: "fullscreen",
+  },
+  decorators: [withRoomActions, withRoomLayout],
 } satisfies Meta<typeof WritingScreen>;
 
 export default meta;

@@ -1,26 +1,20 @@
-import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { RoomActionsProvider } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import {
+  withRoomActions,
+  withRoomLayout,
+} from "../../utils/storybook-decorators";
 import { MOCK_STORIES } from "../../utils/storybook-mocks";
 import { RevealScreen } from "./reveal-screen";
-
-const withHeight: Decorator = (Story) => (
-  <div className="flex min-h-screen flex-col p-6">
-    <Story />
-  </div>
-);
-
-const withRoomActions: Decorator = (Story) => (
-  <RoomActionsProvider client={null}>
-    <Story />
-  </RoomActionsProvider>
-);
 
 const meta = {
   title: "RoomView/RevealScreen",
   component: RevealScreen,
-  decorators: [withHeight, withRoomActions],
+  parameters: {
+    layout: "fullscreen",
+  },
+  decorators: [withRoomActions, withRoomLayout],
   args: {
     roomCode: "1111",
   },
@@ -37,6 +31,11 @@ export const SingleStory: Story = {
 
 export const MultipleStories: Story = {
   beforeEach() {
-    useRoomStore.setState({ allStories: MOCK_STORIES.slice(0, 2) });
+    useRoomStore.setState({
+      allStories: MOCK_STORIES.slice(0, 2),
+      aiCommentStatus: "success",
+      aiComment:
+        "Длинный комментарий от ИИ. Длинный комментарий от ИИ.Длинный комментарий от ИИ.Длинный комментарий от ИИ.Длинный комментарий от ИИ.Длинный комментарий от ИИ.Длинный комментарий от ИИ.Длинный комментарий от ИИ.Длинный комментарий от ИИ.",
+    });
   },
 };

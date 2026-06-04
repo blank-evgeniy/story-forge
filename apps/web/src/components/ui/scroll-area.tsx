@@ -1,12 +1,18 @@
 import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
+import { type Ref, useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
 function ScrollArea({
   className,
+  viewportClassName,
+  viewportRef,
   children,
   ...props
-}: ScrollAreaPrimitive.Root.Props) {
+}: ScrollAreaPrimitive.Root.Props & {
+  viewportClassName?: string;
+  viewportRef?: Ref<HTMLDivElement>;
+}) {
   return (
     <ScrollAreaPrimitive.Root
       data-slot="scroll-area"
@@ -15,7 +21,11 @@ function ScrollArea({
     >
       <ScrollAreaPrimitive.Viewport
         data-slot="scroll-area-viewport"
-        className="focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
+        ref={viewportRef}
+        className={cn(
+          "focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1",
+          viewportClassName,
+        )}
       >
         {children}
       </ScrollAreaPrimitive.Viewport>
@@ -23,6 +33,33 @@ function ScrollArea({
       <ScrollAreaPrimitive.Corner />
     </ScrollAreaPrimitive.Root>
   );
+}
+
+function useStickToBottom(ref: React.RefObject<HTMLDivElement | null>) {
+  const isAtBottom = useRef(true);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      isAtBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight < 8;
+    };
+
+    const observer = new ResizeObserver(() => {
+      if (isAtBottom.current) {
+        el.scrollTop = el.scrollHeight;
+      }
+    });
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    observer.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
+  }, [ref]);
 }
 
 function ScrollBar({
@@ -49,4 +86,4 @@ function ScrollBar({
   );
 }
 
-export { ScrollArea, ScrollBar };
+export { ScrollArea, ScrollBar, useStickToBottom };

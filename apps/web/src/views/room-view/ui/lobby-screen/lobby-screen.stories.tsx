@@ -1,21 +1,20 @@
-import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { RoomActionsProvider } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import {
+  withRoomActions,
+  withRoomLayout,
+} from "../../utils/storybook-decorators";
 import { MOCK_PLAYERS } from "../../utils/storybook-mocks";
 import { LobbyScreen } from "./lobby-screen";
-
-const withRoomActions: Decorator = (Story) => (
-  <RoomActionsProvider client={null}>
-    <Story />
-  </RoomActionsProvider>
-);
 
 const meta = {
   title: "RoomView/LobbyScreen",
   component: LobbyScreen,
-  tags: ["autodocs"],
-  decorators: [withRoomActions],
+  parameters: {
+    layout: "fullscreen",
+  },
+  decorators: [withRoomActions, withRoomLayout],
   args: {
     roomCode: "1234",
   },

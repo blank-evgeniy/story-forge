@@ -78,7 +78,7 @@ export function WritingScreenInput({
         onChange={handleChangeContent}
         onKeyDown={handleKeyDown}
         placeholder={isFirstRound ? "Начни историю..." : "Продолжи историю..."}
-        className="min-h-24 resize-none"
+        className="max-h-48 min-h-24 resize-none scrollbar-thin"
         autoFocus
       />
       <div className="flex items-center justify-between gap-2">

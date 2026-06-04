@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { Activity, useState } from "react";
+
+import { cn } from "@/lib/utils";
 
 import type { TwistsSet } from "../../../model/types";
 
@@ -11,6 +13,7 @@ type WritingScreenSubmitProps = {
   onEdit: () => void;
   isFirstRound: boolean;
   twistsToChoose: TwistsSet | null;
+  className?: string;
 };
 
 export function WritingScreenSubmit({
@@ -19,11 +22,11 @@ export function WritingScreenSubmit({
   onSubmit,
   onDraft,
   onEdit,
+  className,
 }: WritingScreenSubmitProps) {
   const [pickedTwistId, setPickedTwistId] = useState<string | null>(null);
+  const [twistSkipped, setTwistSkipped] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const [draftedContent, setDraftedContent] = useState<string>("");
 
   const handleSubmit = (content: string) => {
     onSubmit(content, pickedTwistId ?? undefined);
@@ -37,31 +40,42 @@ export function WritingScreenSubmit({
 
   const handlePickTwistId = (twistId: string | null) => {
     setPickedTwistId(twistId);
-    onDraft(draftedContent || undefined, twistId ?? undefined);
+    if (twistId === null) setTwistSkipped(false);
+    onDraft(undefined, twistId ?? undefined);
+  };
+
+  const handleSkipTwist = (skipped: boolean) => {
+    setTwistSkipped(skipped);
   };
 
   const handleDraftContent = (content: string) => {
-    setDraftedContent(content);
     onDraft(content || undefined, pickedTwistId ?? undefined);
   };
 
+  const twistDecided =
+    !twistsToChoose || pickedTwistId !== null || twistSkipped;
+
   return (
-    <div className="flex flex-col gap-6">
+    <div className={cn("flex flex-col gap-4", className)}>
       {twistsToChoose && (
         <WritingScreenTwistPicker
           onPick={handlePickTwistId}
+          onSkip={handleSkipTwist}
           pickedTwistId={pickedTwistId}
           twists={twistsToChoose}
           isSubmitted={isSubmitted}
+          isSkipped={twistSkipped}
         />
       )}
-      <WritingScreenInput
-        isFirstRound={isFirstRound}
-        onSubmit={handleSubmit}
-        onDraft={handleDraftContent}
-        onEdit={handleEdit}
-        isSubmitted={isSubmitted}
-      />
+      <Activity mode={twistDecided ? "visible" : "hidden"}>
+        <WritingScreenInput
+          isFirstRound={isFirstRound}
+          onSubmit={handleSubmit}
+          onDraft={handleDraftContent}
+          onEdit={handleEdit}
+          isSubmitted={isSubmitted}
+        />
+      </Activity>
     </div>
   );
 }

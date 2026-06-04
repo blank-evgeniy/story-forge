@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
-
 import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef } from "react";
 
 import { PlayerAvatar } from "@/components/player-customization";
 
@@ -16,19 +15,24 @@ import { assignSides } from "./utils/assignSides";
 type RevealScreenStoryProps = {
   story: Story;
   shown: number;
-  actionsSlot?: ReactNode;
+  className?: string;
 };
 
 export function RevealScreenStory({
   shown,
   story,
-  actionsSlot,
+  className,
 }: RevealScreenStoryProps) {
   const visibleEntries = story.entries.slice(0, shown);
   const entriesWithSides = assignSides(visibleEntries);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [shown]);
 
   return (
-    <StoryWrapper storyOwner={story.playerName}>
+    <StoryWrapper storyOwner={story.playerName} className={className}>
       <AnimatePresence initial={false}>
         {entriesWithSides.map(({ entry, side }, index) =>
           isPlayerEntry(entry) ? (
@@ -55,9 +59,8 @@ export function RevealScreenStory({
             </motion.div>
           ),
         )}
-
-        {actionsSlot}
       </AnimatePresence>
+      <div ref={bottomRef} />
     </StoryWrapper>
   );
 }
