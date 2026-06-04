@@ -43,9 +43,9 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
               Оракул Историй
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-2">
             <ScrollArea
-              className="max-h-[20vh]"
+              className="max-h-[20vh] px-2"
               viewportClassName="max-h-[inherit]"
             >
               <p className="text-sm leading-relaxed">{comment}</p>
