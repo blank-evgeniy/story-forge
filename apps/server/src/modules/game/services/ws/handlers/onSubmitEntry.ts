@@ -5,7 +5,7 @@ import { tryFinishRound } from "../round/tryFinishRound";
 import { getTwistById } from "../round/twist";
 import { getPlayerStoryIndex } from "../round/utils/getPlayerStoryIndex";
 
-export function onSubmitSentence(
+export function onSubmitEntry(
   ws: ElysiaWS,
   event: { content: string; twistId?: string },
 ) {
@@ -14,11 +14,11 @@ export function onSubmitSentence(
 
   const { player, playerId, room } = context;
 
-  if (room.status !== "writing" || room.submitted.has(playerId)) return;
+  if (room.status !== "writing" || room.submittedIds.has(playerId)) return;
 
   const storyIndex = getPlayerStoryIndex(room, player.id);
 
-  room.stories[storyIndex].sentences.push({
+  room.stories[storyIndex].entries.push({
     content: event.content,
     playerId,
     twist:
@@ -28,7 +28,7 @@ export function onSubmitSentence(
     wasTimeout: false,
   });
 
-  room.submitted.add(playerId);
+  room.submittedIds.add(playerId);
   roomManager.broadcast(room, {
     playerId,
     type: "player_submitted",

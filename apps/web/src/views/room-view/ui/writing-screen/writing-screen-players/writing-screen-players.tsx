@@ -8,17 +8,17 @@ import {
 
 type WritingScreenPlayersProps = {
   players: Player[];
-  submitted: Set<string>;
+  submittedIds: Set<string>;
 };
 
 export function WritingScreenPlayers({
   players,
-  submitted,
+  submittedIds,
 }: WritingScreenPlayersProps) {
   return (
-    <ul className="flex items-center gap-4 flex-wrap">
+    <ul className="flex flex-wrap items-center gap-4">
       {players.map((player) => {
-        const hasSubmitted = submitted.has(player.id);
+        const hasSubmitted = submittedIds.has(player.id);
 
         return (
           <li key={player.id}>

@@ -51,10 +51,10 @@ export const storiesModule = new Elysia({ prefix: "/stories" })
       const owner = room.players.get(story.ownerId);
       if (!owner) throw new NotFoundError("Owner not found");
 
-      const content: StoryContentSchema = story.sentences.map((sentence) => ({
-        playerName: room.players.get(sentence.playerId)?.username ?? "Unknown",
-        sentence: sentence.content,
-        twist: sentence.twist?.content,
+      const content: StoryContentSchema = story.entries.map((entry) => ({
+        entry: entry.content,
+        playerName: room.players.get(entry.playerId)?.username ?? "Unknown",
+        twist: entry.twist?.content,
       }));
 
       const [created] = await db

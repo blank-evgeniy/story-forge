@@ -15,7 +15,7 @@ export async function generateCommentary(
     .map((story, i) => {
       const ownerName =
         room.players.get(story.ownerId)?.username ?? "Неизвестный";
-      const lines = story.sentences
+      const lines = story.entries
         .map((s) => {
           const author =
             room.players.get(s.playerId)?.username ?? "Неизвестный";

@@ -5,7 +5,7 @@ import {
   DEFAULT_PLAYER_ICON,
 } from "@/lib/player-customization";
 
-import type { Player, Sentence, Story } from "./types";
+import type { Player, Story, StoryEntry } from "./types";
 
 import { PLAYER_NAME_PLACEHOLDER } from "./consts";
 
@@ -14,27 +14,30 @@ export const mapStories = (
   storyThreads: StoryThreadDto[],
 ): Story[] => {
   const stories: Story[] = storyThreads.map((thread) => ({
-    sentences: thread.sentences.flatMap((s) => {
+    entries: thread.entries.flatMap((s) => {
       const player = players.find((player) => player.id === s.playerId) ?? {
         username: PLAYER_NAME_PLACEHOLDER,
         color: DEFAULT_PLAYER_COLOR,
         icon: DEFAULT_PLAYER_ICON,
       };
 
-      const sentence: Sentence = {
+      const playerEntry: StoryEntry = {
         content: s.content,
         player,
         type: "player" as const,
       };
 
       if (s.twist) {
-        return [
-          { type: "twist" as const, content: s.twist.content, id: s.twist.id },
-          sentence,
-        ];
+        const twistEntry: StoryEntry = {
+          id: s.twist.id,
+          content: s.twist.content,
+          type: "twist" as const,
+        };
+
+        return [twistEntry, playerEntry];
       }
 
-      return [sentence];
+      return [playerEntry];
     }),
     playerName:
       players.find((player) => player.id === thread.ownerId)?.username ??

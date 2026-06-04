@@ -10,7 +10,7 @@ export interface Player {
   ws: ElysiaWS;
 }
 
-export interface PlayerSentence {
+export interface PlayerEntry {
   content: string;
   playerId: string;
   wasTimeout: boolean;
@@ -32,21 +32,21 @@ export interface RoomState {
   round: number; // текущая итерация, 1-based
   status: RoomStatus;
   stories: StoryThread[]; // одна история на каждого игрока
-  submitted: Set<string>; // playerId тех, кто уже сдал
+  submittedIds: Set<string>; // playerId тех, кто уже сдал
   timer: null | ReturnType<typeof setTimeout>;
   totalRounds?: number;
 }
 
 export type RoomStatus = "lobby" | "reveal" | "writing";
 
-export type Sentence = PlayerSentence & {
+export type StoryEntry = PlayerEntry & {
   twist?: Twist;
 };
 
 export interface StoryThread {
+  entries: StoryEntry[];
   id: string;
   ownerId: string;
-  sentences: Sentence[];
 }
 
 export type Twist = {

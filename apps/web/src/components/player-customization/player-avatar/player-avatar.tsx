@@ -27,7 +27,9 @@ export function PlayerAvatar({
 
   return (
     <Avatar size={size} className={cn(className)}>
-      <AvatarFallback className={cn(playerAvatarColorClasses[color], fallbackClassName)}>
+      <AvatarFallback
+        className={cn(playerAvatarColorClasses[color], fallbackClassName)}
+      >
         <Icon />
       </AvatarFallback>
     </Avatar>

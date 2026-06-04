@@ -6,18 +6,18 @@ import type { ServerEvent } from "@/api/ws/types";
 import { router } from "@/app/routes/routes";
 import { useUserStore } from "@/store/user";
 
-import type { Player, PrevSentence, Story, TwistsSet } from "./types";
+import type { Player, PrevEntry, Story, TwistsSet } from "./types";
 
 import { mapStories } from "./map";
 
-type GameActions = {
+type RoomActions = {
   handleEvent: (event: ServerEvent) => void;
   startReveal: () => void;
   addSavedStory: (storyId: string) => void;
   reset: () => void;
 };
 
-type GameData = {
+type RoomData = {
   status:
     | "idle"
     | "lobby"
@@ -29,8 +29,8 @@ type GameData = {
   isHost: boolean;
   round: number;
   totalRounds: number;
-  submitted: Set<string>;
-  prevSentence: PrevSentence[] | null;
+  submittedIds: Set<string>;
+  prevEntry: PrevEntry[] | null;
   allStories: Story[];
   error: string | null;
   secondsPerTurn: number;
@@ -40,15 +40,15 @@ type GameData = {
   aiCommentStatus: "idle" | "loading" | "success" | "error";
 };
 
-export type GameState = GameData & GameActions;
+export type RoomState = RoomData & RoomActions;
 
-const initialState: GameData = {
+const initialState: RoomData = {
   status: "idle",
   players: [],
   round: 0,
   totalRounds: 0,
-  submitted: new Set<string>(),
-  prevSentence: null,
+  submittedIds: new Set<string>(),
+  prevEntry: null,
   allStories: [],
   error: null,
   secondsPerTurn: 60,
@@ -59,7 +59,7 @@ const initialState: GameData = {
   aiCommentStatus: "idle",
 };
 
-export const useRoomStore = create<GameState>((set, get) => ({
+export const useRoomStore = create<RoomState>((set, get) => ({
   ...initialState,
 
   handleEvent(event: ServerEvent) {
@@ -127,9 +127,9 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "your_turn":
         set({
-          prevSentence:
-            event.prevSentence?.map((s) => ({
-              sentence: s.content,
+          prevEntry:
+            event.prevEntry?.map((s) => ({
+              entry: s.content,
               twist: s.twist?.content,
             })) ?? null,
           twistsToChoose: event.twistsToChoose || null,
@@ -142,20 +142,20 @@ export const useRoomStore = create<GameState>((set, get) => ({
 
       case "round_ended":
         set({
-          submitted: new Set(),
+          submittedIds: new Set(),
           round: event.nextRound,
           status: "round_starting",
         });
         break;
 
       case "player_submitted":
-        set({ submitted: new Set(get().submitted).add(event.playerId) });
+        set({ submittedIds: new Set(get().submittedIds).add(event.playerId) });
         break;
 
       case "player_unsubmitted": {
-        const newSubmitted = new Set(get().submitted);
-        newSubmitted.delete(event.playerId);
-        set({ submitted: newSubmitted });
+        const newSubmittedIds = new Set(get().submittedIds);
+        newSubmittedIds.delete(event.playerId);
+        set({ submittedIds: newSubmittedIds });
         break;
       }
 

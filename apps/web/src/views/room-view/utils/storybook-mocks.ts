@@ -64,7 +64,7 @@ export const MOCK_STORIES: Story[] = [
   {
     id: "s1",
     playerName: "Алиса",
-    sentences: [
+    entries: [
       {
         type: "player",
         player: alice,
@@ -91,7 +91,7 @@ export const MOCK_STORIES: Story[] = [
   {
     id: "s2",
     playerName: "Борис",
-    sentences: [
+    entries: [
       {
         type: "player",
         player: boris,
@@ -113,7 +113,7 @@ export const MOCK_STORIES: Story[] = [
   {
     id: "s3",
     playerName: "Вика",
-    sentences: [
+    entries: [
       {
         type: "player",
         player: vika,

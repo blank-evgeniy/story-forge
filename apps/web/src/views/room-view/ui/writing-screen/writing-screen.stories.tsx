@@ -1,20 +1,20 @@
-import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { RoomActionsProvider } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import {
+  withRoomActions,
+  withRoomLayout,
+} from "../../utils/storybook-decorators";
 import { MOCK_PLAYERS } from "../../utils/storybook-mocks";
 import { WritingScreen } from "./writing-screen";
-
-const withRoomActions: Decorator = (Story) => (
-  <RoomActionsProvider client={null}>
-    <Story />
-  </RoomActionsProvider>
-);
 
 const meta = {
   title: "RoomView/WritingScreen",
   component: WritingScreen,
-  decorators: [withRoomActions],
+  parameters: {
+    layout: "fullscreen",
+  },
+  decorators: [withRoomActions, withRoomLayout],
 } satisfies Meta<typeof WritingScreen>;
 
 export default meta;
@@ -26,8 +26,8 @@ export const FirstRound: Story = {
       round: 1,
       totalRounds: 5,
       players: MOCK_PLAYERS.slice(0, 3),
-      submitted: new Set(),
-      prevSentence: null,
+      submittedIds: new Set(),
+      prevEntry: null,
       secondsPerTurn: 60,
       twistsToChoose: null,
     });
@@ -40,14 +40,14 @@ export const MiddleRound: Story = {
       round: 2,
       totalRounds: 5,
       players: MOCK_PLAYERS.slice(0, 3),
-      submitted: new Set([MOCK_PLAYERS[0].id]),
-      prevSentence: [
+      submittedIds: new Set([MOCK_PLAYERS[0].id]),
+      prevEntry: [
         {
-          sentence:
+          entry:
             "Старый смотритель маяка заметил на горизонте что-то необычное.",
         },
         {
-          sentence: "Оно двигалось быстро, оставляя за собой серебристый след.",
+          entry: "Оно двигалось быстро, оставляя за собой серебристый след.",
         },
       ],
       secondsPerTurn: 60,
@@ -62,14 +62,14 @@ export const WithTwistInStory: Story = {
       round: 4,
       totalRounds: 5,
       players: MOCK_PLAYERS.slice(0, 3),
-      submitted: new Set(),
-      prevSentence: [
+      submittedIds: new Set(),
+      prevEntry: [
         {
-          sentence:
+          entry:
             "Старый смотритель маяка заметил на горизонте что-то необычное.",
         },
         {
-          sentence: "Оно двигалось быстро, оставляя за собой серебристый след.",
+          entry: "Оно двигалось быстро, оставляя за собой серебристый след.",
           twist: "Внезапно начался сильный шторм",
         },
       ],
@@ -85,10 +85,10 @@ export const WithTwistPicker: Story = {
       round: 3,
       totalRounds: 5,
       players: MOCK_PLAYERS.slice(0, 3),
-      submitted: new Set(),
-      prevSentence: [
+      submittedIds: new Set(),
+      prevEntry: [
         {
-          sentence:
+          entry:
             "Старый смотритель маяка заметил на горизонте что-то необычное.",
         },
       ],
@@ -107,9 +107,9 @@ export const AllSubmitted: Story = {
       round: 4,
       totalRounds: 5,
       players: MOCK_PLAYERS.slice(0, 3),
-      submitted: new Set(MOCK_PLAYERS.slice(0, 3).map((p) => p.id)),
-      prevSentence: [
-        { sentence: "Никто не ожидал, что карта приведёт именно сюда." },
+      submittedIds: new Set(MOCK_PLAYERS.slice(0, 3).map((p) => p.id)),
+      prevEntry: [
+        { entry: "Никто не ожидал, что карта приведёт именно сюда." },
       ],
       secondsPerTurn: 30,
       twistsToChoose: null,

@@ -22,7 +22,7 @@ export type SaveStoryDTO = {
 
 export type StoryContentItemDTO = {
   playerName: string;
-  sentence: string;
+  entry: string;
   twist?: string;
 };
 

@@ -1,1 +1,1 @@
-export { RoomViewGuard as RoomViewConnector } from "./room-view-guard";
+export { RoomViewConnector } from "./room-view-connector";

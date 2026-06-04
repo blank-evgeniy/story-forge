@@ -1,5 +1,5 @@
 import { SerializedRoom } from "../services/ws/utils/serializeRoom";
-import { Sentence, StoryThread, Twist } from "./state";
+import { StoryEntry, StoryThread, Twist } from "./state";
 
 export type AiCommentEvent = {
   comment: string;
@@ -93,7 +93,7 @@ export type ServerEvent =
   | YourTurnEvent;
 
 export type YourTurnEvent = {
-  prevSentence: null | Sentence[];
+  prevEntry: null | StoryEntry[];
   twistsToChoose?: Twist[];
   type: "your_turn";
 };

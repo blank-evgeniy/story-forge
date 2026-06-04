@@ -12,10 +12,10 @@ export function StoriesViewConnector() {
   const navigate = useNavigate({ from: "/stories" });
 
   const handleOpen = (id: number) =>
-    navigate({ search: (prev) => ({ ...prev, storyId: id }) });
+    navigate({ search: (prev) => ({ ...prev, storyId: id }), viewTransition: false });
 
   const handleClose = () =>
-    navigate({ search: (prev) => ({ ...prev, storyId: undefined }) });
+    navigate({ search: (prev) => ({ ...prev, storyId: undefined }), viewTransition: false });
 
   return (
     <StoriesView

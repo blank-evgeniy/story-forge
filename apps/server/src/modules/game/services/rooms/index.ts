@@ -14,7 +14,7 @@ export class RoomManager {
   private rooms = new Map<string, RoomState>();
   private socketMeta = new Map<
     string,
-    { playerId: string; roomCode: string; }
+    { playerId: string; roomCode: string }
   >();
 
   /**
@@ -58,7 +58,7 @@ export class RoomManager {
       round: 1,
       status: "lobby",
       stories: [],
-      submitted: new Set(),
+      submittedIds: new Set(),
       timer: null,
     });
 

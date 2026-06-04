@@ -9,7 +9,7 @@ import { LoginView } from "./ui/login-view";
 export function LoginViewConnector() {
   const { login } = useUserStore();
   const navigate = useNavigate();
-  const { redirect } = useSearch({ from: "/login" });
+  const { redirect } = useSearch({ from: "/app-layout/login" });
 
   const handleLogin = (
     username: string,

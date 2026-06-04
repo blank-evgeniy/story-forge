@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
+import { ms } from "@/lib/ms";
+
 import { useRoomStore } from "../../model/use-room-store";
 
-const FIRST_SENTENCE_DELAY = 1200;
-const BASE_DELAY = 1500;
-const MS_PER_CHAR = 50;
-const MAX_DELAY = 8000;
+const FIRST_ENTRY_DELAY = ms(1200);
+const BASE_DELAY = ms(1500);
+const MS_PER_CHAR = ms(50);
+const MAX_DELAY = ms(8000);
 
 function getReadingDelay(content: string): number {
   return Math.min(BASE_DELAY + content.length * MS_PER_CHAR, MAX_DELAY);
@@ -22,37 +24,37 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
 
   const [started, setStarted] = useState(false);
   const [storyIdx, setStoryIdx] = useState(0);
-  const [msgIdx, setMsgIdx] = useState(-1);
+  const [entryIndex, setEntryIndex] = useState(-1);
   const [finished, setFinished] = useState(false);
   const [storyRevealed, setStoryRevealed] = useState(false);
 
-  const currentStory = stories[storyIdx] ?? { sentences: [] };
-  const currentSentence = currentStory.sentences[msgIdx];
+  const currentStory = stories[storyIdx] ?? { entries: [] };
+  const currentEntry = currentStory.entries[entryIndex];
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Speech mode
   useEffect(() => {
     if (mode !== "speech" || !started || finished) return;
 
-    if (msgIdx === -1) {
-      const timeout = setTimeout(() => setMsgIdx(0), FIRST_SENTENCE_DELAY);
+    if (entryIndex === -1) {
+      const timeout = setTimeout(() => setEntryIndex(0), FIRST_ENTRY_DELAY);
       return () => clearTimeout(timeout);
     }
 
-    const utterance = new SpeechSynthesisUtterance(currentSentence.content);
+    const utterance = new SpeechSynthesisUtterance(currentEntry.content);
     utterance.pitch = 0.4;
     utterance.rate = 1.5;
     utterance.lang = "ru-RU";
 
     utterance.onend = () => {
-      const isLastMessage = msgIdx === currentStory.sentences.length - 1;
+      const isLastMessage = entryIndex === currentStory.entries.length - 1;
       if (isLastMessage) {
         if (storyIdx >= stories.length - 1) {
           setFinished(true);
         }
         setStoryRevealed(true);
       } else {
-        setMsgIdx((prev) => prev + 1);
+        setEntryIndex((prev) => prev + 1);
       }
     };
 
@@ -61,18 +63,18 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
 
     return () => window.speechSynthesis.cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, started, msgIdx, storyIdx, finished]);
+  }, [mode, started, entryIndex, storyIdx, finished]);
 
   // Timer mode
   useEffect(() => {
     if (mode !== "timer" || !started || finished) return;
 
-    const isLastMessage = msgIdx === currentStory.sentences.length - 1;
-    const isFirstMessage = msgIdx === -1;
+    const isLastMessage = entryIndex === currentStory.entries.length - 1;
+    const isFirstMessage = entryIndex === -1;
 
     const delay = isFirstMessage
-      ? FIRST_SENTENCE_DELAY
-      : getReadingDelay(currentStory.sentences[msgIdx].content);
+      ? FIRST_ENTRY_DELAY
+      : getReadingDelay(currentStory.entries[entryIndex].content);
 
     timeoutRef.current = setTimeout(() => {
       if (isLastMessage) {
@@ -81,7 +83,7 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
         }
         setStoryRevealed(true);
       } else {
-        setMsgIdx((prev) => prev + 1);
+        setEntryIndex((prev) => prev + 1);
       }
     }, delay);
 
@@ -89,7 +91,7 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, started, msgIdx, storyIdx, finished]);
+  }, [mode, started, entryIndex, storyIdx, finished]);
 
   const start = () => {
     if (mode === "speech") {
@@ -104,14 +106,14 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
     if (finished || storyIdx >= stories.length - 1) return;
 
     setStoryIdx((prev) => prev + 1);
-    setMsgIdx(-1);
+    setEntryIndex(-1);
     setStoryRevealed(false);
   };
 
   return {
     allStories: stories,
     currentStory,
-    shown: Math.max(0, msgIdx + 1),
+    shown: Math.max(0, entryIndex + 1),
     storyIdx,
     started,
     start,

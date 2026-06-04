@@ -1,4 +1,5 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import { useUserStore } from "@/store/user";
 
@@ -14,6 +15,11 @@ export function WelcomeViewConnector() {
   const playerId = useUserStore((store) => store.user?.id);
   const { mutate, isLoading } = useCreateRoom();
   const navigate = useNavigate();
+  const { tab } = useSearch({ from: "/app-layout/guarded/welcome" });
+
+  useEffect(() => {
+    if (tab) navigate({ to: "/", search: { tab: undefined }, replace: true });
+  }, [tab, navigate]);
 
   const handleCreateRoom = (data: CreateRoomSchema) => {
     if (!playerId) return;
@@ -46,6 +52,7 @@ export function WelcomeViewConnector() {
       }
       joinRoomSlot={<JoinRoom onJoin={handleJoinRoom} />}
       serverStatusSlot={<ServerStatusConnector />}
+      defaultTab={tab}
     />
   );
 }

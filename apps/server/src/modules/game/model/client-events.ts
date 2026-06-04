@@ -13,17 +13,17 @@ export const ClientEventSchema = z.discriminatedUnion("type", [
   z.object({
     content: z.string().min(1).max(200),
     twistId: z.string().optional(),
-    type: z.literal("submit_sentence"),
+    type: z.literal("submit_entry"),
   }),
 
   z.object({
     content: z.string().min(1).max(200).optional(),
     twistId: z.string().optional(),
-    type: z.literal("draft_sentence"),
+    type: z.literal("draft_entry"),
   }),
 
   z.object({
-    type: z.literal("edit_sentence"),
+    type: z.literal("edit_entry"),
   }),
 
   z.object({

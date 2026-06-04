@@ -1,19 +1,22 @@
-import type { Sentence } from "@/views/room-view/model/types";
+import type { StoryEntry } from "@/views/room-view/model/types";
 
-import { isPlayerSentence } from "@/views/room-view/model/type-guards";
+import { isPlayerEntry } from "@/views/room-view/model/type-guards";
 
-export type SentenceWithSide = {
-  sentence: Sentence;
+export type EntryWithSide = {
+  entry: StoryEntry;
   side?: "left" | "right";
 };
 
-export function assignSides(sentences: Sentence[]): SentenceWithSide[] {
+export function assignSides(entries: StoryEntry[]): EntryWithSide[] {
   let playerIndex = 0;
 
-  return sentences.map((sentence) => {
-    if (isPlayerSentence(sentence)) {
-      return { sentence, side: playerIndex++ % 2 === 0 ? "left" : "right" };
+  return entries.map((entry) => {
+    if (isPlayerEntry(entry)) {
+      return {
+        entry,
+        side: playerIndex++ % 2 === 0 ? "left" : "right",
+      };
     }
-    return { sentence };
+    return { entry };
   });
 }

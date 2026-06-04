@@ -7,10 +7,10 @@ export function StoriesHistoryPicker() {
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-xs text-muted-foreground px-0.5">
+      <span className="text-muted-foreground px-0.5 text-xs">
         Хотите вспомнить истории игроков?
       </span>
-      <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex [scrollbar-width:none] gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {stories.map((story) => (
           <Button
             key={story.id}

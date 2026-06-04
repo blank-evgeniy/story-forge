@@ -2,6 +2,7 @@
 import type { Preview } from "@storybook/react-vite";
 
 import { Toaster } from "sonner";
+import { withTanStackRouter } from "storybook-addon-tanstack-router";
 import { themes } from "storybook/theming";
 
 import "../src/app/styles/index.css";
@@ -30,6 +31,7 @@ const preview: Preview = {
   },
 
   decorators: [
+    withTanStackRouter,
     (Story) => (
       <>
         <Story />

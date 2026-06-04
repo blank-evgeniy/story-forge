@@ -2,18 +2,21 @@ import { BookOpenIcon, PenLineIcon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
 
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
-import {
-  PlayerCard,
-  PlayerCardAvatar,
-  PlayerCardTitle,
-} from "../common/player-card";
+import { PlayerList } from "./ui/player-list";
 
 type LobbyScreenProps = {
   roomCode: string;
@@ -23,12 +26,12 @@ const rules = [
   {
     icon: PenLineIcon,
     title: "Одно предложение",
-    description: "Каждый игрок пишет только одну фразу в истории",
+    description: "Каждый пишет только одну фразу за раунд",
   },
   {
     icon: BookOpenIcon,
     title: "Развязка",
-    description: "В финале читаем истории вместе",
+    description: "В финале все читают истории вместе",
   },
 ];
 
@@ -41,113 +44,100 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
   const actions = useRoomActions();
 
   return (
-    <div className="flex-1 flex lg:flex-row flex-col-reverse items-start gap-6 lg:py-12 py-4">
-      <Card className="lg:w-1/3 w-full">
-        <CardHeader className="hidden lg:flex">
-          <div className="flex items-center justify-between w-full">
-            <CardTitle>Игроки</CardTitle>
-            <span className="text-2xl font-bold text-primary">
-              {players.length}
-            </span>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <ul className="lg:flex flex-col grid grid-cols-4 sm:grid-cols-6 gap-3">
-            {players.map((player) => (
-              <li
-                key={player.id}
-                className="flex w-full items-center justify-center lg:justify-start"
-              >
-                <PlayerCard
-                  color={player.color}
-                  icon={player.icon}
-                  username={player.username}
-                  direction={
-                    breakpoints.smaller("lg") ? "vertical" : "horizontal"
-                  }
+    <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row">
+      {breakpoints.smaller("sm") ? (
+        <PlayerList players={players} />
+      ) : (
+        <Card className="min-h-0 w-full lg:w-1/3">
+          <CardHeader className="hidden lg:flex">
+            <div className="flex w-full items-center justify-between">
+              <CardTitle>Игроки</CardTitle>
+              <span className="text-primary text-2xl font-bold">
+                {players.length}
+              </span>
+            </div>
+          </CardHeader>
+          <CardContent className="min-h-0">
+            <PlayerList players={players} />
+          </CardContent>
+        </Card>
+      )}
+
+      <Card
+        className="flex min-h-0 w-full flex-1 flex-col"
+        size={breakpoints.smaller("sm") ? "sm" : "default"}
+      >
+        <ScrollArea className={"overflow-auto"}>
+          <CardContent className="flex flex-1 flex-col gap-6">
+            <CardTitle>Правила</CardTitle>
+
+            <div className="grid grid-cols-2 gap-4">
+              {rules.map(({ icon: Icon, title, description }) => (
+                <div
+                  key={title}
+                  className="bg-muted/50 flex flex-col gap-2 rounded-2xl p-4"
                 >
-                  <PlayerCardAvatar />
-                  <PlayerCardTitle
-                    size={breakpoints.smaller("lg") ? "sm" : "md"}
+                  <Icon className="text-primary size-5" />
+                  <p className="text-muted-foreground text-xs">{description}</p>
+                </div>
+              ))}
+            </div>
+            <Separator />
+
+            <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-col items-center gap-2">
+                <p className="text-muted-foreground text-sm">
+                  отсканируйте код, чтобы присоединиться
+                </p>
+                <div className="bg-primary/80 flex items-center justify-center rounded-lg p-3">
+                  <QRCodeSVG
+                    value={window.location.href}
+                    size={180}
+                    bgColor="transparent"
                   />
-                </PlayerCard>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-
-      <Card className="flex-1 flex flex-col w-full">
-        <CardHeader>
-          <CardTitle>Правила</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-6 flex-1">
-          <div className="grid grid-cols-2 gap-4">
-            {rules.map(({ icon: Icon, title, description }) => (
-              <div
-                key={title}
-                className="flex flex-col gap-2 rounded-2xl bg-muted/50 p-4"
-              >
-                <Icon className="size-5 text-primary" />
-                <p className="text-sm font-medium">{title}</p>
-                <p className="text-xs text-muted-foreground">{description}</p>
+                </div>
               </div>
-            ))}
-          </div>
-          <Separator />
 
-          <div className="flex flex-col items-center gap-6">
-            <div className="flex flex-col items-center gap-2">
-              <p className="text-sm text-muted-foreground">
-                отсканируйте код, чтобы присоединиться
-              </p>
-              <div className="bg-primary/80 p-3 flex items-center justify-center rounded-lg">
-                <QRCodeSVG
-                  value={window.location.href}
-                  size={180}
-                  bgColor="transparent"
-                />
+              <div className="flex w-full items-center gap-3">
+                <Separator className="flex-1" />
+                <span className="text-muted-foreground text-xs">или</span>
+                <Separator className="flex-1" />
+              </div>
+
+              <div className="flex flex-col items-center gap-2">
+                <p className="text-muted-foreground text-sm">
+                  введите код, чтобы присоединиться
+                </p>
+                <div className="flex items-center justify-center gap-2">
+                  {roomCode.split("").map((char, i) => (
+                    <div
+                      key={i}
+                      className="bg-muted border-border flex h-14 w-12 items-center justify-center rounded-xl border text-2xl font-bold"
+                    >
+                      {char}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-
-            <div className="flex items-center gap-3 w-full">
-              <Separator className="flex-1" />
-              <span className="text-xs text-muted-foreground">или</span>
-              <Separator className="flex-1" />
-            </div>
-
-            <div className="flex flex-col items-center gap-2">
-              <p className="text-sm text-muted-foreground">
-                введите код, чтобы присоединиться
-              </p>
-              <div className="flex items-center justify-center gap-2">
-                {roomCode.split("").map((char, i) => (
-                  <div
-                    key={i}
-                    className="w-12 h-14 flex items-center justify-center rounded-xl bg-muted text-2xl font-bold border border-border"
-                  >
-                    {char}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <Separator />
+          </CardContent>
+        </ScrollArea>
+        <Separator />
+        <CardFooter className="mt-auto flex justify-center">
           {isHost ? (
             <Button
-              className="w-full mt-auto"
+              className="mt-auto w-full"
               disabled={players.length < 2}
               onClick={actions.startGame}
             >
               Начать игру
             </Button>
           ) : (
-            <p className="text-muted-foreground flex gap-2 justify-center items-center">
+            <p className="text-muted-foreground flex items-center justify-center gap-2">
               Ждем, пока хост начнет игру <Spinner />
             </p>
           )}
-        </CardContent>
+        </CardFooter>
       </Card>
     </div>
   );

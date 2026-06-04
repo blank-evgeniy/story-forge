@@ -51,7 +51,7 @@ export function ProfileEditView({
   };
 
   return (
-    <div className="flex flex-1 justify-center lg:mt-[10vh] mt-4">
+    <div className="mt-4 flex flex-1 justify-center lg:mt-[10vh]">
       <div className="w-full max-w-sm">
         <Card className="shadow-md">
           <CardHeader className="pb-4">

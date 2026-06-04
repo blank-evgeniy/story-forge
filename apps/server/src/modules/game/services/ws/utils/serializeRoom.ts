@@ -7,7 +7,7 @@ export function serializeRoom(room: RoomState) {
     ...room,
     drafts: undefined,
     players: Array.from(room.players.values()).map(({ ws, ...rest }) => rest),
-    submitted: Array.from(room.submitted),
+    submittedIds: Array.from(room.submittedIds),
     timer: undefined,
   };
 }

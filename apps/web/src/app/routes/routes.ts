@@ -7,25 +7,47 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { createElement } from "react";
+import { z } from "zod";
 
 import { Spinner } from "@/components/ui/spinner";
 import { useUserStore } from "@/store/user";
+import { NotFoundView } from "@/views/not-found-view";
 
 import { AppLayout } from "../layout";
+import { requireAuth } from "./require-auth";
 
 const rootRoute = createRootRoute({
+  component: () => createElement(Outlet, null),
+  notFoundComponent: () => createElement(NotFoundView, null),
+});
+
+const appLayoutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  id: "app-layout",
   component: () => createElement(AppLayout, null, createElement(Outlet, null)),
 });
 
-const loginRoute = createRoute({
+const guardedRoute = createRoute({
+  getParentRoute: () => appLayoutRoute,
+  id: "guarded",
+  beforeLoad: ({ location }) => requireAuth(location),
+});
+
+const guardedBareRoute = createRoute({
   getParentRoute: () => rootRoute,
+  id: "guarded-bare",
+  beforeLoad: ({ location }) => requireAuth(location),
+});
+
+const loginRoute = createRoute({
+  getParentRoute: () => appLayoutRoute,
   path: "/login",
   component: lazyRouteComponent(
     () => import("@/views/login-view"),
     "LoginViewConnector",
   ),
-  validateSearch: (search: Record<string, unknown>) => ({
-    redirect: (search.redirect as string) ?? undefined,
+  validateSearch: z.object({
+    redirect: z.string().optional(),
   }),
   beforeLoad: () => {
     const user = useUserStore.getState().user;
@@ -35,31 +57,20 @@ const loginRoute = createRoute({
   },
 });
 
-const guardedRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  id: "guarded",
-  beforeLoad: ({ location }) => {
-    const user = useUserStore.getState().user;
-    if (!user) {
-      throw redirect({
-        to: "/login",
-        search: { redirect: location.href },
-      });
-    }
-  },
-});
-
-const indexRoute = createRoute({
+export const welcomeRoute = createRoute({
   getParentRoute: () => guardedRoute,
-  path: "/",
+  id: "welcome",
   component: lazyRouteComponent(
     () => import("@/views/welcome-view"),
     "WelcomeViewConnector",
   ),
+  validateSearch: z.object({
+    tab: z.enum(["create", "join"]).optional(),
+  }),
 });
 
 export const gameRoute = createRoute({
-  getParentRoute: () => guardedRoute,
+  getParentRoute: () => guardedBareRoute,
   path: "room/$roomCode",
   component: lazyRouteComponent(
     () => import("@/views/room-view"),
@@ -68,16 +79,21 @@ export const gameRoute = createRoute({
 });
 
 export const storiesRoute = createRoute({
-  getParentRoute: () => guardedRoute,
+  getParentRoute: () => appLayoutRoute,
   path: "stories",
   component: lazyRouteComponent(
     () => import("@/views/stories-view"),
     "StoriesViewConnector",
   ),
-  validateSearch: (search: Record<string, unknown>) => {
-    const storyId = Number(search.storyId);
-    return { storyId: isNaN(storyId) || !search.storyId ? undefined : storyId };
-  },
+  validateSearch: z.object({
+    storyId: z.preprocess((value) => {
+      const num = Number(value);
+
+      return value == null || value === "" || Number.isNaN(num)
+        ? undefined
+        : num;
+    }, z.number().optional()),
+  }),
 });
 
 export const profileRoute = createRoute({
@@ -90,12 +106,17 @@ export const profileRoute = createRoute({
 });
 
 const routeTree = rootRoute.addChildren([
-  loginRoute,
-  guardedRoute.addChildren([indexRoute, gameRoute, storiesRoute, profileRoute]),
+  appLayoutRoute.addChildren([
+    loginRoute,
+    storiesRoute,
+    guardedRoute.addChildren([welcomeRoute, profileRoute]),
+  ]),
+  guardedBareRoute.addChildren([gameRoute]),
 ]);
 
 export const router = createRouter({
   routeTree,
+  defaultViewTransition: true,
   defaultPendingComponent: () =>
     createElement(
       "div",

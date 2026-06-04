@@ -10,7 +10,9 @@ export function tryFinishRound(room: RoomState, isTimeout = false) {
   );
   if (connectedPlayers.length === 0) return;
 
-  const allSubmitted = connectedPlayers.every((p) => room.submitted.has(p.id));
+  const allSubmitted = connectedPlayers.every((p) =>
+    room.submittedIds.has(p.id),
+  );
   if (!allSubmitted && !isTimeout) return;
 
   if (room.timer) clearTimeout(room.timer);

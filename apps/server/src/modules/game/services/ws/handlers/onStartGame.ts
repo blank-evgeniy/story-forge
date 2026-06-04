@@ -37,9 +37,9 @@ export function onStartGame(ws: ElysiaWS) {
     (a, b) => a.turnOrder - b.turnOrder,
   );
   const newStories = players.map((player) => ({
+    entries: [],
     id: crypto.randomUUID(),
     ownerId: player.id,
-    sentences: [],
   }));
 
   room.status = "writing";

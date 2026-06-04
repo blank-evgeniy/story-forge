@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   args: {
     children: (
-      <p className="text-sm text-foreground">
+      <p className="text-foreground text-sm">
         Старый смотритель маяка заметил на горизонте что-то необычное.
       </p>
     ),
@@ -29,9 +29,9 @@ export const GapMd: Story = {
     gap: "md",
     children: (
       <>
-        <p className="text-sm text-foreground">Первое предложение истории.</p>
-        <p className="text-sm text-foreground">Второе предложение истории.</p>
-        <p className="text-sm text-foreground">Третье предложение истории.</p>
+        <p className="text-foreground text-sm">Первое предложение истории.</p>
+        <p className="text-foreground text-sm">Второе предложение истории.</p>
+        <p className="text-foreground text-sm">Третье предложение истории.</p>
       </>
     ),
   },
@@ -42,9 +42,9 @@ export const GapSm: Story = {
     gap: "sm",
     children: (
       <>
-        <p className="text-sm text-foreground">Первое предложение истории.</p>
-        <p className="text-sm text-foreground">Второе предложение истории.</p>
-        <p className="text-sm text-foreground">Третье предложение истории.</p>
+        <p className="text-foreground text-sm">Первое предложение истории.</p>
+        <p className="text-foreground text-sm">Второе предложение истории.</p>
+        <p className="text-foreground text-sm">Третье предложение истории.</p>
       </>
     ),
   },

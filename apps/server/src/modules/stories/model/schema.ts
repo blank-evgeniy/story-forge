@@ -5,8 +5,8 @@ import { savedStories } from "@/database/schema";
 
 const storyContentSchema = z.array(
   z.object({
+    entry: z.string(),
     playerName: z.string(),
-    sentence: z.string(),
     twist: z.string().optional(),
   }),
 );

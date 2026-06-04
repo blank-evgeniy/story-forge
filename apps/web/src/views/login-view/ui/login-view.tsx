@@ -45,14 +45,14 @@ export function LoginView({ onLogin }: LoginViewProps) {
   };
 
   return (
-    <div className="flex flex-1 justify-center lg:mt-[10vh] mt-4">
+    <div className="mt-4 flex flex-1 justify-center lg:mt-[10vh]">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold tracking-tight">
             <span className="text-muted-foreground">Story</span>
             <span className="text-primary">Forge</span>
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-2 text-sm">
             Совместное создание историй в реальном времени
           </p>
         </div>

@@ -9,24 +9,24 @@ export function sendYourTurn(room: RoomState, player: Player) {
     shouldShowTwist(room.round, room.totalRounds || room.players.size);
 
   roomManager.send(room, player.id, {
-    prevSentence: getSentence(room, player.id, room.config.blindMode),
+    prevEntry: getEntry(room, player.id, room.config.blindMode),
     twistsToChoose: showTwist ? pickThreeTwists() : undefined,
     type: "your_turn",
   });
 }
 
-function getSentence(room: RoomState, playerId: string, blindMode: boolean) {
+function getEntry(room: RoomState, playerId: string, blindMode: boolean) {
   const round = room.round;
 
   if (round === 1) return null;
 
   const storyIndex = getPlayerStoryIndex(room, playerId);
   const currentStory = room.stories[storyIndex];
-  const currentStoryLength = currentStory.sentences.length;
+  const currentStoryLength = currentStory.entries.length;
 
-  const lastSentence = currentStory.sentences[currentStoryLength - 1];
+  const lastEntry = currentStory.entries[currentStoryLength - 1];
 
   return blindMode
-    ? [{ ...lastSentence, twist: undefined }]
-    : currentStory.sentences;
+    ? [{ ...lastEntry, twist: undefined }]
+    : currentStory.entries;
 }
