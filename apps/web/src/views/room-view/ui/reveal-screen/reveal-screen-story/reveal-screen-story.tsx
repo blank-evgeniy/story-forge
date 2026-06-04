@@ -10,7 +10,7 @@ import { MessageRow } from "../../common/message-row";
 import { PlayerMessage } from "../../common/player-message";
 import { StoryWrapper } from "../../common/story-wrapper";
 import { TwistMessage } from "../../common/twist-message";
-import { assignSides } from "./utils/assignSides";
+import { assignSides } from "../utils";
 
 type RevealScreenStoryProps = {
   story: Story;

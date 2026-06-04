@@ -1,2 +1,3 @@
 pnpm --filter server typecheck
+pnpm test --run
 pnpm --filter web build

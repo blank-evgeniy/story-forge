@@ -5,9 +5,9 @@ import {
   DEFAULT_PLAYER_ICON,
 } from "@/lib/player-customization";
 
-import type { Player, Story, StoryEntry } from "./types";
+import type { Player, Story, StoryEntry } from "../types";
 
-import { PLAYER_NAME_PLACEHOLDER } from "./consts";
+import { PLAYER_NAME_PLACEHOLDER } from "../consts";
 
 export const mapStories = (
   players: Player[],

@@ -7,7 +7,7 @@ import { MessageRow } from "../../common/message-row";
 import { PlayerMessage } from "../../common/player-message";
 import { StoryWrapper } from "../../common/story-wrapper";
 import { TwistMessage } from "../../common/twist-message";
-import { assignSides } from "../reveal-screen-story/utils/assignSides";
+import { assignSides } from "../utils";
 import { useStoriesHistory } from "./stories-history-context";
 
 type StoriesHistoryViewerProps = {

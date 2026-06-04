@@ -10,6 +10,7 @@
     "dev:server": "pnpm --filter server dev",
     "dev:landing": "pnpm --filter landing dev",
     "storybook": "pnpm --filter web storybook",
+    "test": "pnpm --filter web test",
     "prepare": "husky"
   },
   "lint-staged": {
