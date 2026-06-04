@@ -16,7 +16,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <AppLogo />
         </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 header-delayed-appear">
           <Button
             variant={"ghost"}
             size={"icon"}
@@ -44,7 +44,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           )}
         </div>
       </header>
-      <main className="flex flex-1 flex-col">{children}</main>
+      <main className="flex flex-1 flex-col" style={{ viewTransitionName: "page-content" }}>{children}</main>
     </div>
   );
 }

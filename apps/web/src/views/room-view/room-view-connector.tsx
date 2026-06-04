@@ -6,16 +6,20 @@ import { RoomError } from "./ui/common/room-error";
 import { RoomLayout } from "./ui/common/room-layout";
 import { RoomLoading } from "./ui/common/room-loading";
 
-export function RoomViewGuard() {
+function RoomViewGuard() {
   const { roomCode } = gameRoute.useParams();
   const { data, isLoading } = useGetRoom(roomCode);
 
   if (isLoading) return <RoomLoading />;
   if (!data) return <RoomError title="Комната не найдена" />;
 
+  return <RoomViewFlow />;
+}
+
+export function RoomViewConnector() {
   return (
     <RoomLayout>
-      <RoomViewFlow />
+      <RoomViewGuard />
     </RoomLayout>
   );
 }

@@ -14,6 +14,7 @@ import { useUserStore } from "@/store/user";
 import { NotFoundView } from "@/views/not-found-view";
 
 import { AppLayout } from "../layout";
+import { requireAuth } from "./require-auth";
 
 const rootRoute = createRootRoute({
   component: () => createElement(Outlet, null),
@@ -26,6 +27,18 @@ const appLayoutRoute = createRoute({
   component: () => createElement(AppLayout, null, createElement(Outlet, null)),
 });
 
+const guardedRoute = createRoute({
+  getParentRoute: () => appLayoutRoute,
+  id: "guarded",
+  beforeLoad: ({ location }) => requireAuth(location),
+});
+
+const guardedBareRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  id: "guarded-bare",
+  beforeLoad: ({ location }) => requireAuth(location),
+});
+
 const loginRoute = createRoute({
   getParentRoute: () => appLayoutRoute,
   path: "/login",
@@ -33,8 +46,8 @@ const loginRoute = createRoute({
     () => import("@/views/login-view"),
     "LoginViewConnector",
   ),
-  validateSearch: (search: Record<string, unknown>) => ({
-    redirect: (search.redirect as string) ?? undefined,
+  validateSearch: z.object({
+    redirect: z.string().optional(),
   }),
   beforeLoad: () => {
     const user = useUserStore.getState().user;
@@ -44,23 +57,9 @@ const loginRoute = createRoute({
   },
 });
 
-const guardedRoute = createRoute({
-  getParentRoute: () => appLayoutRoute,
-  id: "guarded",
-  beforeLoad: ({ location }) => {
-    const user = useUserStore.getState().user;
-    if (!user) {
-      throw redirect({
-        to: "/login",
-        search: { redirect: location.href },
-      });
-    }
-  },
-});
-
-export const indexRoute = createRoute({
+export const welcomeRoute = createRoute({
   getParentRoute: () => guardedRoute,
-  path: "/",
+  id: "welcome",
   component: lazyRouteComponent(
     () => import("@/views/welcome-view"),
     "WelcomeViewConnector",
@@ -68,20 +67,6 @@ export const indexRoute = createRoute({
   validateSearch: z.object({
     tab: z.enum(["create", "join"]).optional(),
   }),
-});
-
-const guardedBareRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  id: "guarded-bare",
-  beforeLoad: ({ location }) => {
-    const user = useUserStore.getState().user;
-    if (!user) {
-      throw redirect({
-        to: "/login",
-        search: { redirect: location.href },
-      });
-    }
-  },
 });
 
 export const gameRoute = createRoute({
@@ -124,13 +109,14 @@ const routeTree = rootRoute.addChildren([
   appLayoutRoute.addChildren([
     loginRoute,
     storiesRoute,
-    guardedRoute.addChildren([indexRoute, profileRoute]),
+    guardedRoute.addChildren([welcomeRoute, profileRoute]),
   ]),
   guardedBareRoute.addChildren([gameRoute]),
 ]);
 
 export const router = createRouter({
   routeTree,
+  defaultViewTransition: true,
   defaultPendingComponent: () =>
     createElement(
       "div",

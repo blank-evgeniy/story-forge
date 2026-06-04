@@ -1,7 +1,6 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect } from "react";
 
-import { indexRoute } from "@/app/routes/routes";
 import { useUserStore } from "@/store/user";
 
 import type { CreateRoomSchema } from "./model/types";
@@ -16,7 +15,7 @@ export function WelcomeViewConnector() {
   const playerId = useUserStore((store) => store.user?.id);
   const { mutate, isLoading } = useCreateRoom();
   const navigate = useNavigate();
-  const { tab } = indexRoute.useSearch();
+  const { tab } = useSearch({ from: "/app-layout/guarded/welcome" });
 
   useEffect(() => {
     if (tab) navigate({ to: "/", search: { tab: undefined }, replace: true });
