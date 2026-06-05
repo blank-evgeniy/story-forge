@@ -54,6 +54,7 @@ apps/
 | Состояние         | Zustand                            |
 | Анимации          | Motion                             |
 | Компоненты        | Storybook                          |
+| Тесты             | Bun, Vitest + RTL, Playwright      |
 | Лендинг           | Claude Code + Astro 6              |
 
 ---
@@ -179,6 +180,7 @@ apps/
 | State            | Zustand                            |
 | Animations       | Motion                             |
 | Components       | Storybook                          |
+| Tests            | Bun, Vitest + RTL, Playwright      |
 | Landing          | Claude Code + Astro 6              |
 
 ---
