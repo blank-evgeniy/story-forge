@@ -13,9 +13,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
+import { testIdAttr } from "@/lib/tests/test-id";
 
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import { getTestId } from "../../utils/get-test-id";
 import { PlayerList } from "./ui/player-list";
 
 type LobbyScreenProps = {
@@ -34,6 +36,8 @@ const rules = [
     description: "В финале все читают истории вместе",
   },
 ];
+
+const testId = getTestId("lobby-screen");
 
 export function LobbyScreen({ roomCode }: LobbyScreenProps) {
   const breakpoints = useTwBreakpoints();
@@ -108,7 +112,10 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
                 <p className="text-muted-foreground text-sm">
                   введите код, чтобы присоединиться
                 </p>
-                <div className="flex items-center justify-center gap-2">
+                <div
+                  {...testIdAttr(testId("room-code"))}
+                  className="flex items-center justify-center gap-2"
+                >
                   {roomCode.split("").map((char, i) => (
                     <div
                       key={i}
@@ -126,6 +133,7 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
         <CardFooter className="mt-auto flex justify-center">
           {isHost ? (
             <Button
+              {...testIdAttr(testId("start"))}
               className="mt-auto w-full"
               disabled={players.length < 2}
               onClick={actions.startGame}
@@ -133,7 +141,10 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
               Начать игру
             </Button>
           ) : (
-            <p className="text-muted-foreground flex items-center justify-center gap-2">
+            <p
+              {...testIdAttr(testId("waiting-message"))}
+              className="text-muted-foreground flex items-center justify-center gap-2"
+            >
               Ждем, пока хост начнет игру <Spinner />
             </p>
           )}

@@ -5,21 +5,29 @@ import {
   type PlayerIcon,
   playerIconComponents,
 } from "@/lib/player-customization";
+import {
+  getTestIdGenerator,
+  testIdAttr,
+  type WithModuleNamespace,
+} from "@/lib/tests/test-id";
 import { cn } from "@/lib/utils";
 
 type PlayerIconPickerProps = {
   value: PlayerIcon;
   color: PlayerColor;
   onChange: (icon: PlayerIcon) => void;
-};
+} & WithModuleNamespace;
 
 export function PlayerIconPicker({
   value,
   color,
   onChange,
+  namespace,
 }: PlayerIconPickerProps) {
+  const testId = getTestIdGenerator(namespace)("player-icon-picker");
+
   return (
-    <div className="grid grid-cols-5 gap-1.5">
+    <div className="grid grid-cols-5 gap-1.5" {...testIdAttr(testId())}>
       {PLAYER_ICONS.map((id) => {
         const Icon = playerIconComponents[id];
         const selected = value === id;
@@ -35,6 +43,7 @@ export function PlayerIconPicker({
                 : "text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
             aria-label={id}
+            {...testIdAttr(testId("button", id))}
           >
             <Icon className="size-6" />
           </button>

@@ -1,2 +1,4 @@
 pnpm --filter server typecheck
+pnpm test --run
 pnpm --filter web build
+pnpm --filter web test:e2e --project=chromium

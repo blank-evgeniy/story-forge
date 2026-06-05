@@ -3,16 +3,26 @@ import {
   type PlayerColor,
   playerColorSwatchClasses,
 } from "@/lib/player-customization";
+import {
+  getTestIdGenerator,
+  testIdAttr,
+  type WithModuleNamespace,
+} from "@/lib/tests/test-id";
 import { cn } from "@/lib/utils";
 
 type PlayerColorPickerProps = {
   value: PlayerColor;
   onChange: (color: PlayerColor) => void;
-};
+} & WithModuleNamespace;
 
-export function PlayerColorPicker({ value, onChange }: PlayerColorPickerProps) {
+export function PlayerColorPicker({
+  value,
+  onChange,
+  namespace,
+}: PlayerColorPickerProps) {
+  const testId = getTestIdGenerator(namespace)("player-color-picker");
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2" {...testIdAttr(testId())}>
       {PLAYER_COLORS.map((color) => (
         <button
           key={color}
@@ -26,6 +36,7 @@ export function PlayerColorPicker({ value, onChange }: PlayerColorPickerProps) {
               : "opacity-60 hover:opacity-90",
           )}
           aria-label={color}
+          {...testIdAttr(testId("button", color))}
         />
       ))}
     </div>

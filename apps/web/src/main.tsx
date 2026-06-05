@@ -4,8 +4,14 @@ import { createRoot } from "react-dom/client";
 import { App } from "./app";
 import "./app/styles/index.css";
 
-createRoot(document.getElementById("root")!).render(
+const root = createRoot(document.getElementById("root")!);
+
+const app = import.meta.env.VITE_E2E ? (
+  <App />
+) : (
   <StrictMode>
     <App />
-  </StrictMode>,
+  </StrictMode>
 );
+
+root.render(app);

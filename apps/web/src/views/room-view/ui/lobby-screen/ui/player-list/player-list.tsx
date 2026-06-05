@@ -2,8 +2,10 @@ import type { Player } from "@/views/room-view/model/types";
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
+import { testIdAttr } from "@/lib/tests/test-id";
 import { cn } from "@/lib/utils";
 
+import { getTestId } from "../../../../utils/get-test-id";
 import {
   PlayerCard,
   PlayerCardAvatar,
@@ -16,13 +18,19 @@ type PlayerListProps = {
 };
 
 export const PlayerList = ({ players, className }: PlayerListProps) => {
+  const testId = getTestId("player-list");
   const breakpoints = useTwBreakpoints();
+
   return (
     <ScrollArea className={cn("w-full overflow-auto lg:h-full", className)}>
-      <ul className="flex gap-3 pb-2.5 sm:grid sm:grid-cols-6 sm:items-start lg:flex lg:flex-col lg:pb-0">
+      <ul
+        {...testIdAttr(testId("list"))}
+        className="flex gap-3 pb-2.5 sm:grid sm:grid-cols-6 sm:items-start lg:flex lg:flex-col lg:pb-0"
+      >
         {players.map((player) => (
           <li
             key={player.id}
+            {...testIdAttr(testId("item", player.id))}
             className="flex shrink-0 items-center justify-center sm:w-full lg:justify-start"
           >
             <PlayerCard
