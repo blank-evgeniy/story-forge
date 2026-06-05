@@ -1,4 +1,5 @@
 import { AnimatePresence } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 import { gameRoute } from "@/app/routes/routes";
 import {
@@ -19,6 +20,7 @@ import { RevealScreen } from "./ui/reveal-screen";
 import { WritingScreen } from "./ui/writing-screen";
 
 export function RoomViewFlow() {
+  const { t } = useTranslation();
   const { roomCode } = gameRoute.useParams();
 
   const user = useUserStore((store) => store.user);
@@ -33,11 +35,12 @@ export function RoomViewFlow() {
 
   const status = useRoomStore((store) => store.status);
 
-  if (wsStatus === "connecting") return <RoomLoading title="Подключение..." />;
+  if (wsStatus === "connecting")
+    return <RoomLoading title={t("connection.connecting")} />;
   if (wsStatus === "disconnected")
-    return <RoomError title="Соединение потеряно" />;
+    return <RoomError title={t("connection.lost")} />;
   if (wsStatus === "failed")
-    return <RoomError title="Не удалось подключиться" />;
+    return <RoomError title={t("connection.failed")} />;
 
   return (
     <RoomActionsProvider client={client}>

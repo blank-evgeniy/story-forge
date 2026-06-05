@@ -1,6 +1,7 @@
 import { useDebounceCallback } from "@siberiacancode/reactuse";
 import { CheckIcon, PencilIcon, SendHorizonalIcon } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -29,6 +30,7 @@ export function WritingScreenInput({
   isFirstRound,
   isSubmitted,
 }: WritingScreenInputProps) {
+  const { t } = useTranslation();
   const [content, setContent] = useState("");
 
   const debouncedDraft = useDebounceCallback(
@@ -68,11 +70,11 @@ export function WritingScreenInput({
             variant="ghost"
             size="sm"
           >
-            <PencilIcon className="size-3" /> Редактировать
+            <PencilIcon className="size-3" /> {t("writing.input.edit")}
           </Button>
           <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
             <CheckIcon className="size-3 text-green-500" />
-            <span>Ожидаем остальных...</span>
+            <span>{t("writing.input.waitingForOthers")}</span>
           </div>
         </div>
       </div>
@@ -87,7 +89,11 @@ export function WritingScreenInput({
         value={content}
         onChange={handleChangeContent}
         onKeyDown={handleKeyDown}
-        placeholder={isFirstRound ? "Начни историю..." : "Продолжи историю..."}
+        placeholder={
+          isFirstRound
+            ? t("writing.input.placeholderFirst")
+            : t("writing.input.placeholderContinue")
+        }
         className="max-h-48 min-h-24 resize-none scrollbar-thin"
         autoFocus
       />
@@ -99,11 +105,11 @@ export function WritingScreenInput({
             remaining === 0 && "text-destructive",
           )}
         >
-          {remaining} символов
+          {t("writing.input.remaining", { count: remaining })}
         </span>
         <div className="flex items-center gap-2">
           <span className="text-muted-foreground hidden text-xs sm:block">
-            Ctrl+Enter для отправки
+            {t("writing.input.shortcut")}
           </span>
           <Button
             {...testIdAttr(testId("submit"))}
@@ -111,7 +117,7 @@ export function WritingScreenInput({
             disabled={!content.trim()}
             size="sm"
           >
-            Отправить <SendHorizonalIcon className="size-4" />
+            {t("writing.input.submit")} <SendHorizonalIcon className="size-4" />
           </Button>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import {
@@ -34,6 +35,7 @@ export function ProfileEditView({
   onSave,
   onLogout,
 }: ProfileEditViewProps) {
+  const { t } = useTranslation();
   const [username, setUsername] = useState(initialUsername);
   const [color, setColor] = useState<PlayerColor>(initialColor);
   const [icon, setIcon] = useState<PlayerIcon>(initialIcon);
@@ -43,7 +45,7 @@ export function ProfileEditView({
     const trimmedUsername = username.trim();
 
     if (!trimmedUsername || trimmedUsername.length < 2) {
-      toast.error("Введите никнейм из минимум 2 символов");
+      toast.error(t("profile.error.nicknameMinLength"));
       return;
     }
 
@@ -55,17 +57,17 @@ export function ProfileEditView({
       <div className="w-full max-w-sm">
         <Card className="shadow-md">
           <CardHeader className="pb-4">
-            <CardTitle>Профиль</CardTitle>
-            <CardDescription>Измените никнейм или внешний вид</CardDescription>
+            <CardTitle>{t("profile.heading")}</CardTitle>
+            <CardDescription>{t("profile.subtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <Field>
-                <FieldLabel>Никнейм</FieldLabel>
+                <FieldLabel>{t("profile.nickname.label")}</FieldLabel>
                 <Input
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Ваше имя..."
+                  placeholder={t("profile.nickname.placeholder")}
                   autoFocus
                   autoComplete="off"
                 />
@@ -79,12 +81,12 @@ export function ProfileEditView({
               />
 
               <Field>
-                <FieldLabel>Цвет</FieldLabel>
+                <FieldLabel>{t("profile.color")}</FieldLabel>
                 <PlayerColorPicker value={color} onChange={setColor} />
               </Field>
 
               <Field>
-                <FieldLabel>Иконка</FieldLabel>
+                <FieldLabel>{t("profile.icon")}</FieldLabel>
                 <PlayerIconPicker
                   value={icon}
                   color={color}
@@ -93,7 +95,7 @@ export function ProfileEditView({
               </Field>
 
               <Button type="submit" className="w-full">
-                Сохранить
+                {t("profile.save")}
               </Button>
 
               <Separator />
@@ -104,7 +106,7 @@ export function ProfileEditView({
                 className="w-full"
                 onClick={onLogout}
               >
-                Выйти
+                {t("profile.logout")}
               </Button>
             </form>
           </CardContent>

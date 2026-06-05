@@ -1,4 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
@@ -8,6 +9,7 @@ import { useUserStore } from "@/store/user";
 import { ProfileEditView } from "./ui/profile-edit-view";
 
 export function ProfileEditViewConnector() {
+  const { t } = useTranslation();
   const user = useUserStore((s) => s.user);
   const updateProfile = useUserStore((s) => s.updateProfile);
   const logout = useUserStore((s) => s.logout);
@@ -21,7 +23,7 @@ export function ProfileEditViewConnector() {
     icon: PlayerIcon,
   ) => {
     updateProfile(username, color, icon);
-    toast.success("Профиль обновлён");
+    toast.success(t("profile.toast.success"));
     navigate({ to: "/" });
   };
 

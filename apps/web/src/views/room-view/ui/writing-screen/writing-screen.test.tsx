@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import i18n from "i18next";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { type RoomState, useRoomStore } from "../../model/use-room-store";
@@ -73,7 +74,9 @@ describe("round counter", () => {
   it("displays current round and total rounds", () => {
     setStore({ round: 2, totalRounds: 4 });
     setup();
-    expect(screen.getByTestId(testIds.round)).toHaveTextContent("Раунд 2 / 4");
+    expect(screen.getByTestId(testIds.round)).toHaveTextContent(
+      i18n.t("writing.round", { round: 2, totalRounds: 4 }),
+    );
   });
 });
 
@@ -83,7 +86,7 @@ describe("text input", () => {
     setup();
     expect(screen.getByTestId(testIds.textarea)).toHaveAttribute(
       "placeholder",
-      "Начни историю...",
+      i18n.t("writing.input.placeholderFirst"),
     );
   });
 
@@ -92,7 +95,7 @@ describe("text input", () => {
     setup();
     expect(screen.getByTestId(testIds.textarea)).toHaveAttribute(
       "placeholder",
-      "Продолжи историю...",
+      i18n.t("writing.input.placeholderContinue"),
     );
   });
 

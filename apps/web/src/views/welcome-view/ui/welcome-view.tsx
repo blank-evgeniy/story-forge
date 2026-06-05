@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type WelcomeViewProps = {
@@ -13,6 +15,8 @@ export function WelcomeView({
   serverStatusSlot,
   defaultTab = "create",
 }: WelcomeViewProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="mt-4 flex flex-1 flex-col gap-4 lg:mt-[10vh]">
       <Tabs
@@ -21,8 +25,8 @@ export function WelcomeView({
         orientation="horizontal"
       >
         <TabsList className={"w-full"}>
-          <TabsTrigger value="create">Новая игра</TabsTrigger>
-          <TabsTrigger value="join">Присоединиться</TabsTrigger>
+          <TabsTrigger value="create">{t("welcome.tabs.newGame")}</TabsTrigger>
+          <TabsTrigger value="join">{t("welcome.tabs.join")}</TabsTrigger>
         </TabsList>
         <TabsContent value="create">{createRoomSlot}</TabsContent>
         <TabsContent value="join">{joinRoomSlot}</TabsContent>

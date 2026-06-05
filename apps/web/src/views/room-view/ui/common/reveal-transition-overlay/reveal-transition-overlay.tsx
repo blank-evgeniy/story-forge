@@ -1,19 +1,18 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { REVEAL_TRANSITION_DURATION_MS } from "../../../model/consts";
 import { useRoomStore } from "../../../model/use-room-store";
 
-const PHRASES = [
-  "Истории ждут...",
-  "Занавес поднимается...",
-  "Время читать...",
-];
-
 export function RevealTransitionOverlay() {
+  const { t } = useTranslation();
   const startReveal = useRoomStore((s) => s.startReveal);
+  const phrases = t("reveal.transition.phrases", {
+    returnObjects: true,
+  }) as string[];
   const [phrase] = useState(
-    () => PHRASES[Math.floor(Math.random() * PHRASES.length)],
+    () => phrases[Math.floor(Math.random() * phrases.length)],
   );
 
   useEffect(() => {

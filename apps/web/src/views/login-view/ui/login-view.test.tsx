@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import i18n from "i18next";
 import { toast } from "sonner";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -69,7 +70,7 @@ describe("validation", () => {
     await user.click(submitButton);
 
     expect(toast.error).toHaveBeenCalledWith(
-      "Введите никнейм из минимум 2 символов",
+      i18n.t("login.error.nicknameMinLength"),
     );
     expect(onLogin).not.toHaveBeenCalled();
   });
@@ -81,7 +82,7 @@ describe("validation", () => {
     await user.click(submitButton);
 
     expect(toast.error).toHaveBeenCalledWith(
-      "Введите никнейм из минимум 2 символов",
+      i18n.t("login.error.nicknameMinLength"),
     );
     expect(onLogin).not.toHaveBeenCalled();
   });
@@ -93,7 +94,7 @@ describe("validation", () => {
     await user.click(submitButton);
 
     expect(toast.error).toHaveBeenCalledWith(
-      "Введите никнейм из минимум 2 символов",
+      i18n.t("login.error.nicknameMinLength"),
     );
     expect(onLogin).not.toHaveBeenCalled();
   });

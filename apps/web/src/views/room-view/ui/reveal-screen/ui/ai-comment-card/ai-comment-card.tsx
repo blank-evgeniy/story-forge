@@ -1,5 +1,6 @@
 import { BotIcon } from "lucide-react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -11,6 +12,8 @@ type AiCommentCardProps = {
 };
 
 export function AiCommentCard({ status, comment }: AiCommentCardProps) {
+  const { t } = useTranslation();
+
   if (status === "idle") return null;
 
   return (
@@ -25,7 +28,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sm font-medium">
               <BotIcon className="text-muted-foreground size-4" />
-              Оракул Историй пишет вердикт...
+              {t("aiComment.loading")}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
@@ -40,7 +43,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sm font-medium">
               <BotIcon className="text-muted-foreground size-4" />
-              Оракул Историй
+              {t("aiComment.title")}
             </CardTitle>
           </CardHeader>
           <CardContent className="px-2">
@@ -56,7 +59,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
 
       {status === "error" && (
         <p className="text-muted-foreground flex items-center justify-center gap-1 px-2 text-center text-xs">
-          Оракул Историй погрузился в молчание
+          {t("aiComment.error")}
           <BotIcon className="text-muted-foreground size-4" />
         </p>
       )}

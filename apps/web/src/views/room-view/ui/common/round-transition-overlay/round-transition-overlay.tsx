@@ -1,9 +1,11 @@
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 import { ROUND_TRANSITION_DURATION_MS } from "../../../model/consts";
 import { useRoomStore } from "../../../model/use-room-store";
 
 export function RoundTransitionOverlay() {
+  const { t } = useTranslation();
   const round = useRoomStore((s) => s.round);
   const totalRounds = useRoomStore((s) => s.totalRounds);
 
@@ -23,7 +25,7 @@ export function RoundTransitionOverlay() {
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <span className="text-muted-foreground text-xs font-semibold tracking-(--tracking-display) uppercase">
-          Раунд
+          {t("roundTransition.round")}
         </span>
         <span className="text-[9rem] leading-none font-bold tracking-tight tabular-nums">
           {round}
@@ -31,7 +33,7 @@ export function RoundTransitionOverlay() {
         <div className="text-muted-foreground flex items-center gap-2">
           <span className="bg-muted-foreground/40 h-px w-6" />
           <span className="text-sm font-medium tracking-widest uppercase">
-            из {totalRounds}
+            {t("roundTransition.of", { totalRounds })}
           </span>
           <span className="bg-muted-foreground/40 h-px w-6" />
         </div>

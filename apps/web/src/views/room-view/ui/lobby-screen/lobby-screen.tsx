@@ -1,5 +1,6 @@
 import { BookOpenIcon, PenLineIcon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,28 +25,29 @@ type LobbyScreenProps = {
   roomCode: string;
 };
 
-const rules = [
-  {
-    icon: PenLineIcon,
-    title: "Одно предложение",
-    description: "Каждый пишет только одну фразу за раунд",
-  },
-  {
-    icon: BookOpenIcon,
-    title: "Развязка",
-    description: "В финале все читают истории вместе",
-  },
-];
-
 const testId = getTestId("lobby-screen");
 
 export function LobbyScreen({ roomCode }: LobbyScreenProps) {
+  const { t } = useTranslation();
   const breakpoints = useTwBreakpoints();
 
   const players = useRoomStore((store) => store.players);
   const isHost = useRoomStore((store) => store.isHost);
 
   const actions = useRoomActions();
+
+  const rules = [
+    {
+      icon: PenLineIcon,
+      title: t("lobby.rule1.title"),
+      description: t("lobby.rule1.description"),
+    },
+    {
+      icon: BookOpenIcon,
+      title: t("lobby.rule2.title"),
+      description: t("lobby.rule2.description"),
+    },
+  ];
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row">
@@ -55,7 +57,7 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
         <Card className="min-h-0 w-full lg:w-1/3">
           <CardHeader className="hidden lg:flex">
             <div className="flex w-full items-center justify-between">
-              <CardTitle>Игроки</CardTitle>
+              <CardTitle>{t("lobby.players")}</CardTitle>
               <span className="text-primary text-2xl font-bold">
                 {players.length}
               </span>
@@ -73,7 +75,7 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
       >
         <ScrollArea className={"overflow-auto"}>
           <CardContent className="flex flex-1 flex-col gap-6">
-            <CardTitle>Правила</CardTitle>
+            <CardTitle>{t("lobby.rules")}</CardTitle>
 
             <div className="grid grid-cols-2 gap-4">
               {rules.map(({ icon: Icon, title, description }) => (
@@ -91,7 +93,7 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
             <div className="flex flex-col items-center gap-6">
               <div className="flex flex-col items-center gap-2">
                 <p className="text-muted-foreground text-sm">
-                  отсканируйте код, чтобы присоединиться
+                  {t("lobby.qr.scan")}
                 </p>
                 <div className="bg-primary/80 flex items-center justify-center rounded-lg p-3">
                   <QRCodeSVG
@@ -104,13 +106,15 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
 
               <div className="flex w-full items-center gap-3">
                 <Separator className="flex-1" />
-                <span className="text-muted-foreground text-xs">или</span>
+                <span className="text-muted-foreground text-xs">
+                  {t("lobby.qr.or")}
+                </span>
                 <Separator className="flex-1" />
               </div>
 
               <div className="flex flex-col items-center gap-2">
                 <p className="text-muted-foreground text-sm">
-                  введите код, чтобы присоединиться
+                  {t("lobby.qr.enter")}
                 </p>
                 <div
                   {...testIdAttr(testId("room-code"))}
@@ -138,14 +142,14 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
               disabled={players.length < 2}
               onClick={actions.startGame}
             >
-              Начать игру
+              {t("lobby.startGame")}
             </Button>
           ) : (
             <p
               {...testIdAttr(testId("waiting-message"))}
               className="text-muted-foreground flex items-center justify-center gap-2"
             >
-              Ждем, пока хост начнет игру <Spinner />
+              {t("lobby.waitingForHost")} <Spinner />
             </p>
           )}
         </CardFooter>

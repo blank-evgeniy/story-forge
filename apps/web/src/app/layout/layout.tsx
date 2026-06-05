@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { BookOpen } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { AppLogo } from "@/components/app-logo";
 import { PlayerAvatar } from "@/components/player-customization";
@@ -7,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/user";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation();
   const user = useUserStore((store) => store.user);
 
   return (
@@ -21,7 +23,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             variant={"ghost"}
             size={"icon"}
             render={<Link to="/stories" />}
-            aria-label="Истории"
+            aria-label={t("layout.storiesButton")}
           >
             <BookOpen className="size-5" />
           </Button>

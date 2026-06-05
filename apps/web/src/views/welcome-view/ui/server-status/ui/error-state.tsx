@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { Button } from "@/components/ui/button";
 
 type ErrorStateProps = {
@@ -5,11 +7,13 @@ type ErrorStateProps = {
 };
 
 export function ErrorState({ onRetry }: ErrorStateProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="text-destructive flex items-center gap-2 text-sm">
-      <span>Произошла ошибка во время проверки состояния сервера</span>
+      <span>{t("welcome.serverStatus.error.message")}</span>
       <Button onClick={onRetry} size={"xs"}>
-        Проверить снова
+        {t("welcome.serverStatus.error.retry")}
       </Button>
     </div>
   );
