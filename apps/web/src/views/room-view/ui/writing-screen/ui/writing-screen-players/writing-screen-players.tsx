@@ -1,10 +1,10 @@
-import type { Player } from "../../../model/types";
+import type { Player } from "../../../../model/types";
 
 import {
   PlayerCard,
   PlayerCardAvatar,
   PlayerCardTitle,
-} from "../../common/player-card";
+} from "../../../common/player-card";
 
 type WritingScreenPlayersProps = {
   players: Player[];

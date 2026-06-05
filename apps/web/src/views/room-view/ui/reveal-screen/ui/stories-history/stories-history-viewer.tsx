@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 import { PlayerAvatar } from "@/components/player-customization";
 import { isPlayerEntry } from "@/views/room-view/model/type-guards";
 
-import { MessageRow } from "../../common/message-row";
-import { PlayerMessage } from "../../common/player-message";
-import { StoryWrapper } from "../../common/story-wrapper";
-import { TwistMessage } from "../../common/twist-message";
-import { assignSides } from "../utils";
+import { MessageRow } from "../../../common/message-row";
+import { PlayerMessage } from "../../../common/player-message";
+import { StoryWrapper } from "../../../common/story-wrapper";
+import { TwistMessage } from "../../../common/twist-message";
+import { assignSides } from "../../utils";
 import { useStoriesHistory } from "./stories-history-context";
 
 type StoriesHistoryViewerProps = {

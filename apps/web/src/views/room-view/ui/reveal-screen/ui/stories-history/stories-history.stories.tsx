@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fn } from "storybook/test";
 
-import { MOCK_STORIES } from "../../../utils/storybook-mocks";
+import { MOCK_STORIES } from "../../../../utils/storybook-mocks";
 import { StoriesHistory } from "./stories-history";
 import { StoriesHistoryPicker } from "./stories-history-picker";
 import { StoriesHistoryViewer } from "./stories-history-viewer";

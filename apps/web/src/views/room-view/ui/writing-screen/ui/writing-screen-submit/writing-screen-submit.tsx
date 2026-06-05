@@ -2,7 +2,7 @@ import { Activity, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
-import type { TwistsSet } from "../../../model/types";
+import type { TwistsSet } from "../../../../model/types";
 
 import { WritingScreenInput } from "./writing-screen-input";
 import { WritingScreenTwistPicker } from "./writing-screen-twist-picker";

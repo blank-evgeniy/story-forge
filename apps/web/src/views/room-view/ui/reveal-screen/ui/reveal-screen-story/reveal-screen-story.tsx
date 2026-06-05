@@ -3,14 +3,14 @@ import { useEffect, useRef } from "react";
 
 import { PlayerAvatar } from "@/components/player-customization";
 
-import type { Story } from "../../../model/types";
+import type { Story } from "../../../../model/types";
 
-import { isPlayerEntry } from "../../../model/type-guards";
-import { MessageRow } from "../../common/message-row";
-import { PlayerMessage } from "../../common/player-message";
-import { StoryWrapper } from "../../common/story-wrapper";
-import { TwistMessage } from "../../common/twist-message";
-import { assignSides } from "../utils";
+import { isPlayerEntry } from "../../../../model/type-guards";
+import { MessageRow } from "../../../common/message-row";
+import { PlayerMessage } from "../../../common/player-message";
+import { StoryWrapper } from "../../../common/story-wrapper";
+import { TwistMessage } from "../../../common/twist-message";
+import { assignSides } from "../../utils";
 
 type RevealScreenStoryProps = {
   story: Story;

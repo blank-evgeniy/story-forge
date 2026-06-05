@@ -1,9 +1,9 @@
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
-import { WritingScreenPlayers } from "./writing-screen-players";
-import { WritingScreenStory } from "./writing-screen-story";
-import { WritingScreenSubmit } from "./writing-screen-submit";
-import { WritingScreenTimer } from "./writing-screen-timer";
+import { WritingScreenPlayers } from "./ui/writing-screen-players";
+import { WritingScreenStory } from "./ui/writing-screen-story";
+import { WritingScreenSubmit } from "./ui/writing-screen-submit";
+import { WritingScreenTimer } from "./ui/writing-screen-timer";
 
 export function WritingScreen() {
   const {

@@ -8,16 +8,16 @@ import { Spinner } from "@/components/ui/spinner";
 import { useSaveStory } from "../../api/use-save-story";
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
-import { AiCommentCard } from "./ai-comment-card";
-import { RevealReadyScreen } from "./reveal-ready-screen/index";
-import { RevealScreenStory } from "./reveal-screen-story";
+import { AiCommentCard } from "./ui/ai-comment-card";
+import { RevealReadyScreen } from "./ui/reveal-ready-screen";
+import { RevealScreenStory } from "./ui/reveal-screen-story";
 import {
   StoriesHistory,
   StoriesHistoryPicker,
   StoriesHistoryViewer,
-} from "./stories-history";
-import { StoryActions, type StoryActionsProps } from "./story-actions";
-import { type StoryPlayerMode, useStoryPlayer } from "./use-story-player";
+} from "./ui/stories-history";
+import { StoryActions, type StoryActionsProps } from "./ui/story-actions";
+import { type StoryPlayerMode, useStoryPlayer } from "./utils";
 
 type RevealScreenProps = {
   roomCode: string;

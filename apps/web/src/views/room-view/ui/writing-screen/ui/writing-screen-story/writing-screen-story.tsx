@@ -1,10 +1,10 @@
 import { Fragment } from "react/jsx-runtime";
 
-import type { PrevEntry } from "../../../model/types";
+import type { PrevEntry } from "../../../../model/types";
 
-import { PlayerMessage } from "../../common/player-message";
-import { StoryWrapper } from "../../common/story-wrapper";
-import { TwistMessage } from "../../common/twist-message";
+import { PlayerMessage } from "../../../common/player-message";
+import { StoryWrapper } from "../../../common/story-wrapper";
+import { TwistMessage } from "../../../common/twist-message";
 
 type WritingScreenStoryProps = {
   story: PrevEntry[] | null;

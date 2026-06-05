@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-import { PlayerMessage } from "../../common/player-message";
+import { PlayerMessage } from "../../../common/player-message";
 
 const MAX_LENGTH = 200;
 

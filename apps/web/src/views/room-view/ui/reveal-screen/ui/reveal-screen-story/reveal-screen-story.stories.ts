@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { MOCK_STORIES } from "../../../utils/storybook-mocks";
+import { MOCK_STORIES } from "../../../../utils/storybook-mocks";
 import { RevealScreenStory } from "./reveal-screen-story";
 
 const meta = {
