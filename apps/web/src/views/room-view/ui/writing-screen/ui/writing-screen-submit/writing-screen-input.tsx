@@ -4,9 +4,13 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { testIdAttr } from "@/lib/tests/test-id";
 import { cn } from "@/lib/utils";
 
+import { getTestId } from "../../../../utils/get-test-id";
 import { PlayerMessage } from "../../../common/player-message";
+
+const testId = getTestId("writing-screen-input");
 
 const MAX_LENGTH = 200;
 
@@ -58,7 +62,12 @@ export function WritingScreenInput({
       <div className="flex w-full flex-col gap-2">
         <PlayerMessage message={content} side="right" />
         <div className="flex items-center justify-between gap-2">
-          <Button onClick={onEdit} variant="ghost" size="sm">
+          <Button
+            {...testIdAttr(testId("edit"))}
+            onClick={onEdit}
+            variant="ghost"
+            size="sm"
+          >
             <PencilIcon className="size-3" /> Редактировать
           </Button>
           <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
@@ -73,6 +82,7 @@ export function WritingScreenInput({
   return (
     <div className="flex w-full flex-col gap-2">
       <Textarea
+        {...testIdAttr(testId("textarea"))}
         maxLength={MAX_LENGTH}
         value={content}
         onChange={handleChangeContent}
@@ -95,7 +105,12 @@ export function WritingScreenInput({
           <span className="text-muted-foreground hidden text-xs sm:block">
             Ctrl+Enter для отправки
           </span>
-          <Button onClick={handleSubmit} disabled={!content.trim()} size="sm">
+          <Button
+            {...testIdAttr(testId("submit"))}
+            onClick={handleSubmit}
+            disabled={!content.trim()}
+            size="sm"
+          >
             Отправить <SendHorizonalIcon className="size-4" />
           </Button>
         </div>

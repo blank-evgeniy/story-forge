@@ -1,8 +1,13 @@
 import { CheckIcon, XIcon, ZapIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { testIdAttr } from "@/lib/tests/test-id";
 
 import type { TwistsSet } from "../../../../model/types";
+
+import { getTestId } from "../../../../utils/get-test-id";
+
+const testId = getTestId("writing-screen-twist-picker");
 
 interface WritingScreenTwistPickerProps {
   twists: TwistsSet;
@@ -34,6 +39,7 @@ export function WritingScreenTwistPicker({
           <CheckIcon className="text-primary size-4 shrink-0" />
         ) : (
           <Button
+            {...testIdAttr(testId("unset"))}
             type="button"
             variant="ghost"
             size="icon-sm"
@@ -54,6 +60,7 @@ export function WritingScreenTwistPicker({
         <span className="flex-1">Без твиста</span>
         {!isSubmitted && (
           <Button
+            {...testIdAttr(testId("unset"))}
             type="button"
             variant="ghost"
             size="icon-sm"
@@ -77,6 +84,7 @@ export function WritingScreenTwistPicker({
           </h3>
         </div>
         <Button
+          {...testIdAttr(testId("skip"))}
           type="button"
           variant="ghost"
           size="sm"
@@ -90,6 +98,7 @@ export function WritingScreenTwistPicker({
         {twists.map((twist) => (
           <li key={twist.id}>
             <button
+              {...testIdAttr(testId("item", twist.id))}
               type="button"
               className="border-muted hover:bg-muted/50 flex w-full cursor-pointer items-center gap-4 rounded-lg border px-4 py-2 text-sm transition-colors"
               onClick={() => onPick(twist.id)}

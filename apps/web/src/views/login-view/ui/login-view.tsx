@@ -22,10 +22,15 @@ import {
   type PlayerColor,
   type PlayerIcon,
 } from "@/lib/player-customization";
+import { testIdAttr } from "@/lib/tests/test-id";
+
+import { getTestId, MODULE_NAMESPACE } from "../utils/get-test-id";
 
 type LoginViewProps = {
   onLogin: (username: string, color: PlayerColor, icon: PlayerIcon) => void;
 };
+
+const testId = getTestId();
 
 export function LoginView({ onLogin }: LoginViewProps) {
   const [username, setUsername] = useState("");
@@ -67,6 +72,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
               <Field>
                 <FieldLabel>Никнейм</FieldLabel>
                 <Input
+                  {...testIdAttr(testId("input-username"))}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Ваше имя..."
@@ -80,11 +86,16 @@ export function LoginView({ onLogin }: LoginViewProps) {
                 icon={icon}
                 size={"xl"}
                 className="mx-auto"
+                namespace={MODULE_NAMESPACE}
               />
 
               <Field>
                 <FieldLabel>Цвет</FieldLabel>
-                <PlayerColorPicker value={color} onChange={setColor} />
+                <PlayerColorPicker
+                  value={color}
+                  onChange={setColor}
+                  namespace={MODULE_NAMESPACE}
+                />
               </Field>
 
               <Field>
@@ -93,10 +104,15 @@ export function LoginView({ onLogin }: LoginViewProps) {
                   value={icon}
                   color={color}
                   onChange={setIcon}
+                  namespace={MODULE_NAMESPACE}
                 />
               </Field>
 
-              <Button type="submit" className="w-full">
+              <Button
+                {...testIdAttr(testId("submit"))}
+                type="submit"
+                className="w-full"
+              >
                 Вперёд!
               </Button>
             </form>

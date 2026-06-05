@@ -1,9 +1,14 @@
+import { testIdAttr } from "@/lib/tests/test-id";
+
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import { getTestId } from "../../utils/get-test-id";
 import { WritingScreenPlayers } from "./ui/writing-screen-players";
 import { WritingScreenStory } from "./ui/writing-screen-story";
 import { WritingScreenSubmit } from "./ui/writing-screen-submit";
 import { WritingScreenTimer } from "./ui/writing-screen-timer";
+
+const testId = getTestId("writing-screen");
 
 export function WritingScreen() {
   const {
@@ -22,7 +27,10 @@ export function WritingScreen() {
     <div className="flex min-h-0 flex-1 flex-col gap-4" key={round}>
       <div className="flex min-h-0 flex-1 flex-col gap-4">
         <div className="flex items-center justify-between">
-          <span className="text-muted-foreground text-sm font-medium">
+          <span
+            {...testIdAttr(testId("round"))}
+            className="text-muted-foreground text-sm font-medium"
+          >
             Раунд {round} / {totalRounds}
           </span>
           <WritingScreenTimer time={secondsPerTurn} />
