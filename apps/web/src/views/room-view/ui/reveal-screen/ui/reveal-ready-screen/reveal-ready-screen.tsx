@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldContent, FieldLabel } from "@/components/ui/field";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
+import { testIdAttr } from "@/lib/tests/test-id";
+
+import { getTestId } from "../../../../utils/get-test-id";
+
+const testId = getTestId("reveal-ready-screen");
 
 function pluralizeStories(count: number): string {
   if (count === 1) return "история";
@@ -80,7 +85,9 @@ export function RevealReadyScreen({
           </FieldContent>
         </Field>
 
-        <Button onClick={onStart}>Смотреть результаты</Button>
+        <Button {...testIdAttr(testId("start"))} onClick={onStart}>
+          Смотреть результаты
+        </Button>
       </motion.div>
     </div>
   );

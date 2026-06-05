@@ -8,6 +8,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { testIdAttr } from "@/lib/tests/test-id";
+
+import { getTestId } from "../../../../utils/get-test-id";
+
+const testId = getTestId("story-actions");
 
 export type StoryActionsProps = {
   showNextAction?: boolean;
@@ -56,7 +61,11 @@ export function StoryActions({
         </TooltipProvider>
       )}
       {showNextAction && (
-        <Button onClick={onNext} disabled={saveIsLoading}>
+        <Button
+          {...testIdAttr(testId("next"))}
+          onClick={onNext}
+          disabled={saveIsLoading}
+        >
           Следующая история
         </Button>
       )}

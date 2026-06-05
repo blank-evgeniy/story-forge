@@ -4,10 +4,14 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { testIdAttr } from "@/lib/tests/test-id";
 
 import { useSaveStory } from "../../api/use-save-story";
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
+import { getTestId } from "../../utils/get-test-id";
+
+const testId = getTestId("reveal-screen");
 import { AiCommentCard } from "./ui/ai-comment-card";
 import { RevealReadyScreen } from "./ui/reveal-ready-screen";
 import { RevealScreenStory } from "./ui/reveal-screen-story";
@@ -146,11 +150,18 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
               <AiCommentCard status={aiCommentStatus} comment={aiComment} />
               <StoriesHistoryPicker />
               {isHost ? (
-                <Button className="w-full" onClick={actions.restartGame}>
+                <Button
+                  {...testIdAttr(testId("restart"))}
+                  className="w-full"
+                  onClick={actions.restartGame}
+                >
                   Играть еще
                 </Button>
               ) : (
-                <p className="text-muted-foreground flex items-center justify-center gap-2 text-sm sm:text-base">
+                <p
+                  {...testIdAttr(testId("waiting"))}
+                  className="text-muted-foreground flex items-center justify-center gap-2 text-sm sm:text-base"
+                >
                   Ждем, пока хост перезапустит игру <Spinner />
                 </p>
               )}

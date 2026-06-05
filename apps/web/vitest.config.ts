@@ -14,8 +14,10 @@ export default defineConfig({
     globals: true,
     setupFiles: "./vitest.setup.tsx",
     environment: "jsdom",
+    exclude: ["e2e/**", "node_modules/**"],
     env: {
       NODE_ENV: "test",
+      VITE_TEST: "true",
     },
   },
 });

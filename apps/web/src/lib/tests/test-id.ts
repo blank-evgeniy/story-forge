@@ -1,7 +1,10 @@
 export const testIdAttr = (
   id: string | undefined,
 ): { "data-testid": string } | undefined =>
-  id !== undefined && import.meta.env.DEV ? { "data-testid": id } : undefined;
+  id !== undefined &&
+  (import.meta.env.VITE_TEST || import.meta.env.VITE_E2E)
+    ? { "data-testid": id }
+    : undefined;
 
 export const getTestIdGenerator =
   (module?: string) =>
