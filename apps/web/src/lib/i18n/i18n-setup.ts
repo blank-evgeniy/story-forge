@@ -14,7 +14,7 @@ i18n
       ru: { translation: ru },
     },
     fallbackLng: "en",
-    debug: true,
+    debug: import.meta.env.DEV && !import.meta.env.VITEST,
 
     interpolation: {
       escapeValue: false,

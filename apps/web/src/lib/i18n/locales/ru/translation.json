@@ -1,4 +1,8 @@
 {
+  "common": {
+    "story": "История",
+    "back": "Назад"
+  },
   "login": {
     "tagline": "Совместное создание историй в реальном времени",
     "heading": "Добро пожаловать!",
@@ -71,6 +75,10 @@
     },
     "startGame": "Начать игру",
     "waitingForHost": "Ждем, пока хост начнет игру"
+  },
+  "room": {
+    "notFound": "Комната не найдена",
+    "unknownPlayer": "Неизвестный"
   },
   "writing": {
     "round": "Раунд {{round}} / {{totalRounds}}",

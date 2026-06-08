@@ -1,4 +1,5 @@
 import { BookOpenIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import type { GetStoryResponseDTO } from "@/api/requests/types";
 
@@ -25,13 +26,15 @@ export function StoryModal({
   isStoryLoading,
   onClose,
 }: StoryModalProps) {
+  const { t } = useTranslation();
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-lg" initialFocus={false}>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <BookOpenIcon className="text-primary size-4" />
-            {openedStory?.ownerName ?? "История"}
+            {openedStory?.ownerName ?? t("common.story")}
           </DialogTitle>
         </DialogHeader>
 

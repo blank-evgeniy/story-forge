@@ -1,4 +1,8 @@
 {
+  "common": {
+    "story": "Story",
+    "back": "Back"
+  },
   "login": {
     "tagline": "Real-time collaborative storytelling",
     "heading": "Welcome!",
@@ -72,6 +76,10 @@
     "startGame": "Start game",
     "waitingForHost": "Waiting for the host to start the game"
   },
+  "room": {
+    "notFound": "Room not found",
+    "unknownPlayer": "Unknown"
+  },
   "writing": {
     "round": "Round {{round}} / {{totalRounds}}",
     "input": {
@@ -113,11 +121,7 @@
       "publishError": "Failed to publish the story"
     },
     "transition": {
-      "phrases": [
-        "Stories await...",
-        "The curtain rises...",
-        "Time to read..."
-      ]
+      "phrases": ["Stories await...", "The curtain rises...", "Time to read..."]
     }
   },
   "aiComment": {
