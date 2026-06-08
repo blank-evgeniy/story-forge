@@ -43,7 +43,7 @@ const loginRoute = createRoute({
   getParentRoute: () => appLayoutRoute,
   path: "/login",
   component: lazyRouteComponent(
-    () => import("@/views/login-view"),
+    () => import("@/views/_profile/login-view"),
     "LoginViewConnector",
   ),
   validateSearch: z.object({
@@ -100,7 +100,7 @@ export const profileRoute = createRoute({
   getParentRoute: () => guardedRoute,
   path: "profile",
   component: lazyRouteComponent(
-    () => import("@/views/profile-edit-view"),
+    () => import("@/views/_profile/profile-edit-view"),
     "ProfileEditViewConnector",
   ),
 });
