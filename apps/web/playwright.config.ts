@@ -68,8 +68,11 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: "VITE_E2E=true pnpm dev --port 5174",
+    command: "pnpm dev --port 5174",
     url: "http://localhost:5174",
     reuseExistingServer: !process.env.CI,
+    env: {
+      VITE_E2E: "true",
+    },
   },
 });

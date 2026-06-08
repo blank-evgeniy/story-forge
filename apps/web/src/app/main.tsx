@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
+import { env } from "@/shared/lib/config/env";
+
 import { App } from "./app";
-import "./app/styles/index.css";
-import { env } from "./shared/lib/config/env";
-import "./shared/lib/i18n/i18n-setup";
+import "@/shared/lib/i18n/i18n-setup";
+
+import "./styles/index.css";
 
 const root = createRoot(document.getElementById("root")!);
 
