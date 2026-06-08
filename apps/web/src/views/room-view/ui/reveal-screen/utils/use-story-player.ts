@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { ms } from "@/lib/ms";
+import { ms } from "@/shared/lib/ms";
 
 import { useRoomStore } from "../../../model/use-room-store";
 

@@ -2,19 +2,19 @@ import { BookOpenIcon, PenLineIcon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
+import { useTwBreakpoints } from "@/shared/hooks/use-tw-breakpoints";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
+import { Button } from "@/shared/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { Spinner } from "@/components/ui/spinner";
-import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
-import { testIdAttr } from "@/lib/tests/test-id";
+} from "@/shared/ui/card";
+import { ScrollArea } from "@/shared/ui/scroll-area";
+import { Separator } from "@/shared/ui/separator";
+import { Spinner } from "@/shared/ui/spinner";
 
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";

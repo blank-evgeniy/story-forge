@@ -1,6 +1,10 @@
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
+import {
+  type PlayerColor,
+  type PlayerIcon,
+} from "@/shared/consts/player-customization";
+import { Button } from "@/shared/ui/button";
 import {
   Card,
   CardContent,
@@ -8,8 +12,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { type PlayerColor, type PlayerIcon } from "@/lib/player-customization";
+} from "@/shared/ui/card";
 
 import { ProfileFormBase } from "../../common/profile-form-base";
 

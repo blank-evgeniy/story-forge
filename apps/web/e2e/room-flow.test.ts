@@ -7,7 +7,9 @@ import type {
   RoomStatusDto,
   ServerEvent,
   StoryThreadDto,
-} from "../src/api/ws/types";
+} from "../src/shared/api/ws/types";
+
+import { getTestIdGenerator } from "../src/shared/lib/tests/test-id-generator";
 
 // Player data
 const ALICE_ID = "player-alice-id";
@@ -33,13 +35,6 @@ const BOB_BASE = {
 } as const;
 
 const ROOM_CODE = "ABCD";
-
-// see: src/lib/tests/test-id
-export const getTestIdGenerator =
-  (module?: string) =>
-  (component?: string) =>
-  (element?: string, modifier?: string) =>
-    [module, component, element, modifier].filter(Boolean).join("_");
 
 const roomViewTestId = getTestIdGenerator("room-view");
 

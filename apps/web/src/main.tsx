@@ -3,8 +3,8 @@ import { createRoot } from "react-dom/client";
 
 import { App } from "./app";
 import "./app/styles/index.css";
-import { env } from "./lib/config/env";
-import "./lib/i18n/i18n-setup";
+import { env } from "./shared/lib/config/env";
+import "./shared/lib/i18n/i18n-setup";
 
 const root = createRoot(document.getElementById("root")!);
 

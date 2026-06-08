@@ -1,10 +1,10 @@
 import { ZapIcon } from "lucide-react";
 import { Fragment } from "react";
 
-import type { StoryContentItemDTO } from "@/api/requests/types";
+import type { StoryContentItemDTO } from "@/shared/api/requests/types";
 
-import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
+import { Separator } from "@/shared/ui/separator";
 
 const SIDES = ["left", "right"] as const;
 

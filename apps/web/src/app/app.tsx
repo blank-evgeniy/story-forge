@@ -1,6 +1,6 @@
 import { RouterProvider } from "@tanstack/react-router";
 
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/shared/ui/sonner";
 
 import { router } from "./routes";
 

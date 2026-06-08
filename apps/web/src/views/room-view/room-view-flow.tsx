@@ -5,7 +5,7 @@ import { gameRoute } from "@/app/routes/routes";
 import {
   DEFAULT_PLAYER_COLOR,
   DEFAULT_PLAYER_ICON,
-} from "@/lib/player-customization";
+} from "@/shared/consts/player-customization";
 import { useUserStore } from "@/store/user";
 
 import { useRoomSocket } from "./api/use-room-socket";

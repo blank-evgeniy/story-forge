@@ -10,7 +10,7 @@ vi.mock("../../model/use-room-store", () => ({ useRoomStore: vi.fn() }));
 vi.mock("../../model/room-actions-context", () => ({
   useRoomActions: vi.fn(),
 }));
-vi.mock("@/lib/hooks/use-tw-breakpoints", () => ({
+vi.mock("@/shared/hooks/use-tw-breakpoints", () => ({
   useTwBreakpoints: () => ({ smaller: () => false }),
 }));
 vi.mock("qrcode.react", () => ({

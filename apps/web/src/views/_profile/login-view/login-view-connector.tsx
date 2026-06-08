@@ -1,6 +1,9 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
 
-import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+import type {
+  PlayerColor,
+  PlayerIcon,
+} from "@/shared/consts/player-customization";
 
 import { useUserStore } from "@/store/user";
 

@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import {
   DEFAULT_PLAYER_COLOR,
   DEFAULT_PLAYER_ICON,
-} from "@/lib/player-customization";
+} from "@/shared/consts/player-customization";
 
 import { useUserStore } from "./user-store";
 

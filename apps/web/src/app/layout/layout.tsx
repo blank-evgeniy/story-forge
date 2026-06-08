@@ -2,9 +2,9 @@ import { Link } from "@tanstack/react-router";
 import { BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { AppLogo } from "@/components/app-logo";
-import { PlayerAvatar } from "@/components/player-customization";
-import { Button } from "@/components/ui/button";
+import { AppLogo } from "@/shared/ui/app-logo";
+import { Button } from "@/shared/ui/button";
+import { PlayerAvatar } from "@/shared/ui/player-customization";
 import { useUserStore } from "@/store/user";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
@@ -18,7 +18,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <AppLogo />
         </Link>
 
-        <div className="flex items-center gap-1 header-delayed-appear">
+        <div className="header-delayed-appear flex items-center gap-1">
           <Button
             variant={"ghost"}
             size={"icon"}
@@ -46,7 +46,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           )}
         </div>
       </header>
-      <main className="flex flex-1 flex-col" style={{ viewTransitionName: "page-content" }}>{children}</main>
+      <main
+        className="flex flex-1 flex-col"
+        style={{ viewTransitionName: "page-content" }}
+      >
+        {children}
+      </main>
     </div>
   );
 }

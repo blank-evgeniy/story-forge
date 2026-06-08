@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import type { PlayerDto, RoomDto, ServerEvent } from "@/api/ws/types";
+import type { PlayerDto, RoomDto, ServerEvent } from "@/shared/api/ws/types";
 
 import { router } from "@/app/routes/routes";
 import { useUserStore } from "@/store/user";

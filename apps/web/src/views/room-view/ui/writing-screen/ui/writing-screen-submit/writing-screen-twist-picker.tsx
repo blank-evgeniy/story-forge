@@ -1,8 +1,8 @@
 import { CheckIcon, XIcon, ZapIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
-import { testIdAttr } from "@/lib/tests/test-id";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
+import { Button } from "@/shared/ui/button";
 
 import type { TwistsSet } from "../../../../model/types";
 

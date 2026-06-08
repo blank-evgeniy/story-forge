@@ -2,7 +2,10 @@ import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+import type {
+  PlayerColor,
+  PlayerIcon,
+} from "@/shared/consts/player-customization";
 
 import { useUserStore } from "@/store/user";
 

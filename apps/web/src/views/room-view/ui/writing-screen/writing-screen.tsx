@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { testIdAttr } from "@/lib/tests/test-id";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
 
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";

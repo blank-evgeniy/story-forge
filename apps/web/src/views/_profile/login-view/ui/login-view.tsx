@@ -1,13 +1,16 @@
 import { useTranslation } from "react-i18next";
 
 import {
+  type PlayerColor,
+  type PlayerIcon,
+} from "@/shared/consts/player-customization";
+import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { type PlayerColor, type PlayerIcon } from "@/lib/player-customization";
+} from "@/shared/ui/card";
 
 import { ProfileFormBase } from "../../common/profile-form-base";
 import { MODULE_NAMESPACE } from "../utils/get-test-id";

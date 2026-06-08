@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef } from "react";
 
-import { PlayerAvatar } from "@/components/player-customization";
+import { PlayerAvatar } from "@/shared/ui/player-customization";
 
 import type { Story } from "../../../../model/types";
 

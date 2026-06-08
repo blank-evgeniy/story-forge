@@ -3,16 +3,14 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
-import { testIdAttr } from "@/lib/tests/test-id";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
+import { Button } from "@/shared/ui/button";
+import { Spinner } from "@/shared/ui/spinner";
 
 import { useSaveStory } from "../../api/use-save-story";
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
 import { getTestId } from "../../utils/get-test-id";
-
-const testId = getTestId("reveal-screen");
 import { AiCommentCard } from "./ui/ai-comment-card";
 import { RevealReadyScreen } from "./ui/reveal-ready-screen";
 import { RevealScreenStory } from "./ui/reveal-screen-story";
@@ -23,6 +21,8 @@ import {
 } from "./ui/stories-history";
 import { StoryActions, type StoryActionsProps } from "./ui/story-actions";
 import { type StoryPlayerMode, useStoryPlayer } from "./utils";
+
+const testId = getTestId("reveal-screen");
 
 type RevealScreenProps = {
   roomCode: string;

@@ -2,9 +2,9 @@ import { BotIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
+import { ScrollArea } from "@/shared/ui/scroll-area";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 type AiCommentCardProps = {
   status: "idle" | "loading" | "success" | "error";

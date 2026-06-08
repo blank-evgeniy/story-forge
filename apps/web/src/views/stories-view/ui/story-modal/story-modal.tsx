@@ -1,15 +1,15 @@
 import { BookOpenIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import type { GetStoryResponseDTO } from "@/api/requests/types";
+import type { GetStoryResponseDTO } from "@/shared/api/requests/types";
 
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Skeleton } from "@/components/ui/skeleton";
+} from "@/shared/ui/dialog";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 import { StoryContent } from "./story-content";
 

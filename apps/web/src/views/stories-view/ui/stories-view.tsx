@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import type { StoryListItemDTO } from "@/api/requests/types";
+import type { StoryListItemDTO } from "@/shared/api/requests/types";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/shared/ui/card";
 
 import { StoriesSkeleton } from "./stories-skeleton";
 import { StoryCard } from "./story-card";

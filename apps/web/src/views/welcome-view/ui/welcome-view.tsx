@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
 type WelcomeViewProps = {
   createRoomSlot: React.ReactNode;

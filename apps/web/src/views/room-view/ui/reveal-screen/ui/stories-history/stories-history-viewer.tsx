@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { PlayerAvatar } from "@/components/player-customization";
+import { PlayerAvatar } from "@/shared/ui/player-customization";
 import { isPlayerEntry } from "@/views/room-view/model/type-guards";
 
 import { MessageRow } from "../../../common/message-row";

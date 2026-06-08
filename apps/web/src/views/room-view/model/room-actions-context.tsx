@@ -1,6 +1,6 @@
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 
-import type { ClientEvent } from "@/api/ws/types";
+import type { ClientEvent } from "@/shared/api/ws/types";
 
 type RoomActions = {
   startGame: () => void;

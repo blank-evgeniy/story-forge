@@ -5,9 +5,9 @@ import type {
   ClientEvent,
   PlayerColorDto,
   PlayerIconDto,
-} from "@/api/ws/types";
+} from "@/shared/api/ws/types";
 
-import { env } from "@/lib/config/env";
+import { env } from "@/shared/lib/config/env";
 
 import { useRoomStore } from "../model/use-room-store";
 

@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { create } from "zustand";
 
-import type { ServerEvent } from "@/api/ws/types";
+import type { ServerEvent } from "@/shared/api/ws/types";
 
 import { router } from "@/app/routes/routes";
 import { useUserStore } from "@/store/user";

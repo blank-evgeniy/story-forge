@@ -3,10 +3,10 @@ import { CheckIcon, PencilIcon, SendHorizonalIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { testIdAttr } from "@/lib/tests/test-id";
-import { cn } from "@/lib/utils";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
+import { cn } from "@/shared/lib/utils";
+import { Button } from "@/shared/ui/button";
+import { Textarea } from "@/shared/ui/textarea";
 
 import { getTestId } from "../../../../utils/get-test-id";
 import { PlayerMessage } from "../../../common/player-message";

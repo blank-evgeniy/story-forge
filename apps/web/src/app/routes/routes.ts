@@ -9,7 +9,7 @@ import {
 import { createElement } from "react";
 import { z } from "zod";
 
-import { Spinner } from "@/components/ui/spinner";
+import { Spinner } from "@/shared/ui/spinner";
 import { useUserStore } from "@/store/user";
 import { NotFoundView } from "@/views/not-found-view";
 

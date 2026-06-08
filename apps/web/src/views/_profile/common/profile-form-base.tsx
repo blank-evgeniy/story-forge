@@ -3,24 +3,24 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import {
-  PlayerAvatar,
-  PlayerColorPicker,
-  PlayerIconPicker,
-} from "@/components/player-customization";
-import { Button } from "@/components/ui/button";
-import { Field, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import {
   DEFAULT_PLAYER_COLOR,
   DEFAULT_PLAYER_ICON,
   type PlayerColor,
   type PlayerIcon,
-} from "@/lib/player-customization";
+} from "@/shared/consts/player-customization";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
 import {
   getTestIdGenerator,
-  testIdAttr,
   type WithModuleNamespace,
-} from "@/lib/tests/test-id";
+} from "@/shared/lib/tests/test-id-generator";
+import { Button } from "@/shared/ui/button";
+import { Field, FieldLabel } from "@/shared/ui/field";
+import { Input } from "@/shared/ui/input";
+import {
+  PlayerAvatar,
+  PlayerColorPicker,
+  PlayerIconPicker,
+} from "@/shared/ui/player-customization";
 
 type ProfileFormBaseProps = {
   onSubmit: (username: string, color: PlayerColor, icon: PlayerIcon) => void;

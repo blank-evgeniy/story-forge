@@ -1,6 +1,6 @@
 import { BookOpenIcon } from "lucide-react";
 
-import type { StoryListItemDTO } from "@/api/requests/types";
+import type { StoryListItemDTO } from "@/shared/api/requests/types";
 
 type StoryCardProps = {
   story: StoryListItemDTO;

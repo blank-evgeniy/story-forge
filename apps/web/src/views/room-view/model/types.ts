@@ -1,4 +1,7 @@
-import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+import type {
+  PlayerColor,
+  PlayerIcon,
+} from "@/shared/consts/player-customization";
 
 export type Player = {
   color: PlayerColor;
