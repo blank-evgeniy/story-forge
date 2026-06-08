@@ -1,0 +1,171 @@
+{
+  "common": {
+    "story": "Story",
+    "back": "Back"
+  },
+  "login": {
+    "tagline": "Real-time collaborative storytelling",
+    "heading": "Welcome!",
+    "subtitle": "Enter a nickname to get started",
+    "nickname": {
+      "label": "Nickname",
+      "placeholder": "Your name..."
+    },
+    "color": "Color",
+    "icon": "Icon",
+    "submit": "Let's go!",
+    "error": {
+      "nicknameMinLength": "Enter a nickname with at least 2 characters"
+    }
+  },
+  "welcome": {
+    "tabs": {
+      "newGame": "New Game",
+      "join": "Join"
+    },
+    "createRoom": {
+      "heading": "Create a new game",
+      "settings": "Game settings",
+      "settingsHint": "Customize the game settings or jump right in",
+      "roundTime": "Round time (sec.)",
+      "gameplay": "Gameplay",
+      "blindMode": {
+        "label": "Blind Mode",
+        "description": "Blind Mode — players can only see the last message when writing their part of the story."
+      },
+      "twists": {
+        "label": "Twists",
+        "description": "Twists are unexpected events that can occur mid-game and change the course of the story."
+      },
+      "submit": "Create"
+    },
+    "joinRoom": {
+      "heading": "Join an existing game",
+      "code": {
+        "label": "Code",
+        "hint": "Ask the host to share the room code"
+      },
+      "submit": "Join"
+    },
+    "serverStatus": {
+      "checking": "Checking server...",
+      "online": "Server is up — you can create a game",
+      "starting": "Server is starting up, please wait...",
+      "error": {
+        "message": "An error occurred while checking the server status",
+        "retry": "Try again"
+      }
+    }
+  },
+  "lobby": {
+    "players": "Players",
+    "rules": "Rules",
+    "rule1": {
+      "title": "One sentence",
+      "description": "Each player writes only one phrase per round"
+    },
+    "rule2": {
+      "title": "Grand Finale",
+      "description": "At the end, everyone reads the stories together"
+    },
+    "qr": {
+      "scan": "scan the code to join",
+      "or": "or",
+      "enter": "enter the code to join"
+    },
+    "startGame": "Start game",
+    "waitingForHost": "Waiting for the host to start the game"
+  },
+  "room": {
+    "notFound": "Room not found",
+    "unknownPlayer": "Unknown"
+  },
+  "writing": {
+    "round": "Round {{round}} / {{totalRounds}}",
+    "input": {
+      "placeholderFirst": "Start the story...",
+      "placeholderContinue": "Continue the story...",
+      "remaining": "{{count}} characters",
+      "shortcut": "Ctrl+Enter to submit",
+      "submit": "Submit",
+      "edit": "Edit",
+      "waitingForOthers": "Waiting for others..."
+    },
+    "twist": {
+      "none": "No twist",
+      "choose": "Choose a twist",
+      "skip": "Skip"
+    }
+  },
+  "reveal": {
+    "ready": {
+      "heading": "Stories are written",
+      "storiesCount_one": "{{count}} story",
+      "storiesCount_other": "{{count}} stories",
+      "enableNarration": "Enable narration",
+      "viewResults": "View results"
+    },
+    "actions": {
+      "published": "Published",
+      "publish": "Publish",
+      "publishTooltip": "This story will be visible to everyone in the public feed",
+      "next": "Next story"
+    },
+    "history": {
+      "remember": "Want to revisit the players' stories?"
+    },
+    "playAgain": "Play again",
+    "waitingForHost": "Waiting for the host to restart the game",
+    "toast": {
+      "publishSuccess": "Story published",
+      "publishError": "Failed to publish the story"
+    },
+    "transition": {
+      "phrases": ["Stories await...", "The curtain rises...", "Time to read..."]
+    }
+  },
+  "aiComment": {
+    "loading": "The Story Oracle is writing its verdict...",
+    "title": "Story Oracle",
+    "error": "The Story Oracle has fallen silent"
+  },
+  "roundTransition": {
+    "round": "Round",
+    "of": "of {{totalRounds}}"
+  },
+  "profile": {
+    "heading": "Profile",
+    "subtitle": "Change your nickname or appearance",
+    "nickname": {
+      "label": "Nickname",
+      "placeholder": "Your name..."
+    },
+    "color": "Color",
+    "icon": "Icon",
+    "save": "Save",
+    "logout": "Sign out",
+    "error": {
+      "nicknameMinLength": "Enter a nickname with at least 2 characters"
+    },
+    "toast": {
+      "success": "Profile updated"
+    }
+  },
+  "stories": {
+    "heading": "Saved stories",
+    "empty": "No stories yet"
+  },
+  "layout": {
+    "storiesButton": "Stories"
+  },
+  "connection": {
+    "connecting": "Connecting...",
+    "lost": "Connection lost",
+    "failed": "Failed to connect"
+  },
+  "notFound": {
+    "heading": "Page not found",
+    "description": "This page doesn't exist or has been removed",
+    "backToHome": "Back to home"
+  }
+}

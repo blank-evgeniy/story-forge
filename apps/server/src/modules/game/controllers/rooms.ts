@@ -7,7 +7,7 @@ export const roomsModule = new Elysia({ prefix: "/rooms" })
   .post(
     "/",
     ({ body }) => {
-      const code = roomManager.create(body.playerId, body.config);
+      const code = roomManager.create(body.playerId, body.config, body.locale);
       return { code };
     },
     {
@@ -17,6 +17,12 @@ export const roomsModule = new Elysia({ prefix: "/rooms" })
           enableTwists: z.boolean(),
           secondsPerTurn: z.number().min(10).max(120),
         }),
+        locale: z
+          .string()
+          .optional()
+          .transform((val): "en" | "ru" =>
+            val?.toLowerCase().startsWith("ru") ? "ru" : "en",
+          ),
         playerId: z.string(),
       }),
     },

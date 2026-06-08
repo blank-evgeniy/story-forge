@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import type { StoryListItemDTO } from "@/api/requests/types";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,17 +22,19 @@ export function StoriesView({
   onOpen,
   modalSlot,
 }: StoriesViewProps) {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="mt-4 flex flex-1 flex-col gap-4">
-        <h1 className="text-2xl font-bold">Сохранённые истории</h1>
+        <h1 className="text-2xl font-bold">{t("stories.heading")}</h1>
 
         {isLoading && <StoriesSkeleton />}
 
         {!isLoading && stories?.length === 0 && (
           <Card size="sm">
             <CardContent className="text-muted-foreground py-8 text-center">
-              Историй пока нет
+              {t("stories.empty")}
             </CardContent>
           </Card>
         )}

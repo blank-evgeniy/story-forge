@@ -6,6 +6,7 @@ import { withTanStackRouter } from "storybook-addon-tanstack-router";
 import { themes } from "storybook/theming";
 
 import "../src/app/styles/index.css";
+import "../src/lib/i18n/i18n-setup";
 
 const preview: Preview = {
   parameters: {

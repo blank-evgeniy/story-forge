@@ -1,5 +1,7 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
+export type Locale = "en" | "ru";
+
 export interface Player {
   color: string;
   connected: boolean;
@@ -27,6 +29,7 @@ export interface RoomState {
   config: RoomConfig;
   drafts: Map<string, { content?: string; twistId?: string }>;
   hostId: string;
+  locale: Locale;
   nextTurnOrder: number;
   players: Map<string, Player>; // playerId → Player (с ws-соединением)
   round: number; // текущая итерация, 1-based

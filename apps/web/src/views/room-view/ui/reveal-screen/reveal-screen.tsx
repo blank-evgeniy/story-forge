@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,7 @@ type RevealScreenProps = {
 };
 
 export function RevealScreen({ roomCode }: RevealScreenProps) {
+  const { t } = useTranslation();
   const [playerMode, setPlayerMode] = useState<StoryPlayerMode>("timer");
   const {
     allStories,
@@ -57,10 +59,10 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
       {
         onSuccess: () => {
           addSavedStory(storyId);
-          toast.success("История опубликована");
+          toast.success(t("reveal.toast.publishSuccess"));
         },
         onError: () => {
-          toast.error("Не удалось опубликовать историю");
+          toast.error(t("reveal.toast.publishError"));
         },
       },
     );
@@ -155,14 +157,14 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
                   className="w-full"
                   onClick={actions.restartGame}
                 >
-                  Играть еще
+                  {t("reveal.playAgain")}
                 </Button>
               ) : (
                 <p
                   {...testIdAttr(testId("waiting"))}
                   className="text-muted-foreground flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
-                  Ждем, пока хост перезапустит игру <Spinner />
+                  {t("reveal.waitingForHost")} <Spinner />
                 </p>
               )}
             </motion.div>

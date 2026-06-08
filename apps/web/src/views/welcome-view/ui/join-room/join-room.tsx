@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +21,7 @@ type JoinRoomProps = {
 };
 
 export function JoinRoom({ onJoin }: JoinRoomProps) {
+  const { t } = useTranslation();
   const [code, setCode] = useState("");
 
   const handleSubmit = () => {
@@ -29,11 +31,11 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Присоединиться к существующей игре</CardTitle>
+        <CardTitle>{t("welcome.joinRoom.heading")}</CardTitle>
       </CardHeader>
       <CardContent>
         <Field>
-          <FieldLabel>Код</FieldLabel>
+          <FieldLabel>{t("welcome.joinRoom.code.label")}</FieldLabel>
           <InputOTP maxLength={4} value={code} onChange={setCode}>
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -42,9 +44,7 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
               <InputOTPSlot index={3} />
             </InputOTPGroup>
           </InputOTP>
-          <FieldDescription>
-            Попросите хоста поделиться кодом комнаты
-          </FieldDescription>
+          <FieldDescription>{t("welcome.joinRoom.code.hint")}</FieldDescription>
         </Field>
       </CardContent>
       <CardFooter className="mt-auto">
@@ -53,7 +53,7 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
           className="w-full"
           disabled={code.length !== 4}
         >
-          Присоединиться
+          {t("welcome.joinRoom.submit")}
         </Button>
       </CardFooter>
     </Card>

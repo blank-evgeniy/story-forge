@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { testIdAttr } from "@/lib/tests/test-id";
 
 import { useRoomActions } from "../../model/room-actions-context";
@@ -11,6 +13,7 @@ import { WritingScreenTimer } from "./ui/writing-screen-timer";
 const testId = getTestId("writing-screen");
 
 export function WritingScreen() {
+  const { t } = useTranslation();
   const {
     round,
     totalRounds,
@@ -31,7 +34,7 @@ export function WritingScreen() {
             {...testIdAttr(testId("round"))}
             className="text-muted-foreground text-sm font-medium"
           >
-            Раунд {round} / {totalRounds}
+            {t("writing.round", { round, totalRounds })}
           </span>
           <WritingScreenTimer time={secondsPerTurn} />
         </div>

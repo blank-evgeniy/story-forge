@@ -1,4 +1,5 @@
 import { CheckIcon, XIcon, ZapIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { testIdAttr } from "@/lib/tests/test-id";
@@ -26,9 +27,11 @@ export function WritingScreenTwistPicker({
   isSkipped,
   isSubmitted,
 }: WritingScreenTwistPickerProps) {
+  const { t } = useTranslation();
+
   if (twists.length === 0) return null;
 
-  const pickedTwist = twists.find((t) => t.id === pickedTwistId) ?? null;
+  const pickedTwist = twists.find((tw) => tw.id === pickedTwistId) ?? null;
 
   if (pickedTwist) {
     return (
@@ -57,7 +60,7 @@ export function WritingScreenTwistPicker({
     return (
       <div className="border-muted text-muted-foreground flex items-center gap-2 rounded-lg border px-4 py-2 text-sm">
         <ZapIcon className="size-3.5 shrink-0" />
-        <span className="flex-1">Без твиста</span>
+        <span className="flex-1">{t("writing.twist.none")}</span>
         {!isSubmitted && (
           <Button
             {...testIdAttr(testId("unset"))}
@@ -80,7 +83,7 @@ export function WritingScreenTwistPicker({
         <div className="flex items-center gap-2">
           <ZapIcon className="text-primary size-3.5" />
           <h3 className="text-muted-foreground text-sm font-medium">
-            Выберите твист
+            {t("writing.twist.choose")}
           </h3>
         </div>
         <Button
@@ -90,7 +93,7 @@ export function WritingScreenTwistPicker({
           size="sm"
           onClick={() => onSkip(true)}
         >
-          Пропустить
+          {t("writing.twist.skip")}
         </Button>
       </div>
 

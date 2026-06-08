@@ -1,14 +1,17 @@
+import { useTranslation } from "react-i18next";
+
 import { Button } from "@/components/ui/button";
 
 import { useStoriesHistory } from "./stories-history-context";
 
 export function StoriesHistoryPicker() {
+  const { t } = useTranslation();
   const { stories, selectedStory, onSelectStory } = useStoriesHistory();
 
   return (
     <div className="flex flex-col gap-1.5">
       <span className="text-muted-foreground px-0.5 text-xs">
-        Хотите вспомнить истории игроков?
+        {t("reveal.history.remember")}
       </span>
       <div className="flex [scrollbar-width:none] gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {stories.map((story) => (

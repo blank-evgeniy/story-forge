@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import {
@@ -33,6 +34,7 @@ type LoginViewProps = {
 const testId = getTestId();
 
 export function LoginView({ onLogin }: LoginViewProps) {
+  const { t } = useTranslation();
   const [username, setUsername] = useState("");
   const [color, setColor] = useState<PlayerColor>(DEFAULT_PLAYER_COLOR);
   const [icon, setIcon] = useState<PlayerIcon>(DEFAULT_PLAYER_ICON);
@@ -42,7 +44,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
     const trimmedUsername = username.trim();
 
     if (!trimmedUsername || trimmedUsername.length < 2) {
-      toast.error("Введите никнейм из минимум 2 символов");
+      toast.error(t("login.error.nicknameMinLength"));
       return;
     }
 
@@ -58,24 +60,24 @@ export function LoginView({ onLogin }: LoginViewProps) {
             <span className="text-primary">Forge</span>
           </h1>
           <p className="text-muted-foreground mt-2 text-sm">
-            Совместное создание историй в реальном времени
+            {t("login.tagline")}
           </p>
         </div>
 
         <Card className="shadow-md">
           <CardHeader className="pb-4">
-            <CardTitle>Добро пожаловать!</CardTitle>
-            <CardDescription>Введите никнейм, чтобы начать</CardDescription>
+            <CardTitle>{t("login.heading")}</CardTitle>
+            <CardDescription>{t("login.subtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <Field>
-                <FieldLabel>Никнейм</FieldLabel>
+                <FieldLabel>{t("login.nickname.label")}</FieldLabel>
                 <Input
                   {...testIdAttr(testId("input-username"))}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Ваше имя..."
+                  placeholder={t("login.nickname.placeholder")}
                   autoFocus
                   autoComplete="off"
                 />
@@ -90,7 +92,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
               />
 
               <Field>
-                <FieldLabel>Цвет</FieldLabel>
+                <FieldLabel>{t("login.color")}</FieldLabel>
                 <PlayerColorPicker
                   value={color}
                   onChange={setColor}
@@ -99,7 +101,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
               </Field>
 
               <Field>
-                <FieldLabel>Иконка</FieldLabel>
+                <FieldLabel>{t("login.icon")}</FieldLabel>
                 <PlayerIconPicker
                   value={icon}
                   color={color}
@@ -113,7 +115,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
                 type="submit"
                 className="w-full"
               >
-                Вперёд!
+                {t("login.submit")}
               </Button>
             </form>
           </CardContent>

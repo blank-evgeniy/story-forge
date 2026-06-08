@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +29,7 @@ type CreateRoomProps = {
 };
 
 export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
+  const { t } = useTranslation();
   const [roundTime, setRoundTime] = useState<RoundTime>("60");
   const [enableBlind, setEnableBlind] = useState(true);
   const [enableTwists, setEnableTwists] = useState(true);
@@ -48,17 +50,15 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Создать новую игру</CardTitle>
+        <CardTitle>{t("welcome.createRoom.heading")}</CardTitle>
       </CardHeader>
       <CardContent>
         <FieldSet>
-          <FieldLegend>Настройки игры</FieldLegend>
-          <FieldDescription>
-            Вы можете изменить стандартные настройки игры или создать сразу
-          </FieldDescription>
+          <FieldLegend>{t("welcome.createRoom.settings")}</FieldLegend>
+          <FieldDescription>{t("welcome.createRoom.settingsHint")}</FieldDescription>
           <FieldGroup>
             <Field>
-              <FieldLabel>Время раунда (сек.)</FieldLabel>
+              <FieldLabel>{t("welcome.createRoom.roundTime")}</FieldLabel>
               <ToggleGroup
                 value={[roundTime]}
                 onValueChange={handleRoundTimeChange}
@@ -72,7 +72,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
             </Field>
 
             <Field>
-              <FieldLabel>Геймплей</FieldLabel>
+              <FieldLabel>{t("welcome.createRoom.gameplay")}</FieldLabel>
               <div className="flex items-center space-x-2">
                 <Switch
                   checked={enableBlind}
@@ -80,11 +80,12 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
                   id="airplane-mode"
                   disabled={isLoading}
                 />
-                <Label htmlFor="airplane-mode">Blind Mode</Label>
+                <Label htmlFor="airplane-mode">
+                  {t("welcome.createRoom.blindMode.label")}
+                </Label>
               </div>
               <FieldDescription>
-                Blind Mode - режим, в котором игрокам видно только последнее
-                сообщение при написании истории.
+                {t("welcome.createRoom.blindMode.description")}
               </FieldDescription>
 
               <div className="flex items-center space-x-2">
@@ -94,11 +95,12 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
                   id="enable-twists"
                   disabled={isLoading}
                 />
-                <Label htmlFor="enable-twists">Твисты</Label>
+                <Label htmlFor="enable-twists">
+                  {t("welcome.createRoom.twists.label")}
+                </Label>
               </div>
               <FieldDescription>
-                Твисты - это неожиданные события, которые могут произойти в
-                середине игры и изменить ход истории.
+                {t("welcome.createRoom.twists.description")}
               </FieldDescription>
             </Field>
           </FieldGroup>
@@ -106,7 +108,7 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
       </CardContent>
       <CardFooter className="mt-auto">
         <Button className="w-full" onClick={handleSubmit} isLoading={isLoading}>
-          Создать
+          {t("welcome.createRoom.submit")}
         </Button>
       </CardFooter>
     </Card>

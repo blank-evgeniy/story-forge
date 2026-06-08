@@ -1,5 +1,6 @@
 import { BookOpenIcon } from "lucide-react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Field, FieldContent, FieldLabel } from "@/components/ui/field";
@@ -10,12 +11,6 @@ import { testIdAttr } from "@/lib/tests/test-id";
 import { getTestId } from "../../../../utils/get-test-id";
 
 const testId = getTestId("reveal-ready-screen");
-
-function pluralizeStories(count: number): string {
-  if (count === 1) return "история";
-  if (count < 5) return "истории";
-  return "историй";
-}
 
 type RevealReadyScreenProps = {
   storiesCount: number;
@@ -28,6 +23,8 @@ export function RevealReadyScreen({
   onStart,
   onSwitchChange,
 }: RevealReadyScreenProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-6">
       <div className="flex flex-col items-center gap-3">
@@ -46,7 +43,7 @@ export function RevealReadyScreen({
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           className="text-2xl font-semibold tracking-tight"
         >
-          Истории написаны
+          {t("reveal.ready.heading")}
         </motion.h2>
 
         <motion.p
@@ -55,7 +52,7 @@ export function RevealReadyScreen({
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
           className="text-muted-foreground text-sm"
         >
-          {storiesCount} {pluralizeStories(storiesCount)}
+          {t("reveal.ready.storiesCount", { count: storiesCount })}
         </motion.p>
       </div>
 
@@ -81,12 +78,14 @@ export function RevealReadyScreen({
             onCheckedChange={onSwitchChange}
           />
           <FieldContent>
-            <FieldLabel htmlFor="player-mode">Включить озвучку</FieldLabel>
+            <FieldLabel htmlFor="player-mode">
+              {t("reveal.ready.enableNarration")}
+            </FieldLabel>
           </FieldContent>
         </Field>
 
         <Button {...testIdAttr(testId("start"))} onClick={onStart}>
-          Смотреть результаты
+          {t("reveal.ready.viewResults")}
         </Button>
       </motion.div>
     </div>

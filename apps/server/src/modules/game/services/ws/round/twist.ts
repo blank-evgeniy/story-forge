@@ -1,12 +1,15 @@
-import { Twist } from "../../../model/state";
+import { Locale, Twist } from "../../../model/state";
 import { twists } from "../data/twists";
 
-export function getTwistById(twistId: string): Twist | undefined {
-  return twists.find((t) => t.id === twistId);
+export function getTwistById(
+  twistId: string,
+  locale: Locale,
+): Twist | undefined {
+  return twists[locale].find((t) => t.id === twistId);
 }
 
-export function pickThreeTwists(): [Twist, Twist, Twist] {
-  const shuffled = [...twists].sort(() => Math.random() - 0.5);
+export function pickThreeTwists(locale: Locale): [Twist, Twist, Twist] {
+  const shuffled = [...twists[locale]].sort(() => Math.random() - 0.5);
   return [shuffled[0], shuffled[1], shuffled[2]];
 }
 

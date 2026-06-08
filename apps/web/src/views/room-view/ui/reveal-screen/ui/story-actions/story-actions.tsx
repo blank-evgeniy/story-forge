@@ -1,5 +1,6 @@
 import { CheckIcon, ShareIcon } from "lucide-react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +32,8 @@ export function StoryActions({
   isSaved,
   onSave,
 }: StoryActionsProps) {
+  const { t } = useTranslation();
+
   if (!showNextAction && !showSaveAction) return null;
 
   return (
@@ -50,13 +53,11 @@ export function StoryActions({
                 isLoading={saveIsLoading}
                 disabled={saveIsLoading || isSaved}
               >
-                {isSaved ? "Опубликовано" : "Опубликовать"}
+                {isSaved ? t("reveal.actions.published") : t("reveal.actions.publish")}
                 {isSaved ? <CheckIcon /> : <ShareIcon />}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>
-              История станет видна всем в публичной ленте
-            </TooltipContent>
+            <TooltipContent>{t("reveal.actions.publishTooltip")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       )}
@@ -66,7 +67,7 @@ export function StoryActions({
           onClick={onNext}
           disabled={saveIsLoading}
         >
-          Следующая история
+          {t("reveal.actions.next")}
         </Button>
       )}
     </motion.div>

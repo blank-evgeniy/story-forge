@@ -1,5 +1,5 @@
 import { ServerEvent } from "../../model/server-events";
-import { Player, RoomConfig, RoomState } from "../../model/state";
+import { Locale, Player, RoomConfig, RoomState } from "../../model/state";
 import { generateRoomCode } from "./utils/generateRoomCode";
 
 export type RoomContext = {
@@ -40,9 +40,10 @@ export class RoomManager {
    * Создаёт новую комнату с уникальным кодом.
    * @param hostId - id игрока-хоста
    * @param config - настройки комнаты
+   * @param locale - язык хоста на момент создания комнаты
    * @returns сгенерированный код новой комнаты
    */
-  create(hostId: string, config: RoomConfig): string {
+  create(hostId: string, config: RoomConfig, locale: Locale): string {
     const existingCodes = new Set(
       [...this.rooms].map(([_id, room]) => room.code),
     );
@@ -53,6 +54,7 @@ export class RoomManager {
       config,
       drafts: new Map(),
       hostId,
+      locale,
       nextTurnOrder: 1,
       players: new Map(),
       round: 1,

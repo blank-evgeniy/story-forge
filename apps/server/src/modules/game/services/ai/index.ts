@@ -11,19 +11,24 @@ const openrouter = createOpenRouter({
 export async function generateCommentary(
   room: RoomState,
 ): Promise<{ success: boolean; text: string }> {
+  const unknownPlayer = room.locale === "en" ? "Unknown" : "Неизвестный";
+
   const storiesText = room.stories
     .map((story, i) => {
       const ownerName =
-        room.players.get(story.ownerId)?.username ?? "Неизвестный";
+        room.players.get(story.ownerId)?.username ?? unknownPlayer;
       const lines = story.entries
         .map((s) => {
           const author =
-            room.players.get(s.playerId)?.username ?? "Неизвестный";
+            room.players.get(s.playerId)?.username ?? unknownPlayer;
           const twistPart = s.twist ? ` [twist: ${s.twist.content}]` : "";
           return `  [${author}]${twistPart}: ${s.content}`;
         })
         .join("\n");
-      return `История ${i + 1} (начата игроком ${ownerName}):\n${lines}`;
+
+      return room.locale === "en"
+        ? `Story ${i + 1} (started by ${ownerName}):\n${lines}`
+        : `История ${i + 1} (начата игроком ${ownerName}):\n${lines}`;
     })
     .join("\n\n");
 
@@ -34,7 +39,7 @@ export async function generateCommentary(
     "meta-llama/llama-3.2-3b-instruct:free",
   ];
 
-  const prompt = getPrompt(storiesText);
+  const prompt = getPrompt(storiesText, room.locale);
 
   for (const model of models) {
     try {

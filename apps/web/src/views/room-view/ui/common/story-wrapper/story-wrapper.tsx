@@ -1,5 +1,6 @@
 import { BookOpenIcon } from "lucide-react";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ScrollArea, useStickToBottom } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,8 @@ export function StoryWrapper({
   gap = "sm",
   className,
 }: StoryWrapperProps) {
+  const { t } = useTranslation();
+
   const viewportRef = useRef<HTMLDivElement>(null);
   useStickToBottom(viewportRef);
 
@@ -32,7 +35,9 @@ export function StoryWrapper({
         <div className="text-muted-foreground mb-3 flex items-center gap-2">
           <BookOpenIcon className="size-4" />
           <span className="text-xs font-medium tracking-wide uppercase">
-            {storyOwner ? `История (${storyOwner})` : "История"}
+            {storyOwner
+              ? `${t("common.story")} (${storyOwner})`
+              : t("common.story")}
           </span>
         </div>
         <div
