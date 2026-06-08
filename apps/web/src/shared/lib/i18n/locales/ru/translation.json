@@ -178,5 +178,21 @@
     "heading": "Страница не найдена",
     "description": "Такой страницы не существует или она была удалена",
     "backToHome": "На главную"
+  },
+  "titles": {
+    "welcome": "Добро пожаловать в StoryForge",
+    "stories": "Сохраненные истории | StoryForge",
+    "login": "Вход | StoryForge",
+    "profileEdit": "Профиль | StoryForge",
+    "room": {
+      "idle": "Лобби",
+      "lobby": "Лобби",
+      "writing": "Раунд {{round}}",
+      "reveal": "Результаты",
+      "revealing": "Вы готовы?",
+      "roundStarting": "Раунд начинается..."
+    },
+    "notFound": "Страница не найдена | StoryForge",
+    "error": "Произошла ошибка | StoryForge"
   }
 }

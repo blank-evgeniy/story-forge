@@ -121,11 +121,7 @@
       "publishError": "Failed to publish the story"
     },
     "transition": {
-      "phrases": [
-        "Stories await...",
-        "The curtain rises...",
-        "Time to read..."
-      ]
+      "phrases": ["Stories await...", "The curtain rises...", "Time to read..."]
     }
   },
   "aiComment": {
@@ -177,5 +173,21 @@
     "heading": "Page not found",
     "description": "This page doesn't exist or has been removed",
     "backToHome": "Back to home"
+  },
+  "titles": {
+    "welcome": "Welcome to StoryForge",
+    "stories": "Saved stories | StoryForge",
+    "login": "Login | StoryForge",
+    "profileEdit": "Profile | StoryForge",
+    "room": {
+      "idle": "Lobby",
+      "lobby": "Lobby",
+      "roundStarting": "Round starting...",
+      "writing": "Round {{round}}",
+      "revealing": "Are you ready?",
+      "reveal": "Results"
+    },
+    "notFound": "Page not found | StoryForge",
+    "error": "Error | StoryForge"
   }
 }

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { useTranslation } from "react-i18next";
 
 import type { StoryListItemDTO } from "@/shared/api/requests/types";
@@ -23,6 +24,8 @@ export function StoriesView({
   modalSlot,
 }: StoriesViewProps) {
   const { t } = useTranslation();
+
+  useDocumentTitle(t("titles.stories"));
 
   return (
     <>

@@ -1,3 +1,4 @@
+import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -32,6 +33,8 @@ export function ProfileEditView({
   onLogout,
 }: ProfileEditViewProps) {
   const { t } = useTranslation();
+
+  useDocumentTitle(t("titles.profileEdit"));
 
   return (
     <div className="mt-4 flex flex-1 justify-center lg:mt-[10vh]">

@@ -1,3 +1,4 @@
+import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { Link } from "@tanstack/react-router";
 import { CircleAlertIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -10,6 +11,8 @@ type ErrorViewProps = {
 
 export function ErrorView({ reset }: ErrorViewProps) {
   const { t } = useTranslation();
+
+  useDocumentTitle(t("titles.error"));
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">

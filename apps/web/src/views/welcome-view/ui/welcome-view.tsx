@@ -1,3 +1,4 @@
+import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { useTranslation } from "react-i18next";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
@@ -16,6 +17,8 @@ export function WelcomeView({
   defaultTab = "create",
 }: WelcomeViewProps) {
   const { t } = useTranslation();
+
+  useDocumentTitle(t("titles.welcome"));
 
   return (
     <div className="mt-4 flex flex-1 flex-col gap-4 lg:mt-[10vh]">

@@ -1,4 +1,6 @@
+import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { AnimatePresence } from "motion/react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { gameRoute } from "@/app/routes/routes";
@@ -34,6 +36,22 @@ export function RoomViewFlow() {
   });
 
   const status = useRoomStore((store) => store.status);
+  const round = useRoomStore((store) => store.round);
+
+  const documentTitle = useDocumentTitle(t("titles.room.lobby"));
+
+  useEffect(() => {
+    const title = {
+      idle: t("titles.room.lobby"),
+      lobby: t("titles.room.lobby"),
+      round_starting: t("titles.room.roundStarting"),
+      writing: t("titles.room.writing", { round }),
+      revealing: t("titles.room.revealing"),
+      reveal: t("titles.room.reveal"),
+    }[status];
+
+    documentTitle.set(title);
+  }, [documentTitle, status]);
 
   if (wsStatus === "connecting")
     return <RoomLoading title={t("connection.connecting")} />;

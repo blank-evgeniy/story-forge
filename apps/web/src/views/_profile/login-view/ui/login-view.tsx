@@ -1,3 +1,4 @@
+import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -21,6 +22,8 @@ type LoginViewProps = {
 
 export function LoginView({ onLogin }: LoginViewProps) {
   const { t } = useTranslation();
+
+  useDocumentTitle(t("titles.login"));
 
   return (
     <div className="mt-4 flex flex-1 justify-center lg:mt-[10vh]">
