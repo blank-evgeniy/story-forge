@@ -141,7 +141,7 @@ describe("onSubmitEntry handler", () => {
 
     onSubmitEntry(makeWs(), { content: "villain text", twistId: "twist-1" });
 
-    expect(getTwistById).toHaveBeenCalledWith("twist-1");
+    expect(getTwistById).toHaveBeenCalledWith("twist-1", room.locale);
     expect(room.stories[0].entries[0].twist).toEqual(twist);
   });
 

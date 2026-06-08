@@ -8,6 +8,7 @@ export function makeRoom(overrides: Partial<RoomState> = {}): RoomState {
     config: { blindMode: false, enableTwists: false, secondsPerTurn: 60 },
     drafts: new Map(),
     hostId: "p1",
+    locale: "ru",
     nextTurnOrder: 3,
     players: new Map([
       [

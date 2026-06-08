@@ -12,8 +12,10 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "format": "prettier --write .",
-    "test": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test": "pnpm test:unit && pnpm test:e2e"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

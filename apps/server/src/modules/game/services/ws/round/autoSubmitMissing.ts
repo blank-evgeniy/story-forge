@@ -17,7 +17,9 @@ export function autoSubmitMissing(room: RoomState) {
     room.stories[storyIndex].entries.push({
       content: draft?.content || "...",
       playerId: player.id,
-      twist: draft?.twistId ? getTwistById(draft.twistId) : undefined,
+      twist: draft?.twistId
+        ? getTwistById(draft.twistId, room.locale)
+        : undefined,
       wasTimeout: true,
     });
 

@@ -10,7 +10,7 @@ export function sendYourTurn(room: RoomState, player: Player) {
 
   roomManager.send(room, player.id, {
     prevEntry: getEntry(room, player.id, room.config.blindMode),
-    twistsToChoose: showTwist ? pickThreeTwists() : undefined,
+    twistsToChoose: showTwist ? pickThreeTwists(room.locale) : undefined,
     type: "your_turn",
   });
 }

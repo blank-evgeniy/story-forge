@@ -23,7 +23,7 @@ export function onSubmitEntry(
     playerId,
     twist:
       room.config.enableTwists && event.twistId
-        ? getTwistById(event.twistId)
+        ? getTwistById(event.twistId, room.locale)
         : undefined,
     wasTimeout: false,
   });

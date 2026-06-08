@@ -1,5 +1,6 @@
 export type CreateRoomDTO = {
   playerId: string;
+  locale: string;
   config: {
     secondsPerTurn: number;
     blindMode: boolean;

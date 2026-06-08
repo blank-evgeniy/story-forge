@@ -1,4 +1,5 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
+import i18n from "i18next";
 import { useEffect } from "react";
 
 import { useUserStore } from "@/store/user";
@@ -27,6 +28,7 @@ export function WelcomeViewConnector() {
     mutate(
       {
         playerId,
+        locale: i18n.language,
         config: {
           secondsPerTurn: Number(data.roundTime),
           blindMode: data.blindMode,
