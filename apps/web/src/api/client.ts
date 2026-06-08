@@ -1,7 +1,9 @@
 import { ofetch } from "ofetch";
 
+import { env } from "@/lib/config/env";
+
 export const client = ofetch.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: env.VITE_API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },

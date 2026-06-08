@@ -1,8 +1,9 @@
+import { env } from "@/lib/config/env";
+
 export const testIdAttr = (
   id: string | undefined,
 ): { "data-testid": string } | undefined =>
-  id !== undefined &&
-  (import.meta.env.VITE_TEST || import.meta.env.VITE_E2E)
+  id !== undefined && (env.VITEST || env.VITE_E2E)
     ? { "data-testid": id }
     : undefined;
 

@@ -3,11 +3,12 @@ import { createRoot } from "react-dom/client";
 
 import { App } from "./app";
 import "./app/styles/index.css";
+import { env } from "./lib/config/env";
 import "./lib/i18n/i18n-setup";
 
 const root = createRoot(document.getElementById("root")!);
 
-const app = import.meta.env.VITE_E2E ? (
+const app = env.VITE_E2E ? (
   <App />
 ) : (
   <StrictMode>

@@ -7,6 +7,8 @@ import type {
   PlayerIconDto,
 } from "@/api/ws/types";
 
+import { env } from "@/lib/config/env";
+
 import { useRoomStore } from "../model/use-room-store";
 
 export type UseRoomSocketOptions = {
@@ -33,7 +35,7 @@ export const useRoomSocket = ({
   }, [resetStore, roomCode]);
 
   const { status, open, send, close, client } = useWebSocket(
-    import.meta.env.VITE_WS_BASE_URL,
+    env.VITE_WS_BASE_URL,
     {
       onConnected: (ws) => {
         const event: ClientEvent = {
