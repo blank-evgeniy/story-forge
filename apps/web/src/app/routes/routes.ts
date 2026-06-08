@@ -11,6 +11,7 @@ import { z } from "zod";
 
 import { Spinner } from "@/shared/ui/spinner";
 import { useUserStore } from "@/store/user";
+import { ErrorView } from "@/views/error-view";
 import { NotFoundView } from "@/views/not-found-view";
 
 import { AppLayout } from "../layout";
@@ -18,7 +19,6 @@ import { requireAuth } from "./require-auth";
 
 const rootRoute = createRootRoute({
   component: () => createElement(Outlet, null),
-  notFoundComponent: () => createElement(NotFoundView, null),
 });
 
 const appLayoutRoute = createRoute({
@@ -117,6 +117,9 @@ const routeTree = rootRoute.addChildren([
 export const router = createRouter({
   routeTree,
   defaultViewTransition: true,
+  defaultNotFoundComponent: () =>
+    createElement(AppLayout, null, createElement(NotFoundView, null)),
+  defaultErrorComponent: ({ reset }) => createElement(ErrorView, { reset }),
   defaultPendingComponent: () =>
     createElement(
       "div",

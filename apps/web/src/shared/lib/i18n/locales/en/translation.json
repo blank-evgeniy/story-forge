@@ -121,7 +121,11 @@
       "publishError": "Failed to publish the story"
     },
     "transition": {
-      "phrases": ["Stories await...", "The curtain rises...", "Time to read..."]
+      "phrases": [
+        "Stories await...",
+        "The curtain rises...",
+        "Time to read..."
+      ]
     }
   },
   "aiComment": {
@@ -162,6 +166,12 @@
     "connecting": "Connecting...",
     "lost": "Connection lost",
     "failed": "Failed to connect"
+  },
+  "error": {
+    "heading": "Something went wrong",
+    "description": "An unexpected error occurred. Try refreshing the page or going back to home",
+    "retry": "Try again",
+    "backToHome": "Back to home"
   },
   "notFound": {
     "heading": "Page not found",
