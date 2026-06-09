@@ -5,7 +5,7 @@ import { PlayerAvatar } from "@/shared/ui/player-customization";
 
 import type { Story } from "../../../../model/types";
 
-import { isPlayerEntry } from "../../../../model/type-guards";
+import { isPlayerEntry } from "../../../../model/types";
 import { MessageRow } from "../../../common/message-row";
 import { PlayerMessage } from "../../../common/player-message";
 import { StoryWrapper } from "../../../common/story-wrapper";

@@ -1,6 +1,6 @@
 import type { StoryEntry } from "@/views/room-view/model/types";
 
-import { isPlayerEntry } from "@/views/room-view/model/type-guards";
+import { isPlayerEntry } from "@/views/room-view/model/types";
 
 export type EntryWithSide = {
   entry: StoryEntry;

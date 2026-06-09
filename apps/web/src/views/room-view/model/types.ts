@@ -44,3 +44,7 @@ export type PrevEntry = {
   entry: string;
   twist?: string;
 };
+
+export function isPlayerEntry(entry: StoryEntry): entry is PlayerEntry {
+  return entry.type === "player";
+}

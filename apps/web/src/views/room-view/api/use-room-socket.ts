@@ -9,7 +9,7 @@ import type {
 
 import { env } from "@/shared/lib/config/env";
 
-import { useRoomStore } from "../model/use-room-store";
+import { useRoomStore } from "../model/store/use-room-store";
 
 export type UseRoomSocketOptions = {
   color: PlayerColorDto;

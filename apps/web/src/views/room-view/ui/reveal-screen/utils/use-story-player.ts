@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { ms } from "@/shared/lib/ms";
 
-import { useRoomStore } from "../../../model/use-room-store";
+import { useRoomStore } from "../../../model/store/use-room-store";
 
 const FIRST_ENTRY_DELAY = ms(1200);
 const BASE_DELAY = ms(1500);

@@ -1,2 +1,1 @@
-export { StoryActions } from "./story-actions";
-export type { StoryActionsProps } from "./story-actions";
+export { StoryActionsConnector } from "./story-actions-connector";

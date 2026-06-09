@@ -6,9 +6,9 @@ import type { ServerEvent } from "@/shared/api/ws/types";
 import { router } from "@/app/routes/routes";
 import { useUserStore } from "@/store/user";
 
-import type { Player, PrevEntry, Story, TwistsSet } from "./types";
+import type { Player, PrevEntry, Story, TwistsSet } from "../types";
 
-import { mapStories } from "./map";
+import { mapStories } from "../map";
 
 type RoomActions = {
   handleEvent: (event: ServerEvent) => void;

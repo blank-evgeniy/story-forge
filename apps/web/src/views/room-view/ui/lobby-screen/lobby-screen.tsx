@@ -1,5 +1,5 @@
-import { useRoomActions } from "../../model/room-actions-context";
-import { useRoomStore } from "../../model/use-room-store";
+import { useRoomActions } from "../../model/context/room-actions-context";
+import { useRoomStore } from "../../model/store/use-room-store";
 import { GameRules } from "./ui/game-rules";
 import { LobbyQrCode } from "./ui/lobby-qr-code";
 import { LobbyScreenLayout } from "./ui/lobby-screen-layout";

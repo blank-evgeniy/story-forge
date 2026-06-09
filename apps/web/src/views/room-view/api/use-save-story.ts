@@ -1,8 +1,8 @@
 import { useMutation } from "@siberiacancode/reactuse";
 
-import type { SaveStoryDTO } from "@/shared/api/requests/types";
-
 import { saveStory } from "@/shared/api/requests/save-story";
 
-export const useSaveStory = () =>
-  useMutation((data: SaveStoryDTO) => saveStory(data));
+export const useSaveStory = (roomCode: string) =>
+  useMutation(({ storyId }: { storyId: string }) =>
+    saveStory({ roomCode, storyId }),
+  );

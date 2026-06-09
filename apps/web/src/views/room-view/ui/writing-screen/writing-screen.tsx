@@ -1,5 +1,5 @@
-import { useRoomActions } from "../../model/room-actions-context";
-import { useRoomStore } from "../../model/use-room-store";
+import { useRoomActions } from "../../model/context/room-actions-context";
+import { useRoomStore } from "../../model/store/use-room-store";
 import { RoundCounter } from "./ui/round-counter";
 import { WritingScreenLayout } from "./ui/writing-screen-layout";
 import { WritingScreenPlayers } from "./ui/writing-screen-players";

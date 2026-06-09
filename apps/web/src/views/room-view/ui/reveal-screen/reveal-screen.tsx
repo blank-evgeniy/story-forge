@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 
-import { useSaveStory } from "../../api/use-save-story";
-import { useRoomActions } from "../../model/room-actions-context";
-import { useRoomStore } from "../../model/use-room-store";
+import { useRoomActions } from "../../model/context/room-actions-context";
+import { useRoomStore } from "../../model/store/use-room-store";
 import { AiCommentCard } from "./ui/ai-comment-card";
 import { RestartGameAction } from "./ui/restart-game-action";
 import { RevealReadyScreen } from "./ui/reveal-ready-screen";
@@ -15,15 +12,10 @@ import {
   StoriesHistoryPicker,
   StoriesHistoryViewer,
 } from "./ui/stories-history";
-import { StoryActions, type StoryActionsProps } from "./ui/story-actions";
+import { StoryActionsConnector } from "./ui/story-actions";
 import { type StoryPlayerMode, useStoryPlayer } from "./utils";
 
-type RevealScreenProps = {
-  roomCode: string;
-};
-
-export function RevealScreen({ roomCode }: RevealScreenProps) {
-  const { t } = useTranslation();
+export function RevealScreen() {
   const [playerMode, setPlayerMode] = useState<StoryPlayerMode>("timer");
   const {
     allStories,
@@ -42,35 +34,9 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
   const isHost = useRoomStore((store) => store.isHost);
   const aiComment = useRoomStore((store) => store.aiComment);
   const aiCommentStatus = useRoomStore((store) => store.aiCommentStatus);
-  const savedStories = useRoomStore((store) => store.savedStories);
-  const addSavedStory = useRoomStore((store) => store.addSavedStory);
-
-  const { mutate: saveStory, isLoading: isSaving } = useSaveStory();
-
-  const handleSave = (storyId: string) =>
-    saveStory(
-      { roomCode, storyId },
-      {
-        onSuccess: () => {
-          addSavedStory(storyId);
-          toast.success(t("reveal.toast.publishSuccess"));
-        },
-        onError: () => {
-          toast.error(t("reveal.toast.publishError"));
-        },
-      },
-    );
-
-  const commonStoryActionsProps: (storyId: string) => StoryActionsProps = (
-    storyId,
-  ) => ({
-    onSave: () => handleSave(storyId),
-    isSaved: savedStories.includes(storyId),
-    saveIsLoading: isSaving,
-    showSaveAction: isHost,
-  });
 
   const [historyMode, setHistoryMode] = useState<boolean>(false);
+  const isRevealMode = !historyMode;
 
   const actions = useRoomActions();
 
@@ -93,25 +59,25 @@ export function RevealScreen({ roomCode }: RevealScreenProps) {
     >
       <RevealScreenLayout>
         <RevealScreenLayout.StorySection>
-          {historyMode ? (
-            <RevealScreenLayout.StoryHistoryAnimated key="history-mode">
-              <StoriesHistoryViewer
-                actionsSlot={(storyId) => (
-                  <StoryActions {...commonStoryActionsProps(storyId)} />
-                )}
-              />
-            </RevealScreenLayout.StoryHistoryAnimated>
-          ) : (
+          {isRevealMode ? (
             <RevealScreenLayout.StoryRevealAnimated key={storyIdx}>
               <RevealScreenStory shown={shown} story={currentStory} />
               {storyRevealed && (
-                <StoryActions
-                  {...commonStoryActionsProps(currentStory.id)}
-                  showNextAction={storyIdx < allStories.length - 1}
+                <StoryActionsConnector
+                  storyId={currentStory.id}
+                  showNext={storyIdx < allStories.length - 1}
                   onNext={nextStory}
                 />
               )}
             </RevealScreenLayout.StoryRevealAnimated>
+          ) : (
+            <RevealScreenLayout.StoryHistoryAnimated key="history-mode">
+              <StoriesHistoryViewer
+                actionsSlot={(storyId) => (
+                  <StoryActionsConnector storyId={storyId} />
+                )}
+              />
+            </RevealScreenLayout.StoryHistoryAnimated>
           )}
         </RevealScreenLayout.StorySection>
 
