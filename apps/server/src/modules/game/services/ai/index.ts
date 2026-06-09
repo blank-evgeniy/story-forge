@@ -39,7 +39,7 @@ export async function generateCommentary(
     "meta-llama/llama-3.2-3b-instruct:free",
   ];
 
-  const prompt = getPrompt(storiesText, room.locale);
+  const prompt = getPrompt(storiesText, room.locale, room.config.aiMood);
 
   for (const model of models) {
     try {

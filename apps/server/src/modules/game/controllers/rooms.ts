@@ -13,7 +13,12 @@ export const roomsModule = new Elysia({ prefix: "/rooms" })
     {
       body: z.object({
         config: z.object({
+          aiMood: z
+            .enum(["comedian", "critic", "fan", "philosopher", "teacher"])
+            .optional()
+            .optional(),
           blindMode: z.boolean(),
+          enableAiComment: z.boolean(),
           enableTwists: z.boolean(),
           secondsPerTurn: z.number().min(10).max(120),
         }),

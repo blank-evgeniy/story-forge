@@ -1,5 +1,7 @@
 import { ElysiaWS } from "elysia/dist/ws";
 
+export type AiMood = "comedian" | "critic" | "fan" | "philosopher" | "teacher";
+
 export type Locale = "en" | "ru";
 
 export interface Player {
@@ -19,7 +21,9 @@ export interface PlayerEntry {
 }
 
 export interface RoomConfig {
+  aiMood?: AiMood;
   blindMode: boolean;
+  enableAiComment: boolean;
   enableTwists: boolean;
   secondsPerTurn: number;
 }
