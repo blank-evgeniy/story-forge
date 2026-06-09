@@ -5,9 +5,9 @@ import { Field, FieldDescription, FieldLabel } from "@/shared/ui/field";
 import { Label } from "@/shared/ui/label";
 import { Switch } from "@/shared/ui/switch";
 
-import type { AiMood } from "../../model/types";
+import type { AiMood } from "../../../model/types";
 
-import { aiMoodOptions } from "../../model/consts";
+import { aiMoodOptions } from "../../../model/consts";
 
 type AiCommentSettingsProps = {
   onChangeEnable: (value: boolean) => void;
@@ -63,9 +63,7 @@ export function AiCommentSettings({
           </div>
 
           {selectedMoodOption?.description && (
-            <p className="text-muted-foreground text-sm">
-              {`${t(selectedMoodOption.label)}: ${t(selectedMoodOption.description)}`}
-            </p>
+            <p className="text-sm">{t(selectedMoodOption.description)}</p>
           )}
         </div>
       )}

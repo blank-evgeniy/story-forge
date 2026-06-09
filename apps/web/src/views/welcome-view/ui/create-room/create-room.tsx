@@ -1,38 +1,26 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-
-import { Button } from "@/shared/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/shared/ui/card";
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
-} from "@/shared/ui/field";
-import { Label } from "@/shared/ui/label";
-import { Switch } from "@/shared/ui/switch";
-import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
+import { type ReactNode, useState } from "react";
 
 import type { AiMood } from "../../model/types";
 import type { CreateRoomSchema, RoundTime } from "../../model/types";
 
-import { AiCommentSettings } from "./ai-comment-settings";
+import { AiCommentSettings } from "./ui/ai-comment-settings";
+import { BlindModeSwitch } from "./ui/blind-mode-switch";
+import { CreateRoomAction } from "./ui/create-room-action";
+import { CreateRoomLayout } from "./ui/create-room-layout";
+import { RoundTimeToggle } from "./ui/round-time-toggle";
+import { TwistsSwitch } from "./ui/twists-switch";
 
 type CreateRoomProps = {
   onCreate: (data: CreateRoomSchema) => void;
   isLoading: boolean;
+  serverStatusSlot?: ReactNode;
 };
 
-export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
-  const { t } = useTranslation();
+export function CreateRoom({
+  onCreate,
+  isLoading,
+  serverStatusSlot,
+}: CreateRoomProps) {
   const [roundTime, setRoundTime] = useState<RoundTime>("60");
   const [enableBlind, setEnableBlind] = useState(true);
   const [enableTwists, setEnableTwists] = useState(true);
@@ -55,78 +43,39 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("welcome.createRoom.heading")}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <FieldSet>
-          <FieldLegend>{t("welcome.createRoom.settings")}</FieldLegend>
-          <FieldDescription>
-            {t("welcome.createRoom.settingsHint")}
-          </FieldDescription>
-          <FieldGroup>
-            <Field>
-              <FieldLabel>{t("welcome.createRoom.roundTime")}</FieldLabel>
-              <ToggleGroup
-                value={[roundTime]}
-                onValueChange={handleRoundTimeChange}
-                disabled={isLoading}
-                variant={"outline"}
-              >
-                <ToggleGroupItem value="30">30</ToggleGroupItem>
-                <ToggleGroupItem value="60">60</ToggleGroupItem>
-                <ToggleGroupItem value="90">90</ToggleGroupItem>
-              </ToggleGroup>
-            </Field>
+    <CreateRoomLayout>
+      <CreateRoomLayout.Content>
+        <RoundTimeToggle
+          value={roundTime}
+          onValueChange={handleRoundTimeChange}
+          disabled={isLoading}
+        />
 
-            <Field>
-              <FieldLabel>{t("welcome.createRoom.gameplay")}</FieldLabel>
-              <div className="flex items-center space-x-2">
-                <Switch
-                  checked={enableBlind}
-                  onCheckedChange={setEnableBlind}
-                  id="enable-blind"
-                  disabled={isLoading}
-                />
-                <Label htmlFor="enable-blind">
-                  {t("welcome.createRoom.blindMode.label")}
-                </Label>
-              </div>
-              <FieldDescription>
-                {t("welcome.createRoom.blindMode.description")}
-              </FieldDescription>
+        <CreateRoomLayout.GameplaySection>
+          <BlindModeSwitch
+            checked={enableBlind}
+            onCheckedChange={setEnableBlind}
+            disabled={isLoading}
+          />
+          <TwistsSwitch
+            checked={enableTwists}
+            onCheckedChange={setEnableTwists}
+            disabled={isLoading}
+          />
+        </CreateRoomLayout.GameplaySection>
 
-              <div className="flex items-center space-x-2">
-                <Switch
-                  checked={enableTwists}
-                  onCheckedChange={setEnableTwists}
-                  id="enable-twists"
-                  disabled={isLoading}
-                />
-                <Label htmlFor="enable-twists">
-                  {t("welcome.createRoom.twists.label")}
-                </Label>
-              </div>
-              <FieldDescription>
-                {t("welcome.createRoom.twists.description")}
-              </FieldDescription>
-            </Field>
+        <AiCommentSettings
+          enable={enableAiComment}
+          onChangeEnable={setEnableAiComment}
+          selectedMood={aiMood}
+          onSelectedMood={setAiMood}
+        />
+      </CreateRoomLayout.Content>
 
-            <AiCommentSettings
-              enable={enableAiComment}
-              onChangeEnable={setEnableAiComment}
-              selectedMood={aiMood}
-              onSelectedMood={setAiMood}
-            />
-          </FieldGroup>
-        </FieldSet>
-      </CardContent>
-      <CardFooter className="mt-auto">
-        <Button className="w-full" onClick={handleSubmit} isLoading={isLoading}>
-          {t("welcome.createRoom.submit")}
-        </Button>
-      </CardFooter>
-    </Card>
+      <CreateRoomLayout.Footer>
+        {serverStatusSlot}
+        <CreateRoomAction onClick={handleSubmit} isLoading={isLoading} />
+      </CreateRoomLayout.Footer>
+    </CreateRoomLayout>
   );
 }

@@ -6,14 +6,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 type WelcomeViewProps = {
   createRoomSlot: React.ReactNode;
   joinRoomSlot: React.ReactNode;
-  serverStatusSlot?: React.ReactNode;
   defaultTab?: "create" | "join";
 };
 
 export function WelcomeView({
   createRoomSlot,
   joinRoomSlot,
-  serverStatusSlot,
   defaultTab = "create",
 }: WelcomeViewProps) {
   const { t } = useTranslation();
@@ -21,21 +19,17 @@ export function WelcomeView({
   useDocumentTitle(t("titles.welcome"));
 
   return (
-    <div className="mt-4 flex flex-1 flex-col gap-4 lg:mt-[10vh]">
-      <Tabs
-        defaultValue={defaultTab}
-        className="flex w-full flex-col"
-        orientation="horizontal"
-      >
-        <TabsList className={"w-full"}>
-          <TabsTrigger value="create">{t("welcome.tabs.newGame")}</TabsTrigger>
-          <TabsTrigger value="join">{t("welcome.tabs.join")}</TabsTrigger>
-        </TabsList>
-        <TabsContent value="create">{createRoomSlot}</TabsContent>
-        <TabsContent value="join">{joinRoomSlot}</TabsContent>
-      </Tabs>
-
-      <div className="mt-auto">{serverStatusSlot}</div>
-    </div>
+    <Tabs
+      defaultValue={defaultTab}
+      className="mt-4 flex w-full flex-1 flex-col lg:mt-10"
+      orientation="horizontal"
+    >
+      <TabsList className={"w-full"}>
+        <TabsTrigger value="create">{t("welcome.tabs.newGame")}</TabsTrigger>
+        <TabsTrigger value="join">{t("welcome.tabs.join")}</TabsTrigger>
+      </TabsList>
+      <TabsContent value="create">{createRoomSlot}</TabsContent>
+      <TabsContent value="join">{joinRoomSlot}</TabsContent>
+    </Tabs>
   );
 }

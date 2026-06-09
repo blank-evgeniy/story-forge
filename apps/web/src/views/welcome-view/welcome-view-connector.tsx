@@ -52,10 +52,13 @@ export function WelcomeViewConnector() {
   return (
     <WelcomeView
       createRoomSlot={
-        <CreateRoom onCreate={handleCreateRoom} isLoading={isLoading} />
+        <CreateRoom
+          onCreate={handleCreateRoom}
+          isLoading={isLoading}
+          serverStatusSlot={<ServerStatusConnector />}
+        />
       }
       joinRoomSlot={<JoinRoom onJoin={handleJoinRoom} />}
-      serverStatusSlot={<ServerStatusConnector />}
       defaultTab={tab}
     />
   );
