@@ -23,6 +23,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             variant={"ghost"}
             size={"icon"}
             render={<Link to="/stories" />}
+            nativeButton={false}
             aria-label={t("layout.storiesButton")}
           >
             <BookOpen className="size-5" />
@@ -32,6 +33,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               variant={"ghost"}
               className={"flex max-w-40 gap-2"}
               render={<Link to="/profile" />}
+              nativeButton={false}
             >
               <PlayerAvatar
                 color={user.color}
