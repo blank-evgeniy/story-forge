@@ -43,7 +43,13 @@ function setStories(stories: Story[]) {
   );
 }
 
-const mockSpeechSynthesis = { cancel: vi.fn(), speak: vi.fn() };
+const mockSpeechSynthesis = {
+  cancel: vi.fn(),
+  speak: vi.fn().mockImplementation((utterance: SpeechSynthesisUtterance) => {
+    utterance.onstart?.call(utterance, {} as SpeechSynthesisEvent);
+  }),
+  getVoices: vi.fn().mockReturnValue([{ name: "Test Voice" }]),
+};
 
 beforeEach(() => {
   vi.useFakeTimers();

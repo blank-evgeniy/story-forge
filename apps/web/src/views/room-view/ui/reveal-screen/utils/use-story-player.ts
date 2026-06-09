@@ -1,8 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ms } from "@/shared/lib/ms";
 
 import { useRoomStore } from "../../../model/store/use-room-store";
+
+const SPEECH_LANG: Record<string, string> = {
+  ru: "ru-RU",
+  en: "en-US",
+  "ru-RU": "ru-RU",
+  "en-US": "en-US",
+};
 
 const FIRST_ENTRY_DELAY = ms(1200);
 const BASE_DELAY = ms(1500);
@@ -20,6 +28,7 @@ interface UseStoryPlayerOptions {
 }
 
 export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
+  const { i18n } = useTranslation();
   const stories = useRoomStore((store) => store.allStories);
 
   const [started, setStarted] = useState(false);
@@ -41,12 +50,10 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
       return () => clearTimeout(timeout);
     }
 
-    const utterance = new SpeechSynthesisUtterance(currentEntry.content);
-    utterance.pitch = 0.4;
-    utterance.rate = 1.5;
-    utterance.lang = "ru-RU";
+    let cancelled = false;
+    let speechStarted = false;
 
-    utterance.onend = () => {
+    const advance = () => {
       const isLastMessage = entryIndex === currentStory.entries.length - 1;
       if (isLastMessage) {
         if (storyIdx >= stories.length - 1) {
@@ -58,10 +65,35 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
       }
     };
 
+    const utterance = new SpeechSynthesisUtterance(currentEntry.content);
+    utterance.pitch = 0.7;
+    utterance.rate = 1;
+    utterance.lang = SPEECH_LANG[i18n.language] ?? i18n.language;
+
+    utterance.onstart = () => {
+      speechStarted = true;
+    };
+
+    utterance.onend = () => {
+      if (cancelled) return;
+      // Chrome bug: onend fires immediately without onstart on some systems — fall back to timer
+      if (!speechStarted) {
+        timeoutRef.current = setTimeout(
+          advance,
+          getReadingDelay(currentEntry.content),
+        );
+        return;
+      }
+      advance();
+    };
+
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
 
-    return () => window.speechSynthesis.cancel();
+    return () => {
+      cancelled = true;
+      window.speechSynthesis.cancel();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, started, entryIndex, storyIdx, finished]);
 
@@ -95,9 +127,29 @@ export function useStoryPlayer({ mode = "timer" }: UseStoryPlayerOptions = {}) {
 
   const start = () => {
     if (mode === "speech") {
-      const unlock = new SpeechSynthesisUtterance("");
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(unlock);
+      const speak = () => {
+        const unlock = new SpeechSynthesisUtterance("");
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(unlock);
+        setStarted(true);
+      };
+
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        speak();
+      } else {
+        const fallback = setTimeout(() => {
+          window.speechSynthesis.onvoiceschanged = null;
+          speak();
+        }, 1000);
+
+        window.speechSynthesis.onvoiceschanged = () => {
+          clearTimeout(fallback);
+          window.speechSynthesis.onvoiceschanged = null;
+          speak();
+        };
+      }
+      return;
     }
     setStarted(true);
   };
