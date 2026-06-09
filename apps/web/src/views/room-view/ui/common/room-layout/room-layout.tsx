@@ -4,8 +4,8 @@ import { Link } from "@tanstack/react-router";
 import { ChevronLeftIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { AppLogo } from "@/components/app-logo";
-import { Button } from "@/components/ui/button";
+import { AppLogo } from "@/shared/ui/app-logo";
+import { Button } from "@/shared/ui/button";
 
 export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();

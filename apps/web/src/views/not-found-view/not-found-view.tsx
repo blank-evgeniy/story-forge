@@ -1,10 +1,13 @@
+import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 
 export function NotFoundView() {
   const { t } = useTranslation();
+
+  useDocumentTitle(t("titles.notFound"));
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">

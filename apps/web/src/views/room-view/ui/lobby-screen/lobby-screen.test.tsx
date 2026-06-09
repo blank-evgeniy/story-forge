@@ -3,30 +3,31 @@ import userEvent from "@testing-library/user-event";
 
 import type { Player } from "../../model/types";
 
-import { type RoomState, useRoomStore } from "../../model/use-room-store";
+import { type RoomState, useRoomStore } from "../../model/store/use-room-store";
 import { LobbyScreen } from "./lobby-screen";
 
-vi.mock("../../model/use-room-store", () => ({ useRoomStore: vi.fn() }));
-vi.mock("../../model/room-actions-context", () => ({
+vi.mock("../../model/store/use-room-store", () => ({ useRoomStore: vi.fn() }));
+vi.mock("../../model/context/room-actions-context", () => ({
   useRoomActions: vi.fn(),
 }));
-vi.mock("@/lib/hooks/use-tw-breakpoints", () => ({
+vi.mock("@/shared/hooks/use-tw-breakpoints", () => ({
   useTwBreakpoints: () => ({ smaller: () => false }),
 }));
 vi.mock("qrcode.react", () => ({
   QRCodeSVG: () => <svg data-testid="qr-code" />,
 }));
 
-import { useRoomActions } from "../../model/room-actions-context";
+import { useRoomActions } from "../../model/context/room-actions-context";
 import { getTestId } from "../../utils/get-test-id";
 
 const getPlayerListTestId = getTestId("player-list");
-const getLobbyScreenTestId = getTestId("lobby-screen");
+const getRoomCodeViewerTestId = getTestId("room-code-viewer");
+const getStartGameActionTestId = getTestId("start-game-action");
 
 const testIds = {
-  start: getLobbyScreenTestId("start"),
-  roomCode: getLobbyScreenTestId("room-code"),
-  waitingMessage: getLobbyScreenTestId("waiting-message"),
+  start: getStartGameActionTestId("start"),
+  roomCode: getRoomCodeViewerTestId("room-code"),
+  waitingMessage: getStartGameActionTestId("waiting-message"),
   playersList: getPlayerListTestId("list"),
   playerItem: (id: string) => getPlayerListTestId("item", id),
 };

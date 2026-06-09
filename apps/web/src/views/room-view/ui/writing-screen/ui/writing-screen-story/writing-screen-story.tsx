@@ -8,17 +8,13 @@ import { TwistMessage } from "../../../common/twist-message";
 
 type WritingScreenStoryProps = {
   story: PrevEntry[] | null;
-  className?: string;
 };
 
-export function WritingScreenStory({
-  story,
-  className,
-}: WritingScreenStoryProps) {
+export function WritingScreenStory({ story }: WritingScreenStoryProps) {
   if (!story) return null;
 
   return (
-    <StoryWrapper gap="md" className={className}>
+    <StoryWrapper gap="md" className="overflow-y-auto">
       {story.map((item, index) => (
         <Fragment key={index}>
           {item.twist && <TwistMessage message={item.twist} />}

@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
 import { ROUND_TRANSITION_DURATION_MS } from "../../../model/consts";
-import { useRoomStore } from "../../../model/use-room-store";
+import { useRoomStore } from "../../../model/store/use-room-store";
 
 export function RoundTransitionOverlay() {
   const { t } = useTranslation();

@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
 
+import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { useTranslation } from "react-i18next";
 
-import type { StoryListItemDTO } from "@/api/requests/types";
+import type { StoryListItemDTO } from "@/shared/api/requests/types";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/shared/ui/card";
 
 import { StoriesSkeleton } from "./stories-skeleton";
 import { StoryCard } from "./story-card";
@@ -23,6 +24,8 @@ export function StoriesView({
   modalSlot,
 }: StoriesViewProps) {
   const { t } = useTranslation();
+
+  useDocumentTitle(t("titles.stories"));
 
   return (
     <>

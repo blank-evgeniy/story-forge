@@ -1,11 +1,14 @@
 import { type VariantProps } from "class-variance-authority";
 import { createContext, useContext } from "react";
 
-import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+import type {
+  PlayerColor,
+  PlayerIcon,
+} from "@/shared/consts/player-customization";
 
-import { PlayerAvatar } from "@/components/player-customization";
-import { avatarVariants } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
+import { avatarVariants } from "@/shared/ui/avatar";
+import { PlayerAvatar } from "@/shared/ui/player-customization";
 
 type PlayerCardContextValue = {
   color: PlayerColor;

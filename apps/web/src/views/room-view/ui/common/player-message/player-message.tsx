@@ -2,8 +2,8 @@ import {
   DEFAULT_PLAYER_COLOR,
   type PlayerColor,
   playerColorClasses,
-} from "@/lib/player-customization";
-import { cn } from "@/lib/utils";
+} from "@/shared/consts/player-customization";
+import { cn } from "@/shared/lib/utils";
 
 type PlayerMessageProps = {
   message: string;

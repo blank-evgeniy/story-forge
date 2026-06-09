@@ -2,11 +2,11 @@ import { BookOpenIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
-import { Field, FieldContent, FieldLabel } from "@/components/ui/field";
-import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
-import { testIdAttr } from "@/lib/tests/test-id";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
+import { Button } from "@/shared/ui/button";
+import { Field, FieldContent, FieldLabel } from "@/shared/ui/field";
+import { Separator } from "@/shared/ui/separator";
+import { Switch } from "@/shared/ui/switch";
 
 import { getTestId } from "../../../../utils/get-test-id";
 

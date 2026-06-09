@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { useRoomStore } from "../../model/use-room-store";
+import { useRoomStore } from "../../model/store/use-room-store";
 import {
   withRoomActions,
   withRoomLayout,

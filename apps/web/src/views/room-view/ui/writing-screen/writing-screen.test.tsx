@@ -3,11 +3,11 @@ import userEvent from "@testing-library/user-event";
 import i18n from "i18next";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { type RoomState, useRoomStore } from "../../model/use-room-store";
+import { type RoomState, useRoomStore } from "../../model/store/use-room-store";
 import { WritingScreen } from "./writing-screen";
 
-vi.mock("../../model/use-room-store", () => ({ useRoomStore: vi.fn() }));
-vi.mock("../../model/room-actions-context", () => ({
+vi.mock("../../model/store/use-room-store", () => ({ useRoomStore: vi.fn() }));
+vi.mock("../../model/context/room-actions-context", () => ({
   useRoomActions: vi.fn(),
 }));
 vi.mock("@siberiacancode/reactuse", () => ({
@@ -15,15 +15,15 @@ vi.mock("@siberiacancode/reactuse", () => ({
   useDebounceCallback: (fn: (...args: unknown[]) => void) => fn,
 }));
 
-import { useRoomActions } from "../../model/room-actions-context";
+import { useRoomActions } from "../../model/context/room-actions-context";
 import { getTestId } from "../../utils/get-test-id";
 
-const getWritingScreenTestId = getTestId("writing-screen");
+const getRoundCounterTestId = getTestId("round-counter");
 const getInputTestId = getTestId("writing-screen-input");
 const getTwistPickerTestId = getTestId("writing-screen-twist-picker");
 
 const testIds = {
-  round: getWritingScreenTestId("round"),
+  round: getRoundCounterTestId("round"),
   textarea: getInputTestId("textarea"),
   submit: getInputTestId("submit"),
   edit: getInputTestId("edit"),

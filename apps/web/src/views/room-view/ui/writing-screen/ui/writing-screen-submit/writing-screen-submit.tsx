@@ -1,6 +1,6 @@
 import { Activity, useState } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 
 import type { TwistsSet } from "../../../../model/types";
 

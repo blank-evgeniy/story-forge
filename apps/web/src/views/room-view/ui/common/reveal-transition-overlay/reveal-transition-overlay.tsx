@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { REVEAL_TRANSITION_DURATION_MS } from "../../../model/consts";
-import { useRoomStore } from "../../../model/use-room-store";
+import { useRoomStore } from "../../../model/store/use-room-store";
 
 export function RevealTransitionOverlay() {
   const { t } = useTranslation();

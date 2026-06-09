@@ -6,7 +6,7 @@ import {
   DEFAULT_PLAYER_ICON,
   type PlayerColor,
   type PlayerIcon,
-} from "@/lib/player-customization";
+} from "@/shared/consts/player-customization";
 
 type User = {
   id: string;

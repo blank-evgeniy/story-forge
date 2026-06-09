@@ -1,9 +1,9 @@
 import type { Player } from "@/views/room-view/model/types";
 
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useTwBreakpoints } from "@/lib/hooks/use-tw-breakpoints";
-import { testIdAttr } from "@/lib/tests/test-id";
-import { cn } from "@/lib/utils";
+import { useTwBreakpoints } from "@/shared/hooks/use-tw-breakpoints";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
+import { cn } from "@/shared/lib/utils";
+import { ScrollArea, ScrollBar } from "@/shared/ui/scroll-area";
 
 import { getTestId } from "../../../../utils/get-test-id";
 import {

@@ -2,8 +2,8 @@ import { BookOpenIcon } from "lucide-react";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ScrollArea, useStickToBottom } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
+import { ScrollArea, useStickToBottom } from "@/shared/ui/scroll-area";
 
 type StoryWrapperProps = {
   storyOwner?: string;

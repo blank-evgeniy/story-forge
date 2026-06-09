@@ -2,10 +2,13 @@ import { act, renderHook } from "@testing-library/react";
 
 import type { Story } from "../../../model/types";
 
-import { type RoomState, useRoomStore } from "../../../model/use-room-store";
+import {
+  type RoomState,
+  useRoomStore,
+} from "../../../model/store/use-room-store";
 import { useStoryPlayer } from "./use-story-player";
 
-vi.mock("../../../model/use-room-store", () => ({
+vi.mock("../../../model/store/use-room-store", () => ({
   useRoomStore: vi.fn(),
 }));
 
@@ -40,7 +43,13 @@ function setStories(stories: Story[]) {
   );
 }
 
-const mockSpeechSynthesis = { cancel: vi.fn(), speak: vi.fn() };
+const mockSpeechSynthesis = {
+  cancel: vi.fn(),
+  speak: vi.fn().mockImplementation((utterance: SpeechSynthesisUtterance) => {
+    utterance.onstart?.call(utterance, {} as SpeechSynthesisEvent);
+  }),
+  getVoices: vi.fn().mockReturnValue([{ name: "Test Voice" }]),
+};
 
 beforeEach(() => {
   vi.useFakeTimers();

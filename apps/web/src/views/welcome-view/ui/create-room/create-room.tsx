@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/shared/ui/card";
 import {
   Field,
   FieldDescription,
@@ -16,10 +16,10 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from "@/components/ui/field";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+} from "@/shared/ui/field";
+import { Label } from "@/shared/ui/label";
+import { Switch } from "@/shared/ui/switch";
+import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
 
 import type { CreateRoomSchema, RoundTime } from "../../model/types";
 
@@ -55,7 +55,9 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
       <CardContent>
         <FieldSet>
           <FieldLegend>{t("welcome.createRoom.settings")}</FieldLegend>
-          <FieldDescription>{t("welcome.createRoom.settingsHint")}</FieldDescription>
+          <FieldDescription>
+            {t("welcome.createRoom.settingsHint")}
+          </FieldDescription>
           <FieldGroup>
             <Field>
               <FieldLabel>{t("welcome.createRoom.roundTime")}</FieldLabel>

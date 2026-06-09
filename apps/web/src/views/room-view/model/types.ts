@@ -1,4 +1,7 @@
-import type { PlayerColor, PlayerIcon } from "@/lib/player-customization";
+import type {
+  PlayerColor,
+  PlayerIcon,
+} from "@/shared/consts/player-customization";
 
 export type Player = {
   color: PlayerColor;
@@ -41,3 +44,7 @@ export type PrevEntry = {
   entry: string;
   twist?: string;
 };
+
+export function isPlayerEntry(entry: StoryEntry): entry is PlayerEntry {
+  return entry.type === "player";
+}

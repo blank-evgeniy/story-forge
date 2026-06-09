@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { useRoomStore } from "../../model/use-room-store";
+import { useRoomStore } from "../../model/store/use-room-store";
 import {
   withRoomActions,
   withRoomLayout,
+  withSaveStoryContext,
 } from "../../utils/storybook-decorators";
 import { MOCK_STORIES } from "../../utils/storybook-mocks";
 import { RevealScreen } from "./reveal-screen";
@@ -14,7 +15,7 @@ const meta = {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [withRoomActions, withRoomLayout],
+  decorators: [withRoomActions, withRoomLayout, withSaveStoryContext],
   args: {
     roomCode: "1111",
   },

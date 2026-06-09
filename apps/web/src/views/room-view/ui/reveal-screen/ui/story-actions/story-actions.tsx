@@ -2,14 +2,14 @@ import { CheckIcon, ShareIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
+import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
+import { Button } from "@/shared/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { testIdAttr } from "@/lib/tests/test-id";
+} from "@/shared/ui/tooltip";
 
 import { getTestId } from "../../../../utils/get-test-id";
 
@@ -53,11 +53,15 @@ export function StoryActions({
                 isLoading={saveIsLoading}
                 disabled={saveIsLoading || isSaved}
               >
-                {isSaved ? t("reveal.actions.published") : t("reveal.actions.publish")}
+                {isSaved
+                  ? t("reveal.actions.published")
+                  : t("reveal.actions.publish")}
                 {isSaved ? <CheckIcon /> : <ShareIcon />}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>{t("reveal.actions.publishTooltip")}</TooltipContent>
+            <TooltipContent>
+              {t("reveal.actions.publishTooltip")}
+            </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       )}

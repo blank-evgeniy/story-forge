@@ -1,6 +1,6 @@
 import i18n from "i18next";
 
-import { ms } from "@/lib/ms";
+import { ms } from "@/shared/lib/ms";
 
 export const PLAYER_NAME_PLACEHOLDER = i18n.t("room.unknownPlayer");
 export const ROUND_TRANSITION_DURATION_MS = ms(2000);

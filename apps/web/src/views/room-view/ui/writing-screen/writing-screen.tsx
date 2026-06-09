@@ -1,19 +1,13 @@
-import { useTranslation } from "react-i18next";
-
-import { testIdAttr } from "@/lib/tests/test-id";
-
-import { useRoomActions } from "../../model/room-actions-context";
-import { useRoomStore } from "../../model/use-room-store";
-import { getTestId } from "../../utils/get-test-id";
+import { useRoomActions } from "../../model/context/room-actions-context";
+import { useRoomStore } from "../../model/store/use-room-store";
+import { RoundCounter } from "./ui/round-counter";
+import { WritingScreenLayout } from "./ui/writing-screen-layout";
 import { WritingScreenPlayers } from "./ui/writing-screen-players";
 import { WritingScreenStory } from "./ui/writing-screen-story";
 import { WritingScreenSubmit } from "./ui/writing-screen-submit";
 import { WritingScreenTimer } from "./ui/writing-screen-timer";
 
-const testId = getTestId("writing-screen");
-
 export function WritingScreen() {
-  const { t } = useTranslation();
   const {
     round,
     totalRounds,
@@ -27,24 +21,19 @@ export function WritingScreen() {
   const actions = useRoomActions();
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4" key={round}>
-      <div className="flex min-h-0 flex-1 flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <span
-            {...testIdAttr(testId("round"))}
-            className="text-muted-foreground text-sm font-medium"
-          >
-            {t("writing.round", { round, totalRounds })}
-          </span>
+    <WritingScreenLayout key={round}>
+      <WritingScreenLayout.Header>
+        <WritingScreenLayout.HeaderMeta>
+          <RoundCounter current={round} total={totalRounds} />
           <WritingScreenTimer time={secondsPerTurn} />
-        </div>
+        </WritingScreenLayout.HeaderMeta>
 
         <WritingScreenPlayers players={players} submittedIds={submittedIds} />
 
-        <WritingScreenStory story={prevEntry} className="overflow-y-auto" />
-      </div>
+        <WritingScreenStory story={prevEntry} />
+      </WritingScreenLayout.Header>
 
-      <div className="mt-auto">
+      <WritingScreenLayout.InputSection>
         <WritingScreenSubmit
           isFirstRound={round === 1}
           twistsToChoose={twistsToChoose}
@@ -52,7 +41,7 @@ export function WritingScreen() {
           onDraft={actions.draftEntry}
           onEdit={actions.editEntry}
         />
-      </div>
-    </div>
+      </WritingScreenLayout.InputSection>
+    </WritingScreenLayout>
   );
 }

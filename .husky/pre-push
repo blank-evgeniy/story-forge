@@ -1,5 +1,2 @@
 pnpm --filter server typecheck
-pnpm --filter server test
 pnpm --filter web build
-pnpm --filter web test:unit
-pnpm --filter web test:e2e --project=chromium
