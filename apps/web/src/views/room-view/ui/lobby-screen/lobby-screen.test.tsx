@@ -21,12 +21,13 @@ import { useRoomActions } from "../../model/room-actions-context";
 import { getTestId } from "../../utils/get-test-id";
 
 const getPlayerListTestId = getTestId("player-list");
-const getLobbyScreenTestId = getTestId("lobby-screen");
+const getRoomCodeViewerTestId = getTestId("room-code-viewer");
+const getStartGameActionTestId = getTestId("start-game-action");
 
 const testIds = {
-  start: getLobbyScreenTestId("start"),
-  roomCode: getLobbyScreenTestId("room-code"),
-  waitingMessage: getLobbyScreenTestId("waiting-message"),
+  start: getStartGameActionTestId("start"),
+  roomCode: getRoomCodeViewerTestId("room-code"),
+  waitingMessage: getStartGameActionTestId("waiting-message"),
   playersList: getPlayerListTestId("list"),
   playerItem: (id: string) => getPlayerListTestId("item", id),
 };

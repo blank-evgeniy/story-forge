@@ -39,13 +39,13 @@ const ROOM_CODE = "ABCD";
 const roomViewTestId = getTestIdGenerator("room-view");
 
 const testIds = {
-  lobbyStart: roomViewTestId("lobby-screen")("start"),
+  lobbyStart: roomViewTestId("start-game-action")("start"),
   writingTextarea: roomViewTestId("writing-screen-input")("textarea"),
   writingSubmit: roomViewTestId("writing-screen-input")("submit"),
   revealReadyStart: roomViewTestId("reveal-ready-screen")("start"),
   storyActionsNext: roomViewTestId("story-actions")("next"),
-  revealRestart: roomViewTestId("reveal-screen")("restart"),
-  lobbyWaiting: roomViewTestId("lobby-screen")("waiting-message"),
+  revealRestart: roomViewTestId("restart-game-action")("restart"),
+  lobbyWaiting: roomViewTestId("start-game-action")("waiting-message"),
 };
 
 function wsSend(ws: WebSocketRoute, event: ServerEvent) {

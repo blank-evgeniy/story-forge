@@ -18,12 +18,12 @@ vi.mock("@siberiacancode/reactuse", () => ({
 import { useRoomActions } from "../../model/room-actions-context";
 import { getTestId } from "../../utils/get-test-id";
 
-const getWritingScreenTestId = getTestId("writing-screen");
+const getRoundCounterTestId = getTestId("round-counter");
 const getInputTestId = getTestId("writing-screen-input");
 const getTwistPickerTestId = getTestId("writing-screen-twist-picker");
 
 const testIds = {
-  round: getWritingScreenTestId("round"),
+  round: getRoundCounterTestId("round"),
   textarea: getInputTestId("textarea"),
   submit: getInputTestId("submit"),
   edit: getInputTestId("edit"),

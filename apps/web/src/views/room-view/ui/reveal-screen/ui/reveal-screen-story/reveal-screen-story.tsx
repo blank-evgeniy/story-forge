@@ -15,14 +15,9 @@ import { assignSides } from "../../utils";
 type RevealScreenStoryProps = {
   story: Story;
   shown: number;
-  className?: string;
 };
 
-export function RevealScreenStory({
-  shown,
-  story,
-  className,
-}: RevealScreenStoryProps) {
+export function RevealScreenStory({ shown, story }: RevealScreenStoryProps) {
   const visibleEntries = story.entries.slice(0, shown);
   const entriesWithSides = assignSides(visibleEntries);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -32,7 +27,7 @@ export function RevealScreenStory({
   }, [shown]);
 
   return (
-    <StoryWrapper storyOwner={story.playerName} className={className}>
+    <StoryWrapper storyOwner={story.playerName} className="overflow-y-auto">
       <AnimatePresence initial={false}>
         {entriesWithSides.map(({ entry, side }, index) =>
           isPlayerEntry(entry) ? (

@@ -1,159 +1,45 @@
-import { BookOpenIcon, PenLineIcon } from "lucide-react";
-import { QRCodeSVG } from "qrcode.react";
-import { useTranslation } from "react-i18next";
-
-import { useTwBreakpoints } from "@/shared/hooks/use-tw-breakpoints";
-import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
-import { Button } from "@/shared/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/shared/ui/card";
-import { ScrollArea } from "@/shared/ui/scroll-area";
-import { Separator } from "@/shared/ui/separator";
-import { Spinner } from "@/shared/ui/spinner";
-
 import { useRoomActions } from "../../model/room-actions-context";
 import { useRoomStore } from "../../model/use-room-store";
-import { getTestId } from "../../utils/get-test-id";
+import { GameRules } from "./ui/game-rules";
+import { LobbyQrCode } from "./ui/lobby-qr-code";
+import { LobbyScreenLayout } from "./ui/lobby-screen-layout";
 import { PlayerList } from "./ui/player-list";
+import { PlayerListCounter } from "./ui/player-list-counter";
+import { RoomCodeViewer } from "./ui/room-code-viewer";
+import { StartGameAction } from "./ui/start-game-action";
 
 type LobbyScreenProps = {
   roomCode: string;
 };
 
-const testId = getTestId("lobby-screen");
-
 export function LobbyScreen({ roomCode }: LobbyScreenProps) {
-  const { t } = useTranslation();
-  const breakpoints = useTwBreakpoints();
-
   const players = useRoomStore((store) => store.players);
   const isHost = useRoomStore((store) => store.isHost);
 
   const actions = useRoomActions();
 
-  const rules = [
-    {
-      icon: PenLineIcon,
-      title: t("lobby.rule1.title"),
-      description: t("lobby.rule1.description"),
-    },
-    {
-      icon: BookOpenIcon,
-      title: t("lobby.rule2.title"),
-      description: t("lobby.rule2.description"),
-    },
-  ];
-
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row">
-      {breakpoints.smaller("sm") ? (
-        <PlayerList players={players} />
-      ) : (
-        <Card className="min-h-0 w-full lg:w-1/3">
-          <CardHeader className="hidden lg:flex">
-            <div className="flex w-full items-center justify-between">
-              <CardTitle>{t("lobby.players")}</CardTitle>
-              <span className="text-primary text-2xl font-bold">
-                {players.length}
-              </span>
-            </div>
-          </CardHeader>
-          <CardContent className="min-h-0">
-            <PlayerList players={players} />
-          </CardContent>
-        </Card>
-      )}
-
-      <Card
-        className="flex min-h-0 w-full flex-1 flex-col"
-        size={breakpoints.smaller("sm") ? "sm" : "default"}
+    <LobbyScreenLayout>
+      <LobbyScreenLayout.PlayersSidebar
+        headerSlot={<PlayerListCounter count={players.length} />}
       >
-        <ScrollArea className={"overflow-auto"}>
-          <CardContent className="flex flex-1 flex-col gap-6">
-            <CardTitle>{t("lobby.rules")}</CardTitle>
+        <PlayerList players={players} />
+      </LobbyScreenLayout.PlayersSidebar>
 
-            <div className="grid grid-cols-2 gap-4">
-              {rules.map(({ icon: Icon, title, description }) => (
-                <div
-                  key={title}
-                  className="bg-muted/50 flex flex-col gap-2 rounded-2xl p-4"
-                >
-                  <Icon className="text-primary size-5" />
-                  <p className="text-muted-foreground text-xs">{description}</p>
-                </div>
-              ))}
-            </div>
-            <Separator />
-
-            <div className="flex flex-col items-center gap-6">
-              <div className="flex flex-col items-center gap-2">
-                <p className="text-muted-foreground text-sm">
-                  {t("lobby.qr.scan")}
-                </p>
-                <div className="bg-primary/80 flex items-center justify-center rounded-lg p-3">
-                  <QRCodeSVG
-                    value={window.location.href}
-                    size={180}
-                    bgColor="transparent"
-                  />
-                </div>
-              </div>
-
-              <div className="flex w-full items-center gap-3">
-                <Separator className="flex-1" />
-                <span className="text-muted-foreground text-xs">
-                  {t("lobby.qr.or")}
-                </span>
-                <Separator className="flex-1" />
-              </div>
-
-              <div className="flex flex-col items-center gap-2">
-                <p className="text-muted-foreground text-sm">
-                  {t("lobby.qr.enter")}
-                </p>
-                <div
-                  {...testIdAttr(testId("room-code"))}
-                  className="flex items-center justify-center gap-2"
-                >
-                  {roomCode.split("").map((char, i) => (
-                    <div
-                      key={i}
-                      className="bg-muted border-border flex h-14 w-12 items-center justify-center rounded-xl border text-2xl font-bold"
-                    >
-                      {char}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </ScrollArea>
-        <Separator />
-        <CardFooter className="mt-auto flex justify-center">
-          {isHost ? (
-            <Button
-              {...testIdAttr(testId("start"))}
-              className="mt-auto w-full"
-              disabled={players.length < 2}
-              onClick={actions.startGame}
-            >
-              {t("lobby.startGame")}
-            </Button>
-          ) : (
-            <p
-              {...testIdAttr(testId("waiting-message"))}
-              className="text-muted-foreground flex items-center justify-center gap-2"
-            >
-              {t("lobby.waitingForHost")} <Spinner />
-            </p>
-          )}
-        </CardFooter>
-      </Card>
-    </div>
+      <LobbyScreenLayout.MainSection>
+        <LobbyScreenLayout.MainSectionBody
+          rulesSlot={<GameRules />}
+          qrSlot={<LobbyQrCode />}
+          codeSlot={<RoomCodeViewer roomCode={roomCode} />}
+        />
+        <LobbyScreenLayout.MainSectionFooter>
+          <StartGameAction
+            isHost={isHost}
+            onStartGame={actions.startGame}
+            disabled={players.length < 2}
+          />
+        </LobbyScreenLayout.MainSectionFooter>
+      </LobbyScreenLayout.MainSection>
+    </LobbyScreenLayout>
   );
 }
