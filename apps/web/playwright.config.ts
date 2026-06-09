@@ -73,6 +73,8 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     env: {
       VITE_E2E: "true",
+      VITE_API_BASE_URL: "http://localhost:3000/",
+      VITE_WS_BASE_URL: "ws://localhost:3000/ws",
     },
   },
 });

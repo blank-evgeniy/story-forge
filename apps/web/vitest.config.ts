@@ -17,6 +17,8 @@ export default defineConfig({
     exclude: ["e2e/**", "node_modules/**"],
     env: {
       NODE_ENV: "test",
+      VITE_API_BASE_URL: "http://localhost:3000",
+      VITE_WS_BASE_URL: "ws://localhost:3000",
     },
   },
 });
