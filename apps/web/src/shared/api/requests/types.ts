@@ -1,9 +1,13 @@
+type AiMoodDto = "comedian" | "critic" | "fan" | "philosopher" | "teacher";
+
 export type CreateRoomDTO = {
   playerId: string;
   locale: string;
   config: {
     secondsPerTurn: number;
     blindMode: boolean;
+    enableAiComment: boolean;
+    aiMood?: AiMoodDto;
     enableTwists: boolean;
   };
 };

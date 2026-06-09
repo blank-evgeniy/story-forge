@@ -38,6 +38,7 @@ type RoomData = {
   savedStories: string[];
   aiComment: string | null;
   aiCommentStatus: "idle" | "loading" | "success" | "error";
+  aiEnabled: boolean;
 };
 
 export type RoomState = RoomData & RoomActions;
@@ -57,6 +58,7 @@ const initialState: RoomData = {
   savedStories: [],
   aiComment: null,
   aiCommentStatus: "idle",
+  aiEnabled: false,
 };
 
 export const useRoomStore = create<RoomState>((set, get) => ({
@@ -76,6 +78,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
           secondsPerTurn: event.room.config.secondsPerTurn,
           totalRounds: event.room.totalRounds,
           isHost: event.room.hostId === userId,
+          aiEnabled: event.room.config.enableAiComment,
           allStories:
             event.room.status === "reveal"
               ? mapStories(event.room.players, event.room.stories)
@@ -161,11 +164,13 @@ export const useRoomStore = create<RoomState>((set, get) => ({
 
       case "all_revealed": {
         const stories = mapStories(get().players, event.stories);
-        set({
-          status: "revealing",
-          allStories: stories,
-          aiCommentStatus: "loading",
-        });
+        if (get().aiEnabled) {
+          set({
+            status: "revealing",
+            allStories: stories,
+            aiCommentStatus: "loading",
+          });
+        }
         break;
       }
 

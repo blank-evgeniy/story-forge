@@ -21,7 +21,10 @@ import { Label } from "@/shared/ui/label";
 import { Switch } from "@/shared/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
 
+import type { AiMood } from "../../model/types";
 import type { CreateRoomSchema, RoundTime } from "../../model/types";
+
+import { AiCommentSettings } from "./ai-comment-settings";
 
 type CreateRoomProps = {
   onCreate: (data: CreateRoomSchema) => void;
@@ -33,6 +36,8 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
   const [roundTime, setRoundTime] = useState<RoundTime>("60");
   const [enableBlind, setEnableBlind] = useState(true);
   const [enableTwists, setEnableTwists] = useState(true);
+  const [enableAiComment, setEnableAiComment] = useState(true);
+  const [aiMood, setAiMood] = useState<AiMood>("critic");
 
   const handleRoundTimeChange = (value: string[]) => {
     if (value.length === 0) return;
@@ -44,6 +49,8 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
       blindMode: enableBlind,
       roundTime,
       enableTwists,
+      enableAiComment,
+      aiMood,
     });
   };
 
@@ -79,10 +86,10 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
                 <Switch
                   checked={enableBlind}
                   onCheckedChange={setEnableBlind}
-                  id="airplane-mode"
+                  id="enable-blind"
                   disabled={isLoading}
                 />
-                <Label htmlFor="airplane-mode">
+                <Label htmlFor="enable-blind">
                   {t("welcome.createRoom.blindMode.label")}
                 </Label>
               </div>
@@ -105,6 +112,13 @@ export function CreateRoom({ onCreate, isLoading }: CreateRoomProps) {
                 {t("welcome.createRoom.twists.description")}
               </FieldDescription>
             </Field>
+
+            <AiCommentSettings
+              enable={enableAiComment}
+              onChangeEnable={setEnableAiComment}
+              selectedMood={aiMood}
+              onSelectedMood={setAiMood}
+            />
           </FieldGroup>
         </FieldSet>
       </CardContent>

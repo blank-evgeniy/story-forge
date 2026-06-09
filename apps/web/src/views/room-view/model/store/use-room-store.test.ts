@@ -45,7 +45,12 @@ const makeRoomDto = (overrides: Partial<RoomDto> = {}): RoomDto => ({
   round: 1,
   totalRounds: 3,
   submittedIds: [],
-  config: { secondsPerTurn: 60, blindMode: false, enableTwists: false },
+  config: {
+    secondsPerTurn: 60,
+    blindMode: false,
+    enableTwists: false,
+    enableAiComment: true,
+  },
   ...overrides,
 });
 

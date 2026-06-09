@@ -37,6 +37,25 @@
         "label": "Twists",
         "description": "Twists are unexpected events that can occur mid-game and change the course of the story."
       },
+      "aiComment": {
+        "title": "Story Oracle",
+        "label": "Enable Story Oracle",
+        "description": "The Story Oracle will comment on each story at the end of the game",
+        "mood": {
+          "comedian": "Comedian",
+          "critic": "Critic",
+          "fan": "Fan",
+          "philosopher": "Philosopher",
+          "teacher": "Teacher",
+          "description": {
+            "comedian": "Finds the humor in every story",
+            "critic": "Gives sharp, honest feedback",
+            "fan": "Enthusiastically praises every story",
+            "philosopher": "Reflects deeply on the meaning of the story",
+            "teacher": "Explains what was done well and what can be improved"
+          }
+        }
+      },
       "submit": "Create"
     },
     "joinRoom": {

@@ -57,6 +57,12 @@ export type ClientEvent =
 // Common
 
 export type RoomStatusDto = "lobby" | "writing" | "reveal";
+export type AiMoodDto =
+  | "comedian"
+  | "critic"
+  | "fan"
+  | "philosopher"
+  | "teacher";
 
 export type TwistDto = {
   id: string;
@@ -98,6 +104,8 @@ export type RoomDto = {
     secondsPerTurn: number;
     blindMode: boolean;
     enableTwists: boolean;
+    enableAiComment: boolean;
+    aiMood?: AiMoodDto;
   };
 };
 
