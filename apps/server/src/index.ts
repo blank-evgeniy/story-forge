@@ -16,7 +16,7 @@ const app = new Elysia()
     }),
   )
   .use(openapi())
-  .use(rateLimit())
+  .use(rateLimit({ duration: 60_000, max: 100 }))
   .use(storiesModule)
   .use(healthModule)
   .use(gameModule)
