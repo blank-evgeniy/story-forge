@@ -11,7 +11,7 @@
 
 ## Backlog
 
-- [ ] добавить rate limiting на WebSocket-события (дебаунс per-connection)
+- [x] добавить rate limiting
 - [x] добавить интернационализацию
 - [x] добавить unit-тесты для серверных хендлеров (bun test)
 - [x] добавить unit-тесты для use-room-store (vitest)

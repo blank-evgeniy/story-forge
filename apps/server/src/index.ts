@@ -1,6 +1,7 @@
 import { cors } from "@elysia/cors";
 import { openapi } from "@elysia/openapi";
 import { Elysia } from "elysia";
+import { rateLimit } from "elysia-rate-limit";
 
 import { gameModule } from "./modules/game";
 import { healthModule } from "./modules/health";
@@ -15,6 +16,7 @@ const app = new Elysia()
     }),
   )
   .use(openapi())
+  .use(rateLimit())
   .use(storiesModule)
   .use(healthModule)
   .use(gameModule)
