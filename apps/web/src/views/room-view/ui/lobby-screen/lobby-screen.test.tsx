@@ -1,6 +1,8 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { defaultRoomSettings } from "@/entities/room";
+
 import type { Player } from "../../model/types";
 
 import { type RoomState, useRoomStore } from "../../model/store/use-room-store";
@@ -50,7 +52,7 @@ function setStore({
   isHost = false,
 }: { players?: Player[]; isHost?: boolean } = {}) {
   vi.mocked(useRoomStore).mockImplementation((selector) =>
-    selector({ players, isHost } as RoomState),
+    selector({ players, isHost, settings: defaultRoomSettings } as RoomState),
   );
 }
 

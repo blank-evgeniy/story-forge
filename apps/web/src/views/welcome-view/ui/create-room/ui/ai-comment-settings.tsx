@@ -49,7 +49,7 @@ export function AiCommentSettings({
       {enable && (
         <div className="space-y-2">
           <div className="flex flex-wrap gap-2">
-            {aiMoodOptions.map(({ value, label }) => (
+            {aiMoodOptions.map(({ value }) => (
               <Button
                 key={value}
                 variant={selectedMood === value ? "default" : "outline"}
@@ -57,7 +57,7 @@ export function AiCommentSettings({
                 size="sm"
                 className="capitalize"
               >
-                {t(label)}
+                {t(`common.aiMood.${value}`)}
               </Button>
             ))}
           </div>

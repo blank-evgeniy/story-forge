@@ -3,8 +3,7 @@ import i18n from "i18next";
 import { useEffect } from "react";
 
 import { usePlayerStore } from "@/entities/player";
-
-import type { CreateRoomSchema } from "./model/types";
+import { mapRoomSettingsToConfigDto, type RoomSettings } from "@/entities/room";
 
 import { useCreateRoom } from "./api/use-create-room";
 import { CreateRoom } from "./ui/create-room";
@@ -22,22 +21,14 @@ export function WelcomeViewConnector() {
     if (tab) navigate({ to: "/", search: { tab: undefined }, replace: true });
   }, [tab, navigate]);
 
-  const handleCreateRoom = (data: CreateRoomSchema) => {
+  const handleCreateRoom = (data: RoomSettings) => {
     if (!playerId) return;
 
     mutate(
       {
         playerId,
         locale: i18n.language,
-        config: {
-          secondsPerTurn: Number(data.roundTime),
-          blindMode: data.blindMode,
-          enableTwists: data.enableTwists,
-          aiComment: {
-            enable: data.enableAiComment,
-            mood: data.aiMood,
-          },
-        },
+        config: mapRoomSettingsToConfigDto(data),
       },
       {
         onSuccess: (data) => {

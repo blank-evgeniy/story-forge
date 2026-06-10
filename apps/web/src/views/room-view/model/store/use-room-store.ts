@@ -5,6 +5,11 @@ import type { ServerEvent } from "@/shared/api/ws/types";
 
 import { router } from "@/app/routes/routes";
 import { usePlayerStore } from "@/entities/player";
+import {
+  defaultRoomSettings,
+  mapRoomConfigToSettings,
+  type RoomSettings,
+} from "@/entities/room";
 
 import type { Player, PrevEntry, Story, TwistsSet } from "../types";
 
@@ -38,6 +43,7 @@ type RoomData = {
   savedStories: string[];
   aiComment: string | null;
   aiCommentStatus: "idle" | "loading" | "success" | "error";
+  settings: RoomSettings;
 };
 
 export type RoomState = RoomData & RoomActions;
@@ -57,6 +63,7 @@ const initialState: RoomData = {
   savedStories: [],
   aiComment: null,
   aiCommentStatus: "idle",
+  settings: defaultRoomSettings,
 };
 
 export const useRoomStore = create<RoomState>((set, get) => ({
@@ -78,6 +85,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
           isHost: event.room.hostId === userId,
           aiCommentStatus: event.room.aiComment?.status ?? "idle",
           aiComment: event.room.aiComment?.content ?? null,
+          settings: mapRoomConfigToSettings(event.room.config),
           allStories:
             event.room.status === "reveal"
               ? mapStories(event.room.players, event.room.stories)
@@ -121,6 +129,10 @@ export const useRoomStore = create<RoomState>((set, get) => ({
             p.id === event.playerId ? { ...p, connected: true } : p,
           ),
         });
+        break;
+
+      case "config_edited":
+        set({ settings: mapRoomConfigToSettings(event.config) });
         break;
 
       case "game_started":
@@ -189,6 +201,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
           players: event.room.players,
           round: event.room.round,
           isHost: event.room.hostId === currentUser?.id,
+          settings: mapRoomConfigToSettings(event.room.config),
         });
         break;
       }

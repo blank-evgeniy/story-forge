@@ -1,7 +1,6 @@
 import { type ReactNode, useState } from "react";
 
-import type { AiMood } from "../../model/types";
-import type { CreateRoomSchema, RoundTime } from "../../model/types";
+import type { AiMood, RoomSettings } from "@/entities/room";
 
 import { AiCommentSettings } from "./ui/ai-comment-settings";
 import { BlindModeSwitch } from "./ui/blind-mode-switch";
@@ -11,7 +10,7 @@ import { RoundTimeToggle } from "./ui/round-time-toggle";
 import { TwistsSwitch } from "./ui/twists-switch";
 
 type CreateRoomProps = {
-  onCreate: (data: CreateRoomSchema) => void;
+  onCreate: (data: RoomSettings) => void;
   isLoading: boolean;
   serverStatusSlot?: ReactNode;
 };
@@ -21,7 +20,7 @@ export function CreateRoom({
   isLoading,
   serverStatusSlot,
 }: CreateRoomProps) {
-  const [roundTime, setRoundTime] = useState<RoundTime>("60");
+  const [roundTime, setRoundTime] = useState<number>(60);
   const [enableBlind, setEnableBlind] = useState(true);
   const [enableTwists, setEnableTwists] = useState(true);
   const [enableAiComment, setEnableAiComment] = useState(true);
@@ -29,7 +28,7 @@ export function CreateRoom({
 
   const handleRoundTimeChange = (value: string[]) => {
     if (value.length === 0) return;
-    setRoundTime(value[0] as RoundTime);
+    setRoundTime(Number(value[0]));
   };
 
   const handleSubmit = () => {
@@ -46,7 +45,7 @@ export function CreateRoom({
     <CreateRoomLayout>
       <CreateRoomLayout.Content>
         <RoundTimeToggle
-          value={roundTime}
+          value={roundTime.toString()}
           onValueChange={handleRoundTimeChange}
           disabled={isLoading}
         />

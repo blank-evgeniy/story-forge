@@ -1,11 +1,11 @@
 import { useRoomActions } from "../../model/context/room-actions-context";
 import { useRoomStore } from "../../model/store/use-room-store";
-import { GameRules } from "./ui/game-rules";
 import { LobbyQrCode } from "./ui/lobby-qr-code";
 import { LobbyScreenLayout } from "./ui/lobby-screen-layout";
 import { PlayerList } from "./ui/player-list";
 import { PlayerListCounter } from "./ui/player-list-counter";
 import { RoomCodeViewer } from "./ui/room-code-viewer";
+import { RoomSettingsViewer } from "./ui/room-settings-viewer";
 import { StartGameAction } from "./ui/start-game-action";
 
 type LobbyScreenProps = {
@@ -13,6 +13,7 @@ type LobbyScreenProps = {
 };
 
 export function LobbyScreen({ roomCode }: LobbyScreenProps) {
+  const settings = useRoomStore((store) => store.settings);
   const players = useRoomStore((store) => store.players);
   const isHost = useRoomStore((store) => store.isHost);
 
@@ -28,7 +29,7 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
 
       <LobbyScreenLayout.MainSection>
         <LobbyScreenLayout.MainSectionBody
-          rulesSlot={<GameRules />}
+          settingsSlot={<RoomSettingsViewer data={settings} />}
           qrSlot={<LobbyQrCode />}
           codeSlot={<RoomCodeViewer roomCode={roomCode} />}
         />

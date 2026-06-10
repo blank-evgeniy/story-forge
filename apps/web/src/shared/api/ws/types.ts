@@ -14,6 +14,11 @@ export type JoinRoomEvent = {
   playerId: string;
 };
 
+export type EditConfigEvent = {
+  type: "edit_config";
+  config: RoomConfigDto;
+};
+
 export type SubmitEntryEvent = {
   type: "submit_entry";
   content: string;
@@ -44,6 +49,7 @@ export type RestartGameEvent = {
 
 export type ClientEvent =
   | JoinRoomEvent
+  | EditConfigEvent
   | SubmitEntryEvent
   | DraftEntryEvent
   | EditEntryEvent
@@ -88,6 +94,16 @@ export type PlayerDto = {
   username: string;
 };
 
+export type RoomConfigDto = {
+  secondsPerTurn: number;
+  blindMode: boolean;
+  enableTwists: boolean;
+  aiComment: {
+    enable: boolean;
+    mood?: AiMoodDto;
+  };
+};
+
 export type RoomDto = {
   code: string;
   status: RoomStatusDto;
@@ -97,15 +113,7 @@ export type RoomDto = {
   round: number;
   totalRounds?: number;
   submittedIds: string[];
-  config: {
-    secondsPerTurn: number;
-    blindMode: boolean;
-    enableTwists: boolean;
-    aiComment: {
-      enable: boolean;
-      mood?: AiMoodDto;
-    };
-  };
+  config: RoomConfigDto;
   aiComment: {
     content?: string;
     status: "loading" | "success" | "error";
@@ -123,6 +131,11 @@ export type ErrorEvent = {
 export type RoomStateEvent = {
   type: "room_state";
   room: RoomDto;
+};
+
+export type ConfigEditedEvent = {
+  type: "config_edited";
+  config: RoomConfigDto;
 };
 
 export type PlayerJoinedEvent = {
@@ -201,6 +214,7 @@ export type GameRestartedEvent = {
 export type ServerEvent =
   | ErrorEvent
   | RoomStateEvent
+  | ConfigEditedEvent
   | PlayerJoinedEvent
   | PlayerLeftEvent
   | PlayerReconnectedEvent

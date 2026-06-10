@@ -1,7 +1,16 @@
 {
   "common": {
     "story": "Story",
-    "back": "Back"
+    "back": "Back",
+    "on": "On",
+    "off": "Off",
+    "aiMood": {
+      "comedian": "Comedian",
+      "critic": "Critic",
+      "fan": "Fan",
+      "philosopher": "Philosopher",
+      "teacher": "Teacher"
+    }
   },
   "login": {
     "tagline": "Real-time collaborative storytelling",
@@ -93,7 +102,14 @@
       "enter": "enter the code to join"
     },
     "startGame": "Start game",
-    "waitingForHost": "Waiting for the host to start the game"
+    "waitingForHost": "Waiting for the host to start the game",
+    "settings": {
+      "title": "Game settings",
+      "roundTime": "Round time (sec.)",
+      "blindMode": "Blind Mode",
+      "twists": "Twists",
+      "aiOracle": "Story Oracle"
+    }
   },
   "room": {
     "notFound": "Room not found",
