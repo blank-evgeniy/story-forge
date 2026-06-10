@@ -74,6 +74,7 @@ function makeRoomDto(
       enableTwists: false,
       aiComment: { enable: false },
     },
+    aiComment: null,
   };
 }
 

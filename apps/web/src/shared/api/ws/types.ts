@@ -106,6 +106,10 @@ export type RoomDto = {
       mood?: AiMoodDto;
     };
   };
+  aiComment: {
+    content?: string;
+    status: "loading" | "success" | "error";
+  } | null;
 };
 
 // Server Events
@@ -185,6 +189,10 @@ export type AiCommentEvent = {
   comment: string;
 };
 
+export type AiCommentStartedEvent = {
+  type: "ai_comment_started";
+};
+
 export type GameRestartedEvent = {
   type: "game_restarted";
   room: RoomDto;
@@ -205,4 +213,5 @@ export type ServerEvent =
   | RoundEndedEvent
   | AllRevealedEvent
   | AiCommentEvent
+  | AiCommentStartedEvent
   | GameRestartedEvent;

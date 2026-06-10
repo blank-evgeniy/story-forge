@@ -29,6 +29,7 @@ export function onRestartGame(ws: ElysiaWS) {
   room.submittedIds = new Set();
   room.drafts = new Map();
   room.round = 1;
+  room.aiComment = null;
 
   roomManager.broadcast(room, {
     room: serializeRoom(room),

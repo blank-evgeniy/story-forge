@@ -62,6 +62,7 @@ export class RoomManager {
       stories: [],
       submittedIds: new Set(),
       timer: null,
+      aiComment: null,
     });
 
     return code;

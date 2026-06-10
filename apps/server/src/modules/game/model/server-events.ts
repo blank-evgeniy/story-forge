@@ -6,6 +6,10 @@ export type AiCommentEvent = {
   type: "ai_comment";
 };
 
+export type AiCommentStartedEvent = {
+  type: "ai_comment_started";
+};
+
 export type AllRevealedEvent = {
   stories: StoryThread[];
   type: "all_revealed";
@@ -82,6 +86,7 @@ export type RoundStartedEvent = {
 
 export type ServerEvent =
   | AiCommentEvent
+  | AiCommentStartedEvent
   | AllRevealedEvent
   | ConfigEditedEvent
   | ErrorEvent

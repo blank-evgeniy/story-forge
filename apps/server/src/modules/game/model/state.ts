@@ -27,6 +27,10 @@ export interface PlayerEntry {
 export interface RoomState {
   code: string;
   config: RoomConfig;
+  aiComment: {
+    content?: string;
+    status: "loading" | "success" | "error";
+  } | null;
   drafts: Map<string, { content?: string; twistId?: string }>;
   hostId: string;
   locale: Locale;
