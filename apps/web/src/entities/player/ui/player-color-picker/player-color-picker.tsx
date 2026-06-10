@@ -1,14 +1,12 @@
-import {
-  PLAYER_COLORS,
-  type PlayerColor,
-  playerColorSwatchClasses,
-} from "@/shared/consts/player-customization";
 import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
 import {
   getTestIdGenerator,
   type WithModuleNamespace,
 } from "@/shared/lib/tests/test-id-generator";
 import { cn } from "@/shared/lib/utils";
+
+import { playerColorSwatchClasses } from "../../model/consts";
+import { PLAYER_COLORS, type PlayerColor } from "../../model/types";
 
 type PlayerColorPickerProps = {
   value: PlayerColor;

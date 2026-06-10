@@ -9,8 +9,8 @@ import {
 import { createElement } from "react";
 import { z } from "zod";
 
+import { usePlayerStore } from "@/entities/player";
 import { Spinner } from "@/shared/ui/spinner";
-import { useUserStore } from "@/store/user";
 import { ErrorView } from "@/views/error-view";
 import { NotFoundView } from "@/views/not-found-view";
 
@@ -43,14 +43,14 @@ const loginRoute = createRoute({
   getParentRoute: () => appLayoutRoute,
   path: "/login",
   component: lazyRouteComponent(
-    () => import("@/views/_profile/login-view"),
+    () => import("@/views/login-view"),
     "LoginViewConnector",
   ),
   validateSearch: z.object({
     redirect: z.string().optional(),
   }),
   beforeLoad: () => {
-    const user = useUserStore.getState().user;
+    const user = usePlayerStore.getState().player;
     if (user) {
       throw redirect({ to: "/" });
     }
@@ -100,7 +100,7 @@ export const profileRoute = createRoute({
   getParentRoute: () => guardedRoute,
   path: "profile",
   component: lazyRouteComponent(
-    () => import("@/views/_profile/profile-edit-view"),
+    () => import("@/views/profile-edit-view"),
     "ProfileEditViewConnector",
   ),
 });

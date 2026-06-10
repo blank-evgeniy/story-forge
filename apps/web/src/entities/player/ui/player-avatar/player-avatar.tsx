@@ -1,11 +1,5 @@
 import { type VariantProps } from "class-variance-authority";
 
-import {
-  playerAvatarColorClasses,
-  type PlayerColor,
-  type PlayerIcon,
-  playerIconComponents,
-} from "@/shared/consts/player-customization";
 import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
 import {
   getTestIdGenerator,
@@ -13,6 +7,13 @@ import {
 } from "@/shared/lib/tests/test-id-generator";
 import { cn } from "@/shared/lib/utils";
 import { Avatar, AvatarFallback, avatarVariants } from "@/shared/ui/avatar";
+
+import type { PlayerColor, PlayerIcon } from "../../model/types";
+
+import {
+  playerAvatarColorClasses,
+  playerIconComponents,
+} from "../../model/consts";
 
 type PlayerAvatarProps = VariantProps<typeof avatarVariants> & {
   color: PlayerColor;

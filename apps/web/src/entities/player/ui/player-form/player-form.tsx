@@ -2,12 +2,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-import {
-  DEFAULT_PLAYER_COLOR,
-  DEFAULT_PLAYER_ICON,
-  type PlayerColor,
-  type PlayerIcon,
-} from "@/shared/consts/player-customization";
 import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
 import {
   getTestIdGenerator,
@@ -16,13 +10,15 @@ import {
 import { Button } from "@/shared/ui/button";
 import { Field, FieldLabel } from "@/shared/ui/field";
 import { Input } from "@/shared/ui/input";
-import {
-  PlayerAvatar,
-  PlayerColorPicker,
-  PlayerIconPicker,
-} from "@/shared/ui/player-customization";
 
-type ProfileFormBaseProps = {
+import type { PlayerColor, PlayerIcon } from "../../model/types";
+
+import { DEFAULT_PLAYER_COLOR, DEFAULT_PLAYER_ICON } from "../../model/consts";
+import { PlayerAvatar } from "../player-avatar";
+import { PlayerColorPicker } from "../player-color-picker";
+import { PlayerIconPicker } from "../player-icon-picker";
+
+type PlayerFormProps = {
   onSubmit: (username: string, color: PlayerColor, icon: PlayerIcon) => void;
   initialData?: {
     username?: string;
@@ -32,12 +28,12 @@ type ProfileFormBaseProps = {
   mode: "create" | "edit";
 } & WithModuleNamespace;
 
-export function ProfileFormBase({
+export function PlayerForm({
   onSubmit,
   initialData,
   mode,
   namespace,
-}: ProfileFormBaseProps) {
+}: PlayerFormProps) {
   const getTestId = getTestIdGenerator(namespace);
   const testId = getTestId();
 

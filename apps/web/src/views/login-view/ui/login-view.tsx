@@ -1,10 +1,9 @@
 import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { useTranslation } from "react-i18next";
 
-import {
-  type PlayerColor,
-  type PlayerIcon,
-} from "@/shared/consts/player-customization";
+import type { PlayerColor, PlayerIcon } from "@/entities/player";
+
+import { PlayerForm } from "@/entities/player";
 import {
   Card,
   CardContent,
@@ -13,7 +12,6 @@ import {
   CardTitle,
 } from "@/shared/ui/card";
 
-import { ProfileFormBase } from "../../common/profile-form-base";
 import { MODULE_NAMESPACE } from "../utils/get-test-id";
 
 type LoginViewProps = {
@@ -44,7 +42,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
             <CardDescription>{t("login.subtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
-            <ProfileFormBase
+            <PlayerForm
               onSubmit={onLogin}
               mode="create"
               namespace={MODULE_NAMESPACE}

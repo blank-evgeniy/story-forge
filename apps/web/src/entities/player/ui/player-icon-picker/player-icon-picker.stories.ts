@@ -5,7 +5,7 @@ import { fn } from "storybook/test";
 import { PlayerIconPicker } from "./player-icon-picker";
 
 const meta = {
-  title: "PlayerCustomization/PlayerIconPicker",
+  title: "Player/PlayerIconPicker",
   component: PlayerIconPicker,
   tags: ["autodocs"],
   args: {

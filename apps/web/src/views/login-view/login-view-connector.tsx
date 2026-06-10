@@ -1,16 +1,13 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
 
-import type {
-  PlayerColor,
-  PlayerIcon,
-} from "@/shared/consts/player-customization";
+import type { PlayerColor, PlayerIcon } from "@/entities/player";
 
-import { useUserStore } from "@/store/user";
+import { usePlayerStore } from "@/entities/player";
 
 import { LoginView } from "./ui/login-view";
 
 export function LoginViewConnector() {
-  const { login } = useUserStore();
+  const { login } = usePlayerStore();
   const navigate = useNavigate();
   const { redirect } = useSearch({ from: "/app-layout/login" });
 

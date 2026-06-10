@@ -5,7 +5,7 @@ import { fn } from "storybook/test";
 import { PlayerColorPicker } from "./player-color-picker";
 
 const meta = {
-  title: "PlayerCustomization/PlayerColorPicker",
+  title: "Player/PlayerColorPicker",
   component: PlayerColorPicker,
   tags: ["autodocs"],
   args: {

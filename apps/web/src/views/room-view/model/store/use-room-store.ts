@@ -4,7 +4,7 @@ import { create } from "zustand";
 import type { ServerEvent } from "@/shared/api/ws/types";
 
 import { router } from "@/app/routes/routes";
-import { useUserStore } from "@/store/user";
+import { usePlayerStore } from "@/entities/player";
 
 import type { Player, PrevEntry, Story, TwistsSet } from "../types";
 
@@ -67,7 +67,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
   handleEvent(event: ServerEvent) {
     switch (event.type) {
       case "room_state": {
-        const currentUser = useUserStore.getState().user;
+        const currentUser = usePlayerStore.getState().player;
         const userId = currentUser?.id;
 
         set({
@@ -180,7 +180,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
       }
 
       case "game_restarted": {
-        const currentUser = useUserStore.getState().user;
+        const currentUser = usePlayerStore.getState().player;
         set({
           ...initialState,
           status: event.room.status,

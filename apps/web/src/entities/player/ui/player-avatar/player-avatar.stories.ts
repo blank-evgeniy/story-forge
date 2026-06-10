@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PlayerAvatar } from "./player-avatar";
 
 const meta = {
-  title: "PlayerCustomization/PlayerAvatar",
+  title: "Player/PlayerAvatar",
   component: PlayerAvatar,
   tags: ["autodocs"],
   args: {

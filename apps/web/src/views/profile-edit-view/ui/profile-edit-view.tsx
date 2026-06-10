@@ -1,10 +1,9 @@
 import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { useTranslation } from "react-i18next";
 
-import {
-  type PlayerColor,
-  type PlayerIcon,
-} from "@/shared/consts/player-customization";
+import type { PlayerColor, PlayerIcon } from "@/entities/player";
+
+import { PlayerForm } from "@/entities/player";
 import { Button } from "@/shared/ui/button";
 import {
   Card,
@@ -14,8 +13,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/ui/card";
-
-import { ProfileFormBase } from "../../common/profile-form-base";
 
 type ProfileEditViewProps = {
   initialUsername: string;
@@ -45,7 +42,7 @@ export function ProfileEditView({
             <CardDescription>{t("profile.subtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
-            <ProfileFormBase
+            <PlayerForm
               mode="edit"
               onSubmit={onSave}
               initialData={{

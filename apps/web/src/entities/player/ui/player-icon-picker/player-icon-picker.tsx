@@ -1,16 +1,19 @@
-import {
-  PLAYER_ICONS,
-  playerAvatarColorClasses,
-  type PlayerColor,
-  type PlayerIcon,
-  playerIconComponents,
-} from "@/shared/consts/player-customization";
 import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
 import {
   getTestIdGenerator,
   type WithModuleNamespace,
 } from "@/shared/lib/tests/test-id-generator";
 import { cn } from "@/shared/lib/utils";
+
+import {
+  playerAvatarColorClasses,
+  playerIconComponents,
+} from "../../model/consts";
+import {
+  PLAYER_ICONS,
+  type PlayerColor,
+  type PlayerIcon,
+} from "../../model/types";
 
 type PlayerIconPickerProps = {
   value: PlayerIcon;

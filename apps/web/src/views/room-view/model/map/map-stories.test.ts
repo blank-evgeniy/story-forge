@@ -2,10 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import type { StoryThreadDto } from "@/shared/api/ws/types";
 
-import {
-  DEFAULT_PLAYER_COLOR,
-  DEFAULT_PLAYER_ICON,
-} from "@/shared/consts/player-customization";
+import { DEFAULT_PLAYER_COLOR, DEFAULT_PLAYER_ICON } from "@/entities/player";
 
 import type { Player } from "../types";
 

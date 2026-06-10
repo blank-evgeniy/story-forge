@@ -2,7 +2,7 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import i18n from "i18next";
 import { useEffect } from "react";
 
-import { useUserStore } from "@/store/user";
+import { usePlayerStore } from "@/entities/player";
 
 import type { CreateRoomSchema } from "./model/types";
 
@@ -13,7 +13,7 @@ import { ServerStatusConnector } from "./ui/server-status";
 import { WelcomeView } from "./ui/welcome-view";
 
 export function WelcomeViewConnector() {
-  const playerId = useUserStore((store) => store.user?.id);
+  const playerId = usePlayerStore((store) => store.player?.id);
   const { mutate, isLoading } = useCreateRoom();
   const navigate = useNavigate();
   const { tab } = useSearch({ from: "/app-layout/guarded/welcome" });
