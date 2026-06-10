@@ -5,7 +5,12 @@ import type { RoomState } from "../../../../model/state";
 export function makeRoom(overrides: Partial<RoomState> = {}): RoomState {
   return {
     code: "1234",
-    config: { blindMode: false, enableTwists: false, secondsPerTurn: 60 },
+    config: {
+      blindMode: false,
+      enableAiComment: false,
+      enableTwists: false,
+      secondsPerTurn: 60,
+    },
     drafts: new Map(),
     hostId: "p1",
     locale: "ru",
