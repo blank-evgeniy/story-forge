@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 
+import type { AiMood } from "@/entities/room";
+
 import { Button } from "@/shared/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/shared/ui/field";
 import { Label } from "@/shared/ui/label";
 import { Switch } from "@/shared/ui/switch";
-
-import type { AiMood } from "../../../model/types";
 
 import { aiMoodOptions } from "../../../model/consts";
 

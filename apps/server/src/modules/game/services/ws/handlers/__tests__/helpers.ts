@@ -4,6 +4,7 @@ import type { RoomState } from "../../../../model/state";
 
 export function makeRoom(overrides: Partial<RoomState> = {}): RoomState {
   return {
+    aiComment: null,
     code: "1234",
     config: {
       aiComment: {

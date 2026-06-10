@@ -1,4 +1,4 @@
-import type { AiMood } from "./types";
+import type { AiMood } from "@/entities/room";
 
 export const aiMoodOptions: {
   value: AiMood;
