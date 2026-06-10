@@ -6,8 +6,10 @@ export type CreateRoomDTO = {
   config: {
     secondsPerTurn: number;
     blindMode: boolean;
-    enableAiComment: boolean;
-    aiMood?: AiMoodDto;
+    aiComment: {
+      enable: boolean;
+      mood?: AiMoodDto;
+    };
     enableTwists: boolean;
   };
 };

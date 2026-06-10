@@ -7,12 +7,11 @@ export default defineConfig([
   globalIgnores(["dist", "node_modules"]),
   {
     files: ["**/*.ts"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      perfectionist.configs["recommended-natural"],
-    ],
+    extends: [js.configs.recommended, tseslint.configs.recommended],
+    plugins: { perfectionist },
     rules: {
+      "perfectionist/sort-imports": ["error", { type: "natural" }],
+      "perfectionist/sort-named-imports": ["error", { type: "natural" }],
       "@typescript-eslint/no-unused-vars": [
         "error",
         {

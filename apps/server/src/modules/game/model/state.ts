@@ -1,7 +1,11 @@
 import { ElysiaWS } from "elysia/dist/ws";
+import z from "zod";
 
-export type AiMood = "comedian" | "critic" | "fan" | "philosopher" | "teacher";
+import { roomConfigSchema } from "./schemas";
 
+export type RoomConfig = z.infer<typeof roomConfigSchema>;
+
+export type AiMood = RoomConfig["aiComment"]["mood"];
 export type Locale = "en" | "ru";
 
 export interface Player {
@@ -18,14 +22,6 @@ export interface PlayerEntry {
   content: string;
   playerId: string;
   wasTimeout: boolean;
-}
-
-export interface RoomConfig {
-  aiMood?: AiMood;
-  blindMode: boolean;
-  enableAiComment: boolean;
-  enableTwists: boolean;
-  secondsPerTurn: number;
 }
 
 export interface RoomState {

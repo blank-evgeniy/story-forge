@@ -104,8 +104,10 @@ export type RoomDto = {
     secondsPerTurn: number;
     blindMode: boolean;
     enableTwists: boolean;
-    enableAiComment: boolean;
-    aiMood?: AiMoodDto;
+    aiComment: {
+      enable: boolean;
+      mood?: AiMoodDto;
+    };
   };
 };
 

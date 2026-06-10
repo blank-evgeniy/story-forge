@@ -40,6 +40,7 @@ client → `join_room` → `room_state` (sender) + `your_turn` (sender) + `playe
 | --------------- | ---------------------------- | --------------------------------------- |
 | `join_room`     | Вход / реконнект             | Реконнект если `playerId` уже в комнате |
 | `start_game`    | Хост запускает игру          | Минимум 2 игрока, статус `lobby`        |
+| `edit_config`   | Хост обновляет настройки     | —                                       |
 | `draft_entry`   | Игрок пишет предложение      | —                                       |
 | `submit_entry`  | Игрок отправляет предложение | `twistId` только в раунде выбора твиста |
 | `edit_entry`    | Игрок изменяет предложение   | —                                       |
@@ -52,6 +53,7 @@ client → `join_room` → `room_state` (sender) + `your_turn` (sender) + `playe
 | --------------------- | --------- | ------------------------------------------------------------------------- |
 | `room_state`          | sender    | После `join_room` или `request_state`                                     |
 | `game_started`        | broadcast | После `start_game`, содержит `totalRounds`                                |
+| `config_edited`       | broadcast | После `edit_config`, содержит `config` - новый данные конфига комнаты     |
 | `player_joined`       | broadcast | Первый вход нового игрока                                                 |
 | `player_left`         | broadcast | Выход из лобби                                                            |
 | `player_disconnected` | broadcast | Выход во время игры                                                       |

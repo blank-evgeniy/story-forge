@@ -49,7 +49,7 @@ const makeRoomDto = (overrides: Partial<RoomDto> = {}): RoomDto => ({
     secondsPerTurn: 60,
     blindMode: false,
     enableTwists: false,
-    enableAiComment: true,
+    aiComment: { enable: true },
   },
   ...overrides,
 });
@@ -304,6 +304,11 @@ describe("handleEvent: player_unsubmitted", () => {
 
 describe("handleEvent: all_revealed", () => {
   it("sets status to revealing and aiCommentStatus to loading", () => {
+    handle({
+      type: "room_state",
+      room: makeRoomDto(),
+    });
+
     handle({
       type: "all_revealed",
       stories: [{ id: "thread-1", ownerId: "p1", entries: [] }],

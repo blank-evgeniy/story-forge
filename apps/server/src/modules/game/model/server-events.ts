@@ -11,6 +11,11 @@ export type AllRevealedEvent = {
   type: "all_revealed";
 };
 
+export type ConfigEditedEvent = {
+  config: SerializedRoom["config"];
+  type: "config_edited";
+};
+
 export type ErrorEvent = {
   code: string;
   message: string;
@@ -78,6 +83,7 @@ export type RoundStartedEvent = {
 export type ServerEvent =
   | AiCommentEvent
   | AllRevealedEvent
+  | ConfigEditedEvent
   | ErrorEvent
   | GameRestartedEvent
   | GameStartedEvent

@@ -68,7 +68,12 @@ function makeRoomDto(
     round: overrides.round ?? 1,
     totalRounds: overrides.totalRounds ?? 2,
     submittedIds: [],
-    config: { secondsPerTurn: 60, blindMode: false, enableTwists: false },
+    config: {
+      secondsPerTurn: 60,
+      blindMode: false,
+      enableTwists: false,
+      aiComment: { enable: false },
+    },
   };
 }
 

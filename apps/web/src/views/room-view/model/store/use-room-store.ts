@@ -78,7 +78,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
           secondsPerTurn: event.room.config.secondsPerTurn,
           totalRounds: event.room.totalRounds,
           isHost: event.room.hostId === userId,
-          aiEnabled: event.room.config.enableAiComment,
+          aiEnabled: event.room.config.aiComment.enable,
           allStories:
             event.room.status === "reveal"
               ? mapStories(event.room.players, event.room.stories)
@@ -164,13 +164,13 @@ export const useRoomStore = create<RoomState>((set, get) => ({
 
       case "all_revealed": {
         const stories = mapStories(get().players, event.stories);
-        if (get().aiEnabled) {
-          set({
-            status: "revealing",
-            allStories: stories,
-            aiCommentStatus: "loading",
-          });
-        }
+
+        set({
+          status: "revealing",
+          allStories: stories,
+          aiCommentStatus: get().aiEnabled ? "loading" : "idle",
+        });
+
         break;
       }
 

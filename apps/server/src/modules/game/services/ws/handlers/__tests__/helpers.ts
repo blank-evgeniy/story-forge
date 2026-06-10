@@ -6,8 +6,10 @@ export function makeRoom(overrides: Partial<RoomState> = {}): RoomState {
   return {
     code: "1234",
     config: {
+      aiComment: {
+        enable: false,
+      },
       blindMode: false,
-      enableAiComment: false,
       enableTwists: false,
       secondsPerTurn: 60,
     },

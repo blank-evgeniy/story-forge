@@ -3,6 +3,7 @@ import { ElysiaWS } from "elysia/dist/ws";
 import { ClientEvent } from "../../../model/client-events";
 import { onClose } from "./onClose";
 import { onDraftEntry } from "./onDraftEntry";
+import { onEditConfig } from "./onEditConfig";
 import { onEditEntry } from "./onEditEntry";
 import { onJoinRoom } from "./onJoinRoom";
 import { onRequestState } from "./onRequestState";
@@ -18,6 +19,8 @@ export function handleMessage(ws: ElysiaWS, event: ClientEvent) {
   switch (event.type) {
     case "draft_entry":
       return onDraftEntry(ws, event);
+    case "edit_config":
+      return onEditConfig(ws, event);
     case "edit_entry":
       return onEditEntry(ws);
     case "join_room":

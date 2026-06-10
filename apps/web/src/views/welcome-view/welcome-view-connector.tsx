@@ -33,8 +33,10 @@ export function WelcomeViewConnector() {
           secondsPerTurn: Number(data.roundTime),
           blindMode: data.blindMode,
           enableTwists: data.enableTwists,
-          enableAiComment: data.enableAiComment,
-          aiMood: data.aiMood,
+          aiComment: {
+            enable: data.enableAiComment,
+            mood: data.aiMood,
+          },
         },
       },
       {

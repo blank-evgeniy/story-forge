@@ -15,7 +15,7 @@ export function onRoundEnd(room: RoomState) {
       type: "all_revealed",
     });
 
-    if (!room.config.enableAiComment) return;
+    if (!room.config.aiComment.enable) return;
 
     generateCommentary(room).then((result) => {
       if (result.success) {
