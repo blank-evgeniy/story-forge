@@ -1,24 +1,28 @@
 import { useTranslation } from "react-i18next";
 
-import { FieldDescription } from "@/shared/ui/field";
+import { Field, FieldDescription } from "@/shared/ui/field";
 import { Label } from "@/shared/ui/label";
 import { Switch } from "@/shared/ui/switch";
 
+import { useRoomSettingsContext } from "../../model/context/room-settings-context";
+
 type TwistsSwitchProps = {
-  checked: boolean;
-  onCheckedChange: (checked: boolean) => void;
   disabled: boolean;
 };
 
-export function TwistsSwitch({
-  checked,
-  disabled,
-  onCheckedChange,
-}: TwistsSwitchProps) {
+export function TwistsSwitch({ disabled }: TwistsSwitchProps) {
   const { t } = useTranslation();
 
+  const { roomSettings, updateRoomSettings } = useRoomSettingsContext();
+
+  const checked = roomSettings.enableTwists;
+
+  const onCheckedChange = (checked: boolean) => {
+    updateRoomSettings({ enableTwists: checked });
+  };
+
   return (
-    <>
+    <Field>
       <div className="flex items-center space-x-2">
         <Switch
           checked={checked}
@@ -33,6 +37,6 @@ export function TwistsSwitch({
       <FieldDescription>
         {t("welcome.createRoom.twists.description")}
       </FieldDescription>
-    </>
+    </Field>
   );
 }

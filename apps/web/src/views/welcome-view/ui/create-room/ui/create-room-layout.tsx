@@ -8,12 +8,10 @@ import {
   CardTitle,
 } from "@/shared/ui/card";
 import {
-  Field,
   FieldDescription,
   FieldGroup,
   FieldLegend,
   FieldSet,
-  FieldTitle,
 } from "@/shared/ui/field";
 
 function CreateRoomLayoutRoot({ children }: { children: React.ReactNode }) {
@@ -45,16 +43,6 @@ function Content({ children }: { children: React.ReactNode }) {
   );
 }
 
-function GameplaySection({ children }: { children: React.ReactNode }) {
-  const { t } = useTranslation();
-
-  return (
-    <Field>
-      <FieldTitle>{t("welcome.createRoom.gameplay")}</FieldTitle>
-      {children}
-    </Field>
-  );
-}
 function Footer({ children }: { children: React.ReactNode }) {
   return (
     <CardFooter className="mt-auto flex flex-col items-start gap-2">
@@ -65,6 +53,5 @@ function Footer({ children }: { children: React.ReactNode }) {
 
 export const CreateRoomLayout = Object.assign(CreateRoomLayoutRoot, {
   Content,
-  GameplaySection,
   Footer,
 });

@@ -3,7 +3,11 @@ import i18n from "i18next";
 import { useEffect } from "react";
 
 import { usePlayerStore } from "@/entities/player";
-import { mapRoomSettingsToConfigDto, type RoomSettings } from "@/entities/room";
+import {
+  mapRoomSettingsToConfigDto,
+  type RoomSettings,
+  RoomSettingsContextProvider,
+} from "@/entities/room";
 
 import { useCreateRoom } from "./api/use-create-room";
 import { CreateRoom } from "./ui/create-room";
@@ -43,16 +47,18 @@ export function WelcomeViewConnector() {
   };
 
   return (
-    <WelcomeView
-      createRoomSlot={
-        <CreateRoom
-          onCreate={handleCreateRoom}
-          isLoading={isLoading}
-          serverStatusSlot={<ServerStatusConnector />}
-        />
-      }
-      joinRoomSlot={<JoinRoom onJoin={handleJoinRoom} />}
-      defaultTab={tab}
-    />
+    <RoomSettingsContextProvider>
+      <WelcomeView
+        createRoomSlot={
+          <CreateRoom
+            onCreate={handleCreateRoom}
+            isLoading={isLoading}
+            serverStatusSlot={<ServerStatusConnector />}
+          />
+        }
+        joinRoomSlot={<JoinRoom onJoin={handleJoinRoom} />}
+        defaultTab={tab}
+      />
+    </RoomSettingsContextProvider>
   );
 }

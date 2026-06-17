@@ -1,24 +1,28 @@
 import { useTranslation } from "react-i18next";
 
-import { FieldDescription } from "@/shared/ui/field";
+import { Field, FieldDescription } from "@/shared/ui/field";
 import { Label } from "@/shared/ui/label";
 import { Switch } from "@/shared/ui/switch";
 
+import { useRoomSettingsContext } from "../../model/context/room-settings-context";
+
 type BlindModeSwitchProps = {
-  checked: boolean;
-  onCheckedChange: (checked: boolean) => void;
   disabled: boolean;
 };
 
-export function BlindModeSwitch({
-  checked,
-  disabled,
-  onCheckedChange,
-}: BlindModeSwitchProps) {
+export function BlindModeSwitch({ disabled }: BlindModeSwitchProps) {
   const { t } = useTranslation();
 
+  const { roomSettings, updateRoomSettings } = useRoomSettingsContext();
+
+  const checked = roomSettings.blindMode;
+
+  const onCheckedChange = (checked: boolean) => {
+    updateRoomSettings({ blindMode: checked });
+  };
+
   return (
-    <>
+    <Field>
       <div className="flex items-center space-x-2">
         <Switch
           checked={checked}
@@ -33,6 +37,6 @@ export function BlindModeSwitch({
       <FieldDescription>
         {t("welcome.createRoom.blindMode.description")}
       </FieldDescription>
-    </>
+    </Field>
   );
 }

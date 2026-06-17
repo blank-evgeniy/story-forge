@@ -24,6 +24,8 @@ export function RoomSettingsViewer({ data }: RoomSettingsViewerProps) {
   const on = t("common.on");
   const off = t("common.off");
 
+  const aiEnabled = data.aiMood !== "disabled";
+
   const rows: SettingRow[] = [
     {
       icon: ClockIcon,
@@ -46,12 +48,9 @@ export function RoomSettingsViewer({ data }: RoomSettingsViewerProps) {
     {
       icon: BotIcon,
       label: t("lobby.settings.aiOracle"),
-      value: data.enableAiComment ? on : off,
-      active: data.enableAiComment,
-      badge:
-        data.enableAiComment && data.aiMood
-          ? t(`common.aiMood.${data.aiMood}`)
-          : undefined,
+      value: aiEnabled ? on : off,
+      active: aiEnabled,
+      badge: aiEnabled ? t(`common.aiMood.${data.aiMood}`) : undefined,
     },
   ];
 
