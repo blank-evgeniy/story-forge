@@ -49,10 +49,12 @@ function MainSection({ children }: { children: React.ReactNode }) {
 
 function MainSectionBody({
   rulesSlot,
+  settingsSlot,
   qrSlot,
   codeSlot,
 }: {
-  rulesSlot: React.ReactNode;
+  rulesSlot?: React.ReactNode;
+  settingsSlot: React.ReactNode;
   qrSlot: React.ReactNode;
   codeSlot: React.ReactNode;
 }) {
@@ -62,6 +64,8 @@ function MainSectionBody({
     <ScrollArea className={"overflow-auto"}>
       <CardContent className="flex flex-1 flex-col gap-6">
         {rulesSlot}
+
+        {settingsSlot}
 
         <Separator />
 

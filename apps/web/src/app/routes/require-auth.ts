@@ -1,9 +1,9 @@
 import { redirect } from "@tanstack/react-router";
 
-import { useUserStore } from "@/store/user";
+import { usePlayerStore } from "@/entities/player";
 
 export function requireAuth(location: { href: string }) {
-  const user = useUserStore.getState().user;
+  const user = usePlayerStore.getState().player;
   if (!user)
     throw redirect({ to: "/login", search: { redirect: location.href } });
 }

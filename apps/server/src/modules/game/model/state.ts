@@ -1,5 +1,11 @@
 import { ElysiaWS } from "elysia/dist/ws";
+import z from "zod";
 
+import { roomConfigSchema } from "./schemas";
+
+export type RoomConfig = z.infer<typeof roomConfigSchema>;
+
+export type AiMood = RoomConfig["aiComment"]["mood"];
 export type Locale = "en" | "ru";
 
 export interface Player {
@@ -18,15 +24,13 @@ export interface PlayerEntry {
   wasTimeout: boolean;
 }
 
-export interface RoomConfig {
-  blindMode: boolean;
-  enableTwists: boolean;
-  secondsPerTurn: number;
-}
-
 export interface RoomState {
   code: string;
   config: RoomConfig;
+  aiComment: {
+    content?: string;
+    status: "loading" | "success" | "error";
+  } | null;
   drafts: Map<string, { content?: string; twistId?: string }>;
   hostId: string;
   locale: Locale;

@@ -4,7 +4,12 @@ import { create } from "zustand";
 import type { ServerEvent } from "@/shared/api/ws/types";
 
 import { router } from "@/app/routes/routes";
-import { useUserStore } from "@/store/user";
+import { usePlayerStore } from "@/entities/player";
+import {
+  defaultRoomSettings,
+  mapRoomConfigToSettings,
+  type RoomSettings,
+} from "@/entities/room";
 
 import type { Player, PrevEntry, Story, TwistsSet } from "../types";
 
@@ -38,6 +43,7 @@ type RoomData = {
   savedStories: string[];
   aiComment: string | null;
   aiCommentStatus: "idle" | "loading" | "success" | "error";
+  settings: RoomSettings;
 };
 
 export type RoomState = RoomData & RoomActions;
@@ -57,6 +63,7 @@ const initialState: RoomData = {
   savedStories: [],
   aiComment: null,
   aiCommentStatus: "idle",
+  settings: defaultRoomSettings,
 };
 
 export const useRoomStore = create<RoomState>((set, get) => ({
@@ -65,7 +72,7 @@ export const useRoomStore = create<RoomState>((set, get) => ({
   handleEvent(event: ServerEvent) {
     switch (event.type) {
       case "room_state": {
-        const currentUser = useUserStore.getState().user;
+        const currentUser = usePlayerStore.getState().player;
         const userId = currentUser?.id;
 
         set({
@@ -76,6 +83,9 @@ export const useRoomStore = create<RoomState>((set, get) => ({
           secondsPerTurn: event.room.config.secondsPerTurn,
           totalRounds: event.room.totalRounds,
           isHost: event.room.hostId === userId,
+          aiCommentStatus: event.room.aiComment?.status ?? "idle",
+          aiComment: event.room.aiComment?.content ?? null,
+          settings: mapRoomConfigToSettings(event.room.config),
           allStories:
             event.room.status === "reveal"
               ? mapStories(event.room.players, event.room.stories)
@@ -121,6 +131,10 @@ export const useRoomStore = create<RoomState>((set, get) => ({
         });
         break;
 
+      case "config_edited":
+        set({ settings: mapRoomConfigToSettings(event.config) });
+        break;
+
       case "game_started":
         set({ status: "round_starting", totalRounds: event.totalRounds });
         break;
@@ -161,13 +175,18 @@ export const useRoomStore = create<RoomState>((set, get) => ({
 
       case "all_revealed": {
         const stories = mapStories(get().players, event.stories);
+
         set({
           status: "revealing",
           allStories: stories,
-          aiCommentStatus: "loading",
         });
+
         break;
       }
+
+      case "ai_comment_started":
+        set({ aiCommentStatus: "loading" });
+        break;
 
       case "ai_comment": {
         set({ aiComment: event.comment, aiCommentStatus: "success" });
@@ -175,13 +194,14 @@ export const useRoomStore = create<RoomState>((set, get) => ({
       }
 
       case "game_restarted": {
-        const currentUser = useUserStore.getState().user;
+        const currentUser = usePlayerStore.getState().player;
         set({
           ...initialState,
           status: event.room.status,
           players: event.room.players,
           round: event.room.round,
           isHost: event.room.hostId === currentUser?.id,
+          settings: mapRoomConfigToSettings(event.room.config),
         });
         break;
       }

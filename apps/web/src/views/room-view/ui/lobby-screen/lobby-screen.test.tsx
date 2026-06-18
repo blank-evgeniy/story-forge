@@ -1,6 +1,8 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { defaultRoomSettings } from "@/entities/room";
+
 import type { Player } from "../../model/types";
 
 import { type RoomState, useRoomStore } from "../../model/store/use-room-store";
@@ -15,6 +17,12 @@ vi.mock("@/shared/hooks/use-tw-breakpoints", () => ({
 }));
 vi.mock("qrcode.react", () => ({
   QRCodeSVG: () => <svg data-testid="qr-code" />,
+}));
+vi.mock("@/entities/room/model/context/room-settings-context", () => ({
+  useRoomSettingsContext: () => ({
+    roomSettings: defaultRoomSettings,
+    updateRoomSettings: vi.fn(),
+  }),
 }));
 
 import { useRoomActions } from "../../model/context/room-actions-context";
@@ -50,7 +58,7 @@ function setStore({
   isHost = false,
 }: { players?: Player[]; isHost?: boolean } = {}) {
   vi.mocked(useRoomStore).mockImplementation((selector) =>
-    selector({ players, isHost } as RoomState),
+    selector({ players, isHost, settings: defaultRoomSettings } as RoomState),
   );
 }
 
@@ -68,6 +76,7 @@ beforeEach(() => {
     draftEntry: vi.fn(),
     editEntry: vi.fn(),
     restartGame: vi.fn(),
+    editRoomSettings: vi.fn(),
   });
   setStore();
 });

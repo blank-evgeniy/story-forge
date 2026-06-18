@@ -1,7 +1,16 @@
 {
   "common": {
     "story": "Story",
-    "back": "Back"
+    "back": "Back",
+    "on": "On",
+    "off": "Off",
+    "aiMood": {
+      "comedian": "Comedian",
+      "critic": "Critic",
+      "fan": "Fan",
+      "philosopher": "Philosopher",
+      "teacher": "Teacher"
+    }
   },
   "login": {
     "tagline": "Real-time collaborative storytelling",
@@ -36,6 +45,26 @@
       "twists": {
         "label": "Twists",
         "description": "Twists are unexpected events that can occur mid-game and change the course of the story."
+      },
+      "aiComment": {
+        "title": "Story Oracle",
+        "label": "Enable Story Oracle",
+        "description": "The Story Oracle will comment on each story at the end of the game",
+        "mood": {
+          "comedian": "Comedian",
+          "critic": "Critic",
+          "fan": "Fan",
+          "philosopher": "Philosopher",
+          "teacher": "Teacher",
+          "disabled": "Disabled",
+          "description": {
+            "comedian": "Finds the humor in every story",
+            "critic": "Gives sharp, honest feedback",
+            "fan": "Enthusiastically praises every story",
+            "philosopher": "Reflects deeply on the meaning of the story",
+            "teacher": "Explains what was done well and what can be improved"
+          }
+        }
       },
       "submit": "Create"
     },
@@ -74,7 +103,14 @@
       "enter": "enter the code to join"
     },
     "startGame": "Start game",
-    "waitingForHost": "Waiting for the host to start the game"
+    "waitingForHost": "Waiting for the host to start the game",
+    "settings": {
+      "title": "Game settings",
+      "roundTime": "Round time (sec.)",
+      "blindMode": "Blind Mode",
+      "twists": "Twists",
+      "aiOracle": "Story Oracle"
+    }
   },
   "room": {
     "notFound": "Room not found",

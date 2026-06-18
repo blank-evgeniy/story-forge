@@ -59,6 +59,6 @@ export class TokenBucket {
   }
 }
 
-export const wsLimiter = new TokenBucket(10, 1);
+export const wsLimiter = new TokenBucket(20, 5);
 
 setInterval(() => wsLimiter.cleanup(), 10 * 60 * 1000).unref();

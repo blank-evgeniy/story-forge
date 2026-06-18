@@ -68,9 +68,10 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: "pnpm dev --port 5174",
+    command: "pnpm exec vite --port 5174",
     url: "http://localhost:5174",
     reuseExistingServer: !process.env.CI,
+    gracefulShutdown: { signal: "SIGTERM", timeout: 5000 },
     env: {
       VITE_E2E: "true",
       VITE_API_BASE_URL: "http://localhost:3000/",

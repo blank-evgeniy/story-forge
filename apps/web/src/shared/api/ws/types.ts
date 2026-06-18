@@ -1,7 +1,4 @@
-import type {
-  PlayerColor,
-  PlayerIcon,
-} from "@/shared/consts/player-customization";
+import type { PlayerColor, PlayerIcon } from "@/entities/player";
 
 export type PlayerColorDto = PlayerColor;
 export type PlayerIconDto = PlayerIcon;
@@ -15,6 +12,11 @@ export type JoinRoomEvent = {
   icon: PlayerIconDto;
   username: string;
   playerId: string;
+};
+
+export type EditConfigEvent = {
+  type: "edit_config";
+  config: RoomConfigDto;
 };
 
 export type SubmitEntryEvent = {
@@ -47,6 +49,7 @@ export type RestartGameEvent = {
 
 export type ClientEvent =
   | JoinRoomEvent
+  | EditConfigEvent
   | SubmitEntryEvent
   | DraftEntryEvent
   | EditEntryEvent
@@ -57,6 +60,12 @@ export type ClientEvent =
 // Common
 
 export type RoomStatusDto = "lobby" | "writing" | "reveal";
+export type AiMoodDto =
+  | "comedian"
+  | "critic"
+  | "fan"
+  | "philosopher"
+  | "teacher";
 
 export type TwistDto = {
   id: string;
@@ -85,6 +94,16 @@ export type PlayerDto = {
   username: string;
 };
 
+export type RoomConfigDto = {
+  secondsPerTurn: number;
+  blindMode: boolean;
+  enableTwists: boolean;
+  aiComment: {
+    enable: boolean;
+    mood?: AiMoodDto;
+  };
+};
+
 export type RoomDto = {
   code: string;
   status: RoomStatusDto;
@@ -94,11 +113,11 @@ export type RoomDto = {
   round: number;
   totalRounds?: number;
   submittedIds: string[];
-  config: {
-    secondsPerTurn: number;
-    blindMode: boolean;
-    enableTwists: boolean;
-  };
+  config: RoomConfigDto;
+  aiComment: {
+    content?: string;
+    status: "loading" | "success" | "error";
+  } | null;
 };
 
 // Server Events
@@ -112,6 +131,11 @@ export type ErrorEvent = {
 export type RoomStateEvent = {
   type: "room_state";
   room: RoomDto;
+};
+
+export type ConfigEditedEvent = {
+  type: "config_edited";
+  config: RoomConfigDto;
 };
 
 export type PlayerJoinedEvent = {
@@ -178,6 +202,10 @@ export type AiCommentEvent = {
   comment: string;
 };
 
+export type AiCommentStartedEvent = {
+  type: "ai_comment_started";
+};
+
 export type GameRestartedEvent = {
   type: "game_restarted";
   room: RoomDto;
@@ -186,6 +214,7 @@ export type GameRestartedEvent = {
 export type ServerEvent =
   | ErrorEvent
   | RoomStateEvent
+  | ConfigEditedEvent
   | PlayerJoinedEvent
   | PlayerLeftEvent
   | PlayerReconnectedEvent
@@ -198,4 +227,5 @@ export type ServerEvent =
   | RoundEndedEvent
   | AllRevealedEvent
   | AiCommentEvent
+  | AiCommentStartedEvent
   | GameRestartedEvent;

@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { PlayerDto, RoomDto, ServerEvent } from "@/shared/api/ws/types";
 
 import { router } from "@/app/routes/routes";
-import { useUserStore } from "@/store/user";
+import { usePlayerStore } from "@/entities/player";
 
 import { useRoomStore } from "./use-room-store";
 
@@ -16,9 +16,9 @@ vi.mock("@/app/routes/routes", () => ({
   router: { navigate: vi.fn() },
 }));
 
-vi.mock("@/store/user", () => ({
-  useUserStore: {
-    getState: vi.fn().mockReturnValue({ user: null }),
+vi.mock("@/entities/player", () => ({
+  usePlayerStore: {
+    getState: vi.fn().mockReturnValue({ player: null }),
   },
 }));
 
@@ -45,16 +45,22 @@ const makeRoomDto = (overrides: Partial<RoomDto> = {}): RoomDto => ({
   round: 1,
   totalRounds: 3,
   submittedIds: [],
-  config: { secondsPerTurn: 60, blindMode: false, enableTwists: false },
+  config: {
+    secondsPerTurn: 60,
+    blindMode: false,
+    enableTwists: false,
+    aiComment: { enable: true },
+  },
+  aiComment: null,
   ...overrides,
 });
 
 beforeEach(() => {
   state().reset();
   vi.clearAllMocks();
-  vi.mocked(useUserStore.getState).mockReturnValue({ user: null } as ReturnType<
-    typeof useUserStore.getState
-  >);
+  vi.mocked(usePlayerStore.getState).mockReturnValue({
+    player: null,
+  } as ReturnType<typeof usePlayerStore.getState>);
 });
 
 describe("reset", () => {
@@ -102,9 +108,9 @@ describe("handleEvent: room_state", () => {
   });
 
   it("sets isHost to true when hostId matches current user id", () => {
-    vi.mocked(useUserStore.getState).mockReturnValue({
-      user: { id: "user-1", username: "Alice", color: "blue", icon: "angel" },
-    } as ReturnType<typeof useUserStore.getState>);
+    vi.mocked(usePlayerStore.getState).mockReturnValue({
+      player: { id: "user-1", username: "Alice", color: "blue", icon: "angel" },
+    } as ReturnType<typeof usePlayerStore.getState>);
 
     handle({ type: "room_state", room: makeRoomDto({ hostId: "user-1" }) });
 
@@ -112,9 +118,9 @@ describe("handleEvent: room_state", () => {
   });
 
   it("sets isHost to false when user is not host", () => {
-    vi.mocked(useUserStore.getState).mockReturnValue({
-      user: { id: "user-1", username: "Alice", color: "blue", icon: "angel" },
-    } as ReturnType<typeof useUserStore.getState>);
+    vi.mocked(usePlayerStore.getState).mockReturnValue({
+      player: { id: "user-1", username: "Alice", color: "blue", icon: "angel" },
+    } as ReturnType<typeof usePlayerStore.getState>);
 
     handle({ type: "room_state", room: makeRoomDto({ hostId: "user-2" }) });
 
@@ -299,6 +305,8 @@ describe("handleEvent: player_unsubmitted", () => {
 
 describe("handleEvent: all_revealed", () => {
   it("sets status to revealing and aiCommentStatus to loading", () => {
+    handle({ type: "ai_comment_started" });
+
     handle({
       type: "all_revealed",
       stories: [{ id: "thread-1", ownerId: "p1", entries: [] }],
@@ -345,9 +353,9 @@ describe("handleEvent: game_restarted", () => {
   });
 
   it("sets isHost based on current user id", () => {
-    vi.mocked(useUserStore.getState).mockReturnValue({
-      user: { id: "user-1", username: "Alice", color: "blue", icon: "angel" },
-    } as ReturnType<typeof useUserStore.getState>);
+    vi.mocked(usePlayerStore.getState).mockReturnValue({
+      player: { id: "user-1", username: "Alice", color: "blue", icon: "angel" },
+    } as ReturnType<typeof usePlayerStore.getState>);
 
     handle({
       type: "game_restarted",

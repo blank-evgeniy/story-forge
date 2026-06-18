@@ -1,0 +1,30 @@
+import type { RoomDto } from "@/shared/api/ws/types";
+
+import type { RoomSettings } from "../model/types";
+
+import { defaultRoomSettings } from "../model/consts";
+
+export function mapRoomConfigToSettings(data: RoomDto["config"]): RoomSettings {
+  return {
+    roundTime: data.secondsPerTurn,
+    blindMode: data.blindMode,
+    enableTwists: data.enableTwists,
+    aiMood: data.aiComment.enable
+      ? (data.aiComment.mood ?? defaultRoomSettings.aiMood)
+      : "disabled",
+  };
+}
+
+export function mapRoomSettingsToConfigDto(
+  data: RoomSettings,
+): RoomDto["config"] {
+  return {
+    secondsPerTurn: data.roundTime,
+    blindMode: data.blindMode,
+    enableTwists: data.enableTwists,
+    aiComment: {
+      enable: data.aiMood !== "disabled",
+      mood: data.aiMood === "disabled" ? undefined : data.aiMood,
+    },
+  };
+}

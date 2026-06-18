@@ -6,9 +6,18 @@ export type AiCommentEvent = {
   type: "ai_comment";
 };
 
+export type AiCommentStartedEvent = {
+  type: "ai_comment_started";
+};
+
 export type AllRevealedEvent = {
   stories: StoryThread[];
   type: "all_revealed";
+};
+
+export type ConfigEditedEvent = {
+  config: SerializedRoom["config"];
+  type: "config_edited";
 };
 
 export type ErrorEvent = {
@@ -77,7 +86,9 @@ export type RoundStartedEvent = {
 
 export type ServerEvent =
   | AiCommentEvent
+  | AiCommentStartedEvent
   | AllRevealedEvent
+  | ConfigEditedEvent
   | ErrorEvent
   | GameRestartedEvent
   | GameStartedEvent

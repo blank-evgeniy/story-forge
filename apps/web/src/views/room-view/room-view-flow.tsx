@@ -5,8 +5,9 @@ import { gameRoute } from "@/app/routes/routes";
 import {
   DEFAULT_PLAYER_COLOR,
   DEFAULT_PLAYER_ICON,
-} from "@/shared/consts/player-customization";
-import { useUserStore } from "@/store/user";
+  usePlayerStore,
+} from "@/entities/player";
+import { RoomSettingsContextProvider } from "@/entities/room";
 
 import { useRoomSocket } from "./api/use-room-socket";
 import { RoomActionsProvider } from "./model/context/room-actions-context";
@@ -25,7 +26,7 @@ export function RoomViewFlow() {
   const { t } = useTranslation();
   const { roomCode } = gameRoute.useParams();
 
-  const user = useUserStore((store) => store.user);
+  const user = usePlayerStore((store) => store.player);
 
   const { status: wsStatus, client } = useRoomSocket({
     color: user?.color ?? DEFAULT_PLAYER_COLOR,
@@ -37,6 +38,7 @@ export function RoomViewFlow() {
 
   const status = useRoomStore((store) => store.status);
   const round = useRoomStore((store) => store.round);
+  const settings = useRoomStore((store) => store.settings);
 
   useRoomDocumentTitle(status, round);
 
@@ -49,7 +51,11 @@ export function RoomViewFlow() {
 
   return (
     <RoomActionsProvider client={client}>
-      {status === "lobby" && <LobbyScreen roomCode={roomCode} />}
+      {status === "lobby" && (
+        <RoomSettingsContextProvider initialSettings={settings}>
+          <LobbyScreen roomCode={roomCode} />
+        </RoomSettingsContextProvider>
+      )}
       {status === "writing" && <WritingScreen />}
       {status === "reveal" && (
         <SaveStoryProvider roomCode={roomCode}>

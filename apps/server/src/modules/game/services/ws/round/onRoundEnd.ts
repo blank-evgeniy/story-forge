@@ -1,7 +1,7 @@
 import { ROUND_TRANSITION_DELAY_MS } from "../../../model/consts";
 import { RoomState } from "../../../model/state";
-import { generateCommentary } from "../../ai";
 import { roomManager } from "../../rooms";
+import { onGameEnd } from "./onGameEnd";
 import { onRoundStart } from "./onRoundStart";
 
 export function onRoundEnd(room: RoomState) {
@@ -9,27 +9,7 @@ export function onRoundEnd(room: RoomState) {
   room.drafts = new Map();
 
   if (room.round === room.totalRounds) {
-    room.status = "reveal";
-    roomManager.broadcast(room, {
-      stories: room.stories,
-      type: "all_revealed",
-    });
-
-    generateCommentary(room).then((result) => {
-      if (result.success) {
-        roomManager.broadcast(room, {
-          comment: result.text,
-          type: "ai_comment",
-        });
-      } else {
-        roomManager.broadcast(room, {
-          code: "AI_FAILED",
-          message: result.text,
-          type: "error",
-        });
-      }
-    });
-
+    onGameEnd(room);
     return;
   }
 

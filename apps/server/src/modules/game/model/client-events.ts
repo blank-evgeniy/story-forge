@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { roomConfigSchema } from "./schemas";
+
 export const ClientEventSchema = z.discriminatedUnion("type", [
   z.object({
     code: z.string(),
@@ -8,6 +10,11 @@ export const ClientEventSchema = z.discriminatedUnion("type", [
     playerId: z.string(),
     type: z.literal("join_room"),
     username: z.string().min(1).max(50),
+  }),
+
+  z.object({
+    config: roomConfigSchema,
+    type: z.literal("edit_config"),
   }),
 
   z.object({

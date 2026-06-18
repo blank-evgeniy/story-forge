@@ -2,14 +2,13 @@ import { Link } from "@tanstack/react-router";
 import { BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { PlayerAvatar, usePlayerStore } from "@/entities/player";
 import { AppLogo } from "@/shared/ui/app-logo";
 import { Button } from "@/shared/ui/button";
-import { PlayerAvatar } from "@/shared/ui/player-customization";
-import { useUserStore } from "@/store/user";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
-  const user = useUserStore((store) => store.user);
+  const user = usePlayerStore((store) => store.player);
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-4 pb-4">
@@ -23,6 +22,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             variant={"ghost"}
             size={"icon"}
             render={<Link to="/stories" />}
+            nativeButton={false}
             aria-label={t("layout.storiesButton")}
           >
             <BookOpen className="size-5" />
@@ -32,6 +32,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               variant={"ghost"}
               className={"flex max-w-40 gap-2"}
               render={<Link to="/profile" />}
+              nativeButton={false}
             >
               <PlayerAvatar
                 color={user.color}
