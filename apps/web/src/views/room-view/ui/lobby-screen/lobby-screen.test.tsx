@@ -18,6 +18,12 @@ vi.mock("@/shared/hooks/use-tw-breakpoints", () => ({
 vi.mock("qrcode.react", () => ({
   QRCodeSVG: () => <svg data-testid="qr-code" />,
 }));
+vi.mock("@/entities/room/model/context/room-settings-context", () => ({
+  useRoomSettingsContext: () => ({
+    roomSettings: defaultRoomSettings,
+    updateRoomSettings: vi.fn(),
+  }),
+}));
 
 import { useRoomActions } from "../../model/context/room-actions-context";
 import { getTestId } from "../../utils/get-test-id";
@@ -70,6 +76,7 @@ beforeEach(() => {
     draftEntry: vi.fn(),
     editEntry: vi.fn(),
     restartGame: vi.fn(),
+    editRoomSettings: vi.fn(),
   });
   setStore();
 });

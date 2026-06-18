@@ -2,10 +2,13 @@ import { createContext, type ReactNode, useContext, useMemo } from "react";
 
 import type { ClientEvent } from "@/shared/api/ws/types";
 
+import { mapRoomSettingsToConfigDto, type RoomSettings } from "@/entities/room";
+
 type RoomActions = {
   startGame: () => void;
   submitEntry: (content: string, twistId?: string) => void;
   draftEntry: (content?: string, twistId?: string) => void;
+  editRoomSettings: (data: RoomSettings) => void;
   editEntry: () => void;
   restartGame: () => void;
 };
@@ -34,6 +37,8 @@ export function RoomActionsProvider({
         send({ type: "draft_entry", content, twistId }),
       editEntry: () => send({ type: "edit_entry" }),
       restartGame: () => send({ type: "restart_game" }),
+      editRoomSettings: (data) =>
+        send({ type: "edit_config", config: mapRoomSettingsToConfigDto(data) }),
     };
   }, [client]);
 

@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { BotIcon, ClockIcon, EyeOffIcon, ZapIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -8,6 +10,7 @@ import { CardTitle } from "@/shared/ui/card";
 
 type RoomSettingsViewerProps = {
   data: RoomSettings;
+  editActionSlot?: ReactNode;
 };
 
 type SettingRow = {
@@ -18,7 +21,10 @@ type SettingRow = {
   badge?: string;
 };
 
-export function RoomSettingsViewer({ data }: RoomSettingsViewerProps) {
+export function RoomSettingsViewer({
+  data,
+  editActionSlot,
+}: RoomSettingsViewerProps) {
   const { t } = useTranslation();
 
   const on = t("common.on");
@@ -56,7 +62,10 @@ export function RoomSettingsViewer({ data }: RoomSettingsViewerProps) {
 
   return (
     <>
-      <CardTitle>{t("lobby.settings.title")}</CardTitle>
+      <div className="flex justify-between gap-4">
+        <CardTitle>{t("lobby.settings.title")}</CardTitle>
+        {editActionSlot}
+      </div>
 
       <div className="flex flex-col gap-1.5">
         {rows.map(({ icon: Icon, label, value, active, badge }) => (
@@ -70,7 +79,7 @@ export function RoomSettingsViewer({ data }: RoomSettingsViewerProps) {
                 active ? "text-primary" : "text-muted-foreground",
               )}
             />
-            <span className="text-sm flex-1">{label}</span>
+            <span className="flex-1 text-sm">{label}</span>
             {badge && (
               <span className="text-muted-foreground bg-muted rounded-md px-1.5 py-0.5 text-xs capitalize">
                 {badge}

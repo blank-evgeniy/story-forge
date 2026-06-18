@@ -15,17 +15,19 @@ const RoomSettingsContextContext = createContext<RoomSettingsContext | null>(
 
 type RoomSettingsContextProviderProps = {
   children: ReactNode;
+  initialSettings?: RoomSettings;
 };
 
 export function RoomSettingsContextProvider({
   children,
+  initialSettings = defaultRoomSettings,
 }: RoomSettingsContextProviderProps) {
-  const [roundTime, setRoundTime] = useState(defaultRoomSettings.roundTime);
-  const [blindMode, setBlindMode] = useState(defaultRoomSettings.blindMode);
+  const [roundTime, setRoundTime] = useState(initialSettings.roundTime);
+  const [blindMode, setBlindMode] = useState(initialSettings.blindMode);
   const [enableTwists, setEnableTwists] = useState(
-    defaultRoomSettings.enableTwists,
+    initialSettings.enableTwists,
   );
-  const [aiMood, setAiMood] = useState(defaultRoomSettings.aiMood);
+  const [aiMood, setAiMood] = useState(initialSettings.aiMood);
 
   const roomSettings = {
     roundTime,

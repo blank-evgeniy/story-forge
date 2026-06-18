@@ -66,6 +66,7 @@ beforeEach(() => {
     draftEntry: mockDraftEntry,
     editEntry: mockEditEntry,
     restartGame: vi.fn(),
+    editRoomSettings: vi.fn(),
   });
   setStore();
 });

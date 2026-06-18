@@ -7,12 +7,12 @@ export function onEditConfig(ws: ElysiaWS, event: { config: RoomConfig }) {
   const context = roomManager.getContext(ws.id);
   if (!context) return;
 
-  const { room } = context;
+  const { playerId, room } = context;
 
   if (room.status !== "lobby") return;
 
-  if (room.hostId !== ws.id) {
-    roomManager.send(room, ws.id, {
+  if (room.hostId !== playerId) {
+    roomManager.send(room, playerId, {
       code: "NOT_HOST",
       message: "Только хост может редактировать конфигурацию",
       type: "error",

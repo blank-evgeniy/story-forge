@@ -7,6 +7,7 @@ import {
   DEFAULT_PLAYER_ICON,
   usePlayerStore,
 } from "@/entities/player";
+import { RoomSettingsContextProvider } from "@/entities/room";
 
 import { useRoomSocket } from "./api/use-room-socket";
 import { RoomActionsProvider } from "./model/context/room-actions-context";
@@ -37,6 +38,7 @@ export function RoomViewFlow() {
 
   const status = useRoomStore((store) => store.status);
   const round = useRoomStore((store) => store.round);
+  const settings = useRoomStore((store) => store.settings);
 
   useRoomDocumentTitle(status, round);
 
@@ -49,7 +51,11 @@ export function RoomViewFlow() {
 
   return (
     <RoomActionsProvider client={client}>
-      {status === "lobby" && <LobbyScreen roomCode={roomCode} />}
+      {status === "lobby" && (
+        <RoomSettingsContextProvider initialSettings={settings}>
+          <LobbyScreen roomCode={roomCode} />
+        </RoomSettingsContextProvider>
+      )}
       {status === "writing" && <WritingScreen />}
       {status === "reveal" && (
         <SaveStoryProvider roomCode={roomCode}>

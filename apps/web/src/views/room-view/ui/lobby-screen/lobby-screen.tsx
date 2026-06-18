@@ -1,5 +1,6 @@
 import { useRoomActions } from "../../model/context/room-actions-context";
 import { useRoomStore } from "../../model/store/use-room-store";
+import { EditSettingsAction } from "./ui/edit-settings-action/edit-settings-action";
 import { LobbyQrCode } from "./ui/lobby-qr-code";
 import { LobbyScreenLayout } from "./ui/lobby-screen-layout";
 import { PlayerList } from "./ui/player-list";
@@ -29,7 +30,17 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
 
       <LobbyScreenLayout.MainSection>
         <LobbyScreenLayout.MainSectionBody
-          settingsSlot={<RoomSettingsViewer data={settings} />}
+          settingsSlot={
+            <RoomSettingsViewer
+              data={settings}
+              editActionSlot={
+                <EditSettingsAction
+                  isHost={isHost}
+                  onEdit={actions.editRoomSettings}
+                />
+              }
+            />
+          }
           qrSlot={<LobbyQrCode />}
           codeSlot={<RoomCodeViewer roomCode={roomCode} />}
         />
