@@ -1,5 +1,6 @@
 import { PencilIcon } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   type RoomSettings,
@@ -24,6 +25,7 @@ export function EditSettingsAction({
   isHost,
   onEdit,
 }: EditSettingsActionProps) {
+  const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
 
   const { roomSettings } = useRoomSettingsContext();
@@ -37,18 +39,19 @@ export function EditSettingsAction({
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)} size={"icon"}>
+      <Button onClick={() => setOpenModal(true)} size={"xs"}>
+        {t("lobby.edit")}
         <PencilIcon />
       </Button>
       {openModal && (
         <Dialog open={openModal} onOpenChange={setOpenModal}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Edit settings</DialogTitle>
+              <DialogTitle>{t("lobby.settings.title")}</DialogTitle>
             </DialogHeader>
             <RoomSettingsEditor />
             <DialogFooter>
-              <Button onClick={handleSave}>Save</Button>
+              <Button onClick={handleSave}>{t("lobby.save")}</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

@@ -29,6 +29,7 @@ export function AiCommentSettings({ disabled }: AiCommentSettingsProps) {
       </Label>
 
       <NativeSelect
+        id="enable-ai-comment"
         disabled={disabled}
         onChange={(e) => onValueChange(e.target.value)}
         value={selectedMood}

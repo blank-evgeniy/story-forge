@@ -104,6 +104,8 @@
     },
     "startGame": "Start game",
     "waitingForHost": "Waiting for the host to start the game",
+    "edit": "Edit",
+    "save": "Save",
     "settings": {
       "title": "Game settings",
       "roundTime": "Round time (sec.)",
