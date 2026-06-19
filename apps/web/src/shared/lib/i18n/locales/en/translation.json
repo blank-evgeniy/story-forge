@@ -201,6 +201,16 @@
     "lost": "Connection lost",
     "failed": "Failed to connect"
   },
+  "errors": {
+    "ROOM_NOT_FOUND": "Room not found",
+    "ROOM_FULL": "Room is full",
+    "GAME_ALREADY_STARTED": "Game has already started",
+    "NOT_ENOUGH_PLAYERS": "Not enough players",
+    "NOT_HOST_START": "Only the host can start the game",
+    "NOT_HOST_EDIT": "Only the host can edit the configuration",
+    "NOT_HOST_RESTART": "Only the host can restart the game",
+    "RATE_LIMIT": "Too many requests"
+  },
   "error": {
     "heading": "Something went wrong",
     "description": "An unexpected error occurred. Try refreshing the page or going back to home",

@@ -13,8 +13,8 @@ export function onEditConfig(ws: ElysiaWS, event: { config: RoomConfig }) {
 
   if (room.hostId !== playerId) {
     roomManager.send(room, playerId, {
-      code: "NOT_HOST",
-      message: "Только хост может редактировать конфигурацию",
+      code: "NOT_HOST_EDIT",
+      message: "Only the host can edit the configuration",
       type: "error",
     });
     return;

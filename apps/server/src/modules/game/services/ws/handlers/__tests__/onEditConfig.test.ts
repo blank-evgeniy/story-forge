@@ -52,7 +52,7 @@ describe("onEditConfig handler", () => {
     expect(roomManager.send).toHaveBeenCalledWith(
       room,
       "p2",
-      expect.objectContaining({ code: "NOT_HOST", type: "error" }),
+      expect.objectContaining({ code: "NOT_HOST_EDIT", type: "error" }),
     );
     expect(roomManager.broadcast).not.toHaveBeenCalled();
   });

@@ -19,7 +19,7 @@ export const wsModule = new Elysia().ws("/ws", {
       ws.send(
         JSON.stringify({
           code: "RATE_LIMIT",
-          message: "Слишком много запросов",
+          message: "Too many requests",
           type: "error",
         }),
       );

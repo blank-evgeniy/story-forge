@@ -2,7 +2,7 @@ import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { generateText } from "ai";
 
 import { RoomState } from "../../model/state";
-import { getPrompt } from "./prompt";
+import { getPrompt, storyHeader, unknownPlayer } from "./prompt";
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY ?? "",
@@ -11,24 +11,20 @@ const openrouter = createOpenRouter({
 export async function generateCommentary(
   room: RoomState,
 ): Promise<{ success: boolean; text: string }> {
-  const unknownPlayer = room.locale === "en" ? "Unknown" : "Неизвестный";
+  const unknown = unknownPlayer[room.locale];
 
   const storiesText = room.stories
     .map((story, i) => {
-      const ownerName =
-        room.players.get(story.ownerId)?.username ?? unknownPlayer;
+      const ownerName = room.players.get(story.ownerId)?.username ?? unknown;
       const lines = story.entries
         .map((s) => {
-          const author =
-            room.players.get(s.playerId)?.username ?? unknownPlayer;
+          const author = room.players.get(s.playerId)?.username ?? unknown;
           const twistPart = s.twist ? ` [twist: ${s.twist.content}]` : "";
           return `  [${author}]${twistPart}: ${s.content}`;
         })
         .join("\n");
 
-      return room.locale === "en"
-        ? `Story ${i + 1} (started by ${ownerName}):\n${lines}`
-        : `История ${i + 1} (начата игроком ${ownerName}):\n${lines}`;
+      return `${storyHeader[room.locale](i + 1, ownerName)}:\n${lines}`;
     })
     .join("\n\n");
 
@@ -61,8 +57,10 @@ export async function generateCommentary(
     }
   }
 
+  // The client renders its own localized message for the AI_FAILED code,
+  // so this text is only an internal fallback and is never shown to users.
   return {
     success: false,
-    text: "Не удалось получить ИИ-комментарий",
+    text: "Failed to generate AI commentary",
   };
 }

@@ -50,7 +50,7 @@ describe("onJoinRoom handler", () => {
     ).toHaveBeenCalledWith(
       JSON.stringify({
         code: "ROOM_NOT_FOUND",
-        message: "Комната не найдена",
+        message: "Room not found",
         type: "error",
       }),
     );
@@ -80,7 +80,7 @@ describe("onJoinRoom handler", () => {
     ).toHaveBeenCalledWith(
       JSON.stringify({
         code: "ROOM_FULL",
-        message: "Комната уже заполнена",
+        message: "Room is full",
         type: "error",
       }),
     );
@@ -98,7 +98,7 @@ describe("onJoinRoom handler", () => {
     ).toHaveBeenCalledWith(
       JSON.stringify({
         code: "GAME_ALREADY_STARTED",
-        message: "Игра уже началась",
+        message: "Game has already started",
         type: "error",
       }),
     );

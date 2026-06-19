@@ -13,8 +13,8 @@ export function onRestartGame(ws: ElysiaWS) {
 
   if (room.hostId !== playerId) {
     roomManager.send(room, playerId, {
-      code: "NOT_HOST",
-      message: "Только хост может перезапустить игру",
+      code: "NOT_HOST_RESTART",
+      message: "Only the host can restart the game",
       type: "error",
     });
     return;

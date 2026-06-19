@@ -10,6 +10,7 @@ import {
   mapRoomConfigToSettings,
   type RoomSettings,
 } from "@/entities/room";
+import i18n from "@/shared/lib/i18n/i18n-setup";
 
 import type { Player, PrevEntry, Story, TwistsSet } from "../types";
 
@@ -212,8 +213,12 @@ export const useRoomStore = create<RoomState>((set, get) => ({
           break;
         }
 
-        set({ error: event.message });
-        toast.error(event.message);
+        const message = i18n.t(`errors.${event.code}`, {
+          defaultValue: event.message,
+        });
+
+        set({ error: message });
+        toast.error(message);
 
         if (event.code === "GAME_ALREADY_STARTED") {
           router.navigate({ to: "/" });

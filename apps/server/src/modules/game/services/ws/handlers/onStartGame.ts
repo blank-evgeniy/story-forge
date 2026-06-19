@@ -18,7 +18,7 @@ export function onStartGame(ws: ElysiaWS) {
   if (room.players.size < MIN_PLAYERS_TO_START) {
     roomManager.send(room, playerId, {
       code: "NOT_ENOUGH_PLAYERS",
-      message: "Недостаточно игроков",
+      message: "Not enough players",
       type: "error",
     });
     return;
@@ -26,8 +26,8 @@ export function onStartGame(ws: ElysiaWS) {
 
   if (room.hostId !== playerId) {
     roomManager.send(room, playerId, {
-      code: "NOT_HOST",
-      message: "Только хост может начать игру",
+      code: "NOT_HOST_START",
+      message: "Only the host can start the game",
       type: "error",
     });
     return;

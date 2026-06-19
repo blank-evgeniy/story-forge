@@ -12,6 +12,16 @@ const storiesLabel: Record<Locale, string> = {
   ru: "Истории",
 };
 
+export const unknownPlayer: Record<Locale, string> = {
+  en: "Unknown",
+  ru: "Неизвестный",
+};
+
+export const storyHeader: Record<Locale, (index: number, owner: string) => string> = {
+  en: (index, owner) => `Story ${index} (started by ${owner})`,
+  ru: (index, owner) => `История ${index} (начата игроком ${owner})`,
+};
+
 const formatRules: Record<Locale, string> = {
   en: `- 2-3 sentences, no more;
 - no retelling of events — reaction only;
