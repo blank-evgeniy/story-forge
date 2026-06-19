@@ -76,6 +76,9 @@ export default defineConfig({
       VITE_E2E: "true",
       VITE_API_BASE_URL: "http://localhost:3000/",
       VITE_WS_BASE_URL: "ws://localhost:3000/ws",
+      // Speed up time-based reveal animations so they finish well within the
+      // default expect timeout.
+      VITE_SPEED_MULTIPLIER: "10",
     },
   },
 });
