@@ -22,31 +22,31 @@ export const PlayerList = ({ players, className }: PlayerListProps) => {
   const breakpoints = useTwBreakpoints();
 
   return (
-    <ScrollArea className={cn("w-full overflow-auto lg:h-full", className)}>
+    <ScrollArea className={cn("w-full overflow-auto md:h-full", className)}>
       <ul
         {...testIdAttr(testId("list"))}
-        className="flex gap-3 pb-2.5 sm:grid sm:grid-cols-6 sm:items-start lg:flex lg:flex-col lg:pb-0"
+        className="flex gap-3 pb-2.5 sm:grid sm:grid-cols-6 sm:items-start md:flex md:flex-col md:pb-0"
       >
         {players.map((player) => (
           <li
             key={player.id}
             {...testIdAttr(testId("item", player.id))}
-            className="flex shrink-0 items-center justify-center sm:w-full lg:justify-start"
+            className="flex shrink-0 items-center justify-center sm:w-full md:justify-start"
           >
             <PlayerCard
               color={player.color}
               icon={player.icon}
               username={player.username}
-              direction={breakpoints.smaller("lg") ? "vertical" : "horizontal"}
+              direction={breakpoints.smaller("md") ? "vertical" : "horizontal"}
             >
               <PlayerCardAvatar />
-              <PlayerCardTitle size={breakpoints.smaller("lg") ? "sm" : "md"} />
+              <PlayerCardTitle size={breakpoints.smaller("md") ? "sm" : "md"} />
             </PlayerCard>
           </li>
         ))}
       </ul>
-      <ScrollBar orientation="horizontal" className="lg:hidden" />
-      <ScrollBar orientation="vertical" className="hidden lg:flex" />
+      <ScrollBar orientation="horizontal" className="md:hidden" />
+      <ScrollBar orientation="vertical" className="hidden md:flex" />
     </ScrollArea>
   );
 };

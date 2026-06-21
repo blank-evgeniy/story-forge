@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { Field } from "@/shared/ui/field";
-import { Label } from "@/shared/ui/label";
+import { Field, FieldLabel } from "@/shared/ui/field";
 import { NativeSelect, NativeSelectOption } from "@/shared/ui/native-select";
 
 import { roundTimeOptions } from "../../model/consts";
@@ -24,7 +23,9 @@ export function RoundTimeSelect({ disabled }: RoundTimeSelectProps) {
 
   return (
     <Field>
-      <Label htmlFor="round-time">{t("welcome.createRoom.roundTime")}</Label>
+      <FieldLabel htmlFor="round-time">
+        {t("welcome.createRoom.roundTime")}
+      </FieldLabel>
 
       <NativeSelect
         id="round-time"

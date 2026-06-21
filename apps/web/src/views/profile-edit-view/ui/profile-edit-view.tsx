@@ -5,14 +5,7 @@ import type { PlayerColor, PlayerIcon } from "@/entities/player";
 
 import { PlayerForm } from "@/entities/player";
 import { Button } from "@/shared/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/shared/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
 
 type ProfileEditViewProps = {
   initialUsername: string;
@@ -34,13 +27,14 @@ export function ProfileEditView({
   useDocumentTitle(t("titles.profileEdit"));
 
   return (
-    <div className="mt-4 flex flex-1 justify-center lg:mt-[10vh]">
+    <div className="mt-4 flex flex-1 justify-center md:mt-[10vh]">
       <div className="w-full max-w-sm">
         <Card className="shadow-md">
-          <CardHeader className="pb-4">
-            <CardTitle>{t("profile.heading")}</CardTitle>
-            <CardDescription>{t("profile.subtitle")}</CardDescription>
+          <CardHeader>
+            <h1 className="text-h2">{t("profile.heading")}</h1>
+            <p className="text-body text-surface-2">{t("profile.subtitle")}</p>
           </CardHeader>
+
           <CardContent>
             <PlayerForm
               mode="edit"
@@ -52,11 +46,12 @@ export function ProfileEditView({
               }}
             />
           </CardContent>
+
           <CardFooter className="border-t">
             <Button
               type="button"
-              variant="destructive"
-              className="w-full"
+              variant="danger"
+              className={"w-full"}
               onClick={onLogout}
             >
               {t("profile.logout")}

@@ -20,7 +20,11 @@ export function CreateRoomAction({
   };
 
   return (
-    <Button className="w-full" onClick={handleSubmit} isLoading={isLoading}>
+    <Button
+      className="w-full uppercase"
+      onClick={handleSubmit}
+      isLoading={isLoading}
+    >
       {t("welcome.createRoom.submit")}
     </Button>
   );

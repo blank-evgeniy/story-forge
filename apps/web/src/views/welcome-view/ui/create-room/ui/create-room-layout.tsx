@@ -1,26 +1,15 @@
 import { useTranslation } from "react-i18next";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/shared/ui/card";
-import {
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-} from "@/shared/ui/field";
+import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
+import { FieldGroup, FieldSet } from "@/shared/ui/field";
 
 function CreateRoomLayoutRoot({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
 
   return (
-    <Card>
+    <Card variant="glass-strong">
       <CardHeader>
-        <CardTitle>{t("welcome.createRoom.heading")}</CardTitle>
+        <h2 className="text-h2">{t("welcome.createRoom.heading")}</h2>
       </CardHeader>
       {children}
     </Card>
@@ -33,10 +22,12 @@ function Content({ children }: { children: React.ReactNode }) {
   return (
     <CardContent>
       <FieldSet>
-        <FieldLegend>{t("welcome.createRoom.settings")}</FieldLegend>
-        <FieldDescription>
-          {t("welcome.createRoom.settingsHint")}
-        </FieldDescription>
+        <div className="space-y-2">
+          <h3 className="text-h3">{t("welcome.createRoom.settings")}</h3>
+          <p className="text-caption text-surface-2">
+            {t("welcome.createRoom.settingsHint")}
+          </p>
+        </div>
         <FieldGroup>{children}</FieldGroup>
       </FieldSet>
     </CardContent>

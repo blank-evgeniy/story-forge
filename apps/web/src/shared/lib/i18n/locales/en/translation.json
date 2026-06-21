@@ -99,8 +99,9 @@
     },
     "qr": {
       "scan": "scan the code to join",
-      "or": "or",
-      "enter": "enter the code to join"
+      "enter": "Enter the code to join",
+      "showQr": "Show QR code",
+      "copyLink": "Copy invite link"
     },
     "startGame": "Start game",
     "waitingForHost": "Waiting for the host to start the game",

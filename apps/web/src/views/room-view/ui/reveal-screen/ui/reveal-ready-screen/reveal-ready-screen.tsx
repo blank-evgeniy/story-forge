@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
 import { Button } from "@/shared/ui/button";
-import { Field, FieldContent, FieldLabel } from "@/shared/ui/field";
+import { FieldLabel } from "@/shared/ui/field";
 import { Separator } from "@/shared/ui/separator";
 import { Switch } from "@/shared/ui/switch";
 
@@ -32,16 +32,16 @@ export function RevealReadyScreen({
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="bg-muted/60 border-border flex h-16 w-16 items-center justify-center rounded-2xl border"
+          className="bg-ink/30 border-line flex h-16 w-16 items-center justify-center rounded-2xl border"
         >
-          <BookOpenIcon className="text-muted-foreground h-8 w-8" />
+          <BookOpenIcon className="text-surface-2 h-8 w-8" />
         </motion.div>
 
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-          className="text-2xl font-semibold tracking-tight"
+          className="text-h2 font-semibold tracking-tight"
         >
           {t("reveal.ready.heading")}
         </motion.h2>
@@ -50,7 +50,7 @@ export function RevealReadyScreen({
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
-          className="text-muted-foreground text-sm"
+          className="text-surface-2 text-small"
         >
           {t("reveal.ready.storiesCount", { count: storiesCount })}
         </motion.p>
@@ -71,18 +71,16 @@ export function RevealReadyScreen({
         transition={{ duration: 0.4, ease: "easeOut", delay: 0.35 }}
         className="flex flex-col items-center gap-4"
       >
-        <Field orientation="horizontal">
+        <div className="flex items-center gap-2">
           <Switch
             id="player-mode"
             defaultChecked={false}
             onCheckedChange={onSwitchChange}
           />
-          <FieldContent>
-            <FieldLabel htmlFor="player-mode">
-              {t("reveal.ready.enableNarration")}
-            </FieldLabel>
-          </FieldContent>
-        </Field>
+          <FieldLabel htmlFor="player-mode">
+            {t("reveal.ready.enableNarration")}
+          </FieldLabel>
+        </div>
 
         <Button {...testIdAttr(testId("start"))} onClick={onStart}>
           {t("reveal.ready.viewResults")}

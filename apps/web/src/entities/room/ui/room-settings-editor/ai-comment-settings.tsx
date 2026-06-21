@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { Field, FieldDescription } from "@/shared/ui/field";
-import { Label } from "@/shared/ui/label";
+import { Field, FieldDescription, FieldLabel } from "@/shared/ui/field";
 import { NativeSelect, NativeSelectOption } from "@/shared/ui/native-select";
 
 import { type AiMood, aiMoodOptions } from "../../../room";
@@ -24,9 +23,9 @@ export function AiCommentSettings({ disabled }: AiCommentSettingsProps) {
 
   return (
     <Field>
-      <Label htmlFor="enable-ai-comment">
+      <FieldLabel htmlFor="enable-ai-comment">
         {t("welcome.createRoom.aiComment.title")}
-      </Label>
+      </FieldLabel>
 
       <NativeSelect
         id="enable-ai-comment"

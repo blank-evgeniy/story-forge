@@ -30,7 +30,7 @@ export function PlayerColorPicker({
             "h-7 w-7 cursor-pointer rounded-full transition-all",
             playerColorSwatchClasses[color],
             value === color
-              ? "ring-foreground ring-offset-background scale-110 ring-2 ring-offset-2"
+              ? "ring-surface scale-110 ring-2"
               : "opacity-60 hover:opacity-90",
           )}
           aria-label={color}

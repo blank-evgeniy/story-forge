@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import type { RoomSettings } from "@/entities/room";
 
 import { cn } from "@/shared/lib/utils";
-import { CardTitle } from "@/shared/ui/card";
 
 type RoomSettingsViewerProps = {
   data: RoomSettings;
@@ -61,9 +60,9 @@ export function RoomSettingsViewer({
   ];
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <div className="flex justify-between gap-4">
-        <CardTitle>{t("lobby.settings.title")}</CardTitle>
+        <span className="text-h3">{t("lobby.settings.title")}</span>
         {editActionSlot}
       </div>
 
@@ -71,24 +70,24 @@ export function RoomSettingsViewer({
         {rows.map(({ icon: Icon, label, value, active, badge }) => (
           <div
             key={label}
-            className="bg-muted/50 flex items-center gap-3 rounded-xl px-3 py-2"
+            className="bg-surface-2 text-ink flex items-center gap-3 rounded-xl px-3 py-2"
           >
             <Icon
               className={cn(
                 "size-4 shrink-0",
-                active ? "text-primary" : "text-muted-foreground",
+                active ? "text-brand-400" : "text-ink-2",
               )}
             />
             <span className="flex-1 text-sm">{label}</span>
             {badge && (
-              <span className="text-muted-foreground bg-muted rounded-md px-1.5 py-0.5 text-xs capitalize">
+              <span className="text-ink-muted bg-brand-50 text-caption rounded-md px-1.5 py-0.5 capitalize">
                 {badge}
               </span>
             )}
             <span
               className={cn(
-                "text-xs font-medium",
-                active ? "text-primary" : "text-muted-foreground",
+                "text-small",
+                active ? "text-brand-400" : "text-ink-2",
               )}
             >
               {value}
@@ -96,6 +95,6 @@ export function RoomSettingsViewer({
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

@@ -30,13 +30,13 @@ export function StoriesView({
   return (
     <>
       <div className="mt-4 flex flex-1 flex-col gap-4">
-        <h1 className="text-2xl font-bold">{t("stories.heading")}</h1>
+        <h1 className="text-h1">{t("stories.heading")}</h1>
 
         {isLoading && <StoriesSkeleton />}
 
         {!isLoading && stories?.length === 0 && (
-          <Card size="sm">
-            <CardContent className="text-muted-foreground py-8 text-center">
+          <Card>
+            <CardContent className="text-ink-muted text-center">
               {t("stories.empty")}
             </CardContent>
           </Card>

@@ -37,7 +37,7 @@ export function StartGameAction({
   return (
     <p
       {...testIdAttr(testId("waiting-message"))}
-      className="text-muted-foreground flex items-center justify-center gap-2"
+      className="text-surface-2 text-body flex items-center justify-center gap-2"
     >
       {t("lobby.waitingForHost")} <Spinner />
     </p>

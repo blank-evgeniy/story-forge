@@ -80,14 +80,14 @@ export function PlayerCardAvatar({
       icon={icon}
       size={size}
       className={className}
-      fallbackClassName={dimmed ? "bg-muted text-muted-foreground" : undefined}
+      fallbackClassName={dimmed ? "grayscale" : undefined}
     />
   );
 }
 
 const titleSizeStyles = {
-  sm: "text-xs",
-  md: "text-sm",
+  sm: "text-small",
+  md: "text-body",
 } as const;
 
 type PlayerCardTitleProps = {
@@ -105,7 +105,7 @@ export function PlayerCardTitle({
     <span
       title={username}
       className={cn(
-        "text-muted-foreground block max-w-full truncate",
+        "text-surface text-body block max-w-full truncate leading-none font-medium",
         titleSizeStyles[size],
         disconnected && "line-through",
         className,

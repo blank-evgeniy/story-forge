@@ -35,18 +35,18 @@ export function WritingScreenTwistPicker({
 
   if (pickedTwist) {
     return (
-      <div className="border-primary bg-primary/10 flex items-center gap-2 rounded-lg border px-4 py-2 text-sm">
-        <ZapIcon className="text-primary size-3.5 shrink-0" />
+      <div className="border-line bg-surface/10 text-small flex items-center gap-2 rounded-lg border px-4 py-2">
+        <ZapIcon className="text-surface size-3.5 shrink-0" />
         <span className="flex-1">{pickedTwist.content}</span>
         {isSubmitted ? (
-          <CheckIcon className="text-primary size-4 shrink-0" />
+          <CheckIcon className="text-surface size-4 shrink-0" />
         ) : (
           <Button
             {...testIdAttr(testId("unset"))}
             type="button"
-            variant="ghost"
+            variant="danger"
             size="icon-sm"
-            className="text-destructive -my-4"
+            className={"-my-1"}
             onClick={() => onPick(null)}
           >
             <XIcon />
@@ -58,16 +58,16 @@ export function WritingScreenTwistPicker({
 
   if (isSkipped) {
     return (
-      <div className="border-muted text-muted-foreground flex items-center gap-2 rounded-lg border px-4 py-2 text-sm">
+      <div className="border-surface-2 text-surface-2 text-small flex items-center gap-2 rounded-lg border px-4 py-2">
         <ZapIcon className="size-3.5 shrink-0" />
         <span className="flex-1">{t("writing.twist.none")}</span>
         {!isSubmitted && (
           <Button
             {...testIdAttr(testId("unset"))}
             type="button"
-            variant="ghost"
+            variant="danger"
             size="icon-sm"
-            className="text-destructive -my-4"
+            className="-my-1"
             onClick={() => onSkip(false)}
           >
             <XIcon />
@@ -81,15 +81,15 @@ export function WritingScreenTwistPicker({
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <ZapIcon className="text-primary size-3.5" />
-          <h3 className="text-muted-foreground text-sm font-medium">
+          <ZapIcon className="text-surface size-3.5" />
+          <h3 className="text-surface-2 text-small font-medium">
             {t("writing.twist.choose")}
           </h3>
         </div>
         <Button
           {...testIdAttr(testId("skip"))}
           type="button"
-          variant="ghost"
+          variant="ghost-white"
           size="sm"
           onClick={() => onSkip(true)}
         >
@@ -103,7 +103,7 @@ export function WritingScreenTwistPicker({
             <button
               {...testIdAttr(testId("item", twist.id))}
               type="button"
-              className="border-muted hover:bg-muted/50 flex w-full cursor-pointer items-center gap-4 rounded-lg border px-4 py-2 text-sm transition-colors"
+              className="border-surface-2 hover:bg-surface/30 text-small flex w-full cursor-pointer items-center gap-4 rounded-lg border px-4 py-2 transition-colors"
               onClick={() => onPick(twist.id)}
             >
               {twist.content}

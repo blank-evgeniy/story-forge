@@ -4,8 +4,8 @@ export function OnlineState() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center gap-2 text-sm">
-      <span className="text-green-500">●</span>
+    <div className="text-small text-surface-2 flex items-center gap-2">
+      <span className="text-success">●</span>
       <span>{t("welcome.serverStatus.online")}</span>
     </div>
   );
