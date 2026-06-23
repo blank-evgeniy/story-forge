@@ -1,10 +1,8 @@
-import { ZapIcon } from "lucide-react";
 import { Fragment } from "react";
 
 import type { StoryContentItemDTO } from "@/shared/api/requests/types";
 
 import { cn } from "@/shared/lib/utils";
-import { Separator } from "@/shared/ui/separator";
 
 const SIDES = ["left", "right"] as const;
 
@@ -19,19 +17,9 @@ export function StoryContent({ items }: StoryContentProps) {
         <Fragment key={i}>
           {item.twist && (
             <div className="my-2 flex flex-col items-center gap-2 px-4">
-              <div className="flex w-full items-center gap-3">
-                <Separator className="flex-1" />
-                <ZapIcon className="text-primary size-3.5" />
-                <Separator className="flex-1" />
-              </div>
-              <p className="text-foreground/80 text-center text-sm leading-relaxed font-medium italic">
+              <p className="text-surface/80 text-small text-center italic">
                 {item.twist}
               </p>
-              <div className="flex w-full items-center gap-3">
-                <Separator className="flex-1" />
-                <ZapIcon className="text-primary size-3.5" />
-                <Separator className="flex-1" />
-              </div>
             </div>
           )}
           <div
@@ -39,19 +27,19 @@ export function StoryContent({ items }: StoryContentProps) {
               "items-end": SIDES[i % 2] === "right",
             })}
           >
-            <span className="text-muted-foreground px-1 text-xs">
+            <span className="text-surface-muted text-caption px-1">
               {item.playerName}
             </span>
             <div
               className={cn(
-                "max-w-[85%] rounded-2xl border border-amber-500/50 bg-amber-500/10 px-4 py-2.5",
+                "border-brand-500/50 max-w-[85%] rounded-2xl border bg-amber-500/10 px-4 py-2.5",
                 {
                   "ml-auto rounded-br-sm": SIDES[i % 2] === "right",
                   "mr-auto rounded-bl-sm": SIDES[i % 2] === "left",
                 },
               )}
             >
-              <p className="text-foreground/90 text-sm leading-relaxed break-words">
+              <p className="text-foreground/90 text-small leading-relaxed break-words">
                 {item.entry}
               </p>
             </div>

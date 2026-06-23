@@ -2,6 +2,7 @@ import { useTimer } from "@siberiacancode/reactuse";
 import { TimerIcon } from "lucide-react";
 
 import { cn } from "@/shared/lib/utils";
+import { Badge } from "@/shared/ui/badge";
 
 type WritingScreenTimerProps = {
   time: number;
@@ -15,14 +16,11 @@ export function WritingScreenTimer({ time }: WritingScreenTimerProps) {
   const isWarning = totalSeconds <= 30;
 
   return (
-    <div
+    <Badge
+      variant={"white"}
       className={cn(
         "flex items-center gap-2 tabular-nums transition-colors duration-500",
-        isUrgent
-          ? "text-destructive"
-          : isWarning
-            ? "text-amber-500"
-            : "text-muted-foreground",
+        isUrgent ? "text-danger" : isWarning ? "text-warning" : "text-ink",
       )}
     >
       <TimerIcon className="size-4 shrink-0" />
@@ -30,6 +28,6 @@ export function WritingScreenTimer({ time }: WritingScreenTimerProps) {
         {String(timer.minutes).padStart(2, "0")}:
         {String(timer.seconds).padStart(2, "0")}
       </span>
-    </div>
+    </Badge>
   );
 }

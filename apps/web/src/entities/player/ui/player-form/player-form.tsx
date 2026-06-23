@@ -61,10 +61,11 @@ export function PlayerForm({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <Field>
-        <FieldLabel>{t("login.nickname.label")}</FieldLabel>
+        <FieldLabel htmlFor="name">{t("login.nickname.label")}</FieldLabel>
         <Input
           {...testIdAttr(testId("input-username"))}
           value={username}
+          id="name"
           onChange={(e) => setUsername(e.target.value)}
           placeholder={t("login.nickname.placeholder")}
           autoFocus

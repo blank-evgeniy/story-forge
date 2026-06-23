@@ -40,10 +40,11 @@ export function PlayerIconPicker({
             type="button"
             onClick={() => onChange(id)}
             className={cn(
-              "flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors",
+              "flex cursor-pointer items-center justify-center rounded-xl p-2 transition-colors outline-none",
+              "focus-visible:ring-brand-200/40 focus-visible:ring-4",
               selected
-                ? cn("ring-1 ring-current/30", playerAvatarColorClasses[color])
-                : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                ? playerAvatarColorClasses[color]
+                : "text-surface hover:bg-surface-2/10",
             )}
             aria-label={id}
             {...testIdAttr(testId("button", id))}

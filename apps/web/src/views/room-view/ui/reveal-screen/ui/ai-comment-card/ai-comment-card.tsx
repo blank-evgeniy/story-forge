@@ -2,7 +2,7 @@ import { BotIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
+import { Card, CardContent, CardHeader } from "@/shared/ui/card";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Skeleton } from "@/shared/ui/skeleton";
 
@@ -24,12 +24,12 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
       className="min-h-0"
     >
       {status === "loading" && (
-        <Card size="sm">
+        <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-sm font-medium">
-              <BotIcon className="text-muted-foreground size-4" />
+            <span className="text-small flex items-center gap-2 font-medium">
+              <BotIcon className="text-surface-2 size-4" />
               {t("aiComment.loading")}
-            </CardTitle>
+            </span>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             <Skeleton className="h-4 w-full" />
@@ -39,12 +39,12 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
       )}
 
       {status === "success" && comment !== null && (
-        <Card size="sm" className="min-h-0">
+        <Card className="min-h-0">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-sm font-medium">
-              <BotIcon className="text-muted-foreground size-4" />
+            <span className="text-small flex items-center gap-2 font-medium">
+              <BotIcon className="text-surface-2 size-4" />
               {t("aiComment.title")}
-            </CardTitle>
+            </span>
           </CardHeader>
           <CardContent className="px-2">
             <ScrollArea
@@ -58,9 +58,9 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
       )}
 
       {status === "error" && (
-        <p className="text-muted-foreground flex items-center justify-center gap-1 px-2 text-center text-xs">
+        <p className="text-surface-2 flex items-center justify-center gap-1 px-2 text-center text-xs">
           {t("aiComment.error")}
-          <BotIcon className="text-muted-foreground size-4" />
+          <BotIcon className="text-surface-2 size-4" />
         </p>
       )}
     </motion.div>

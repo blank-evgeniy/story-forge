@@ -6,7 +6,11 @@ import {
   type WithModuleNamespace,
 } from "@/shared/lib/tests/test-id-generator";
 import { cn } from "@/shared/lib/utils";
-import { Avatar, AvatarFallback, avatarVariants } from "@/shared/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  type avatarVariants,
+} from "@/shared/ui/avatar";
 
 import type { PlayerColor, PlayerIcon } from "../../model/types";
 

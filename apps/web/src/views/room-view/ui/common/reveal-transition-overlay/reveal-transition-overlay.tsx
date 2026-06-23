@@ -22,14 +22,14 @@ export function RevealTransitionOverlay() {
 
   return (
     <motion.div
-      className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+      className="bg-ink/70 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.p
-        className="text-foreground text-2xl font-medium"
+        className="text-surface text-h1 font-medium"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}

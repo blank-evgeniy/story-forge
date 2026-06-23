@@ -1,9 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-import { useSaveStoryContext } from "@/views/room-view/model/context/save-story-context";
-import { useRoomStore } from "@/views/room-view/model/store/use-room-store";
-
+import { useSaveStoryContext } from "../../../../model/context/save-story-context";
+import { useRoomStore } from "../../../../model/store/use-room-store";
 import { StoryActions } from "./story-actions";
 
 type StoryActionsProps = {

@@ -1,11 +1,10 @@
 import { useRoomActions } from "../../model/context/room-actions-context";
 import { useRoomStore } from "../../model/store/use-room-store";
 import { EditSettingsAction } from "./ui/edit-settings-action/edit-settings-action";
-import { LobbyQrCode } from "./ui/lobby-qr-code";
 import { LobbyScreenLayout } from "./ui/lobby-screen-layout";
 import { PlayerList } from "./ui/player-list";
 import { PlayerListCounter } from "./ui/player-list-counter";
-import { RoomCodeViewer } from "./ui/room-code-viewer";
+import { RoomJoinPanel } from "./ui/room-join-panel";
 import { RoomSettingsViewer } from "./ui/room-settings-viewer";
 import { StartGameAction } from "./ui/start-game-action";
 
@@ -41,8 +40,7 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
               }
             />
           }
-          qrSlot={<LobbyQrCode />}
-          codeSlot={<RoomCodeViewer roomCode={roomCode} />}
+          joinSlot={<RoomJoinPanel roomCode={roomCode} />}
         />
         <LobbyScreenLayout.MainSectionFooter>
           <StartGameAction

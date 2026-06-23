@@ -5,13 +5,14 @@ import { ChevronLeftIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { AppLogo } from "@/shared/ui/app-logo";
+import { BaseLayout } from "@/shared/ui/base-layout";
 import { Button } from "@/shared/ui/button";
 
 export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="relative mx-auto flex h-dvh min-h-0 w-full max-w-3xl flex-col gap-6 overflow-hidden px-4 py-4 lg:gap-10 lg:py-10">
+    <BaseLayout className="relative h-dvh min-h-0 flex-col gap-6 overflow-hidden py-4 md:gap-10 md:py-10">
       <header className="relative flex items-center justify-center">
         <Button
           render={<Link to={"/"} />}
@@ -33,6 +34,6 @@ export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
       >
         {children}
       </main>
-    </div>
+    </BaseLayout>
   );
 };

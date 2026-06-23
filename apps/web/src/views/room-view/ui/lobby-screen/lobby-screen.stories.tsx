@@ -4,6 +4,7 @@ import { useRoomStore } from "../../model/store/use-room-store";
 import {
   withRoomActions,
   withRoomLayout,
+  withRoomSettingsContext,
 } from "../../utils/storybook-decorators";
 import { MOCK_PLAYERS } from "../../utils/storybook-mocks";
 import { LobbyScreen } from "./lobby-screen";
@@ -14,7 +15,7 @@ const meta = {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [withRoomActions, withRoomLayout],
+  decorators: [withRoomActions, withRoomLayout, withRoomSettingsContext],
   args: {
     roomCode: "1234",
   },

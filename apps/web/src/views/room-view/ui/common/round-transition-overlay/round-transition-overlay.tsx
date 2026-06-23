@@ -11,7 +11,7 @@ export function RoundTransitionOverlay() {
 
   return (
     <motion.div
-      className="bg-background/80 fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm"
+      className="bg-ink/70 fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -24,24 +24,24 @@ export function RoundTransitionOverlay() {
         exit={{ opacity: 0, scale: 0.92 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
-        <span className="text-muted-foreground text-xs font-semibold tracking-(--tracking-display) uppercase">
+        <span className="text-surface text-small font-semibold tracking-(--tracking-display) uppercase">
           {t("roundTransition.round")}
         </span>
         <span className="text-[9rem] leading-none font-bold tracking-tight tabular-nums">
           {round}
         </span>
-        <div className="text-muted-foreground flex items-center gap-2">
-          <span className="bg-muted-foreground/40 h-px w-6" />
-          <span className="text-sm font-medium tracking-widest uppercase">
+        <div className="text-surface flex items-center gap-2">
+          <span className="bg-surface/40 h-px w-6" />
+          <span className="text-small font-medium tracking-widest uppercase">
             {t("roundTransition.of", { totalRounds })}
           </span>
-          <span className="bg-muted-foreground/40 h-px w-6" />
+          <span className="bg-surface/40 h-px w-6" />
         </div>
       </motion.div>
 
-      <div className="bg-border absolute right-0 bottom-0 left-0 h-1">
+      <div className="bg-ink-muted absolute right-0 bottom-0 left-0 h-1">
         <motion.div
-          className="bg-primary h-full"
+          className="bg-brand-400 h-full"
           style={{ transformOrigin: "left" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}

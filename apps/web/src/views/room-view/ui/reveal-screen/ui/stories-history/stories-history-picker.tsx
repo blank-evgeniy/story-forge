@@ -10,7 +10,7 @@ export function StoriesHistoryPicker() {
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-muted-foreground px-0.5 text-xs">
+      <span className="text-surface-2 text-caption px-0.5">
         {t("reveal.history.remember")}
       </span>
       <div className="flex [scrollbar-width:none] gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
@@ -18,7 +18,7 @@ export function StoriesHistoryPicker() {
           <Button
             key={story.id}
             size="sm"
-            variant={selectedStory?.id === story.id ? "default" : "outline"}
+            variant={selectedStory?.id === story.id ? "secondary" : "outline"}
             className="shrink-0"
             onClick={() => onSelectStory(story)}
           >

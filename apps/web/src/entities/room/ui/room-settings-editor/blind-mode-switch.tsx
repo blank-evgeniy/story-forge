@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import { Field, FieldDescription } from "@/shared/ui/field";
-import { Label } from "@/shared/ui/label";
+import { FieldLabel } from "@/shared/ui/field";
 import { Switch } from "@/shared/ui/switch";
 
 import { useRoomSettingsContext } from "../../model/context/room-settings-context";
@@ -30,9 +30,9 @@ export function BlindModeSwitch({ disabled }: BlindModeSwitchProps) {
           id="enable-blind"
           disabled={disabled}
         />
-        <Label htmlFor="enable-blind">
+        <FieldLabel htmlFor="enable-blind">
           {t("welcome.createRoom.blindMode.label")}
-        </Label>
+        </FieldLabel>
       </div>
       <FieldDescription>
         {t("welcome.createRoom.blindMode.description")}

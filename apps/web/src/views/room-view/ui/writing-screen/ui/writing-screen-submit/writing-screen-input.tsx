@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
 import { cn } from "@/shared/lib/utils";
+import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Textarea } from "@/shared/ui/textarea";
 
@@ -67,13 +68,13 @@ export function WritingScreenInput({
           <Button
             {...testIdAttr(testId("edit"))}
             onClick={onEdit}
-            variant="ghost"
+            variant="ghost-white"
             size="sm"
           >
             <PencilIcon className="size-3" /> {t("writing.input.edit")}
           </Button>
-          <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
-            <CheckIcon className="size-3 text-green-500" />
+          <div className="text-surface-2 text-small flex items-center gap-1.5">
+            <CheckIcon className="text-success size-3" />
             <span>{t("writing.input.waitingForOthers")}</span>
           </div>
         </div>
@@ -98,23 +99,25 @@ export function WritingScreenInput({
         autoFocus
       />
       <div className="flex items-center justify-between gap-2">
-        <span
+        <Badge
+          variant={"secondary"}
           className={cn(
-            "text-muted-foreground text-xs transition-colors",
-            isNearLimit && "text-amber-500",
-            remaining === 0 && "text-destructive",
+            "text-surface-2 text-caption transition-colors",
+            isNearLimit && "text-warning",
+            remaining === 0 && "text-danger",
           )}
         >
           {t("writing.input.remaining", { count: remaining })}
-        </span>
+        </Badge>
         <div className="flex items-center gap-2">
-          <span className="text-muted-foreground hidden text-xs sm:block">
+          <span className="text-caption hidden sm:block">
             {t("writing.input.shortcut")}
           </span>
           <Button
             {...testIdAttr(testId("submit"))}
             onClick={handleSubmit}
             disabled={!content.trim()}
+            variant={"secondary"}
             size="sm"
           >
             {t("writing.input.submit")} <SendHorizonalIcon className="size-4" />

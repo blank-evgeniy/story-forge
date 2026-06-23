@@ -17,7 +17,7 @@ export function RoundCounter({ current, total }: RoundCounterProps) {
   return (
     <span
       {...testIdAttr(testId("round"))}
-      className="text-muted-foreground text-sm font-medium"
+      className="text-surface-2 text-small"
     >
       {t("writing.round", { round: current, totalRounds: total })}
     </span>

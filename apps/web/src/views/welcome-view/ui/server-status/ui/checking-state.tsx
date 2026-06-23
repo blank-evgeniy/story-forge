@@ -4,8 +4,8 @@ export function CheckingState() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center gap-2 text-sm">
-      <span className="text-muted-foreground animate-pulse">•</span>
+    <div className="text-small text-surface-2 flex items-center gap-2">
+      <span className="animate-pulse">•</span>
       <span>{t("welcome.serverStatus.checking")}</span>
     </div>
   );

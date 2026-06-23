@@ -33,7 +33,7 @@ export function RestartGameAction({
   return (
     <p
       {...testIdAttr(testId("waiting"))}
-      className="text-muted-foreground flex items-center justify-center gap-2 text-sm sm:text-base"
+      className="text-surface-2 sm:text-body text-small flex items-center justify-center gap-2"
     >
       {t("reveal.waitingForHost")} <Spinner />
     </p>
