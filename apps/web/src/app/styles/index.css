@@ -52,6 +52,9 @@
   --text-small: 0.875rem;
   --text-small--line-height: 1.45;
 
+  --text-field: 1rem;
+  --text-field--line-height: 1.45;
+
   --text-body: 1rem;
   --text-body--line-height: 1.55;
 
@@ -133,21 +136,15 @@
 }
 
 @layer base {
+  html {
+    overscroll-behavior-y: none;
+  }
   body {
     @apply bg-app text-surface;
   }
   * {
     @apply border-brand-50 outline-brand-200/50;
   }
-  /* * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  } */
 }
 
 @utility bg-app {
@@ -156,6 +153,7 @@
     var(--color-deep-400) 0%,
     var(--color-brand-400) 100%
   );
+  background-repeat: no-repeat;
   background-attachment: fixed;
 }
 

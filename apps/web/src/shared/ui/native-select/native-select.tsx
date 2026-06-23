@@ -25,7 +25,7 @@ function NativeSelect({
         data-slot="native-select"
         data-size={size}
         className={cn(
-          "border-line bg-surface text-ink text-body h-10 w-full min-w-0 appearance-none rounded-xl border-2 py-1 pr-8 pl-3.5 font-medium outline-none select-none md:h-12",
+          "border-line bg-surface text-ink text-field h-10 w-full min-w-0 appearance-none rounded-xl border-2 py-1 pr-8 pl-3.5 font-medium outline-none select-none md:h-12",
           "transition-colors",
           "focus-visible:ring-brand-400 focus-visible:ring-4",
           "aria-invalid:border-danger aria-invalid:ring-danger/20 aria-invalid:ring-4",
