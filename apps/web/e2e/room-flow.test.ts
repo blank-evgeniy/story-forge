@@ -2,13 +2,13 @@ import { expect, test } from "@playwright/test";
 
 import type { ClientEvent } from "../src/shared/api/ws/types";
 
+import { setupUser } from "./helpers/setup-user";
 import {
   makePlayerDto,
   makeRoomDto,
   makeStoryThread,
   RoomViewPage,
   setupHttpRoom,
-  setupUser,
   wsSend,
 } from "./pages/room-view.page";
 

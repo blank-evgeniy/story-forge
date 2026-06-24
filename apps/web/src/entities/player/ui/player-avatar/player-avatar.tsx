@@ -39,7 +39,11 @@ export function PlayerAvatar({
   const Icon = playerIconComponents[icon];
 
   return (
-    <Avatar size={size} className={cn(className)} {...testIdAttr(testId())}>
+    <Avatar
+      size={size}
+      className={cn(className)}
+      {...testIdAttr(testId("avatar"))}
+    >
       <AvatarFallback
         className={cn(playerAvatarColorClasses[color], fallbackClassName)}
       >

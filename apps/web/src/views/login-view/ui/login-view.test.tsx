@@ -12,8 +12,8 @@ import { LoginView } from "./login-view";
 vi.mock("sonner", () => ({ toast: { error: vi.fn() } }));
 
 const testIds = {
-  input: getTestId()("input-username"),
-  submit: getTestId()("submit"),
+  input: getTestId("player-form")("input-username"),
+  submit: getTestId("player-form")("submit"),
   colorButton: (color: string) =>
     getTestId("player-color-picker")("button", color),
   iconButton: (icon: string) => getTestId("player-icon-picker")("button", icon),

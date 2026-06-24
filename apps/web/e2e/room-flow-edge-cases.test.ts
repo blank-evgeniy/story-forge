@@ -1,12 +1,12 @@
 import { expect, test } from "@playwright/test";
 
+import { setupUser } from "./helpers/setup-user";
 import {
   makePlayerDto,
   makeRoomDto,
   makeStoryThread,
   RoomViewPage,
   setupHttpRoom,
-  setupUser,
   wsSend,
 } from "./pages/room-view.page";
 

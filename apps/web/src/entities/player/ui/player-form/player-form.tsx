@@ -35,7 +35,7 @@ export function PlayerForm({
   namespace,
 }: PlayerFormProps) {
   const getTestId = getTestIdGenerator(namespace);
-  const testId = getTestId();
+  const testId = getTestId("player-form");
 
   const { t } = useTranslation();
   const [username, setUsername] = useState(initialData?.username ?? "");

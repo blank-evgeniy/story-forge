@@ -168,20 +168,6 @@ export function makeStoryThread(
   };
 }
 
-// User setup
-
-export function setupUser(
-  page: Page,
-  user: { id: string; username: string; color: string; icon: string },
-) {
-  return page.addInitScript((u) => {
-    localStorage.setItem(
-      "user-storage",
-      JSON.stringify({ state: { user: u }, version: 1 }),
-    );
-  }, user);
-}
-
 // HTTP setup
 
 export function setupHttpRoom(page: Page, roomCode: string) {
