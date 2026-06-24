@@ -11,7 +11,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const user = usePlayerStore((store) => store.player);
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-4 pb-4">
+    <div className="app-layout mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-4 pb-4">
       <header className="flex items-center justify-between py-4">
         <Link to="/" className="flex items-center gap-px">
           <AppLogo />

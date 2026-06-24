@@ -21,14 +21,19 @@ export function WelcomeView({
   return (
     <Tabs
       defaultValue={defaultTab}
-      className="mt-4 flex w-full flex-1 flex-col md:mt-10"
+      className="welcome-tabs mt-4 flex w-full min-h-0 flex-col md:mt-10"
       orientation="horizontal"
     >
       <TabsList className="w-full">
         <TabsTrigger value="create">{t("welcome.tabs.newGame")}</TabsTrigger>
         <TabsTrigger value="join">{t("welcome.tabs.join")}</TabsTrigger>
       </TabsList>
-      <TabsContent value="create">{createRoomSlot}</TabsContent>
+      <TabsContent
+        value="create"
+        className="flex min-h-0 flex-1 flex-col"
+      >
+        {createRoomSlot}
+      </TabsContent>
       <TabsContent value="join">{joinRoomSlot}</TabsContent>
     </Tabs>
   );

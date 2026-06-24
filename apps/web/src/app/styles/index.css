@@ -167,6 +167,26 @@
   border: 1px solid var(--color-glass-border);
 }
 
+.app-layout {
+  --header-height: 4.5rem;
+}
+
+@media (width >= 48rem) {
+  .app-layout {
+    --header-height: 4.75rem;
+  }
+}
+
+.welcome-tabs {
+  height: calc(100dvh - var(--header-height) - 2rem);
+}
+
+@media (width >= 48rem) {
+  .welcome-tabs {
+    height: calc(100dvh - var(--header-height) - 3.5rem);
+  }
+}
+
 @layer utilities {
   .scrollbar-thin {
     scrollbar-width: thin;
