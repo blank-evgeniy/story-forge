@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
-import { Field, FieldDescription, FieldLabel } from "@/shared/ui/field";
+import { Field, FieldDescription } from "@/shared/ui/field";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/shared/ui/input-otp";
 
 type JoinRoomProps = {
@@ -25,7 +25,6 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
       </CardHeader>
       <CardContent>
         <Field>
-          <FieldLabel>{t("welcome.joinRoom.code.label")}</FieldLabel>
           <InputOTP maxLength={4} value={code} onChange={setCode}>
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -39,6 +38,7 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
       </CardContent>
       <CardFooter className="mt-auto">
         <Button
+          variant={"secondary"}
           onClick={handleSubmit}
           className="w-full"
           disabled={code.length !== 4}

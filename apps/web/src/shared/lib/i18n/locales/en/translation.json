@@ -28,14 +28,8 @@
     }
   },
   "welcome": {
-    "tabs": {
-      "newGame": "New Game",
-      "join": "Join"
-    },
     "createRoom": {
-      "heading": "Create a new game",
-      "settings": "Game settings",
-      "settingsHint": "Customize the game settings or jump right in",
+      "heading": "New game",
       "roundTime": "Round time (sec.)",
       "gameplay": "Gameplay",
       "blindMode": {
@@ -66,13 +60,12 @@
           }
         }
       },
-      "submit": "Create"
+      "submit": "Play"
     },
     "joinRoom": {
       "heading": "Join an existing game",
       "code": {
-        "label": "Code",
-        "hint": "Ask the host to share the room code"
+        "hint": "Enter the code of the room you want to join"
       },
       "submit": "Join"
     },

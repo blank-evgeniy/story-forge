@@ -64,9 +64,6 @@ export const welcomeRoute = createRoute({
     () => import("@/views/welcome-view"),
     "WelcomeViewConnector",
   ),
-  validateSearch: z.object({
-    tab: z.enum(["create", "join"]).optional(),
-  }),
 });
 
 export const gameRoute = createRoute({

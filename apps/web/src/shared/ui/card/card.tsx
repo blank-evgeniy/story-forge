@@ -17,7 +17,7 @@ function Card({
         "group/card flex flex-col gap-4 overflow-hidden rounded-3xl py-4 md:gap-6 md:py-6",
         "glass text-surface shadow-card",
         {
-          "bg-surface": variant === "surface",
+          "bg-surface text-ink": variant === "surface",
           glass: variant === "glass",
           "glass-strong": variant === "glass-strong",
         },

@@ -1,12 +1,10 @@
-import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import i18n from "i18next";
-import { useEffect } from "react";
 
 import { usePlayerStore } from "@/entities/player";
 import {
+  defaultRoomSettings,
   mapRoomSettingsToConfigDto,
-  type RoomSettings,
-  RoomSettingsContextProvider,
 } from "@/entities/room";
 
 import { useCreateRoom } from "./api/use-create-room";
@@ -19,20 +17,15 @@ export function WelcomeViewConnector() {
   const playerId = usePlayerStore((store) => store.player?.id);
   const { mutate, isLoading } = useCreateRoom();
   const navigate = useNavigate();
-  const { tab } = useSearch({ from: "/app-layout/guarded/welcome" });
 
-  useEffect(() => {
-    if (tab) navigate({ to: "/", search: { tab: undefined }, replace: true });
-  }, [tab, navigate]);
-
-  const handleCreateRoom = (data: RoomSettings) => {
+  const handleCreateRoom = () => {
     if (!playerId) return;
 
     mutate(
       {
         playerId,
         locale: i18n.language,
-        config: mapRoomSettingsToConfigDto(data),
+        config: mapRoomSettingsToConfigDto(defaultRoomSettings),
       },
       {
         onSuccess: (data) => {
@@ -47,18 +40,13 @@ export function WelcomeViewConnector() {
   };
 
   return (
-    <RoomSettingsContextProvider>
-      <WelcomeView
-        createRoomSlot={
-          <CreateRoom
-            onCreate={handleCreateRoom}
-            isLoading={isLoading}
-            serverStatusSlot={<ServerStatusConnector />}
-          />
-        }
-        joinRoomSlot={<JoinRoom onJoin={handleJoinRoom} />}
-        defaultTab={tab}
+    <WelcomeView>
+      <CreateRoom
+        onCreate={handleCreateRoom}
+        isLoading={isLoading}
+        serverStatusSlot={<ServerStatusConnector />}
       />
-    </RoomSettingsContextProvider>
+      <JoinRoom onJoin={handleJoinRoom} />
+    </WelcomeView>
   );
 }
