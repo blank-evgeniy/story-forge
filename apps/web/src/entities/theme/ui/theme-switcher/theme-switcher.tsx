@@ -10,6 +10,9 @@ import { type ThemeName, THEMES } from "../../model/types";
 const themeSwatchClasses: Record<ThemeName, string> = {
   orange: "bg-gradient-to-br from-[#ff6a2e] to-[#7a1762]",
   violet: "bg-gradient-to-br from-[#b454ff] to-[#0d2266]",
+  emerald: "bg-gradient-to-br from-[#1fd474] to-[#0b3b5c]",
+  azure: "bg-gradient-to-br from-[#1f9bff] to-[#2c1166]",
+  rose: "bg-gradient-to-br from-[#ff3d76] to-[#5c1240]",
 };
 
 type ThemeSwitcherProps = {
