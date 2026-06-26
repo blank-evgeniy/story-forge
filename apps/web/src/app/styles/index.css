@@ -4,15 +4,15 @@
 @import "shadcn/tailwind.css";
 
 @theme inline {
-  --color-brand-50: #faece7;
-  --color-brand-200: #f0997b;
-  --color-brand-400: #d85a30;
-  --color-brand-500: #c24a24;
-  --color-brand-700: #993c1d;
-  --color-brand-900: #4a1b0c;
+  --color-brand-50: var(--theme-brand-50);
+  --color-brand-200: var(--theme-brand-200);
+  --color-brand-400: var(--theme-brand-400);
+  --color-brand-500: var(--theme-brand-500);
+  --color-brand-700: var(--theme-brand-700);
+  --color-brand-900: var(--theme-brand-900);
 
-  --color-deep-400: #4a1b33;
-  --color-deep-700: #2e1120;
+  --color-deep-400: var(--theme-deep-400);
+  --color-deep-700: var(--theme-deep-700);
 
   --color-ink: #1a1726;
   --color-ink-muted: #5a5468;
@@ -24,23 +24,57 @@
   --color-glass-strong: rgb(255 255 255 / 0.22);
   --color-glass-border: rgb(255 255 255 / 0.28);
 
-  --color-success-50: #e1f5ee;
-  --color-success: #1d9e75;
-  --color-success-700: #0f6e56;
+  --color-success-50: #dffaf0;
+  --color-success: #00c389;
+  --color-success-700: #00805c;
 
-  --color-warning-50: #fbf4dc;
-  --color-warning: #c9a227;
-  --color-warning-700: #6b5510;
+  --color-warning-50: #fff6d6;
+  --color-warning: #ffc328;
+  --color-warning-700: #a87900;
 
-  --color-danger-50: #fceaee;
-  --color-danger: #c43b52;
-  --color-danger-700: #7a2237;
+  --color-danger-50: #ffe5ec;
+  --color-danger: #ff2d55;
+  --color-danger-700: #b8002c;
 
-  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-sans:
+    "Manrope Variable", "Manrope", ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-card: 0 8px 30px rgb(46 17 32 / 0.2);
-  --shadow-pop: 0 12px 40px rgb(46 17 32 / 0.4);
-  --shadow-brand: 0 6px 20px rgb(216 90 48 / 0.45);
+  --shadow-card: 0 8px 30px var(--theme-shadow-color);
+  --shadow-pop: 0 12px 40px var(--theme-shadow-color-strong);
+  --shadow-brand: 0 6px 20px var(--theme-brand-shadow-color);
+}
+
+:root,
+[data-theme="orange"] {
+  --theme-brand-50: #fff0e8;
+  --theme-brand-200: #ffab7a;
+  --theme-brand-400: #ff6a2e;
+  --theme-brand-500: #f8501a;
+  --theme-brand-700: #d6360a;
+  --theme-brand-900: #6e1a02;
+
+  --theme-deep-400: #7a1762;
+  --theme-deep-700: #3a0a30;
+
+  --theme-shadow-color: rgb(58 10 48 / 0.2);
+  --theme-shadow-color-strong: rgb(58 10 48 / 0.4);
+  --theme-brand-shadow-color: rgb(255 106 46 / 0.5);
+}
+
+[data-theme="violet"] {
+  --theme-brand-50: #f5eeff;
+  --theme-brand-200: #d4aaff;
+  --theme-brand-400: #b454ff;
+  --theme-brand-500: #9a2cf0;
+  --theme-brand-700: #6f1bb3;
+  --theme-brand-900: #340a56;
+
+  --theme-deep-400: #0d2266;
+  --theme-deep-700: #060f33;
+
+  --theme-shadow-color: rgb(6 15 51 / 0.2);
+  --theme-shadow-color-strong: rgb(6 15 51 / 0.4);
+  --theme-brand-shadow-color: rgb(180 84 255 / 0.5);
 }
 
 @theme {

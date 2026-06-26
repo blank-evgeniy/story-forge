@@ -10,6 +10,7 @@ const meta = {
   tags: ["autodocs"],
   args: {
     onSave: fn(),
+    onThemeChange: fn(),
     onLogout: fn(),
   },
 } satisfies Meta<typeof ProfileEditView>;
@@ -22,5 +23,6 @@ export const Default: Story = {
     initialColor: "red",
     initialIcon: "evil",
     initialUsername: "Alice",
+    theme: "violet",
   },
 };

@@ -2,8 +2,10 @@ import { useDocumentTitle } from "@siberiacancode/reactuse";
 import { useTranslation } from "react-i18next";
 
 import type { PlayerColor, PlayerIcon } from "@/entities/player";
+import type { ThemeName } from "@/entities/theme";
 
 import { PlayerForm } from "@/entities/player";
+import { ThemeSwitcher } from "@/entities/theme";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
 
@@ -11,7 +13,9 @@ type ProfileEditViewProps = {
   initialUsername: string;
   initialColor: PlayerColor;
   initialIcon: PlayerIcon;
+  theme: ThemeName;
   onSave: (username: string, color: PlayerColor, icon: PlayerIcon) => void;
+  onThemeChange: (theme: ThemeName) => void;
   onLogout: () => void;
 };
 
@@ -19,7 +23,9 @@ export function ProfileEditView({
   initialUsername,
   initialColor,
   initialIcon,
+  theme,
   onSave,
+  onThemeChange,
   onLogout,
 }: ProfileEditViewProps) {
   const { t } = useTranslation();
@@ -27,9 +33,9 @@ export function ProfileEditView({
   useDocumentTitle(t("titles.profileEdit"));
 
   return (
-    <div className="mt-4 flex flex-1 justify-center md:mt-[10vh]">
-      <div className="w-full max-w-sm">
-        <Card className="shadow-md">
+    <div className="flex flex-1 justify-center">
+      <div className="flex w-full max-w-sm flex-col gap-4">
+        <Card variant="glass-strong">
           <CardHeader>
             <h1 className="text-h2">{t("profile.heading")}</h1>
             <p className="text-body text-surface-2">{t("profile.subtitle")}</p>
@@ -45,6 +51,17 @@ export function ProfileEditView({
                 username: initialUsername,
               }}
             />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <h2 className="text-h3">{t("profile.settings")}</h2>
+          </CardHeader>
+
+          <CardContent className="flex flex-col gap-2">
+            <span className="text-small font-medium">{t("profile.theme")}</span>
+            <ThemeSwitcher value={theme} onChange={onThemeChange} />
           </CardContent>
 
           <CardFooter className="border-t">
