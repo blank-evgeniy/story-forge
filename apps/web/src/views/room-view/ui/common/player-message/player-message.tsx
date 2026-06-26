@@ -21,13 +21,13 @@ export function PlayerMessage({
   return (
     <div
       className={cn(
-        "min-w-0 rounded-2xl border px-4 py-2.5",
+        "min-w-0 rounded-2xl border-2 px-4 py-2.5",
         side === "right" ? "ml-auto rounded-br-sm" : "mr-auto rounded-bl-sm",
         playerColorClasses[color],
         className,
       )}
     >
-      <p className="text-foreground/90 text-sm leading-relaxed wrap-break-word">
+      <p className="text-foreground/90 text-body leading-relaxed wrap-break-word">
         {message}
       </p>
     </div>

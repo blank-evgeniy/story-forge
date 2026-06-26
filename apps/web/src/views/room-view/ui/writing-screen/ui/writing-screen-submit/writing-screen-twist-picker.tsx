@@ -35,7 +35,7 @@ export function WritingScreenTwistPicker({
 
   if (pickedTwist) {
     return (
-      <div className="border-line bg-surface/10 text-small flex items-center gap-2 rounded-lg border px-4 py-2">
+      <div className="border-line bg-surface/10 text-body flex items-center gap-2 rounded-lg border-2 px-4 py-2">
         <ZapIcon className="text-surface size-3.5 shrink-0" />
         <span className="flex-1">{pickedTwist.content}</span>
         {isSubmitted ? (
@@ -46,7 +46,7 @@ export function WritingScreenTwistPicker({
             type="button"
             variant="danger"
             size="icon-sm"
-            className={"-my-1"}
+            className={"-my-1 border-none"}
             onClick={() => onPick(null)}
           >
             <XIcon />
@@ -58,7 +58,7 @@ export function WritingScreenTwistPicker({
 
   if (isSkipped) {
     return (
-      <div className="border-surface-2 text-surface-2 text-small flex items-center gap-2 rounded-lg border px-4 py-2">
+      <div className="border-surface-2 text-surface-2 text-body flex items-center gap-2 rounded-lg border-2 px-4 py-2">
         <ZapIcon className="size-3.5 shrink-0" />
         <span className="flex-1">{t("writing.twist.none")}</span>
         {!isSubmitted && (
@@ -67,7 +67,7 @@ export function WritingScreenTwistPicker({
             type="button"
             variant="danger"
             size="icon-sm"
-            className="-my-1"
+            className="-my-1 border-none"
             onClick={() => onSkip(false)}
           >
             <XIcon />
@@ -103,7 +103,7 @@ export function WritingScreenTwistPicker({
             <button
               {...testIdAttr(testId("item", twist.id))}
               type="button"
-              className="border-surface-2 hover:bg-surface/30 text-small flex w-full cursor-pointer items-center gap-4 rounded-lg border px-4 py-2 transition-colors"
+              className="border-surface-2 hover:bg-surface/30 text-body flex w-full cursor-pointer items-center gap-4 rounded-lg border-2 px-4 py-2 transition-colors"
               onClick={() => onPick(twist.id)}
             >
               {twist.content}

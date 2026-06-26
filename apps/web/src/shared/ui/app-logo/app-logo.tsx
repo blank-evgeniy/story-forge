@@ -1,6 +1,5 @@
 export const AppLogo = ({
   className,
-  viewTransitionName,
 }: {
   className?: string;
   viewTransitionName?: string;
@@ -11,7 +10,6 @@ export const AppLogo = ({
     viewBox="0 0 125 23"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={viewTransitionName ? { viewTransitionName } : undefined}
     className={className}
   >
     <path

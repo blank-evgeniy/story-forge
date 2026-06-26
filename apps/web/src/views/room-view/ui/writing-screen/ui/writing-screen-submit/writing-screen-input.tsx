@@ -68,7 +68,7 @@ export function WritingScreenInput({
           <Button
             {...testIdAttr(testId("edit"))}
             onClick={onEdit}
-            variant="ghost-white"
+            variant="outline"
             size="sm"
           >
             <PencilIcon className="size-3" /> {t("writing.input.edit")}
@@ -117,8 +117,6 @@ export function WritingScreenInput({
             {...testIdAttr(testId("submit"))}
             onClick={handleSubmit}
             disabled={!content.trim()}
-            variant={"secondary"}
-            size="sm"
           >
             {t("writing.input.submit")} <SendHorizonalIcon className="size-4" />
           </Button>

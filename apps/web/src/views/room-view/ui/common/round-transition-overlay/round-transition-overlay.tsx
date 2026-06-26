@@ -11,7 +11,7 @@ export function RoundTransitionOverlay() {
 
   return (
     <motion.div
-      className="bg-ink/70 fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm"
+      className="bg-brand-400/70 fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

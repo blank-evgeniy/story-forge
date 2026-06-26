@@ -18,7 +18,7 @@ export function StoriesHistoryPicker() {
           <Button
             key={story.id}
             size="sm"
-            variant={selectedStory?.id === story.id ? "secondary" : "outline"}
+            variant={selectedStory?.id === story.id ? "primary" : "outline"}
             className="shrink-0"
             onClick={() => onSelectStory(story)}
           >

@@ -42,7 +42,7 @@ export function EditSettingsAction({
       <Button
         onClick={() => setOpenModal(true)}
         size={"sm"}
-        variant={"secondary"}
+        variant={"outline"}
       >
         {t("lobby.edit")}
         <PencilIcon />

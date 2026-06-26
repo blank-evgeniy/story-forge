@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "outline", "ghost", "danger", "link"],
+      options: ["primary", "outline", "ghost", "danger"],
     },
     size: {
       control: "select",
@@ -32,10 +32,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {};
 
-export const Secondary: Story = {
-  args: { variant: "secondary" },
-};
-
 export const Outline: Story = {
   args: { variant: "outline" },
 };
@@ -46,10 +42,6 @@ export const Ghost: Story = {
 
 export const Danger: Story = {
   args: { variant: "danger" },
-};
-
-export const Link: Story = {
-  args: { variant: "link" },
 };
 
 export const Loading: Story = {
@@ -82,54 +74,4 @@ export const IconLarge: Story = {
     "aria-label": "Add",
     children: <PlusIcon />,
   },
-};
-
-const variants = [
-  "primary",
-  "secondary",
-  "outline",
-  "ghost",
-  "danger",
-  "link",
-] as const;
-
-const sizes = ["sm", "default", "lg"] as const;
-
-export const AllVariants: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4 p-6">
-      {sizes.map((size) => (
-        <div key={size} className="flex items-center gap-3">
-          {variants.map((variant) => (
-            <Button key={variant} variant={variant} size={size}>
-              {variant}
-            </Button>
-          ))}
-        </div>
-      ))}
-    </div>
-  ),
-};
-
-const iconSizes = ["icon-sm", "icon", "icon-lg"] as const;
-
-export const AllIconVariants: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4 p-6">
-      {iconSizes.map((size) => (
-        <div key={size} className="flex items-center gap-3">
-          {variants.map((variant) => (
-            <Button
-              key={variant}
-              variant={variant}
-              size={size}
-              aria-label="Add"
-            >
-              <PlusIcon />
-            </Button>
-          ))}
-        </div>
-      ))}
-    </div>
-  ),
 };

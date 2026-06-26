@@ -38,7 +38,6 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
       </CardContent>
       <CardFooter className="mt-auto">
         <Button
-          variant={"secondary"}
           onClick={handleSubmit}
           className="w-full"
           disabled={code.length !== 4}

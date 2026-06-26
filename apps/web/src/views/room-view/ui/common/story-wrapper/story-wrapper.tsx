@@ -26,12 +26,12 @@ export function StoryWrapper({
   return (
     <ScrollArea
       viewportRef={viewportRef}
-      className={cn("glass h-full w-full rounded-xl border", className)}
+      className={cn("glass-strong h-full w-full rounded-xl border", className)}
     >
       <div className="px-5 py-4">
         <div className="text-surface-2 mb-3 flex items-center gap-2">
           <BookOpenIcon className="size-4" />
-          <span className="text-caption font-medium tracking-wide uppercase">
+          <span className="text-small font-medium tracking-wide uppercase">
             {storyOwner
               ? `${t("common.story")} (${storyOwner})`
               : t("common.story")}

@@ -55,7 +55,7 @@ function DialogContent({
         data-slot="dialog-content"
         className={cn(
           "fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-6 rounded-3xl p-6 outline-none sm:max-w-md",
-          "glass-strong text-surface shadow-pop",
+          "bg-modal text-surface shadow-pop",
           "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 duration-150",
           className,
         )}

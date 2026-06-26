@@ -6,7 +6,7 @@ import { Spinner } from "@/shared/ui/spinner";
 
 const buttonVariants = cva(
   cn(
-    "group/button relative inline-flex shrink-0 items-center justify-center rounded-md border border-transparent",
+    "group/button relative inline-flex shrink-0 items-center justify-center rounded-md border-2 border-transparent",
     "text-small font-extrabold whitespace-nowrap",
     "cursor-pointer transition-all duration-150 outline-none select-none focus-visible:ring-4 focus-visible:ring-brand-400/40 active:not-aria-[haspopup]:translate-y-px",
     "disabled:pointer-events-none disabled:opacity-50 disabled:saturate-50",
@@ -15,13 +15,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-brand-400 text-surface hover:bg-brand-400/90",
-        secondary: "bg-deep-400 text-surface hover:bg-deep-400/90",
+        primary:
+          "bg-brand-400 text-surface hover:bg-brand-400/90 border-surface",
         outline: "border-line bg-transparent text-surface hover:bg-surface/10",
         ghost: "bg-transparent text-ink hover:bg-surface-2/10",
         "ghost-white": "bg-transparent text-surface hover:bg-surface-2/10",
-        danger: "bg-danger text-surface hover:bg-danger/90",
-        link: "text-brand-500 underline-offset-4 hover:underline active:translate-y-0",
+        danger: "bg-danger text-surface hover:bg-danger/90 border-surface",
       },
       size: {
         sm: "h-8 md:h-9 gap-1 px-3 text-caption rounded-xl",

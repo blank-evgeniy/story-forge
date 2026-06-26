@@ -18,7 +18,7 @@ export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
           render={<Link to={"/"} />}
           size={"sm"}
           variant={"outline"}
-          className={"header-delayed-appear absolute left-0"}
+          className={"absolute left-0"}
         >
           <ChevronLeftIcon />{" "}
           <span className="hidden sm:block">{t("common.back")}</span>
@@ -28,12 +28,7 @@ export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
 
         <span />
       </header>
-      <main
-        className="flex min-h-0 flex-1 flex-col"
-        style={{ viewTransitionName: "page-content" }}
-      >
-        {children}
-      </main>
+      <main className="flex min-h-0 flex-1 flex-col">{children}</main>
     </BaseLayout>
   );
 };

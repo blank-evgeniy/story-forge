@@ -70,7 +70,6 @@ export function StoryActions({
           {...testIdAttr(testId("next"))}
           onClick={onNext}
           disabled={saveIsLoading}
-          variant={"secondary"}
         >
           {t("reveal.actions.next")}
         </Button>
