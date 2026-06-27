@@ -27,7 +27,7 @@ export function ProfileEditViewConnector() {
     icon: PlayerIcon,
   ) => {
     updateProfile(username, color, icon);
-    toast.success(t("profile.toast.success"));
+    toast.success(t("profile.editProfile.successMessage"));
     navigate({ to: "/" });
   };
 

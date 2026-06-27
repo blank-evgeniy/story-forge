@@ -39,19 +39,15 @@ function MainSection({ children }: { children: React.ReactNode }) {
 }
 
 function MainSectionBody({
-  rulesSlot,
   settingsSlot,
   joinSlot,
 }: {
-  rulesSlot?: React.ReactNode;
   settingsSlot: React.ReactNode;
   joinSlot: React.ReactNode;
 }) {
   return (
     <ScrollArea className={"overflow-auto"}>
       <CardContent className="flex flex-1 flex-col gap-6">
-        {rulesSlot}
-
         {settingsSlot}
 
         <Separator />

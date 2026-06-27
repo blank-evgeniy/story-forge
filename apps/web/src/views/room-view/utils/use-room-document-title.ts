@@ -10,18 +10,20 @@ export function useRoomDocumentTitle(
 ) {
   const { t } = useTranslation();
 
-  const documentTitle = useDocumentTitle(t("titles.room.lobby"));
+  const documentTitle = useDocumentTitle(
+    t("common.metadata.titles.room.lobby"),
+  );
 
   useEffect(() => {
     const title = {
-      idle: t("titles.room.lobby"),
-      lobby: t("titles.room.lobby"),
-      round_starting: t("titles.room.roundStarting"),
-      writing: t("titles.room.writing", { round }),
-      revealing: t("titles.room.revealing"),
-      reveal: t("titles.room.reveal"),
+      idle: t("common.metadata.titles.room.lobby"),
+      lobby: t("common.metadata.titles.room.lobby"),
+      round_starting: t("common.metadata.titles.room.roundStarting"),
+      writing: t("common.metadata.titles.room.writing", { round }),
+      revealing: t("common.metadata.titles.room.revealing"),
+      reveal: t("common.metadata.titles.room.reveal"),
     }[status];
 
     documentTitle.set(title);
-  }, [documentTitle, status]);
+  }, [documentTitle, round, status, t]);
 }

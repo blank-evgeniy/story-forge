@@ -25,7 +25,7 @@ export function RestartGameAction({
         className="w-full"
         onClick={onRestartGame}
       >
-        {t("reveal.playAgain")}
+        {t("room.reveal.playAgain")}
       </Button>
     );
   }
@@ -35,7 +35,7 @@ export function RestartGameAction({
       {...testIdAttr(testId("waiting"))}
       className="text-surface-2 sm:text-body text-small flex items-center justify-center gap-2"
     >
-      {t("reveal.waitingForHost")} <Spinner />
+      {t("room.reveal.waitingForHost")} <Spinner />
     </p>
   );
 }

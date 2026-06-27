@@ -34,35 +34,41 @@ export function RoomSettingsViewer({
   const rows: SettingRow[] = [
     {
       icon: ClockIcon,
-      label: t("lobby.settings.roundTime"),
+      label: t("room.lobby.gameSettings.roundTimeSelect.label"),
       value: `${data.roundTime}s`,
       active: true,
     },
     {
       icon: EyeOffIcon,
-      label: t("lobby.settings.blindMode"),
+      label: t("room.lobby.gameSettings.blindModeSwitch.label"),
       value: data.blindMode ? on : off,
       active: data.blindMode,
     },
     {
       icon: ZapIcon,
-      label: t("lobby.settings.twists"),
+      label: t("room.lobby.gameSettings.twistsSwitch.label"),
       value: data.enableTwists ? on : off,
       active: data.enableTwists,
     },
     {
       icon: BotIcon,
-      label: t("lobby.settings.aiOracle"),
+      label: t("room.lobby.gameSettings.aiCommentSelect.label"),
       value: aiEnabled ? on : off,
       active: aiEnabled,
-      badge: aiEnabled ? t(`common.aiMood.${data.aiMood}`) : undefined,
+      badge: aiEnabled
+        ? t(
+            `room.lobby.gameSettings.aiCommentSelect.options.${data.aiMood}`,
+          )
+        : undefined,
     },
   ];
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between gap-4">
-        <span className="text-h3">{t("lobby.settings.title")}</span>
+        <span className="text-h3">
+          {t("room.lobby.gameSettings.heading")}
+        </span>
         {editActionSlot}
       </div>
 

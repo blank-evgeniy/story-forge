@@ -71,11 +71,14 @@ export function WritingScreenInput({
             variant="outline"
             size="sm"
           >
-            <PencilIcon className="size-3" /> {t("writing.input.edit")}
+            <PencilIcon className="size-3" />{" "}
+            {t("room.writing.entryForm.edit")}
           </Button>
           <div className="text-surface-2 text-small flex items-center gap-1.5">
             <CheckIcon className="text-success size-3" />
-            <span>{t("writing.input.waitingForOthers")}</span>
+            <span>
+              {t("room.writing.entryForm.waitingForOthers")}
+            </span>
           </div>
         </div>
       </div>
@@ -92,8 +95,8 @@ export function WritingScreenInput({
         onKeyDown={handleKeyDown}
         placeholder={
           isFirstRound
-            ? t("writing.input.placeholderFirst")
-            : t("writing.input.placeholderContinue")
+            ? t("room.writing.entryForm.placeholderFirst")
+            : t("room.writing.entryForm.placeholderContinue")
         }
         className="max-h-48 min-h-24 resize-none scrollbar-thin"
         autoFocus
@@ -107,18 +110,19 @@ export function WritingScreenInput({
             remaining === 0 && "text-danger",
           )}
         >
-          {t("writing.input.remaining", { count: remaining })}
+          {t("room.writing.entryForm.remaining", { count: remaining })}
         </Badge>
         <div className="flex items-center gap-2">
           <span className="text-caption hidden sm:block">
-            {t("writing.input.shortcut")}
+            {t("room.writing.entryForm.shortcut")}
           </span>
           <Button
             {...testIdAttr(testId("submit"))}
             onClick={handleSubmit}
             disabled={!content.trim()}
           >
-            {t("writing.input.submit")} <SendHorizonalIcon className="size-4" />
+            {t("room.writing.entryForm.submit")}{" "}
+            <SendHorizonalIcon className="size-4" />
           </Button>
         </div>
       </div>

@@ -44,18 +44,22 @@ export function EditSettingsAction({
         size={"sm"}
         variant={"outline"}
       >
-        {t("lobby.edit")}
+        {t("room.lobby.gameSettings.editAction")}
         <PencilIcon />
       </Button>
       {openModal && (
         <Dialog open={openModal} onOpenChange={setOpenModal}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t("lobby.settings.title")}</DialogTitle>
+              <DialogTitle>
+                {t("room.lobby.gameSettings.heading")}
+              </DialogTitle>
             </DialogHeader>
             <RoomSettingsEditor />
             <DialogFooter>
-              <Button onClick={handleSave}>{t("lobby.save")}</Button>
+              <Button onClick={handleSave}>
+                {t("room.lobby.gameSettings.saveAction")}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

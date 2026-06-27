@@ -76,7 +76,7 @@ describe("round counter", () => {
     setStore({ round: 2, totalRounds: 4 });
     setup();
     expect(screen.getByTestId(testIds.round)).toHaveTextContent(
-      i18n.t("writing.round", { round: 2, totalRounds: 4 }),
+      i18n.t("room.writing.round", { round: 2, totalRounds: 4 }),
     );
   });
 });
@@ -87,7 +87,7 @@ describe("text input", () => {
     setup();
     expect(screen.getByTestId(testIds.textarea)).toHaveAttribute(
       "placeholder",
-      i18n.t("writing.input.placeholderFirst"),
+      i18n.t("room.writing.entryForm.placeholderFirst"),
     );
   });
 
@@ -96,7 +96,7 @@ describe("text input", () => {
     setup();
     expect(screen.getByTestId(testIds.textarea)).toHaveAttribute(
       "placeholder",
-      i18n.t("writing.input.placeholderContinue"),
+      i18n.t("room.writing.entryForm.placeholderContinue"),
     );
   });
 

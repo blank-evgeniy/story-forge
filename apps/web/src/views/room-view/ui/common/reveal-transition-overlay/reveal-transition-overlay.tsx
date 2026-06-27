@@ -8,9 +8,11 @@ import { useRoomStore } from "../../../model/store/use-room-store";
 export function RevealTransitionOverlay() {
   const { t } = useTranslation();
   const startReveal = useRoomStore((s) => s.startReveal);
-  const phrases = t("reveal.transition.phrases", {
+
+  const phrases = t("room.common.revealTransition.phrases", {
     returnObjects: true,
-  }) as string[];
+  }) as unknown as string[];
+
   const [phrase] = useState(
     () => phrases[Math.floor(Math.random() * phrases.length)],
   );

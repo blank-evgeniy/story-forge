@@ -67,7 +67,7 @@ describe("validation", () => {
     await user.click(submitButton);
 
     expect(toast.error).toHaveBeenCalledWith(
-      i18n.t("login.error.nicknameMinLength"),
+      i18n.t("common.forms.nicknameField.validationError"),
     );
     expect(onLogin).not.toHaveBeenCalled();
   });
@@ -79,7 +79,7 @@ describe("validation", () => {
     await user.click(submitButton);
 
     expect(toast.error).toHaveBeenCalledWith(
-      i18n.t("login.error.nicknameMinLength"),
+      i18n.t("common.forms.nicknameField.validationError"),
     );
     expect(onLogin).not.toHaveBeenCalled();
   });
@@ -91,7 +91,7 @@ describe("validation", () => {
     await user.click(submitButton);
 
     expect(toast.error).toHaveBeenCalledWith(
-      i18n.t("login.error.nicknameMinLength"),
+      i18n.t("common.forms.nicknameField.validationError"),
     );
     expect(onLogin).not.toHaveBeenCalled();
   });

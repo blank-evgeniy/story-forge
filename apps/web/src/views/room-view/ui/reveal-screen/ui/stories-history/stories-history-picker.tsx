@@ -11,7 +11,7 @@ export function StoriesHistoryPicker() {
   return (
     <div className="flex flex-col gap-1.5">
       <span className="text-surface-2 text-caption px-0.5">
-        {t("reveal.history.remember")}
+        {t("room.reveal.historyViewer.remember")}
       </span>
       <div className="flex [scrollbar-width:none] gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {stories.map((story) => (

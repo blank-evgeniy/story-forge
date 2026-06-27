@@ -39,7 +39,7 @@ export function StoryContent({ items }: StoryContentProps) {
                 },
               )}
             >
-              <p className="text-foreground/90 text-small leading-relaxed break-words">
+              <p className="text-foreground/90 text-small leading-relaxed wrap-break-word">
                 {item.entry}
               </p>
             </div>

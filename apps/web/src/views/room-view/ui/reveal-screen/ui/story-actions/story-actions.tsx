@@ -54,13 +54,13 @@ export function StoryActions({
                 disabled={saveIsLoading || isSaved}
               >
                 {isSaved
-                  ? t("reveal.actions.published")
-                  : t("reveal.actions.publish")}
+                  ? t("room.reveal.storyActions.publish.submitted")
+                  : t("room.reveal.storyActions.publish.submit")}
                 {isSaved ? <CheckIcon /> : <ShareIcon />}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              {t("reveal.actions.publishTooltip")}
+              {t("room.reveal.storyActions.publish.tooltip")}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -71,7 +71,7 @@ export function StoryActions({
           onClick={onNext}
           disabled={saveIsLoading}
         >
-          {t("reveal.actions.next")}
+          {t("room.reveal.storyActions.nextAction")}
         </Button>
       )}
     </motion.div>

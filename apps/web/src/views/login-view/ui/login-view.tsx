@@ -16,7 +16,7 @@ type LoginViewProps = {
 export function LoginView({ onLogin }: LoginViewProps) {
   const { t } = useTranslation();
 
-  useDocumentTitle(t("titles.login"));
+  useDocumentTitle(t("common.metadata.titles.login"));
 
   return (
     <div className="mt-4 flex flex-1 justify-center md:mt-[10vh]">

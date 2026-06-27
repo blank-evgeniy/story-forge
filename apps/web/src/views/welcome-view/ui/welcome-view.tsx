@@ -8,7 +8,7 @@ type WelcomeViewProps = {
 export function WelcomeView({ children }: WelcomeViewProps) {
   const { t } = useTranslation();
 
-  useDocumentTitle(t("titles.welcome"));
+  useDocumentTitle(t("common.metadata.titles.welcome"));
 
   return (
     <div className="mx-auto mt-4 flex w-full max-w-lg flex-1 flex-col justify-center gap-4">
