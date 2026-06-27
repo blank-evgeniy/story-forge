@@ -60,7 +60,7 @@ export function WritingScreenTwistPicker({
     return (
       <div className="border-surface-2 text-surface-2 text-body flex items-center gap-2 rounded-lg border-2 px-4 py-2">
         <ZapIcon className="size-3.5 shrink-0" />
-        <span className="flex-1">{t("writing.twist.none")}</span>
+        <span className="flex-1">{t("room.writing.twist.none")}</span>
         {!isSubmitted && (
           <Button
             {...testIdAttr(testId("unset"))}
@@ -83,7 +83,7 @@ export function WritingScreenTwistPicker({
         <div className="flex items-center gap-2">
           <ZapIcon className="text-surface size-3.5" />
           <h3 className="text-surface-2 text-small font-medium">
-            {t("writing.twist.choose")}
+            {t("room.writing.twist.choose")}
           </h3>
         </div>
         <Button
@@ -93,7 +93,7 @@ export function WritingScreenTwistPicker({
           size="sm"
           onClick={() => onSkip(true)}
         >
-          {t("writing.twist.skip")}
+          {t("room.writing.twist.skip")}
         </Button>
       </div>
 

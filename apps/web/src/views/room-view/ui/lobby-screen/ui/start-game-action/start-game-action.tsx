@@ -29,7 +29,7 @@ export function StartGameAction({
         disabled={disabled}
         onClick={onStartGame}
       >
-        {t("lobby.startGame")}
+        {t("room.lobby.startGame")}
       </Button>
     );
   }
@@ -39,7 +39,7 @@ export function StartGameAction({
       {...testIdAttr(testId("waiting-message"))}
       className="text-surface-2 text-body flex items-center justify-center gap-2"
     >
-      {t("lobby.waitingForHost")} <Spinner />
+      {t("room.lobby.waitingForHost")} <Spinner />
     </p>
   );
 }

@@ -1,6 +1,6 @@
-import { t } from "i18next";
 import { PlayIcon } from "lucide-react";
 import { type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
@@ -16,10 +16,12 @@ export function CreateRoom({
   isLoading,
   serverStatusSlot,
 }: CreateRoomProps) {
+  const { t } = useTranslation();
+
   return (
     <Card variant="glass-strong">
       <CardHeader>
-        <h2 className="text-h2">{t("welcome.createRoom.heading")}</h2>
+        <h2 className="text-h2">{t("welcome.newGame.heading")}</h2>
       </CardHeader>
       <CardContent>
         {serverStatusSlot}
@@ -29,7 +31,7 @@ export function CreateRoom({
           isLoading={isLoading}
         >
           <PlayIcon className="size-5 stroke-3" />
-          {t("welcome.createRoom.submit")}
+          {t("welcome.newGame.submit")}
         </Button>
       </CardContent>
     </Card>

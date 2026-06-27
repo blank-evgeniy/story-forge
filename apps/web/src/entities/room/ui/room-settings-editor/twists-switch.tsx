@@ -31,11 +31,11 @@ export function TwistsSwitch({ disabled }: TwistsSwitchProps) {
           disabled={disabled}
         />
         <Label htmlFor="enable-twists">
-          {t("welcome.createRoom.twists.label")}
+          {t("room.lobby.gameSettings.twistsSwitch.label")}
         </Label>
       </div>
       <FieldDescription>
-        {t("welcome.createRoom.twists.description")}
+        {t("room.lobby.gameSettings.twistsSwitch.description")}
       </FieldDescription>
     </Field>
   );

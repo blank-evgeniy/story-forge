@@ -43,11 +43,11 @@ export function RoomViewFlow() {
   useRoomDocumentTitle(status, round);
 
   if (wsStatus === "connecting")
-    return <RoomLoading title={t("connection.connecting")} />;
+    return <RoomLoading title={t("room.common.connection.connecting")} />;
   if (wsStatus === "disconnected")
-    return <RoomError title={t("connection.lost")} />;
+    return <RoomError title={t("room.common.connection.lost")} />;
   if (wsStatus === "failed")
-    return <RoomError title={t("connection.failed")} />;
+    return <RoomError title={t("room.common.connection.failed")} />;
 
   return (
     <RoomActionsProvider client={client}>

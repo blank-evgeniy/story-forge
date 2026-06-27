@@ -4,17 +4,13 @@ import { initReactI18next } from "react-i18next";
 
 import { env } from "@/shared/lib/config/env";
 
-import en from "./locales/en/translation.json";
-import ru from "./locales/ru/translation.json";
+import { resources } from "./resources";
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      en: { translation: en },
-      ru: { translation: ru },
-    },
+    resources,
     fallbackLng: "en",
     debug: env.DEV && !env.VITEST,
 

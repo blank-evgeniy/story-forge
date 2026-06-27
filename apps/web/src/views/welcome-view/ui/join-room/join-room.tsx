@@ -21,7 +21,7 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
   return (
     <Card>
       <CardHeader>
-        <h2 className="text-h2">{t("welcome.joinRoom.heading")}</h2>
+        <h2 className="text-h2">{t("welcome.joinGame.heading")}</h2>
       </CardHeader>
       <CardContent>
         <Field>
@@ -33,7 +33,9 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
               <InputOTPSlot index={3} />
             </InputOTPGroup>
           </InputOTP>
-          <FieldDescription>{t("welcome.joinRoom.code.hint")}</FieldDescription>
+          <FieldDescription>
+            {t("welcome.joinGame.codeField.description")}
+          </FieldDescription>
         </Field>
       </CardContent>
       <CardFooter className="mt-auto">
@@ -42,7 +44,7 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
           className="w-full"
           disabled={code.length !== 4}
         >
-          {t("welcome.joinRoom.submit")}
+          {t("welcome.joinGame.submit")}
         </Button>
       </CardFooter>
     </Card>

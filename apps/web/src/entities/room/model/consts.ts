@@ -9,40 +9,35 @@ export const defaultRoomSettings: RoomSettings = {
 
 export const roundTimeOptions = [15, 30, 45, 60, 75, 90, 105, 120];
 
+type AiMoodLabelKey =
+  `room.lobby.gameSettings.aiCommentSelect.options.${AiMood}`;
+
 export const aiMoodOptions: {
   value: AiMood;
-  label: string;
-  description?: string;
+  label: AiMoodLabelKey;
 }[] = [
   {
     value: "comedian",
-    label: "welcome.createRoom.aiComment.mood.comedian",
-    description: "welcome.createRoom.aiComment.mood.description.comedian",
+    label: "room.lobby.gameSettings.aiCommentSelect.options.comedian",
   },
   {
     value: "critic",
-    label: "welcome.createRoom.aiComment.mood.critic",
-
-    description: "welcome.createRoom.aiComment.mood.description.critic",
+    label: "room.lobby.gameSettings.aiCommentSelect.options.critic",
   },
   {
     value: "fan",
-    label: "welcome.createRoom.aiComment.mood.fan",
-
-    description: "welcome.createRoom.aiComment.mood.description.fan",
+    label: "room.lobby.gameSettings.aiCommentSelect.options.fan",
   },
   {
     value: "philosopher",
-    label: "welcome.createRoom.aiComment.mood.philosopher",
-    description: "welcome.createRoom.aiComment.mood.description.philosopher",
+    label: "room.lobby.gameSettings.aiCommentSelect.options.philosopher",
   },
   {
     value: "teacher",
-    label: "welcome.createRoom.aiComment.mood.teacher",
-    description: "welcome.createRoom.aiComment.mood.description.teacher",
+    label: "room.lobby.gameSettings.aiCommentSelect.options.teacher",
   },
   {
     value: "disabled",
-    label: "welcome.createRoom.aiComment.mood.disabled",
+    label: "room.lobby.gameSettings.aiCommentSelect.options.disabled",
   },
 ];

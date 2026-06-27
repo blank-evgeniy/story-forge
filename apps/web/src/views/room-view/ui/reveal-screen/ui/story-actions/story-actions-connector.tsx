@@ -31,10 +31,14 @@ export function StoryActionsConnector({
       {
         onSuccess: () => {
           addSavedStory(storyId);
-          toast.success(t("reveal.toast.publishSuccess"));
+          toast.success(
+            t("room.reveal.storyActions.publish.successMessage"),
+          );
         },
         onError: () => {
-          toast.error(t("reveal.toast.publishError"));
+          toast.error(
+            t("room.reveal.storyActions.publish.errorMessage"),
+          );
         },
       },
     );

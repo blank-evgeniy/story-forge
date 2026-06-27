@@ -54,7 +54,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             size={"icon"}
             render={<Link to="/stories" />}
             nativeButton={false}
-            aria-label={t("layout.storiesButton")}
+            aria-label={t("common.layout.storiesLink.ariaLabel")}
           >
             <BookOpen className="size-5" />
           </Button>
@@ -65,7 +65,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               render={<Link to="/profile" />}
               nativeButton={false}
             >
-              <span className="truncate text-sm font-medium">Профиль</span>
+              <span className="truncate text-sm font-medium">
+                {t("common.layout.profileLink")}
+              </span>
               <PlayerAvatar
                 color={user.color}
                 icon={user.icon}

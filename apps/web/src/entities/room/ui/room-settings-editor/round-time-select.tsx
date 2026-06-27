@@ -24,7 +24,7 @@ export function RoundTimeSelect({ disabled }: RoundTimeSelectProps) {
   return (
     <Field>
       <FieldLabel htmlFor="round-time">
-        {t("welcome.createRoom.roundTime")}
+        {t("room.lobby.gameSettings.roundTimeSelect.label")}
       </FieldLabel>
 
       <NativeSelect

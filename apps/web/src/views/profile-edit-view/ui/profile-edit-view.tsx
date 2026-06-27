@@ -30,15 +30,17 @@ export function ProfileEditView({
 }: ProfileEditViewProps) {
   const { t } = useTranslation();
 
-  useDocumentTitle(t("titles.profileEdit"));
+  useDocumentTitle(t("common.metadata.titles.profileEdit"));
 
   return (
     <div className="flex flex-1 justify-center">
       <div className="flex w-full max-w-sm flex-col gap-4">
         <Card variant="glass-strong">
           <CardHeader>
-            <h1 className="text-h2">{t("profile.heading")}</h1>
-            <p className="text-body text-surface-2">{t("profile.subtitle")}</p>
+            <h1 className="text-h2">{t("profile.editProfile.heading")}</h1>
+            <p className="text-body text-surface-2">
+              {t("profile.editProfile.subtitle")}
+            </p>
           </CardHeader>
 
           <CardContent>
@@ -56,11 +58,13 @@ export function ProfileEditView({
 
         <Card>
           <CardHeader>
-            <h2 className="text-h3">{t("profile.settings")}</h2>
+            <h2 className="text-h3">{t("profile.settings.heading")}</h2>
           </CardHeader>
 
           <CardContent className="flex flex-col gap-2">
-            <span className="text-small font-medium">{t("profile.theme")}</span>
+            <span className="text-small font-medium">
+              {t("profile.settings.theme")}
+            </span>
             <ThemeSwitcher value={theme} onChange={onThemeChange} />
           </CardContent>
 
@@ -71,7 +75,7 @@ export function ProfileEditView({
               className={"w-full"}
               onClick={onLogout}
             >
-              {t("profile.logout")}
+              {t("profile.settings.logout")}
             </Button>
           </CardFooter>
         </Card>

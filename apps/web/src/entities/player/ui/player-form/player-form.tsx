@@ -51,7 +51,7 @@ export function PlayerForm({
     const trimmedUsername = username.trim();
 
     if (!trimmedUsername || trimmedUsername.length < 2) {
-      toast.error(t("login.error.nicknameMinLength"));
+      toast.error(t("common.forms.nicknameField.validationError"));
       return;
     }
 
@@ -61,13 +61,15 @@ export function PlayerForm({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <Field>
-        <FieldLabel htmlFor="name">{t("login.nickname.label")}</FieldLabel>
+        <FieldLabel htmlFor="name">
+          {t("common.forms.nicknameField.label")}
+        </FieldLabel>
         <Input
           {...testIdAttr(testId("input-username"))}
           value={username}
           id="name"
           onChange={(e) => setUsername(e.target.value)}
-          placeholder={t("login.nickname.placeholder")}
+          placeholder={t("common.forms.nicknameField.placeholder")}
           autoFocus
           autoComplete="off"
         />
@@ -82,7 +84,7 @@ export function PlayerForm({
       />
 
       <Field>
-        <FieldLabel>{t("login.color")}</FieldLabel>
+        <FieldLabel>{t("common.forms.colorPicker.label")}</FieldLabel>
         <PlayerColorPicker
           value={color}
           onChange={setColor}
@@ -91,7 +93,7 @@ export function PlayerForm({
       </Field>
 
       <Field>
-        <FieldLabel>{t("login.icon")}</FieldLabel>
+        <FieldLabel>{t("common.forms.iconPicker.label")}</FieldLabel>
         <PlayerIconPicker
           value={icon}
           color={color}
@@ -105,7 +107,9 @@ export function PlayerForm({
         type="submit"
         className="w-full"
       >
-        {mode === "create" ? t("login.submit") : t("profile.save")}
+        {mode === "create"
+          ? t("login.submit")
+          : t("profile.editProfile.submit")}
       </Button>
     </form>
   );

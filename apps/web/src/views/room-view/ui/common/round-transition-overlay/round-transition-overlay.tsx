@@ -25,7 +25,7 @@ export function RoundTransitionOverlay() {
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <span className="text-surface text-small font-semibold tracking-(--tracking-display) uppercase">
-          {t("roundTransition.round")}
+          {t("room.common.roundTransition.round")}
         </span>
         <span className="text-[9rem] leading-none font-bold tracking-tight tabular-nums">
           {round}
@@ -33,7 +33,7 @@ export function RoundTransitionOverlay() {
         <div className="text-surface flex items-center gap-2">
           <span className="bg-surface/40 h-px w-6" />
           <span className="text-small font-medium tracking-widest uppercase">
-            {t("roundTransition.of", { totalRounds })}
+            {t("room.common.roundTransition.of", { totalRounds })}
           </span>
           <span className="bg-surface/40 h-px w-6" />
         </div>

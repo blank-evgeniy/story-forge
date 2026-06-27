@@ -43,7 +43,7 @@ export function RevealReadyScreen({
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           className="text-h2 font-semibold tracking-tight"
         >
-          {t("reveal.ready.heading")}
+          {t("room.reveal.startReveal.heading")}
         </motion.h2>
 
         <motion.p
@@ -52,7 +52,9 @@ export function RevealReadyScreen({
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
           className="text-surface-2 text-small"
         >
-          {t("reveal.ready.storiesCount", { count: storiesCount })}
+          {t("room.reveal.startReveal.storiesCount", {
+            count: storiesCount,
+          })}
         </motion.p>
       </div>
 
@@ -78,12 +80,12 @@ export function RevealReadyScreen({
             onCheckedChange={onSwitchChange}
           />
           <FieldLabel htmlFor="player-mode">
-            {t("reveal.ready.enableNarration")}
+            {t("room.reveal.startReveal.enableNarration")}
           </FieldLabel>
         </div>
 
         <Button {...testIdAttr(testId("start"))} onClick={onStart}>
-          {t("reveal.ready.viewResults")}
+          {t("room.reveal.startReveal.viewResults")}
         </Button>
       </motion.div>
     </div>

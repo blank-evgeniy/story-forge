@@ -1,4 +1,5 @@
 import { BookOpenIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import type { StoryListItemDTO } from "@/shared/api/requests/types";
 
@@ -8,7 +9,8 @@ type StoryCardProps = {
 };
 
 export function StoryCard({ story, onOpen }: StoryCardProps) {
-  const date = new Date(story.createdAt).toLocaleDateString("ru-RU", {
+  const { i18n } = useTranslation();
+  const date = new Date(story.createdAt).toLocaleDateString(i18n.language, {
     day: "numeric",
     month: "long",
     year: "numeric",

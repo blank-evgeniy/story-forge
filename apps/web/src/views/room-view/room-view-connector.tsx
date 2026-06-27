@@ -14,7 +14,8 @@ function RoomViewGuard() {
   const { data, isLoading } = useGetRoom(roomCode);
 
   if (isLoading) return <RoomLoading />;
-  if (!data) return <RoomError title={t("room.notFound")} />;
+  if (!data)
+    return <RoomError title={t("room.common.errors.roomNotFound")} />;
 
   return <RoomViewFlow />;
 }

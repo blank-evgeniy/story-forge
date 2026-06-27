@@ -16,6 +16,7 @@ export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
       <header className="relative flex items-center justify-center">
         <Button
           render={<Link to={"/"} />}
+          nativeButton={false}
           size={"sm"}
           variant={"outline"}
           className={"absolute left-0"}

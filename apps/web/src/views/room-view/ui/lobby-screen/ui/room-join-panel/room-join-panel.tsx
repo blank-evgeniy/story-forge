@@ -28,7 +28,9 @@ export function RoomJoinPanel({ roomCode }: RoomJoinPanelProps) {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <p className="text-surface-2 text-h3">{t("lobby.qr.enter")}</p>
+      <p className="text-surface-2 text-h3">
+        {t("room.lobby.joinCode.enter")}
+      </p>
       <div className="flex flex-col-reverse items-center gap-4 sm:flex-row">
         <div
           {...testIdAttr(testId("room-code"))}
@@ -48,7 +50,7 @@ export function RoomJoinPanel({ roomCode }: RoomJoinPanelProps) {
           <Button
             variant="primary"
             size="icon"
-            aria-label={t("lobby.qr.copyLink")}
+            aria-label={t("room.lobby.joinCode.copyLink")}
             onClick={() => copy(window.location.href)}
           >
             {copied ? <CheckIcon /> : <CopyIcon />}
@@ -57,7 +59,7 @@ export function RoomJoinPanel({ roomCode }: RoomJoinPanelProps) {
           <Button
             variant="primary"
             size="icon"
-            aria-label={t("lobby.qr.showQr")}
+            aria-label={t("room.lobby.joinCode.showQr")}
             onClick={() => setOpenQrModal(true)}
           >
             <QrCodeIcon />
@@ -69,7 +71,9 @@ export function RoomJoinPanel({ roomCode }: RoomJoinPanelProps) {
         <Dialog open={openQrModal} onOpenChange={setOpenQrModal}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t("lobby.qr.showQr")}</DialogTitle>
+              <DialogTitle>
+                {t("room.lobby.joinCode.showQr")}
+              </DialogTitle>
             </DialogHeader>
             <LobbyQrCode />
           </DialogContent>

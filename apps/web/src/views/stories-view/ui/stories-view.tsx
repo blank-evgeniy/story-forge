@@ -25,7 +25,7 @@ export function StoriesView({
 }: StoriesViewProps) {
   const { t } = useTranslation();
 
-  useDocumentTitle(t("titles.stories"));
+  useDocumentTitle(t("common.metadata.titles.stories"));
 
   return (
     <>

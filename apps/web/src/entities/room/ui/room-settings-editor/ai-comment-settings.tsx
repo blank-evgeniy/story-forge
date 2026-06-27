@@ -24,7 +24,7 @@ export function AiCommentSettings({ disabled }: AiCommentSettingsProps) {
   return (
     <Field>
       <FieldLabel htmlFor="enable-ai-comment">
-        {t("welcome.createRoom.aiComment.title")}
+        {t("room.lobby.gameSettings.aiCommentSelect.label")}
       </FieldLabel>
 
       <NativeSelect
@@ -46,7 +46,9 @@ export function AiCommentSettings({ disabled }: AiCommentSettingsProps) {
       </NativeSelect>
 
       <FieldDescription>
-        {t("welcome.createRoom.aiComment.description")}
+        {t(
+          "room.lobby.gameSettings.aiCommentSelect.description",
+        )}
       </FieldDescription>
     </Field>
   );

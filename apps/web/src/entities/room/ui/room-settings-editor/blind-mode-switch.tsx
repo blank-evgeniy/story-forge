@@ -31,11 +31,13 @@ export function BlindModeSwitch({ disabled }: BlindModeSwitchProps) {
           disabled={disabled}
         />
         <FieldLabel htmlFor="enable-blind">
-          {t("welcome.createRoom.blindMode.label")}
+          {t("room.lobby.gameSettings.blindModeSwitch.label")}
         </FieldLabel>
       </div>
       <FieldDescription>
-        {t("welcome.createRoom.blindMode.description")}
+        {t(
+          "room.lobby.gameSettings.blindModeSwitch.description",
+        )}
       </FieldDescription>
     </Field>
   );

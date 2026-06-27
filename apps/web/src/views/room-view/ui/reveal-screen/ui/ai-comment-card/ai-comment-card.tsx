@@ -28,7 +28,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
           <CardHeader>
             <span className="text-small flex items-center gap-2 font-medium">
               <BotIcon className="text-surface-2 size-4" />
-              {t("aiComment.loading")}
+              {t("room.reveal.aiComment.loading")}
             </span>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
@@ -43,7 +43,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
           <CardHeader>
             <span className="text-small flex items-center gap-2 font-medium">
               <BotIcon className="text-surface-2 size-4" />
-              {t("aiComment.title")}
+              {t("room.reveal.aiComment.title")}
             </span>
           </CardHeader>
           <CardContent className="px-2">
@@ -59,7 +59,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
 
       {status === "error" && (
         <p className="text-surface-2 flex items-center justify-center gap-1 px-2 text-center text-xs">
-          {t("aiComment.error")}
+          {t("room.reveal.aiComment.error")}
           <BotIcon className="text-surface-2 size-4" />
         </p>
       )}

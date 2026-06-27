@@ -16,7 +16,9 @@ export function LobbyQrCode() {
           bgColor="transparent"
         />
       </div>
-      <p className="text-surface-2 text-body">{t("lobby.qr.scan")}</p>
+      <p className="text-surface-2 text-body">
+        {t("room.lobby.joinCode.scan")}
+      </p>
     </div>
   );
 }
