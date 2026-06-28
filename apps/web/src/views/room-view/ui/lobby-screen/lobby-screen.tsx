@@ -35,6 +35,7 @@ export function LobbyScreen({ roomCode }: LobbyScreenProps) {
               editActionSlot={
                 <EditSettingsAction
                   isHost={isHost}
+                  currentSettings={settings}
                   onEdit={actions.editRoomSettings}
                 />
               }

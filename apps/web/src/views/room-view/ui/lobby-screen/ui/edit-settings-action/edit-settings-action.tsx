@@ -2,11 +2,6 @@ import { PencilIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import {
-  type RoomSettings,
-  RoomSettingsEditor,
-  useRoomSettingsContext,
-} from "@/entities/room";
 import { Button } from "@/shared/ui/button";
 import {
   Dialog,
@@ -16,19 +11,33 @@ import {
   DialogTitle,
 } from "@/shared/ui/dialog";
 
+import type { RoomSettings } from "../../../../model/types";
+
+import { RoomSettingsEditor } from "../room-settings-editor";
+
 type EditSettingsActionProps = {
   isHost: boolean;
+  currentSettings: RoomSettings;
   onEdit: (data: RoomSettings) => void;
 };
 
 export function EditSettingsAction({
   isHost,
+  currentSettings,
   onEdit,
 }: EditSettingsActionProps) {
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
+  const [draftSettings, setDraftSettings] = useState<null | RoomSettings>(
+    null,
+  );
 
-  const { roomSettings } = useRoomSettingsContext();
+  const roomSettings = draftSettings ?? currentSettings;
+
+  const handleOpen = () => {
+    setDraftSettings(null);
+    setOpenModal(true);
+  };
 
   const handleSave = () => {
     onEdit(roomSettings);
@@ -39,11 +48,7 @@ export function EditSettingsAction({
 
   return (
     <>
-      <Button
-        onClick={() => setOpenModal(true)}
-        size={"sm"}
-        variant={"outline"}
-      >
+      <Button onClick={handleOpen} size={"sm"} variant={"outline"}>
         {t("room.lobby.gameSettings.editAction")}
         <PencilIcon />
       </Button>
@@ -51,11 +56,12 @@ export function EditSettingsAction({
         <Dialog open={openModal} onOpenChange={setOpenModal}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>
-                {t("room.lobby.gameSettings.heading")}
-              </DialogTitle>
+              <DialogTitle>{t("room.lobby.gameSettings.heading")}</DialogTitle>
             </DialogHeader>
-            <RoomSettingsEditor />
+            <RoomSettingsEditor
+              value={roomSettings}
+              onChange={setDraftSettings}
+            />
             <DialogFooter>
               <Button onClick={handleSave}>
                 {t("room.lobby.gameSettings.saveAction")}

@@ -45,3 +45,18 @@ export type PrevEntry = {
 export function isPlayerEntry(entry: StoryEntry): entry is PlayerEntry {
   return entry.type === "player";
 }
+
+export type AiMood =
+  | "comedian"
+  | "critic"
+  | "fan"
+  | "philosopher"
+  | "teacher"
+  | "disabled";
+
+export type RoomSettings = {
+  roundTime: number;
+  blindMode: boolean;
+  enableTwists: boolean;
+  aiMood: AiMood;
+};

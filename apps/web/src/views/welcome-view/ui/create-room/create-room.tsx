@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader } from "@/shared/ui/card";
 type CreateRoomProps = {
   onCreate: () => void;
   isLoading: boolean;
-  disabled: boolean;
+  disabled?: boolean;
   serverStatusSlot?: ReactNode;
 };
 

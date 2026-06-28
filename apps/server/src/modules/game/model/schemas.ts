@@ -11,3 +11,10 @@ export const roomConfigSchema = z.object({
   enableTwists: z.boolean(),
   secondsPerTurn: z.number().min(10).max(120),
 });
+
+export const defaultRoomConfig: z.infer<typeof roomConfigSchema> = {
+  aiComment: { enable: true, mood: "critic" },
+  blindMode: true,
+  enableTwists: true,
+  secondsPerTurn: 60,
+};

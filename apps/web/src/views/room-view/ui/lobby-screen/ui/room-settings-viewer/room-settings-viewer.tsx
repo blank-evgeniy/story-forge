@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 import { BotIcon, ClockIcon, EyeOffIcon, ZapIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import type { RoomSettings } from "@/entities/room";
-
 import { cn } from "@/shared/lib/utils";
+
+import type { RoomSettings } from "../../../../model/types";
 
 type RoomSettingsViewerProps = {
   data: RoomSettings;

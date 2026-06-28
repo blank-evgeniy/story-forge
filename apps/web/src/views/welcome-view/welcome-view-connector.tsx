@@ -4,10 +4,6 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import { usePlayerStore } from "@/entities/player";
-import {
-  defaultRoomSettings,
-  mapRoomSettingsToConfigDto,
-} from "@/entities/room";
 
 import { useCreateRoom } from "./api/use-create-room";
 import { useGetRoom } from "./api/use-get-room";
@@ -33,7 +29,6 @@ export function WelcomeViewConnector() {
       {
         playerId,
         locale: i18n.language,
-        config: mapRoomSettingsToConfigDto(defaultRoomSettings),
       },
       {
         onSuccess: (data) => {

@@ -1,7 +1,7 @@
 import Elysia, { NotFoundError } from "elysia";
 import z from "zod";
 
-import { roomConfigSchema } from "../model/schemas";
+import { defaultRoomConfig, roomConfigSchema } from "../model/schemas";
 import { roomManager } from "../services/rooms";
 
 export const roomsModule = new Elysia({ prefix: "/rooms" })
@@ -13,7 +13,7 @@ export const roomsModule = new Elysia({ prefix: "/rooms" })
     },
     {
       body: z.object({
-        config: roomConfigSchema,
+        config: roomConfigSchema.optional().default(defaultRoomConfig),
         locale: z
           .string()
           .optional()

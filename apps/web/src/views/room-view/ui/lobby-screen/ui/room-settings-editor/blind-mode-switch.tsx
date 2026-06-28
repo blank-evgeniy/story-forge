@@ -4,29 +4,25 @@ import { Field, FieldDescription } from "@/shared/ui/field";
 import { FieldLabel } from "@/shared/ui/field";
 import { Switch } from "@/shared/ui/switch";
 
-import { useRoomSettingsContext } from "../../model/context/room-settings-context";
-
 type BlindModeSwitchProps = {
+  value: boolean;
+  onChange: (value: boolean) => void;
   disabled: boolean;
 };
 
-export function BlindModeSwitch({ disabled }: BlindModeSwitchProps) {
+export function BlindModeSwitch({
+  value,
+  onChange,
+  disabled,
+}: BlindModeSwitchProps) {
   const { t } = useTranslation();
-
-  const { roomSettings, updateRoomSettings } = useRoomSettingsContext();
-
-  const checked = roomSettings.blindMode;
-
-  const onCheckedChange = (checked: boolean) => {
-    updateRoomSettings({ blindMode: checked });
-  };
 
   return (
     <Field>
       <div className="flex items-center space-x-2">
         <Switch
-          checked={checked}
-          onCheckedChange={onCheckedChange}
+          checked={value}
+          onCheckedChange={onChange}
           id="enable-blind"
           disabled={disabled}
         />
@@ -35,9 +31,7 @@ export function BlindModeSwitch({ disabled }: BlindModeSwitchProps) {
         </FieldLabel>
       </div>
       <FieldDescription>
-        {t(
-          "room.lobby.gameSettings.blindModeSwitch.description",
-        )}
+        {t("room.lobby.gameSettings.blindModeSwitch.description")}
       </FieldDescription>
     </Field>
   );

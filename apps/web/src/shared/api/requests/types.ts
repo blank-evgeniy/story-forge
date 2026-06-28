@@ -3,7 +3,7 @@ type AiMoodDto = "comedian" | "critic" | "fan" | "philosopher" | "teacher";
 export type CreateRoomDTO = {
   playerId: string;
   locale: string;
-  config: {
+  config?: {
     secondsPerTurn: number;
     blindMode: boolean;
     aiComment: {

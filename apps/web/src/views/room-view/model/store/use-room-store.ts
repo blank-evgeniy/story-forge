@@ -5,16 +5,12 @@ import type { ServerEvent } from "@/shared/api/ws/types";
 
 import { router } from "@/app/routes/routes";
 import { usePlayerStore } from "@/entities/player";
-import {
-  defaultRoomSettings,
-  mapRoomConfigToSettings,
-  type RoomSettings,
-} from "@/entities/room";
 import i18n from "@/shared/lib/i18n/i18n-setup";
 
-import type { PrevEntry, RoomPlayer, Story, TwistsSet } from "../types";
+import type { PrevEntry, RoomPlayer, RoomSettings, Story, TwistsSet } from "../types";
 
-import { mapStories } from "../map";
+import { defaultRoomSettings } from "../consts";
+import { mapRoomConfigToSettings, mapStories } from "../map";
 
 type RoomActions = {
   handleEvent: (event: ServerEvent) => void;

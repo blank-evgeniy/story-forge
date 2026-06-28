@@ -2,7 +2,9 @@ import { createContext, type ReactNode, useContext, useMemo } from "react";
 
 import type { ClientEvent } from "@/shared/api/ws/types";
 
-import { mapRoomSettingsToConfigDto, type RoomSettings } from "@/entities/room";
+import type { RoomSettings } from "../types";
+
+import { mapRoomSettingsToConfigDto } from "../map";
 
 type RoomActions = {
   startGame: () => void;

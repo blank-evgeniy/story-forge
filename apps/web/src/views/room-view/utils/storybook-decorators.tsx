@@ -2,8 +2,6 @@ import type { Decorator } from "@storybook/react-vite";
 
 import type { MutationHook } from "@/shared/types";
 
-import { RoomSettingsContextProvider } from "@/entities/room";
-
 import { RoomActionsProvider } from "../model/context/room-actions-context";
 import { SaveStoryProvider } from "../model/context/save-story-context";
 import { RoomLayout } from "../ui/common/room-layout";
@@ -34,10 +32,4 @@ export const withSaveStoryContext: Decorator = (Story) => (
   <SaveStoryProvider roomCode="" saveStoryHook={saveStoryStub}>
     <Story />
   </SaveStoryProvider>
-);
-
-export const withRoomSettingsContext: Decorator = (Story) => (
-  <RoomSettingsContextProvider>
-    <Story />
-  </RoomSettingsContextProvider>
 );

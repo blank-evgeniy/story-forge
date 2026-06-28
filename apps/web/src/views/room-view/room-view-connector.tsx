@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 
 import { gameRoute } from "@/app/routes/routes";
 import { usePlayerStore } from "@/entities/player";
-import { RoomSettingsContextProvider } from "@/entities/room";
 
 import { useRoomSocket } from "./api/use-room-socket";
 import { RoomActionsProvider } from "./model/context/room-actions-context";
@@ -27,7 +26,6 @@ export function RoomViewConnector() {
 
   const status = useRoomStore((store) => store.status);
   const round = useRoomStore((store) => store.round);
-  const settings = useRoomStore((store) => store.settings);
 
   const roomSocket = useRoomSocket({
     player,
@@ -46,11 +44,7 @@ export function RoomViewConnector() {
   return (
     <RoomLayout>
       <RoomActionsProvider client={roomSocket.client}>
-        {status === "lobby" && (
-          <RoomSettingsContextProvider initialSettings={settings}>
-            <LobbyScreen roomCode={roomCode} />
-          </RoomSettingsContextProvider>
-        )}
+        {status === "lobby" && <LobbyScreen roomCode={roomCode} />}
         {status === "writing" && <WritingScreen />}
         {status === "reveal" && (
           <SaveStoryProvider roomCode={roomCode}>

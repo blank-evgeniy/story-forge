@@ -1,10 +1,9 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { defaultRoomSettings } from "@/entities/room";
-
 import type { RoomPlayer } from "../../model/types";
 
+import { defaultRoomSettings } from "../../model/consts";
 import { type RoomState, useRoomStore } from "../../model/store/use-room-store";
 import { LobbyScreen } from "./lobby-screen";
 
@@ -17,12 +16,6 @@ vi.mock("@/shared/hooks/use-tw-breakpoints", () => ({
 }));
 vi.mock("qrcode.react", () => ({
   QRCodeSVG: () => <svg data-testid="qr-code" />,
-}));
-vi.mock("@/entities/room/model/context/room-settings-context", () => ({
-  useRoomSettingsContext: () => ({
-    roomSettings: defaultRoomSettings,
-    updateRoomSettings: vi.fn(),
-  }),
 }));
 
 import { useRoomActions } from "../../model/context/room-actions-context";

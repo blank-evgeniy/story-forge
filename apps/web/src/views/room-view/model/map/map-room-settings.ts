@@ -1,8 +1,8 @@
 import type { RoomDto } from "@/shared/api/ws/types";
 
-import type { RoomSettings } from "../model/types";
+import type { RoomSettings } from "../types";
 
-import { defaultRoomSettings } from "../model/consts";
+import { defaultRoomSettings } from "../consts";
 
 export function mapRoomConfigToSettings(data: RoomDto["config"]): RoomSettings {
   return {

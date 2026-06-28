@@ -9,7 +9,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/shared/ui/input-otp";
 type JoinRoomProps = {
   onJoin: (roomCode: string) => void;
   isLoading: boolean;
-  disabled: boolean;
+  disabled?: boolean;
 };
 
 export function JoinRoom({ onJoin, isLoading, disabled }: JoinRoomProps) {
