@@ -1,6 +1,6 @@
 import type { PlayerColor, PlayerIcon } from "@/entities/player";
 
-export type Player = {
+export type RoomPlayer = {
   color: PlayerColor;
   connected: boolean;
   icon: PlayerIcon;

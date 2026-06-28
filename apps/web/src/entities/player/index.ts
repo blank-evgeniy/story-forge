@@ -14,7 +14,7 @@ export {
   type PlayerIcon,
 } from "./model/types";
 
-export { usePlayerStore } from "./model/store";
+export { usePlayerStore, type Player } from "./model/store";
 
 export { PlayerAvatar } from "./ui/player-avatar";
 export { PlayerForm } from "./ui/player-form/player-form";

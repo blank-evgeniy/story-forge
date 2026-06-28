@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import { defaultRoomSettings } from "@/entities/room";
 
-import type { Player } from "../../model/types";
+import type { RoomPlayer } from "../../model/types";
 
 import { type RoomState, useRoomStore } from "../../model/store/use-room-store";
 import { LobbyScreen } from "./lobby-screen";
@@ -42,7 +42,7 @@ const testIds = {
 
 const mockStartGame = vi.fn();
 
-function makePlayer(overrides: Partial<Player> = {}): Player {
+function makePlayer(overrides: Partial<RoomPlayer> = {}): RoomPlayer {
   return {
     id: "p1",
     username: "Alice",
@@ -54,9 +54,9 @@ function makePlayer(overrides: Partial<Player> = {}): Player {
 }
 
 function setStore({
-  players = [] as Player[],
+  players = [] as RoomPlayer[],
   isHost = false,
-}: { players?: Player[]; isHost?: boolean } = {}) {
+}: { players?: RoomPlayer[]; isHost?: boolean } = {}) {
   vi.mocked(useRoomStore).mockImplementation((selector) =>
     selector({ players, isHost, settings: defaultRoomSettings } as RoomState),
   );

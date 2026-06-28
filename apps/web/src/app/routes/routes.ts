@@ -120,7 +120,7 @@ export const router = createRouter({
   defaultPendingComponent: () =>
     createElement(
       "div",
-      { className: "flex flex-1 items-center justify-center" },
+      { className: "fixed inset-0 flex items-center justify-center" },
       createElement(Spinner, { className: "size-8" }),
     ),
 });

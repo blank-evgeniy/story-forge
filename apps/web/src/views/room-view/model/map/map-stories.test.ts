@@ -4,12 +4,12 @@ import type { StoryThreadDto } from "@/shared/api/ws/types";
 
 import { DEFAULT_PLAYER_COLOR, DEFAULT_PLAYER_ICON } from "@/entities/player";
 
-import type { Player } from "../types";
+import type { RoomPlayer } from "../types";
 
 import { PLAYER_NAME_PLACEHOLDER } from "../consts";
 import { mapStories } from "./map-stories";
 
-const makePlayer = (overrides?: Partial<Player>): Player => ({
+const makePlayer = (overrides?: Partial<RoomPlayer>): RoomPlayer => ({
   id: "player-1",
   username: "Alice",
   color: "blue",

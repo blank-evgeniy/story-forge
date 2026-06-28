@@ -8,12 +8,14 @@ import { Card, CardContent, CardHeader } from "@/shared/ui/card";
 type CreateRoomProps = {
   onCreate: () => void;
   isLoading: boolean;
+  disabled: boolean;
   serverStatusSlot?: ReactNode;
 };
 
 export function CreateRoom({
   onCreate,
   isLoading,
+  disabled,
   serverStatusSlot,
 }: CreateRoomProps) {
   const { t } = useTranslation();
@@ -28,6 +30,7 @@ export function CreateRoom({
         <Button
           className="gap-4 uppercase"
           onClick={onCreate}
+          disabled={disabled}
           isLoading={isLoading}
         >
           <PlayIcon className="size-5 stroke-3" />

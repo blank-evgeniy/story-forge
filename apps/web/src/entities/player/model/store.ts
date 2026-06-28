@@ -5,7 +5,7 @@ import type { PlayerColor, PlayerIcon } from "./types";
 
 import { DEFAULT_PLAYER_COLOR, DEFAULT_PLAYER_ICON } from "./consts";
 
-type Player = {
+export type Player = {
   id: string;
   username: string;
   color: PlayerColor;

@@ -8,9 +8,11 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/shared/ui/input-otp";
 
 type JoinRoomProps = {
   onJoin: (roomCode: string) => void;
+  isLoading: boolean;
+  disabled: boolean;
 };
 
-export function JoinRoom({ onJoin }: JoinRoomProps) {
+export function JoinRoom({ onJoin, isLoading, disabled }: JoinRoomProps) {
   const { t } = useTranslation();
   const [code, setCode] = useState("");
 
@@ -42,7 +44,8 @@ export function JoinRoom({ onJoin }: JoinRoomProps) {
         <Button
           onClick={handleSubmit}
           className="w-full"
-          disabled={code.length !== 4}
+          isLoading={isLoading}
+          disabled={code.length !== 4 || disabled}
         >
           {t("welcome.joinGame.submit")}
         </Button>

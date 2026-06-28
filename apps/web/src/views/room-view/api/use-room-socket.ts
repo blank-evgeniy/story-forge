@@ -1,31 +1,19 @@
 import { useWebSocket } from "@siberiacancode/reactuse";
 import { useEffect } from "react";
 
-import type {
-  ClientEvent,
-  PlayerColorDto,
-  PlayerIconDto,
-} from "@/shared/api/ws/types";
+import type { Player } from "@/entities/player";
+import type { ClientEvent } from "@/shared/api/ws/types";
 
 import { env } from "@/shared/lib/config/env";
 
 import { useRoomStore } from "../model/store/use-room-store";
 
 export type UseRoomSocketOptions = {
-  color: PlayerColorDto;
-  icon: PlayerIconDto;
-  playerId: string;
+  player: Player | null;
   roomCode: string;
-  username: string;
 };
 
-export const useRoomSocket = ({
-  color,
-  icon,
-  playerId,
-  roomCode,
-  username,
-}: UseRoomSocketOptions) => {
+export const useRoomSocket = ({ player, roomCode }: UseRoomSocketOptions) => {
   const handleEvent = useRoomStore((store) => store.handleEvent);
   const resetStore = useRoomStore((store) => store.reset);
 
@@ -38,13 +26,15 @@ export const useRoomSocket = ({
     env.VITE_WS_BASE_URL,
     {
       onConnected: (ws) => {
+        if (!player) return;
+
         const event: ClientEvent = {
           type: "join_room",
           code: roomCode,
-          color,
-          icon,
-          playerId,
-          username,
+          username: player.username,
+          color: player.color,
+          icon: player.icon,
+          playerId: player.id,
         };
 
         ws.send(JSON.stringify(event));

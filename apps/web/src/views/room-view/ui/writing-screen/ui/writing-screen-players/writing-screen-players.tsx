@@ -1,4 +1,4 @@
-import type { Player } from "../../../../model/types";
+import type { RoomPlayer } from "../../../../model/types";
 
 import {
   PlayerCard,
@@ -7,7 +7,7 @@ import {
 } from "../../../common/player-card";
 
 type WritingScreenPlayersProps = {
-  players: Player[];
+  players: RoomPlayer[];
   submittedIds: Set<string>;
 };
 

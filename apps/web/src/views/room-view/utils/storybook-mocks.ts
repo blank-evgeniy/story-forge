@@ -1,6 +1,6 @@
-import type { Player, Story } from "../model/types";
+import type { RoomPlayer, Story } from "../model/types";
 
-export const MOCK_PLAYERS: Player[] = [
+export const MOCK_PLAYERS: RoomPlayer[] = [
   {
     id: "1",
     username: "Алиса",

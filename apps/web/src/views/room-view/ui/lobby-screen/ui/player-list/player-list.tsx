@@ -1,4 +1,4 @@
-import type { Player } from "@/views/room-view/model/types";
+import type { RoomPlayer } from "@/views/room-view/model/types";
 
 import { useTwBreakpoints } from "@/shared/hooks/use-tw-breakpoints";
 import { testIdAttr } from "@/shared/lib/tests/test-id-attr";
@@ -13,7 +13,7 @@ import {
 } from "../../../common/player-card";
 
 type PlayerListProps = {
-  players: Player[];
+  players: RoomPlayer[];
   className?: string;
 };
 

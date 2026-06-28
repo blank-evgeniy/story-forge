@@ -2,12 +2,12 @@ import type { StoryThreadDto } from "@/shared/api/ws/types";
 
 import { DEFAULT_PLAYER_COLOR, DEFAULT_PLAYER_ICON } from "@/entities/player";
 
-import type { Player, Story, StoryEntry } from "../types";
+import type { RoomPlayer, Story, StoryEntry } from "../types";
 
 import { PLAYER_NAME_PLACEHOLDER } from "../consts";
 
 export const mapStories = (
-  players: Player[],
+  players: RoomPlayer[],
   storyThreads: StoryThreadDto[],
 ): Story[] => {
   const stories: Story[] = storyThreads.map((thread) => ({

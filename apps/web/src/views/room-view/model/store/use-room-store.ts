@@ -12,7 +12,7 @@ import {
 } from "@/entities/room";
 import i18n from "@/shared/lib/i18n/i18n-setup";
 
-import type { Player, PrevEntry, Story, TwistsSet } from "../types";
+import type { PrevEntry, RoomPlayer, Story, TwistsSet } from "../types";
 
 import { mapStories } from "../map";
 
@@ -31,7 +31,7 @@ type RoomData = {
     | "writing"
     | "revealing"
     | "reveal";
-  players: Player[];
+  players: RoomPlayer[];
   isHost: boolean;
   round: number;
   totalRounds: number;
