@@ -6,7 +6,6 @@ import {
   Outlet,
   redirect,
 } from "@tanstack/react-router";
-import { createElement } from "react";
 import { z } from "zod";
 
 import { usePlayerStore } from "@/entities/player";
@@ -18,13 +17,17 @@ import { AppLayout } from "../layout";
 import { requireAuth } from "./require-auth";
 
 const rootRoute = createRootRoute({
-  component: () => createElement(Outlet, null),
+  component: () => <Outlet />,
 });
 
 const appLayoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "app-layout",
-  component: () => createElement(AppLayout, null, createElement(Outlet, null)),
+  component: () => (
+    <AppLayout>
+      <Outlet />
+    </AppLayout>
+  ),
 });
 
 const guardedRoute = createRoute({
@@ -59,7 +62,7 @@ const loginRoute = createRoute({
 
 export const welcomeRoute = createRoute({
   getParentRoute: () => guardedRoute,
-  id: "welcome",
+  path: "/",
   component: lazyRouteComponent(
     () => import("@/views/welcome-view"),
     "WelcomeViewConnector",
@@ -114,15 +117,17 @@ const routeTree = rootRoute.addChildren([
 export const router = createRouter({
   routeTree,
   defaultViewTransition: true,
-  defaultNotFoundComponent: () =>
-    createElement(AppLayout, null, createElement(NotFoundView, null)),
-  defaultErrorComponent: ({ reset }) => createElement(ErrorView, { reset }),
-  defaultPendingComponent: () =>
-    createElement(
-      "div",
-      { className: "fixed inset-0 flex items-center justify-center" },
-      createElement(Spinner, { className: "size-8" }),
-    ),
+  defaultNotFoundComponent: () => (
+    <AppLayout>
+      <NotFoundView />
+    </AppLayout>
+  ),
+  defaultErrorComponent: ({ reset }) => <ErrorView reset={reset} />,
+  defaultPendingComponent: () => (
+    <div className="fixed inset-0 flex items-center justify-center">
+      <Spinner className="size-8" />
+    </div>
+  ),
 });
 
 declare module "@tanstack/react-router" {

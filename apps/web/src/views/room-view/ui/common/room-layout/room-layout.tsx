@@ -21,7 +21,7 @@ export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
           variant={"outline"}
           className={"absolute left-0"}
         >
-          <ChevronLeftIcon />{" "}
+          <ChevronLeftIcon />
           <span className="hidden sm:block">{t("common.back")}</span>
         </Button>
 

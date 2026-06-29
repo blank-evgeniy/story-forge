@@ -35,11 +35,23 @@ export function RoomViewConnector() {
   useRoomDocumentTitle(status, round);
 
   if (roomSocket.status === "connecting")
-    return <RoomLoading title={t("room.common.connection.connecting")} />;
+    return (
+      <RoomLayout>
+        <RoomLoading title={t("room.common.connection.connecting")} />
+      </RoomLayout>
+    );
   if (roomSocket.status === "disconnected")
-    return <RoomError title={t("room.common.connection.lost")} />;
+    return (
+      <RoomLayout>
+        <RoomError title={t("room.common.connection.lost")} />
+      </RoomLayout>
+    );
   if (roomSocket.status === "failed")
-    return <RoomError title={t("room.common.connection.failed")} />;
+    return (
+      <RoomLayout>
+        <RoomError title={t("room.common.connection.failed")} />
+      </RoomLayout>
+    );
 
   return (
     <RoomLayout>
