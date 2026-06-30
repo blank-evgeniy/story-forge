@@ -9,6 +9,7 @@ import {
 import { z } from "zod";
 
 import { usePlayerStore } from "@/entities/player";
+import { AnimatedOutlet } from "@/shared/lib/router";
 import { Spinner } from "@/shared/ui/spinner";
 import { ErrorView } from "@/views/error-view";
 import { NotFoundView } from "@/views/not-found-view";
@@ -25,7 +26,7 @@ const appLayoutRoute = createRoute({
   id: "app-layout",
   component: () => (
     <AppLayout>
-      <Outlet />
+      <AnimatedOutlet />
     </AppLayout>
   ),
 });
@@ -116,7 +117,6 @@ const routeTree = rootRoute.addChildren([
 
 export const router = createRouter({
   routeTree,
-  defaultViewTransition: true,
   defaultNotFoundComponent: () => (
     <AppLayout>
       <NotFoundView />

@@ -183,6 +183,7 @@
 
 @layer base {
   html {
+    overflow-x: hidden;
     overscroll-behavior-y: none;
   }
   body {

@@ -13,7 +13,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <BaseLayout>
-      <header className="flex items-center justify-between py-4">
+      <header className="flex items-center justify-between">
         <Link to="/" className="flex items-center gap-px">
           <AppLogo />
         </Link>
@@ -47,7 +47,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           )}
         </div>
       </header>
-      <main className="flex flex-1 flex-col">{children}</main>
+      <main className="flex flex-1 flex-col pt-4">{children}</main>
     </BaseLayout>
   );
 }
