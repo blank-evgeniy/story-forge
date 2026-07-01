@@ -1,4 +1,5 @@
 import { CircleAlertIcon } from "lucide-react";
+import { motion } from "motion/react";
 
 type RoomErrorProps = {
   title: string;
@@ -6,9 +7,14 @@ type RoomErrorProps = {
 
 export function RoomError({ title }: RoomErrorProps) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-2">
+    <motion.div
+      className="flex flex-1 flex-col items-center justify-center gap-2"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, delay: 0.15 }}
+    >
       <span className="text-lg">{title}</span>
       <CircleAlertIcon className="text-danger size-8" />
-    </div>
+    </motion.div>
   );
 }

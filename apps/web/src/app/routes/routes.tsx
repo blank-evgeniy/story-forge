@@ -18,7 +18,7 @@ import { AppLayout } from "../layout";
 import { requireAuth } from "./require-auth";
 
 const rootRoute = createRootRoute({
-  component: () => <Outlet />,
+  component: () => <AnimatedOutlet />,
 });
 
 const appLayoutRoute = createRoute({
@@ -26,7 +26,7 @@ const appLayoutRoute = createRoute({
   id: "app-layout",
   component: () => (
     <AppLayout>
-      <AnimatedOutlet />
+      <Outlet />
     </AppLayout>
   ),
 });
