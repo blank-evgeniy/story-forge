@@ -1,9 +1,9 @@
+import { useAutoScroll } from "@siberiacancode/reactuse";
 import { BookOpenIcon } from "lucide-react";
-import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { cn } from "@/shared/lib/utils";
-import { ScrollArea, useStickToBottom } from "@/shared/ui/scroll-area";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 
 type StoryWrapperProps = {
   storyOwner?: string;
@@ -20,12 +20,11 @@ export function StoryWrapper({
 }: StoryWrapperProps) {
   const { t } = useTranslation();
 
-  const viewportRef = useRef<HTMLDivElement>(null);
-  useStickToBottom(viewportRef);
+  const autoScrollRef = useAutoScroll<HTMLDivElement>();
 
   return (
     <ScrollArea
-      viewportRef={viewportRef}
+      viewportRef={autoScrollRef}
       className={cn("glass-strong h-full w-full rounded-xl border", className)}
     >
       <div className="px-5 py-4">

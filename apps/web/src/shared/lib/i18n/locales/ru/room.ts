@@ -16,6 +16,11 @@ export default {
       round: "Раунд",
       of: "из {{totalRounds}}",
     },
+    rotateDevice: {
+      heading: "Поверните устройство",
+      description:
+        "Пожалуйста, поверните телефон в вертикальное положение, чтобы продолжить игру",
+    },
   },
   lobby: {
     playerList: {

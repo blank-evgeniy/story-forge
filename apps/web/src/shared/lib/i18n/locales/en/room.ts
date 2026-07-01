@@ -16,6 +16,10 @@ export default {
       round: "Round",
       of: "of {{totalRounds}}",
     },
+    rotateDevice: {
+      heading: "Rotate your device",
+      description: "Please rotate your phone to portrait orientation to continue playing",
+    },
   },
   lobby: {
     playerList: {

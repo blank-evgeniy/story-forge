@@ -21,7 +21,7 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="min-h-0"
+      className="flex min-h-0 flex-1 flex-col"
     >
       {status === "loading" && (
         <Card>
@@ -39,18 +39,15 @@ export function AiCommentCard({ status, comment }: AiCommentCardProps) {
       )}
 
       {status === "success" && comment !== null && (
-        <Card className="min-h-0">
+        <Card className="flex min-h-0 flex-1 flex-col">
           <CardHeader>
             <span className="text-small flex items-center gap-2 font-medium">
               <BotIcon className="text-surface-2 size-4" />
               {t("room.reveal.aiComment.title")}
             </span>
           </CardHeader>
-          <CardContent className="px-2">
-            <ScrollArea
-              className="max-h-[20vh] px-2"
-              viewportClassName="max-h-[inherit]"
-            >
+          <CardContent className="min-h-0 flex-1 px-2">
+            <ScrollArea className="h-full px-2" viewportClassName="max-h-full">
               <p className="text-sm leading-relaxed">{comment}</p>
             </ScrollArea>
           </CardContent>

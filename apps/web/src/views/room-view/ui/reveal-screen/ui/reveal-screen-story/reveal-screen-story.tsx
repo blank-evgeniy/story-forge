@@ -15,9 +15,14 @@ import { assignSides } from "../../utils";
 type RevealScreenStoryProps = {
   story: Story;
   shown: number;
+  actionsSlot?: React.ReactNode;
 };
 
-export function RevealScreenStory({ shown, story }: RevealScreenStoryProps) {
+export function RevealScreenStory({
+  shown,
+  story,
+  actionsSlot,
+}: RevealScreenStoryProps) {
   const visibleEntries = story.entries.slice(0, shown);
   const entriesWithSides = assignSides(visibleEntries);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -55,6 +60,7 @@ export function RevealScreenStory({ shown, story }: RevealScreenStoryProps) {
           ),
         )}
       </AnimatePresence>
+      {actionsSlot}
       <div ref={bottomRef} />
     </StoryWrapper>
   );

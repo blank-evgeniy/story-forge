@@ -16,7 +16,7 @@ function StorySection({ children }: { children: React.ReactNode }) {
 
 function StoryRevealAnimated({ children }: { children: React.ReactNode }) {
   return (
-    <Reveal direction="left" className="absolute inset-0 flex flex-col gap-2">
+    <Reveal direction="left" className="absolute inset-0 flex flex-col">
       {children}
     </Reveal>
   );
@@ -38,13 +38,18 @@ function Footer({
   isVisible: boolean;
 }) {
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <Reveal direction="bottom" className="flex min-h-0 flex-col gap-4">
-          {children}
-        </Reveal>
-      )}
-    </AnimatePresence>
+    <div className="flex h-[38vh] min-h-0 shrink-0 flex-col">
+      <AnimatePresence>
+        {isVisible && (
+          <Reveal
+            direction="bottom"
+            className="flex min-h-0 flex-1 flex-col gap-4"
+          >
+            {children}
+          </Reveal>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
