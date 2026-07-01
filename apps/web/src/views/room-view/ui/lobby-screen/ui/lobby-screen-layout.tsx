@@ -1,29 +1,8 @@
-import { motion } from "motion/react";
-
 import { useTwBreakpoints } from "@/shared/hooks/use-tw-breakpoints";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
+import { Reveal } from "@/shared/ui/reveal";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Separator } from "@/shared/ui/separator";
-
-const slideVariants = {
-  left: {
-    initial: { opacity: 0, x: -40 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -40 },
-  },
-  right: {
-    initial: { opacity: 0, x: 40 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: 40 },
-  },
-  bottom: {
-    initial: { opacity: 0, y: 40 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: 40 },
-  },
-};
-
-const transition = { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const };
 
 function LobbyScreenLayoutRoot({ children }: { children: React.ReactNode }) {
   return (
@@ -42,52 +21,33 @@ function PlayersSidebar({
 }) {
   const breakpoints = useTwBreakpoints();
   const isMobile = breakpoints.smaller("sm");
-  const variants = slideVariants.left;
 
   if (isMobile) {
-    return (
-      <motion.div
-        initial={variants.initial}
-        animate={variants.animate}
-        exit={variants.exit}
-        transition={transition}
-      >
-        {children}
-      </motion.div>
-    );
+    return <Reveal direction="left">{children}</Reveal>;
   }
 
   return (
-    <motion.div
-      className="min-h-0 w-full md:w-1/3"
-      initial={variants.initial}
-      animate={variants.animate}
-      exit={variants.exit}
-      transition={transition}
-    >
+    <Reveal direction="left" className="min-h-0 w-full md:w-1/3">
       <Card className="h-full min-h-0">
         <CardHeader className="hidden md:flex">{headerSlot}</CardHeader>
         <CardContent className="min-h-0">{children}</CardContent>
       </Card>
-    </motion.div>
+    </Reveal>
   );
 }
 
 function MainSection({ children }: { children: React.ReactNode }) {
   const breakpoints = useTwBreakpoints();
   const isMobile = breakpoints.smaller("sm");
-  const variants = isMobile ? slideVariants.bottom : slideVariants.right;
 
   return (
-    <motion.div
+    <Reveal
+      direction={isMobile ? "bottom" : "right"}
+      delay={0.05}
       className="flex min-h-0 w-full flex-1 flex-col"
-      initial={variants.initial}
-      animate={variants.animate}
-      exit={variants.exit}
-      transition={{ ...transition, delay: 0.05 }}
     >
       <Card className="flex h-full min-h-0 flex-col">{children}</Card>
-    </motion.div>
+    </Reveal>
   );
 }
 

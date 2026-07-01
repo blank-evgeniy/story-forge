@@ -2,6 +2,8 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { transitionBase } from "@/shared/lib/motion";
+
 import { REVEAL_TRANSITION_DURATION_MS } from "../../../model/consts";
 import { useRoomStore } from "../../../model/store/use-room-store";
 
@@ -35,7 +37,7 @@ export function RevealTransitionOverlay() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        transition={transitionBase}
       >
         {phrase}
       </motion.p>

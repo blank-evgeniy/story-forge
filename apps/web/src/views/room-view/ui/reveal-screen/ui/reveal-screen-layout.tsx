@@ -1,4 +1,6 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+
+import { Reveal } from "@/shared/ui/reveal";
 
 function RevealScreenLayoutRoot({ children }: { children: React.ReactNode }) {
   return <div className="flex min-h-0 flex-1 flex-col gap-6">{children}</div>;
@@ -14,29 +16,17 @@ function StorySection({ children }: { children: React.ReactNode }) {
 
 function StoryRevealAnimated({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 40 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -40 }}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="absolute inset-0 flex flex-col gap-2"
-    >
+    <Reveal direction="left" className="absolute inset-0 flex flex-col gap-2">
       {children}
-    </motion.div>
+    </Reveal>
   );
 }
 
 function StoryHistoryAnimated({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 40 }}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="absolute inset-0 overflow-y-auto"
-    >
+    <Reveal direction="right" className="absolute inset-0 overflow-y-auto">
       {children}
-    </motion.div>
+    </Reveal>
   );
 }
 
@@ -50,14 +40,9 @@ function Footer({
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
-          className="flex min-h-0 flex-col gap-4"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
+        <Reveal direction="bottom" className="flex min-h-0 flex-col gap-4">
           {children}
-        </motion.div>
+        </Reveal>
       )}
     </AnimatePresence>
   );
