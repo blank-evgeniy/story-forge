@@ -1,28 +1,81 @@
+<a id="readme-top"></a>
+
+<!-- HERO -->
 <div align="center">
+  <a href="https://github.com/blank-evgeniy/story-forge">
+    <img src="images/logo.svg" alt="Logo" width="200" height="auto">
+  </a>
 
-# 📖 Story Forge
+  <p align="center">
+    <br />
+    A multiplayer collaborative storytelling game where players build stories together.
+    <br />
+    <a href="https://story-forge-web-omega.vercel.app"><strong>Play now!</strong></a>
+    <br />
+    <br />
+    <a href="https://blank-evgeniy.github.io/story-forge">About the App</a>
+    &middot;
+    <a href="https://github.com/blank-evgeniy/story-forge/issues/new?labels=bug">Report Bug</a>
+    &middot;
+    <a href="https://github.com/blank-evgeniy/story-forge/issues/new?labels=enhancement">Request Feature</a>
+  </p>
 
-**🇬🇧 English · [🇷🇺 Русский](README.ru.md)**
-
-A multiplayer collaborative storytelling game where players build stories together.
-
-<br />
-
-[![Live App](https://img.shields.io/badge/▶_Live_App-000?style=for-the-badge)](https://story-forge-web-omega.vercel.app/)
-[![Landing Page](https://img.shields.io/badge/🌐_Landing_Page-555?style=for-the-badge)](https://blank-evgeniy.github.io/story-forge)
-
-<br />
-
-![React](https://img.shields.io/badge/React_19-20232a?style=flat-square&logo=react)
-![Vite](https://img.shields.io/badge/Vite-646cff?style=flat-square&logo=vite&logoColor=white)
-![Elysia](https://img.shields.io/badge/Elysia-0f172a?style=flat-square)
-![Turso](https://img.shields.io/badge/Turso-4ff8d2?style=flat-square&logo=turso&logoColor=black)
-
+  <br />
+  
+  **English | [Русский](README.ru.md)**
 </div>
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#how-to-play">How To Play</a>
+      <ul>
+        <li><a href="#game-settings">Game Settings</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#technical-details">Technical Details</a>
+      <ul>
+        <li><a href="#monorepo-structure">Monorepo Structure</a></li>
+        <li><a href="#tech-stack">Tech Stack</a></li>
+      </ul>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ol>
+</details>
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+
+<!-- [![Story Forge Screen Shot][product-screenshot]](https://story-forge-web-omega.vercel.app) -->
+
+**Story Forge** is a real-time party game about writing stories together. Gather your friends in a shared room, and take turns adding one line at a time until an entire story takes shape — then watch it read back to you, twist by twist.
+
+The catch is that you rarely see the whole picture while you write. In **Blind Mode** you only see the line before yours, and **Twists Mode** can drop a surprise plot turn on an unsuspecting player mid-game. The result is chaotic, unpredictable stories that no single person could have written alone. When the round ends, the full tale is revealed line by line with voice narration, and an AI of your choosing — a critic, a comedian, a philosopher — leaves its verdict.
+
+No installs, no accounts: the host shares a 4-digit code or QR, everyone joins from their phone, and you're playing in seconds.
+
+### Built With
+
+[![TypeScript][TypeScript]][TypeScript-url]
+[![React][React.js]][React-url]
+[![Elysia][Elysia]][Elysia-url]
+[![Turso][Turso]][Turso-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
 
-## ✨ How It Works
+## How To Play
 
 1. Set up your profile: pick an avatar, color, and username
 2. A host creates a room and shares a 4-digit code or QR code with friends
@@ -34,9 +87,7 @@ A multiplayer collaborative storytelling game where players build stories togeth
 8. The story can be saved and published to a public stories page
 9. After saving, an AI leaves a short comment on the story
 
----
-
-## 🎮 Game Settings
+### Game Settings
 
 | Setting          | Range                                       | Default |
 | ---------------- | ------------------------------------------- | ------- |
@@ -49,9 +100,13 @@ A multiplayer collaborative storytelling game where players build stories togeth
 
 > **Twists** injects a random plot twist mid-game for one player, steering the story in an unexpected direction.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ---
 
-## 🗂️ Monorepo Structure
+## Technical Details
+
+### Monorepo Structure
 
 ```
 apps/
@@ -60,9 +115,7 @@ apps/
   landing/  — Landing page (Astro)
 ```
 
----
-
-## 🛠️ Tech Stack
+### Tech Stack
 
 | Layer            | Technology                         |
 | ---------------- | ---------------------------------- |
@@ -80,6 +133,28 @@ apps/
 | Tests            | Bun, Vitest + RTL, Playwright      |
 | Landing          | Claude Code + Astro 6              |
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+See the [roadmap](roadmap.md) for a list of future features (and known issues).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ---
 
 > 🧑‍💻 Running the project locally? See [DEVELOPMENT.md](DEVELOPMENT.md).
+
+<!-- LINKS -->
+
+[product-screenshot]: images/screenshot.png
+[TypeScript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Elysia]: https://img.shields.io/badge/Elysia-0f172a?style=for-the-badge
+[Elysia-url]: https://elysiajs.com/
+[Turso]: https://img.shields.io/badge/Turso-4ff8d2?style=for-the-badge&logo=turso&logoColor=black
+[Turso-url]: https://turso.tech/
