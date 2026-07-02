@@ -3,7 +3,6 @@ import { BookOpenIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { cn } from "@/shared/lib/utils";
-import { ScrollArea } from "@/shared/ui/scroll-area";
 
 type StoryWrapperProps = {
   storyOwner?: string;
@@ -23,11 +22,14 @@ export function StoryWrapper({
   const autoScrollRef = useAutoScroll<HTMLDivElement>();
 
   return (
-    <ScrollArea
-      viewportRef={autoScrollRef}
-      className={cn("glass-strong h-full w-full rounded-xl border", className)}
+    <div
+      ref={autoScrollRef}
+      className={cn(
+        "glass-strong h-full w-full scrollbar-none scroll-smooth rounded-xl border",
+        className,
+      )}
     >
-      <div className="px-5 py-4">
+      <div className="flex min-h-full flex-col px-5 py-4">
         <div className="text-surface-2 mb-3 flex items-center gap-2">
           <BookOpenIcon className="size-4" />
           <span className="text-small font-medium tracking-wide uppercase">
@@ -37,14 +39,14 @@ export function StoryWrapper({
           </span>
         </div>
         <div
-          className={cn("flex flex-col", {
+          className={cn("flex flex-1 flex-col", {
             "gap-3": gap === "sm",
             "gap-4": gap === "md",
           })}
         >
           {children}
-        </div>{" "}
+        </div>
       </div>
-    </ScrollArea>
+    </div>
   );
 }

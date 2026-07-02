@@ -60,7 +60,7 @@ export function RevealScreenStory({
           ),
         )}
       </AnimatePresence>
-      {actionsSlot}
+      <div className="mt-auto">{actionsSlot}</div>
       <div ref={bottomRef} />
     </StoryWrapper>
   );
