@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
+import { transitionBase } from "@/shared/lib/motion";
+
 import { ROUND_TRANSITION_DURATION_MS } from "../../../model/consts";
 import { useRoomStore } from "../../../model/store/use-room-store";
 
@@ -22,7 +24,7 @@ export function RoundTransitionOverlay() {
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.92 }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        transition={transitionBase}
       >
         <span className="text-surface text-small font-semibold tracking-(--tracking-display) uppercase">
           {t("room.common.roundTransition.round")}

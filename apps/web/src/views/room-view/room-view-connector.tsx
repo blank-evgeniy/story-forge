@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { gameRoute } from "@/app/routes/routes";
 import { usePlayerStore } from "@/entities/player";
+import { PageTransition } from "@/shared/ui/page-transition";
 
 import { useRoomSocket } from "./api/use-room-socket";
 import { RoomActionsProvider } from "./model/context/room-actions-context";
@@ -55,20 +56,23 @@ export function RoomViewConnector() {
 
   return (
     <RoomLayout>
-      <RoomActionsProvider client={roomSocket.client}>
-        {status === "lobby" && <LobbyScreen roomCode={roomCode} />}
-        {status === "writing" && <WritingScreen />}
-        {status === "reveal" && (
-          <SaveStoryProvider roomCode={roomCode}>
-            <RevealScreen />
-          </SaveStoryProvider>
-        )}
-
-        <AnimatePresence>
-          {status === "round_starting" && <RoundTransitionOverlay />}
-          {status === "revealing" && <RevealTransitionOverlay />}
-        </AnimatePresence>
-      </RoomActionsProvider>
+      <PageTransition effect="fade">
+        <RoomActionsProvider client={roomSocket.client}>
+          <AnimatePresence mode="wait">
+            {status === "lobby" && (
+              <LobbyScreen key="lobby" roomCode={roomCode} />
+            )}
+            {status === "writing" && <WritingScreen key="writing" />}
+            {status === "reveal" && (
+              <SaveStoryProvider key="reveal" roomCode={roomCode}>
+                <RevealScreen />
+              </SaveStoryProvider>
+            )}
+            {status === "round_starting" && <RoundTransitionOverlay />}
+            {status === "revealing" && <RevealTransitionOverlay />}
+          </AnimatePresence>
+        </RoomActionsProvider>
+      </PageTransition>
     </RoomLayout>
   );
 }

@@ -61,14 +61,19 @@ export function RevealScreen() {
         <RevealScreenLayout.StorySection>
           {isRevealMode ? (
             <RevealScreenLayout.StoryRevealAnimated key={storyIdx}>
-              <RevealScreenStory shown={shown} story={currentStory} />
-              {storyRevealed && (
-                <StoryActionsConnector
-                  storyId={currentStory.id}
-                  showNext={storyIdx < allStories.length - 1}
-                  onNext={nextStory}
-                />
-              )}
+              <RevealScreenStory
+                shown={shown}
+                story={currentStory}
+                actionsSlot={
+                  storyRevealed && (
+                    <StoryActionsConnector
+                      storyId={currentStory.id}
+                      showNext={storyIdx < allStories.length - 1}
+                      onNext={nextStory}
+                    />
+                  )
+                }
+              />
             </RevealScreenLayout.StoryRevealAnimated>
           ) : (
             <RevealScreenLayout.StoryHistoryAnimated key="history-mode">

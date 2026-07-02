@@ -1,5 +1,5 @@
 import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
-import { type Ref, useEffect, useRef } from "react";
+import { type Ref } from "react";
 
 import { cn } from "@/shared/lib/utils";
 
@@ -23,8 +23,8 @@ function ScrollArea({
         data-slot="scroll-area-viewport"
         ref={viewportRef}
         className={cn(
-          "size-full rounded-[inherit] outline-none transition-shadow",
-          "focus-visible:ring-4 focus-visible:ring-brand-400/40",
+          "size-full rounded-[inherit] transition-shadow outline-none",
+          "focus-visible:ring-brand-400/40 focus-visible:ring-4",
           viewportClassName,
         )}
       >
@@ -34,33 +34,6 @@ function ScrollArea({
       <ScrollAreaPrimitive.Corner />
     </ScrollAreaPrimitive.Root>
   );
-}
-
-function useStickToBottom(ref: React.RefObject<HTMLDivElement | null>) {
-  const isAtBottom = useRef(true);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const onScroll = () => {
-      isAtBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight < 8;
-    };
-
-    const observer = new ResizeObserver(() => {
-      if (isAtBottom.current) {
-        el.scrollTop = el.scrollHeight;
-      }
-    });
-
-    el.addEventListener("scroll", onScroll, { passive: true });
-    observer.observe(el);
-
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      observer.disconnect();
-    };
-  }, [ref]);
 }
 
 function ScrollBar({
@@ -83,10 +56,10 @@ function ScrollBar({
     >
       <ScrollAreaPrimitive.Thumb
         data-slot="scroll-area-thumb"
-        className="relative flex-1 rounded-full bg-line"
+        className="bg-line relative flex-1 rounded-full"
       />
     </ScrollAreaPrimitive.Scrollbar>
   );
 }
 
-export { ScrollArea, ScrollBar, useStickToBottom };
+export { ScrollArea, ScrollBar };

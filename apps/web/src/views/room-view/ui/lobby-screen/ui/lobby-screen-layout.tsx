@@ -1,5 +1,6 @@
 import { useTwBreakpoints } from "@/shared/hooks/use-tw-breakpoints";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
+import { Reveal } from "@/shared/ui/reveal";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Separator } from "@/shared/ui/separator";
 
@@ -19,22 +20,34 @@ function PlayersSidebar({
   headerSlot: React.ReactNode;
 }) {
   const breakpoints = useTwBreakpoints();
+  const isMobile = breakpoints.smaller("sm");
 
-  if (breakpoints.smaller("sm")) {
-    return children;
+  if (isMobile) {
+    return <Reveal direction="left">{children}</Reveal>;
   }
 
   return (
-    <Card className="min-h-0 w-full md:w-1/3">
-      <CardHeader className="hidden md:flex">{headerSlot}</CardHeader>
-      <CardContent className="min-h-0">{children}</CardContent>
-    </Card>
+    <Reveal direction="left" className="min-h-0 w-full md:w-1/3">
+      <Card className="h-full min-h-0">
+        <CardHeader className="hidden md:flex">{headerSlot}</CardHeader>
+        <CardContent className="min-h-0">{children}</CardContent>
+      </Card>
+    </Reveal>
   );
 }
 
 function MainSection({ children }: { children: React.ReactNode }) {
+  const breakpoints = useTwBreakpoints();
+  const isMobile = breakpoints.smaller("sm");
+
   return (
-    <Card className="flex min-h-0 w-full flex-1 flex-col">{children}</Card>
+    <Reveal
+      direction={isMobile ? "bottom" : "right"}
+      delay={0.05}
+      className="flex min-h-0 w-full flex-1 flex-col"
+    >
+      <Card className="flex h-full min-h-0 flex-col">{children}</Card>
+    </Reveal>
   );
 }
 

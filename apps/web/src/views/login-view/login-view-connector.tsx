@@ -19,11 +19,10 @@ export function LoginViewConnector() {
     login(username, color, icon);
 
     if (redirect) {
-      window.location.href = redirect;
       try {
         const url = new URL(redirect, window.location.origin);
         if (url.origin === window.location.origin) {
-          window.location.href = url.pathname + url.search + url.hash;
+          navigate({ to: url.pathname + url.search + url.hash });
         } else {
           navigate({ to: "/" });
         }

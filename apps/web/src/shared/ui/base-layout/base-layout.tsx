@@ -10,7 +10,7 @@ export function BaseLayout({
   return (
     <div
       className={cn(
-        "mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-4 pb-4",
+        "mx-auto flex min-h-dvh w-full max-w-3xl flex-col p-4",
         className,
       )}
     >

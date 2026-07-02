@@ -20,7 +20,7 @@ export function WritingScreenTimer({ time }: WritingScreenTimerProps) {
       variant={"white"}
       className={cn(
         "bg-surface/20 flex items-center gap-2 tabular-nums transition-colors duration-500",
-        isUrgent ? "text-danger" : isWarning ? "text-warning" : "text-ink",
+        isUrgent ? "text-danger" : isWarning ? "text-warning" : "text-white",
       )}
     >
       <TimerIcon className="size-5 shrink-0" />
