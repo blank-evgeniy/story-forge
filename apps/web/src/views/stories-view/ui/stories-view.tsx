@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import type { StoryListItemDTO } from "@/shared/api/requests/types";
 
 import { Card, CardContent } from "@/shared/ui/card";
-import { PageTransition } from "@/shared/ui/page-transition";
 
 import { StoriesSkeleton } from "./stories-skeleton";
 import { StoryCard } from "./story-card";
@@ -29,7 +28,7 @@ export function StoriesView({
   useDocumentTitle(t("common.metadata.titles.stories"));
 
   return (
-    <PageTransition>
+    <div className="flex min-h-0 flex-1 flex-col">
       <div className="mt-4 flex flex-1 flex-col gap-4">
         <h1 className="text-h1">{t("stories.heading")}</h1>
 
@@ -52,6 +51,6 @@ export function StoriesView({
         )}
       </div>
       {modalSlot}
-    </PageTransition>
+    </div>
   );
 }

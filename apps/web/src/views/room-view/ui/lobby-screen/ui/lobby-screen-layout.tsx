@@ -23,11 +23,15 @@ function PlayersSidebar({
   const isMobile = breakpoints.smaller("sm");
 
   if (isMobile) {
-    return <Reveal direction="left">{children}</Reveal>;
+    return (
+      <Reveal direction="left" delay={0.3}>
+        {children}
+      </Reveal>
+    );
   }
 
   return (
-    <Reveal direction="left" className="min-h-0 w-full md:w-1/3">
+    <Reveal direction="left" delay={0.3} className="min-h-0 w-full md:w-1/3">
       <Card className="h-full min-h-0">
         <CardHeader className="hidden md:flex">{headerSlot}</CardHeader>
         <CardContent className="min-h-0">{children}</CardContent>
@@ -43,7 +47,7 @@ function MainSection({ children }: { children: React.ReactNode }) {
   return (
     <Reveal
       direction={isMobile ? "bottom" : "right"}
-      delay={0.05}
+      delay={0.35}
       className="flex min-h-0 w-full flex-1 flex-col"
     >
       <Card className="flex h-full min-h-0 flex-col">{children}</Card>

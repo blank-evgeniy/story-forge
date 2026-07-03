@@ -194,6 +194,15 @@
   }
 }
 
+/* Route transitions — see `defaultViewTransition` in routes.tsx.
+   The persistent shell (background gradient, header) and the `page` content
+   region cross-fade between routes. */
+::view-transition-old(page),
+::view-transition-new(page) {
+  animation-duration: 0.28s;
+  animation-timing-function: ease;
+}
+
 @utility bg-app {
   background-image: linear-gradient(
     180deg,

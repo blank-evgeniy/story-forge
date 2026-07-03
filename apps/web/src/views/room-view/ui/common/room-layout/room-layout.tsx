@@ -50,7 +50,12 @@ export const RoomLayout = ({ children }: { children: React.ReactNode }) => {
 
           <span />
         </Reveal>
-        <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+        <main
+          className="flex min-h-0 flex-1 flex-col"
+          style={{ viewTransitionName: "page" }}
+        >
+          {children}
+        </main>
       </BaseLayout>
 
       {isPhoneLandscape && <RotateDeviceAlert />}

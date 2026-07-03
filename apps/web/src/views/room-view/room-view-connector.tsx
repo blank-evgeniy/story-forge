@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { gameRoute } from "@/app/routes/routes";
 import { usePlayerStore } from "@/entities/player";
 import { Button } from "@/shared/ui/button";
-import { PageTransition } from "@/shared/ui/page-transition";
 
 import { useRoomSocket } from "./api/use-room-socket";
 import {
@@ -76,7 +75,7 @@ export function RoomViewConnector() {
 
   return (
     <RoomLayout>
-      <PageTransition effect="fade">
+      <div className="flex min-h-0 flex-1 flex-col">
         <RoomActionsProvider>
           <AnimatePresence mode="wait">
             {status === "lobby" && (
@@ -92,7 +91,7 @@ export function RoomViewConnector() {
             {status === "revealing" && <RevealTransitionOverlay />}
           </AnimatePresence>
         </RoomActionsProvider>
-      </PageTransition>
+      </div>
     </RoomLayout>
   );
 }
