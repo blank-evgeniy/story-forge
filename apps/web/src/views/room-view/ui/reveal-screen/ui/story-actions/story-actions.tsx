@@ -41,7 +41,7 @@ export function StoryActions({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className="mt-4 flex justify-end gap-2"
+      className="mt-4 flex flex-wrap justify-end gap-2"
     >
       {showSaveAction && (
         <TooltipProvider>

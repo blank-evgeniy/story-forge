@@ -6,8 +6,10 @@ export default {
     },
     connection: {
       connecting: "Connecting...",
+      reconnecting: "Reconnecting... ({{current}}/{{max}})",
       lost: "Connection lost",
       failed: "Failed to connect",
+      retry: "Reconnect",
     },
     revealTransition: {
       phrases: ["Stories await...", "The curtain rises...", "Time to read..."],

@@ -6,8 +6,10 @@ export default {
     },
     connection: {
       connecting: "Подключение...",
+      reconnecting: "Переподключение... ({{current}}/{{max}})",
       lost: "Соединение потеряно",
       failed: "Не удалось подключиться",
+      retry: "Переподключиться",
     },
     revealTransition: {
       phrases: ["Истории ждут...", "Занавес поднимается...", "Время читать..."],

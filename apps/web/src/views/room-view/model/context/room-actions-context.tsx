@@ -1,9 +1,8 @@
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 
-import type { ClientEvent } from "@/shared/api/ws/types";
-
 import type { RoomSettings } from "../types";
 
+import { useRoomSocketStore } from "../../api/use-room-socket-store";
 import { mapRoomSettingsToConfigDto } from "../map";
 
 type RoomActions = {
@@ -18,19 +17,13 @@ type RoomActions = {
 const RoomActionsContext = createContext<RoomActions | null>(null);
 
 type RoomActionsProviderProps = {
-  client: WebSocket | null | undefined;
   children: ReactNode;
 };
 
-export function RoomActionsProvider({
-  client,
-  children,
-}: RoomActionsProviderProps) {
-  const actions = useMemo<RoomActions>(() => {
-    const send = (event: ClientEvent) => {
-      client?.send(JSON.stringify(event));
-    };
+export function RoomActionsProvider({ children }: RoomActionsProviderProps) {
+  const send = useRoomSocketStore((store) => store.send);
 
+  const actions = useMemo<RoomActions>(() => {
     return {
       startGame: () => send({ type: "start_game" }),
       submitEntry: (content, twistId) =>
@@ -42,7 +35,7 @@ export function RoomActionsProvider({
       editRoomSettings: (data) =>
         send({ type: "edit_config", config: mapRoomSettingsToConfigDto(data) }),
     };
-  }, [client]);
+  }, [send]);
 
   return (
     <RoomActionsContext.Provider value={actions}>

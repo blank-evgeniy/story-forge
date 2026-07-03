@@ -25,7 +25,7 @@ export function StoryWrapper({
     <div
       ref={autoScrollRef}
       className={cn(
-        "glass-strong h-full w-full scrollbar-none scroll-smooth rounded-xl border",
+        "glass-strong h-full w-full scrollbar-none overflow-y-auto scroll-smooth rounded-xl border",
         className,
       )}
     >

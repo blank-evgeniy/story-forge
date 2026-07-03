@@ -23,7 +23,7 @@ export const withRoomLayout: Decorator = (Story) => (
 );
 
 export const withRoomActions: Decorator = (Story) => (
-  <RoomActionsProvider client={null}>
+  <RoomActionsProvider>
     <Story />
   </RoomActionsProvider>
 );
