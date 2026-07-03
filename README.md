@@ -56,9 +56,9 @@
 
 ## About The Project
 
-<!-- [![Story Forge Screen Shot][product-screenshot]](https://story-forge-web-omega.vercel.app) -->
+[![Story Forge Screen Shot][banner]](https://story-forge-web-omega.vercel.app)
 
-**Story Forge** is a real-time party game about writing stories together. Gather your friends in a shared room, and take turns adding one line at a time until an entire story takes shape — then watch it read back to you, twist by twist.
+**Story Forge** is a real-time party game about writing stories together. Gather your friends in a shared room, and take turns building the story until an entire tale takes shape — then watch it read back to you, twist by twist.
 
 The catch is that you rarely see the whole picture while you write. In **Blind Mode** you only see the line before yours, and **Twists Mode** can drop a surprise plot turn on an unsuspecting player mid-game. The result is chaotic, unpredictable stories that no single person could have written alone. When the round ends, the full tale is revealed line by line with voice narration, and an AI of your choosing — a critic, a comedian, a philosopher — leaves its verdict.
 
@@ -149,7 +149,7 @@ See the [roadmap](roadmap.md) for a list of future features (and known issues).
 
 <!-- LINKS -->
 
-[product-screenshot]: images/screenshot.png
+[banner]: images/banner.png
 [TypeScript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
 [TypeScript-url]: https://www.typescriptlang.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
