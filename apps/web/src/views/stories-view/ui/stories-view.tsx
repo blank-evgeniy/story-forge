@@ -36,7 +36,7 @@ export function StoriesView({
 
         {!isLoading && stories?.length === 0 && (
           <Card>
-            <CardContent className="text-ink-muted text-center">
+            <CardContent className="text-center">
               {t("stories.empty")}
             </CardContent>
           </Card>
